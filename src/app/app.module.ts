@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BuscarClasseUseCase } from './core/application/use-cases/buscar-classe.usecase';
 import { BuscarClassePort } from './core/domain/ports/buscar-classe.port';
-import { ClasseHttpService } from './infrastructure/adapter/classe-http.adapter';
+import { ClasseAdapter } from './infrastructure/adapter/classe.adapter';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +14,7 @@ import { ClasseHttpService } from './infrastructure/adapter/classe-http.adapter'
     BuscarClasseUseCase,
     {
       provide: BuscarClassePort,
-      useClass: ClasseHttpService,
+      useClass: ClasseAdapter,
     },
   ],
   bootstrap: [AppComponent],
