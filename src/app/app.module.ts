@@ -24,6 +24,18 @@ import { BuscarEventoPort } from './core/domain/ports/funcao/buscar-evento.port'
 import { BuscarIgrejaPort } from './core/domain/ports/funcao/buscar-igreja.port';
 import { BuscarEventoAdapter } from './infrastructure/adapter/funcao/buscar-evento.adapter';
 import { BuscarIgrejaAdapter } from './infrastructure/adapter/funcao/buscar-igreja.adapter';
+import { BuscarInstrumentoUseCase } from './core/application/use-cases/instrumento/buscar-instrumento.usecase';
+import { BuscarInstrumentoAdapter } from './infrastructure/adapter/instrumento/buscar-instrumento.adapter';
+import { BuscarInstrumentoPort } from './core/domain/ports/instrumento/buscar-instrumento.port';
+import { DeletarInstrumentoUseCase } from './core/application/use-cases/instrumento/deletar-instrumento.usecase';
+import { EditarInstrumentoUseCase } from './core/application/use-cases/instrumento/editar-instrumento.usecase';
+import { InserirInstrumentoUseCase } from './core/application/use-cases/instrumento/inserir-instrumento.usecase';
+import { DeletarInstrumentoPort } from './core/domain/ports/instrumento/deletar-instrumento.port';
+import { EditarInstrumentoPort } from './core/domain/ports/instrumento/editar-instrumento.port';
+import { InserirInstrumentoPort } from './core/domain/ports/instrumento/inserir-instrumento.port';
+import { DeletarInstrumentoAdapter } from './infrastructure/adapter/instrumento/deletar-instrumento.adapter';
+import { EditarInstrumentoAdapter } from './infrastructure/adapter/instrumento/editar-instrumento.adapter';
+import { InserirInstrumentoAdapter } from './infrastructure/adapter/instrumento/inserir-instrumento.adapter';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +55,14 @@ import { BuscarIgrejaAdapter } from './infrastructure/adapter/funcao/buscar-igre
     { provide: BuscarEventoPort, useClass: BuscarEventoAdapter },
     BuscarIgrejaUseCase,
     { provide: BuscarIgrejaPort, useClass: BuscarIgrejaAdapter },
+    BuscarInstrumentoUseCase,
+    { provide: BuscarInstrumentoPort, useClass: BuscarInstrumentoAdapter },
+    InserirInstrumentoUseCase,
+    { provide: InserirInstrumentoPort, useClass: InserirInstrumentoAdapter },
+    DeletarInstrumentoUseCase,
+    { provide: DeletarInstrumentoPort, useClass: DeletarInstrumentoAdapter },
+    EditarInstrumentoUseCase,
+    { provide: EditarInstrumentoPort, useClass: EditarInstrumentoAdapter },
   ],
   bootstrap: [AppComponent],
 })
