@@ -36,6 +36,15 @@ import { InserirInstrumentoPort } from './core/domain/ports/instrumento/inserir-
 import { DeletarInstrumentoAdapter } from './infrastructure/adapter/instrumento/deletar-instrumento.adapter';
 import { EditarInstrumentoAdapter } from './infrastructure/adapter/instrumento/editar-instrumento.adapter';
 import { InserirInstrumentoAdapter } from './infrastructure/adapter/instrumento/inserir-instrumento.adapter';
+import { DeletarInscricaoUseCase } from './core/application/use-cases/inscricao/deletar-inscricao.usecase';
+import { EditarInscricaoUseCase } from './core/application/use-cases/inscricao/editar-inscricao.usecase';
+import { InserirInscricaoUseCase } from './core/application/use-cases/inscricao/inserir-inscricao.usecase';
+import { DeletarInscricaoPort } from './core/domain/ports/inscricao/deletar-inscricao.port';
+import { EditarInscricaoPort } from './core/domain/ports/inscricao/editar-inscricao.port';
+import { InserirInscricaoPort } from './core/domain/ports/inscricao/inserir-inscricao.port';
+import { DeletarInscricaoAdapter } from './infrastructure/adapter/inscricao/deletar-inscricao.adapter';
+import { EditarInscricaoAdapter } from './infrastructure/adapter/inscricao/editar-inscricao.adapter';
+import { InserirInscricaoAdapter } from './infrastructure/adapter/inscricao/inserir-inscricao.adapter';
 
 @NgModule({
   declarations: [AppComponent],
@@ -63,6 +72,12 @@ import { InserirInstrumentoAdapter } from './infrastructure/adapter/instrumento/
     { provide: DeletarInstrumentoPort, useClass: DeletarInstrumentoAdapter },
     EditarInstrumentoUseCase,
     { provide: EditarInstrumentoPort, useClass: EditarInstrumentoAdapter },
+    InserirInscricaoUseCase,
+    { provide: InserirInscricaoPort, useClass: InserirInscricaoAdapter },
+    DeletarInscricaoUseCase,
+    { provide: DeletarInscricaoPort, useClass: DeletarInscricaoAdapter },
+    EditarInscricaoUseCase,
+    { provide: EditarInscricaoPort, useClass: EditarInscricaoAdapter },
   ],
   bootstrap: [AppComponent],
 })

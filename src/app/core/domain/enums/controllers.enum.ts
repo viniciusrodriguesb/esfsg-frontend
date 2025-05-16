@@ -3,5 +3,6 @@ export enum ControllersEnum {
     CondicaoMedica = 'CondicaoMedica',
     Evento = 'Evento',
     Funcao = 'Funcoes',
-    Instrumento = 'Instrumento'
+    Instrumento = 'Instrumento',
+    Inscricao = 'Inscricao',
 }
