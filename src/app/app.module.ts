@@ -18,6 +18,12 @@ import { DeletarCondicaoMedicaAdapter } from './infrastructure/adapter/condicao-
 import { EditarCondicaoMedicaUseCase } from './core/application/use-cases/condicao-medica/editar-condicao-medica.usecase';
 import { EditarCondicaoMedicaPort } from './core/domain/ports/condicao-medica/editar-condicao-medica.port';
 import { EditarCondicaoMedicaAdapter } from './infrastructure/adapter/condicao-medica/editar-condicao-medica.adapter';
+import { BuscarEventoUseCase } from './core/application/use-cases/funcao/buscar-evento.usecase';
+import { BuscarIgrejaUseCase } from './core/application/use-cases/funcao/buscar-igreja.usecase';
+import { BuscarEventoPort } from './core/domain/ports/funcao/buscar-evento.port';
+import { BuscarIgrejaPort } from './core/domain/ports/funcao/buscar-igreja.port';
+import { BuscarEventoAdapter } from './infrastructure/adapter/funcao/buscar-evento.adapter';
+import { BuscarIgrejaAdapter } from './infrastructure/adapter/funcao/buscar-igreja.adapter';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +39,10 @@ import { EditarCondicaoMedicaAdapter } from './infrastructure/adapter/condicao-m
     { provide: DeletarCondicaoMedicaPort, useClass: DeletarCondicaoMedicaAdapter },
     EditarCondicaoMedicaUseCase,
     { provide: EditarCondicaoMedicaPort, useClass: EditarCondicaoMedicaAdapter },
+    BuscarEventoUseCase,
+    { provide: BuscarEventoPort, useClass: BuscarEventoAdapter },
+    BuscarIgrejaUseCase,
+    { provide: BuscarIgrejaPort, useClass: BuscarIgrejaAdapter },
   ],
   bootstrap: [AppComponent],
 })

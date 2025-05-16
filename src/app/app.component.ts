@@ -4,6 +4,8 @@ import { BuscarCondicaoMedicaUseCase } from './core/application/use-cases/condic
 import { InserirCondicaoMedicaUseCase } from './core/application/use-cases/condicao-medica/inserir-condicao-medica.usecase';
 import { DeletarCondicaoMedicaUseCase } from './core/application/use-cases/condicao-medica/deletar-condicao-medica.usecase';
 import { EditarCondicaoMedicaUseCase } from './core/application/use-cases/condicao-medica/editar-condicao-medica.usecase';
+import { BuscarIgrejaUseCase } from './core/application/use-cases/funcao/buscar-igreja.usecase';
+import { BuscarEventoUseCase } from './core/application/use-cases/funcao/buscar-evento.usecase';
 
 @Component({
   selector: 'app-root',
@@ -15,21 +17,10 @@ export class AppComponent {
   title = 'esfsg-frontend';
 
   constructor(
-    private readonly buscarClasseUseCase: BuscarClasseUseCase,
-    private readonly buscarCondicaoMedicaUseCase: BuscarCondicaoMedicaUseCase,
-    private readonly inserirCondicaoMedicaUseCase: InserirCondicaoMedicaUseCase,
-    private readonly deletarCondicaoMedicaUseCase: DeletarCondicaoMedicaUseCase,
-    private readonly editarCondicaoMedicaUseCase: EditarCondicaoMedicaUseCase,
+
   ) {}
 
   ngOnInit() {
-    this.editarCondicaoMedicaUseCase.execute(23, 'Nova Descrição').subscribe(
-      (response) => {
-        console.log('Condição médica editada com sucesso:', response);
-      },
-      (error) => {
-        console.error('Erro ao editar condição médica:', error);
-      }
-    );
+
   }
 }

@@ -2,6 +2,6 @@ export enum ControllersEnum {
     Classe = 'Classe',
     CondicaoMedica = 'CondicaoMedica',
     Evento = 'Evento',
-    Funcao = 'Funcao',
+    Funcao = 'Funcoes',
     Instrumento = 'Instrumento'
 }
