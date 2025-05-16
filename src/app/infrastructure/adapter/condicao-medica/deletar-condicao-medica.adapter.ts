@@ -1,0 +1,27 @@
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable, of } from "rxjs";
+import { ControllersEnum } from "../../../core/domain/enums/controllers.enum";
+import { DeletarCondicaoMedicaPort } from "../../../core/domain/ports/condicao-medica/deletar-condicao-medica.port";
+import { ENVIRONMENT } from "../../../environment/environment-des";
+import { ParametrosHttpEnum } from "../../../core/domain/enums/parametros-http.enum";
+
+@Injectable({ providedIn: 'root' })
+export class DeletarCondicaoMedicaAdapter extends DeletarCondicaoMedicaPort {
+
+  constructor(private readonly http: HttpClient) {
+    super();
+  }
+
+  deletarCondicaoMedica(id: number): Observable<null> {
+    let params = new HttpParams();
+    params = params.append(ParametrosHttpEnum.Id, id.toString());
+
+    try {
+      return this.http.delete<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.CondicaoMedica}/${ENVIRONMENT.VERSAO}`, { params });
+    } catch (error) {
+      console.error('Erro ao deletar condição médica:', error);
+      return of(null);
+    }
+  }
+}
