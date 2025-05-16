@@ -4,7 +4,7 @@ import { Observable, of } from "rxjs";
 import { ControllersEnum } from "../../../core/domain/enums/controllers.enum";
 import { BuscarEventoPort } from "../../../core/domain/ports/funcao/buscar-evento.port";
 import { ENVIRONMENT } from "../../../environment/environment-des";
-import { TabelaDominioResponseDto } from "../dto/response/tabela-dominio-response.dto";
+import { TabelaDominioResponseDto } from "../../../core/application/dto/response/tabela-dominio-response.dto";
 
 @Injectable({ providedIn: 'root' })
 export class BuscarEventoAdapter extends BuscarEventoPort {

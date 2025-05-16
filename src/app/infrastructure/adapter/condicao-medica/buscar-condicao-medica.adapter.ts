@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { ControllersEnum } from "../../../core/domain/enums/controllers.enum";
 import { ENVIRONMENT } from "../../../environment/environment-des";
-import { TabelaDominioResponseDto } from "../dto/response/tabela-dominio-response.dto";
+import { TabelaDominioResponseDto } from "../../../core/application/dto/response/tabela-dominio-response.dto";
 import { BuscarCondicaoMedicaPort } from "../../../core/domain/ports/condicao-medica/buscar-condicao-medica.port";
 
 @Injectable({ providedIn: 'root' })

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { BuscarClassePort } from '../../../core/domain/ports/classe/buscar-classe.port';
-import { TabelaDominioResponseDto } from '../dto/response/tabela-dominio-response.dto';
+import { TabelaDominioResponseDto } from '../../../core/application/dto/response/tabela-dominio-response.dto';
 import { ENVIRONMENT } from '../../../environment/environment-des';
 import { ControllersEnum } from '../../../core/domain/enums/controllers.enum';
 

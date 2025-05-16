@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { TabelaDominioResponseDto } from "../../../../infrastructure/adapter/dto/response/tabela-dominio-response.dto";
+import { TabelaDominioResponseDto } from "../../dto/response/tabela-dominio-response.dto";
 import { BuscarCondicaoMedicaPort } from "../../../domain/ports/condicao-medica/buscar-condicao-medica.port";
 
 @Injectable({ providedIn: 'root' })
