@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterOutlet } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BuscarClasseUseCase } from './core/application/use-cases/classe/buscar-classe.usecase';
 import { BuscarClassePort } from './core/domain/ports/classe/buscar-classe.port';
 import { BuscarCondicaoMedicaUseCase } from './core/application/use-cases/condicao-medica/buscar-condicao-medica.usecase';
@@ -45,11 +45,25 @@ import { InserirInscricaoPort } from './core/domain/ports/inscricao/inserir-insc
 import { DeletarInscricaoAdapter } from './infrastructure/adapter/inscricao/deletar-inscricao.adapter';
 import { EditarInscricaoAdapter } from './infrastructure/adapter/inscricao/editar-inscricao.adapter';
 import { InserirInscricaoAdapter } from './infrastructure/adapter/inscricao/inserir-inscricao.adapter';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './presentation/pages/login/login.component';
+import { CadastroComponent } from './presentation/pages/cadastro/cadastro.component';
 
+import { FormsModule } from '@angular/forms';
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, RouterOutlet, HttpClientModule],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    CadastroComponent
+  ],
+  imports: [
+    BrowserModule,
+    RouterOutlet,
+    AppRoutingModule,
+    FormsModule
+],
   providers: [
+    provideHttpClient(withInterceptorsFromDi()),
     BuscarClasseUseCase,
     { provide: BuscarClassePort, useClass: BuscarClasseAdapter },
     BuscarCondicaoMedicaUseCase,
