@@ -48,7 +48,7 @@ import { InserirInscricaoAdapter } from './infrastructure/adapter/inscricao/inse
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './presentation/pages/login/login.component';
 import { CadastroComponent } from './presentation/pages/cadastro/cadastro.component';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
@@ -60,7 +60,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     RouterOutlet,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatSlideToggleModule
 ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),

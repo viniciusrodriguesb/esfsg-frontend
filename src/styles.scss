@@ -27,3 +27,17 @@
 *{
   font-family: 'Satoshi', serif;
 }
+
+mat-slide-toggle{
+  transform: scale(0.8);
+}
+.mdc-switch--selected .mdc-switch__icon--on, .mdc-switch--unselected .mdc-switch__icon--off{
+  opacity: 0 !important;
+}
+.mdc-switch__track::after{
+  background-color: #007AFF !important;
+}
+
+.mdc-switch__track::before, .mdc-switch__track::after{
+  border: none !important;
+}
