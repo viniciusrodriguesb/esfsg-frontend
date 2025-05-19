@@ -1,8 +1,8 @@
 <div class="flex">
   <div
-    class="bg-[url(/img/bg-login.png)] bg-no-repeat bg-cover w-[65%] h-screen"
+    class="bg-[url(/img/bg-login.png)] bg-no-repeat bg-cover w-[65%] h-screen max-sm:hidden"
   ></div>
-  <div class="flex flex-col gap-8 py-12 px-16 w-[35%]">
+  <div class="flex flex-col gap-8 py-20 px-16 w-[35%] max-sm:w-full h-screen">
     <div class="flex gap-3.5 items-center">
       <div class="w-12 h-12 rounded-full bg-gray-300"></div>
       <p>Logo + nome</p>
@@ -11,7 +11,7 @@
     <form
       (ngSubmit)="onSubmit()"
       #loginForm="ngForm"
-      class="flex flex-col gap-5"
+      class="flex flex-col gap-5 h-full"
     >
       <div class="flex flex-col gap-2">
         <label for="email" class="text-sm font-medium">Email</label>
