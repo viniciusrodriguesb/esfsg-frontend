@@ -1,0 +1,57 @@
+.step-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid;
+  box-shadow: 0 0 0 4px white; // anel de destaque
+}
+
+::ng-deep .mat-vertical-stepper-header {
+  align-items: flex-start;
+}
+
+::ng-deep .mat-step-icon {
+  margin-right: 12px;
+}
+
+.step-icon.active {
+  background-color: #25c196 !important;
+  color: #25c196 !important;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: #007aff !important;
+  color: #007aff;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-state-number:not(.mat-step-icon-selected) {
+  background-color: white !important;
+  color: #bdbdbd;
+}
+
+
+::ng-deep .mat-vertical-content-container.mat-stepper-vertical-line.mat-vertical-content-container-active::before {
+  border-left: 2px dashed #007aff !important;
+}
+
+::ng-deep .mat-vertical-content-container.mat-stepper-vertical-line:not(.mat-vertical-content-container-active)::before {
+  border-left: 2px dashed #ccc !important;
+}
+
+// /* Quando o passo anterior está completo, muda a linha vertical */
+// ::ng-deep .mat-step-header.mat-completed + .mat-vertical-content-container::before {
+//   border-left: 2px solid #25c196 !important; // verde, como seu ícone
+// }
+
+// /* Quando o passo atual está ativo */
+// ::ng-deep .mat-step-header.mat-active + .mat-vertical-content-container::before {
+//   border-left: 2px solid #007aff !important; // azul, como já está
+// }
+
+// /* Quando o passo ainda não foi atingido */
+// ::ng-deep .mat-step-header:not(.mat-active):not(.mat-completed) + .mat-vertical-content-container::before {
+//   border-left: 2px dashed #ccc !important; // cinza tracejado, por exemplo
+// }

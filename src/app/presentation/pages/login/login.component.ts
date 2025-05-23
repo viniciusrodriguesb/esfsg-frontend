@@ -1,13 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: false,
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-onSubmit(){
+  private readonly _formBuilder = inject(FormBuilder);
 
-}
+  formLogin = this._formBuilder.group({
+    email: ['', Validators.required],
+    senha: ['', [Validators.required, Validators.minLength(8)]],
+  });
+
+  formSubmetido = false;
+
+  onSubmit() {
+    this.formSubmetido = true;
+    if (this.formLogin.valid) {
+      console.log('Formulário válido', this.formLogin.value);
+    } else {
+      console.log('Formulário inválido');
+    }
+  }
 }

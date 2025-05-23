@@ -49,19 +49,46 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './presentation/pages/login/login.component';
 import { CadastroComponent } from './presentation/pages/cadastro/cadastro.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonModule} from '@angular/material/button';
+import { InputComponent } from './presentation/ui/input/input.component';
+import { LucideAngularModule, CircleX, CircleCheck, Check, X, Eye, EyeClosed, User, Building } from 'lucide-angular';
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    CadastroComponent
+    CadastroComponent,
+    InputComponent
   ],
   imports: [
     BrowserModule,
     RouterOutlet,
     AppRoutingModule,
+
     FormsModule,
-    MatSlideToggleModule
+    ReactiveFormsModule,
+
+    MatSlideToggleModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatIconModule,
+
+    LucideAngularModule.pick({
+      CircleX, 
+      CircleCheck, 
+      Check, 
+      X, 
+      Eye, 
+      EyeClosed,
+      User,
+      Building
+    })
 ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),

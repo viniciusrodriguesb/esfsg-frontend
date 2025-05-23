@@ -1,11 +1,12 @@
-<div class="flex">
+<div class="flex justify-center items-center
+ h-screen">
   <div
     class="bg-[url(/img/bg-login.png)] bg-no-repeat bg-cover w-[65%] h-screen max-sm:hidden"
   ></div>
   <div class="flex flex-col gap-8 py-20 px-16 w-[35%] h-screen max-sm:w-full max-sm:px-10 max-sm:h-full">
     <div class="flex gap-3.5 items-center">
       <div class="w-12 h-12 rounded-full bg-gray-300"></div>
-      <p>Logo + nome</p>
+      <p>Evangelho Sem Fronteiras</p>
     </div>
     <p class="text-2xl font-semibold">Bom te ver de novo 👋</p>
     <form
@@ -13,28 +14,24 @@
       #loginForm="ngForm"
       class="flex flex-col gap-5 h-full"
     >
-      <div class="flex flex-col gap-2">
-        <label for="email" class="text-sm font-medium">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          class="bg-[#F2F2F2] text-[#808080] border border-[#E5E5E5] rounded-[0.5rem] w-full py-3.5 px-4 focus:outline-none"
-          placeholder="Email"
-        />
-      </div>
-      <div class="flex flex-col gap-2">
-        <label for="senha" class="text-sm font-medium">Senha</label>
-        <input
-          type="password"
-          id="senha"
-          name="senha"
-          required
-          class="bg-[#F2F2F2] text-[#808080] border border-[#E5E5E5] rounded-[0.5rem] w-full py-3.5 px-4 focus:outline-none"
-          placeholder="Senha"
-        />
-      </div>
+      <app-input
+        [(formController)]="formLogin.controls['email']"
+        [placeholder]="'Email'"
+        [id]="'email'"
+        [name]="'email'"
+        [tipo]="'email'"
+        [formSubmetido]="formSubmetido"
+        [label]="'Email'"
+      ></app-input>
+      <app-input
+        [(formController)]="formLogin.controls['senha']"
+        [placeholder]="'Senha'"
+        [id]="'senha'"
+        [name]="'senha'"
+        [tipo]="'password'"
+        [formSubmetido]="formSubmetido"
+        [label]="'Senha'"
+      ></app-input>
       <div class="flex items-center justify-between">
         <div class="flex items-center">
           <mat-slide-toggle ></mat-slide-toggle>
