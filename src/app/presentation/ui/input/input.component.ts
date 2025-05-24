@@ -12,6 +12,7 @@ export class InputComponent {
   formControllerChange = new EventEmitter();
 
   @Input() id: string = '';
+  @Input() classeInput: string = '';
   @Input() placeholder: string = '';
   @Input() tipo: string = 'text';
   @Input() value: string = '';

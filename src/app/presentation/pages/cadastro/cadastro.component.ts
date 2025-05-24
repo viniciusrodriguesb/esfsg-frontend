@@ -26,8 +26,15 @@ export class CadastroComponent {
   isLinear = false;
 
   formCadastro = this._formBuilder.group({
-    cpf: ['', [Validators.required, Validators.minLength(10)]],
+    cpf: ['', [Validators.required, Validators.minLength(11)]],
+    nomeCompleto: ['', Validators.required],
+    telefone: ['', Validators.required],
+    nascimento: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    senha: ['', [Validators.required, Validators.minLength(6)]],
+
   });
+
   formSubmetido = false;
 
   steps = [
@@ -48,6 +55,7 @@ export class CadastroComponent {
   testar() {
     this.formSubmetido = true;
     console.log(this.formCadastro.get('cpf')?.value);
+    console.log(this.formCadastro.valid);
 
     if (this.formCadastro.invalid) {
       this.formCadastro.markAllAsTouched();
