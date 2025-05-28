@@ -1,0 +1,21 @@
+.styled-select {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #666;
+  font-size: 14px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.styled-select:focus {
+  outline: none;
+  border-color: #aaa;
+}
+
+.styled-select option[disabled] {
+  color: #aaa;
+}

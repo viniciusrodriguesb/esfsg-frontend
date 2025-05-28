@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { BuscarClassePort } from '../../../core/domain/ports/classe/buscar-classe.port';
 import { TabelaDominioResponseDto } from '../../../core/application/dto/response/tabela-dominio-response.dto';
 import { ENVIRONMENT } from '../../../environment/environment-des';
 import { ControllersEnum } from '../../../core/domain/enums/controllers.enum';
+import { BuscarRegiaoPort } from '../../../core/domain/ports/regiao/buscar-regiao.port';
 
 @Injectable({ providedIn: 'root' })
-export class BuscarClasseAdapter extends BuscarClassePort {
-    
+export class BuscarRegiaoAdapter extends BuscarRegiaoPort {
+
   constructor(private readonly http: HttpClient) {
     super();
   }
 
-  buscarClasses(): Observable<TabelaDominioResponseDto[] | null> {
+  buscarRegioes(): Observable<TabelaDominioResponseDto[] | null> {
     try {
-      return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Classe}/${ENVIRONMENT.VERSAO}`);
+      return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Regiao}/${ENVIRONMENT.VERSAO}`);
     } catch (error) {
-      console.error('Erro ao buscar classes:', error);
+      console.error('Erro ao buscar regiões:', error);
       return of(null);
     }
   }

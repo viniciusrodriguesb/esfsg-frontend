@@ -1,0 +1,92 @@
+<div class="flex flex-col gap-2.5">
+  <!-- <h1 class="text-[1.5rem] font-bold text-[#333333]">Dados Pessoais</h1>
+  <p class="text-[0.875rem] text-[#808080]">
+    Preencha os campos abaixo com seus dados pessoais.
+  </p> -->
+  <form class="grid grid-cols-8 gap-3.5 py-7" [formGroup]="formCadastro">
+    <app-input
+      class="col-start-1 col-end-9"
+      [(formController)]="formCadastro.controls['nomeCompleto']"
+      [placeholder]="'Nome Completo'"
+      [id]="'nomeCompleto'"
+      [name]="'nomeCompleto'"
+      [tipo]="'text'"
+      [formSubmetido]="formSubmetido"
+      [label]="'Nome Completo'"
+      [contemIcone]="true"
+    ></app-input>
+    <app-input
+      class="col-start-1 col-end-4"
+      [(formController)]="formCadastro.controls['cpf']"
+      [placeholder]="'CPF'"
+      [id]="'cpf'"
+      [name]="'cpf'"
+      [tipo]="'text'"
+      [formSubmetido]="formSubmetido"
+      [label]="'CPF'"
+      [contemIcone]="true"
+      [mask]="'000.000.000-00'"
+    ></app-input>
+    <app-input
+      class="col-start-4 col-end-9"
+      [(formController)]="formCadastro.controls['nascimento']"
+      [placeholder]="'dd/mm/aaaa'"
+      [id]="'nascimento'"
+      [name]="'nascimento'"
+      [formSubmetido]="formSubmetido"
+      [label]="'Data de nascimento'"
+      [contemIcone]="true"
+      [mask]="'00/00/0000'"
+    ></app-input>
+    <app-input
+      class="col-start-1 col-end-4"
+      [(formController)]="formCadastro.controls['telefone']"
+      [placeholder]="'Telefone'"
+      [id]="'telefone'"
+      [name]="'telefone'"
+      [tipo]="'text'"
+      [formSubmetido]="formSubmetido"
+      [label]="'Telefone'"
+      [contemIcone]="true"
+      [mask]="'(00) 00000-0000'"
+    ></app-input>
+    <app-input
+      class="col-start-4 col-end-7"
+      [tipo]="'select'"
+      [label]="'Possui filhos?'"
+      [placeholder]="'Selecione um nome'"
+      [formController]="formCadastro.controls['igreja']"
+      [opcoes]="opcoesBoleanas"
+      [formSubmetido]="formSubmetido"
+      mensagemErro="Campo obrigatório"
+      (valorSelecionado)="tes($event)"
+    ></app-input>
+    <app-input
+      [disabled]="validacaoFilhos"
+      class="col-start-7 col-end-9"
+      [(formController)]="formCadastro.controls['qntdFilhos']"
+      [placeholder]="'0'"
+      [id]="'qntdFilhos'"
+      [name]="'qntdFilhos'"
+      [tipo]="'text'"
+      [formSubmetido]="formSubmetido"
+      [label]="'Quantos?'"
+      [contemIcone]="true"
+      [mask]="'0'"
+    ></app-input>
+  </form>
+  <div class="flex flex-col gap-1.5">
+    <button
+      (click)="prosseguir()"
+      class="bg-[#007AFF] text-white font-semibold rounded-[0.5rem] py-2.5"
+    >
+      Prosseguir
+    </button>
+    <button
+      (click)="voltar()"
+      class="border-2 border-[#007AFF] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
+    >
+      Voltar
+    </button>
+  </div>
+</div>

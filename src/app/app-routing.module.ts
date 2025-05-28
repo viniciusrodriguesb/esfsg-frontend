@@ -3,20 +3,32 @@ import { Rotas } from './core/domain/enums/rotas.enum';
 import { CadastroComponent } from './presentation/pages/cadastro/cadastro.component';
 import { LoginComponent } from './presentation/pages/login/login.component';
 import { NgModule } from '@angular/core';
+import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
+import { FormDadosIgrejaComponent } from './presentation/pages/cadastro/form-dados-igreja/form-dados-igreja.component';
 
 export const routes: Routes = [
-    {
-        path: Rotas.LOGIN,
-        component: LoginComponent
-    },
-    {
-        path: Rotas.CADASTRO,
-        component: CadastroComponent
-    }
+  {
+    path: Rotas.LOGIN,
+    component: LoginComponent,
+  },
+  {
+    path: Rotas.CADASTRO,
+    component: CadastroComponent,
+    children: [
+      {
+        path: Rotas.FORM_DADOS_PESSOAIS,
+        component: FormDadosPessoaisComponent,
+      },
+      {
+        path: Rotas.FORM_DADOS_IGREJA,
+        component: FormDadosIgrejaComponent,
+      }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

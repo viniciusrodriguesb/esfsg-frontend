@@ -1,13 +1,17 @@
-<div class="flex justify-center items-center h-lvh-screen">
+<div class="flex justify-center items-center h-svh-screen">
   <div
-    class="flex flex-col gap-8 py-20 px-16 w-[55%] h-screen max-sm:w-full max-sm:px-10 max-sm:h-full"
+    class="flex flex-col py-20 px-16 w-[55%] h-screen max-sm:w-full max-sm:px-4 max-sm:h-full"
   >
     <div class="flex gap-3.5 items-center">
       <div class="w-12 h-12 rounded-full bg-gray-300"></div>
       <p>Evangelho Sem Fronteiras</p>
     </div>
-    <p class="text-2xl font-semibold">Seja bem-vindo 👋</p>
-    <mat-stepper
+    <div class="flex flex-col gap-2">
+      <p class="text-2xl mt-8 font-semibold">Seja bem-vindo 👋</p>
+      <p class="text-[12px]">Preencha os campos abaixo com seus dados pessoais.</p>
+    </div>
+    <router-outlet></router-outlet>
+    <!-- <mat-stepper
       class="max-sm:!hidden"
       [linear]="true"
       [disableRipple]="true"
@@ -191,99 +195,11 @@
           </form>
         </mat-step>
       </ng-container>
-    </mat-stepper>
+    </mat-stepper> -->
+    
   </div>
+
   <div
     class="bg-[url(/img/bg-login.png)] bg-no-repeat bg-cover w-[45%] h-screen max-sm:hidden"
   ></div>
 </div>
-
-<!-- <mat-stepper
-      class="max-sm:hidden"
-      [linear]="true"
-      [disableRipple]="true"
-      orientation="horizontal"
-      #stepper
-    >
-      <ng-template matStepperIcon="edit">
-        <div class="step-icon active"></div>
-      </ng-template>
-      <ng-template matStepperIcon="done">
-        <div class="step-icon completed"></div>
-      </ng-template>
-      <ng-template matStepperIcon="number">
-        <div class="step-icon pending"></div>
-      </ng-template>
-      <ng-container *ngFor="let step of steps">
-        <mat-step [stepControl]="firstFormGroup">
-          <form class="grid grid-cols-3 gap-1.5" [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>{{ step.label }}</ng-template>
-
-            <app-input
-              class="col-start-1 col-end-3"
-              [(formController)]="formCadastro.controls['nomeCompleto']"
-              [placeholder]="'Nome Completo'"
-              [id]="'nomeCompleto'"
-              [name]="'nomeCompleto'"
-              [tipo]="'text'"
-              [formSubmetido]="formSubmetido"
-              [label]="'Nome Completo'"
-              [contemIcone]="true"
-            ></app-input>
-            <app-input
-              class="col-start-3 col-end-4"
-              [(formController)]="formCadastro.controls['cpf']"
-              [placeholder]="'CPF'"
-              [id]="'cpf'"
-              [name]="'cpf'"
-              [tipo]="'text'"
-              [formSubmetido]="formSubmetido"
-              [label]="'CPF'"
-              [contemIcone]="true"
-            ></app-input>
-            <app-input
-              [(formController)]="formCadastro.controls['telefone']"
-              [placeholder]="'Telefone'"
-              [id]="'telefone'"
-              [name]="'telefone'"
-              [tipo]="'text'"
-              [formSubmetido]="formSubmetido"
-              [label]="'Telefone'"
-              [contemIcone]="true"
-            ></app-input>
-            <app-input
-              [(formController)]="formCadastro.controls['nascimento']"
-              [placeholder]="'Data de Nascimento'"
-              [id]="'nascimento'"
-              [name]="'nascimento'"
-              [formSubmetido]="formSubmetido"
-              [label]="'Data de Nascimento'"
-              [contemIcone]="true"
-            ></app-input>
-            <app-input
-              [(formController)]="formCadastro.controls['email']"
-              [placeholder]="'Email'"
-              [id]="'email'"
-              [name]="'email'"
-              [tipo]="'email'"
-              [formSubmetido]="formSubmetido"
-              [label]="'Email'"
-              [contemIcone]="true"
-            ></app-input>
-            <app-input
-              [(formController)]="formCadastro.controls['senha']"
-              [placeholder]="'Senha'"
-              [id]="'senha'"
-              [name]="'senha'"
-              [formSubmetido]="formSubmetido"
-              [label]="'Senha'"
-              [contemIcone]="true"
-            ></app-input>
-
-            <div>
-              <button (click)="testar()" mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-      </ng-container>
-    </mat-stepper> -->

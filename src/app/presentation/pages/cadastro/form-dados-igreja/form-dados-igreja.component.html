@@ -1,0 +1,77 @@
+<div class="flex flex-col gap-2.5">
+  <!-- <h1 class="text-[1.5rem] font-bold text-[#333333]">Dados Pessoais</h1>
+  <p class="text-[0.875rem] text-[#808080]">
+    Preencha os campos abaixo com seus dados pessoais.
+  </p> -->
+  <form class="grid grid-cols-8 gap-3.5 py-5" [formGroup]="formCadastro">
+    <app-input
+      class="col-start-1 col-end-9"
+      [(formController)]="formCadastro.controls['deficiencia']"
+      [placeholder]="'Informe a deficiência'"
+      [id]="'deficiencia'"
+      [name]="'deficiencia'"
+      [tipo]="'text'"
+      [formSubmetido]="formSubmetido"
+      [label]="'Possui alguma deficiência?'"
+      [contemIcone]="true"
+    ></app-input>
+    <app-input
+      class="col-start-1 col-end-5"
+      [tipo]="'select'"
+      [label]="'Classe'"
+      [placeholder]="'Selecione uma classe'"
+      [formController]="formCadastro.controls['classe']"
+      [opcoes]="classes"
+      [formSubmetido]="formSubmetido"
+      mensagemErro="Campo obrigatório"
+    ></app-input>
+
+    <app-input
+      class="col-start-5 col-end-9"
+      [tipo]="'select'"
+      [label]="'Igreja'"
+      [placeholder]="'Selecione um nome'"
+      [formController]="formCadastro.controls['igreja']"
+      [opcoes]="igrejas"
+      [formSubmetido]="formSubmetido"
+      mensagemErro="Campo obrigatório"
+    ></app-input>
+
+    <app-input
+      class="col-start-1 col-end-6"
+      [(formController)]="formCadastro.controls['email']"
+      [placeholder]="'Email'"
+      [id]="'email'"
+      [name]="'email'"
+      [tipo]="'email'"
+      [formSubmetido]="formSubmetido"
+      [label]="'Email'"
+      [contemIcone]="true"
+    ></app-input>
+    <app-input
+      class="col-start-6 col-end-9"
+      [(formController)]="formCadastro.controls['senha']"
+      [placeholder]="'Senha'"
+      [id]="'senha'"
+      [name]="'senha'"
+      [formSubmetido]="formSubmetido"
+      [label]="'Senha'"
+      [contemIcone]="true"
+      [mask]="'00000000'"
+    ></app-input>
+  </form>
+  <div class="flex flex-col gap-1.5">
+    <button
+      (click)="prosseguir()"
+      class="bg-[#007AFF] text-white font-semibold rounded-[0.5rem] py-2.5"
+    >
+      Prosseguir
+    </button>
+    <button
+      (click)="voltar()"
+      class="border-2 border-[#007AFF] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
+    >
+      Voltar
+    </button>
+  </div>
+</div>

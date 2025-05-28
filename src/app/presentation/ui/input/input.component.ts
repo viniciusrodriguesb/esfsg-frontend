@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { TabelaDominioResponseDto } from '../../../core/application/dto/response/tabela-dominio-response.dto';
 
 @Component({
   selector: 'app-input',
@@ -8,12 +9,12 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrl: './input.component.scss',
 })
 export class InputComponent {
-  @Output()
-  formControllerChange = new EventEmitter();
+  formControllerValue: FormControl;
+  mostrarSenha: boolean = false;
 
   @Input() id: string = '';
   @Input() classeInput: string = '';
-  @Input() placeholder: string = '';
+  @Input() placeholder: string = null;
   @Input() tipo: string = 'text';
   @Input() value: string = '';
   @Input() name: string = '';
@@ -22,21 +23,19 @@ export class InputComponent {
   @Input() required: boolean = false;
   @Input() contemIcone: boolean = false;
   @Input() errorMessage: string = '';
-
   @Input() formSubmetido = false;
-
-  formControllerValue: FormControl;
-  mostrarSenha: boolean = false;
-
+  @Input() mask: string = '';
+  @Input() opcoes: TabelaDominioResponseDto[] = [];
   @Input()
   get formController(): FormControl {
     return this.formControllerValue;
   }
 
-  set formController(value: FormControl) {
-    this.formControllerValue = value;
-    this.formControllerChange.emit(this.formControllerValue);
-  }
+  @Output() valorSelecionado = new EventEmitter<any>();
+
+
+  @Output()
+  formControllerChange = new EventEmitter();
 
   get mostrarErro(): boolean {
     return this.formSubmetido && this.formController?.invalid;
@@ -51,7 +50,6 @@ export class InputComponent {
 
   get mensagemErro(): string {
     if (!this.formController?.errors) return '';
-
     if (this.formController.errors['required'])
       return 'Este campo é obrigatório';
     if (this.formController.errors['minlength'])
@@ -62,4 +60,14 @@ export class InputComponent {
 
     return 'Campo inválido';
   }
+
+  set formController(value: FormControl) {
+    this.formControllerValue = value;
+    this.formControllerChange.emit(this.formControllerValue);
+  }
+
+  aoSelecionar(event: Event) {
+  const valor = (event.target as HTMLSelectElement).value;
+  this.valorSelecionado.emit(valor);
+}
 }

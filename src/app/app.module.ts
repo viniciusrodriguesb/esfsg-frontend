@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterOutlet } from '@angular/router';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { BuscarClasseUseCase } from './core/application/use-cases/classe/buscar-classe.usecase';
 import { BuscarClassePort } from './core/domain/ports/classe/buscar-classe.port';
 import { BuscarCondicaoMedicaUseCase } from './core/application/use-cases/condicao-medica/buscar-condicao-medica.usecase';
@@ -48,60 +51,97 @@ import { InserirInscricaoAdapter } from './infrastructure/adapter/inscricao/inse
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './presentation/pages/login/login.component';
 import { CadastroComponent } from './presentation/pages/cadastro/cadastro.component';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatButtonModule} from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
 import { InputComponent } from './presentation/ui/input/input.component';
-import { LucideAngularModule, CircleX, CircleCheck, Check, X, Eye, EyeClosed, User, Building } from 'lucide-angular';
-import {MatIconModule} from '@angular/material/icon';
+import {
+  LucideAngularModule,
+  CircleX,
+  CircleCheck,
+  Check,
+  X,
+  Eye,
+  EyeClosed,
+  User,
+  Building,
+  ChevronLeft,
+} from 'lucide-angular';
+import { MatIconModule } from '@angular/material/icon';
+import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
+import { NgxMaskModule } from 'ngx-mask';
+import { MatSelectModule } from '@angular/material/select';
+import { FormDadosIgrejaComponent } from './presentation/pages/cadastro/form-dados-igreja/form-dados-igreja.component';
+import { BuscarRegiaoUseCase } from './core/application/use-cases/regiao/buscar-regiao.usecase';
+import { BuscarRegiaoPort } from './core/domain/ports/regiao/buscar-regiao.port';
+import { BuscarRegiaoAdapter } from './infrastructure/adapter/regiao/buscar-regiao.adapter';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     CadastroComponent,
-    InputComponent
+    InputComponent,
+    FormDadosPessoaisComponent,
+    FormDadosIgrejaComponent
   ],
   imports: [
     BrowserModule,
     RouterOutlet,
     AppRoutingModule,
-
     FormsModule,
     ReactiveFormsModule,
 
+    // Configuração das bibliotecas
+    NgxMaskModule.forRoot(),
+    LucideAngularModule.pick({
+      CircleX,
+      CircleCheck,
+      Check,
+      X,
+      Eye,
+      EyeClosed,
+      User,
+      Building,
+      ChevronLeft
+    }),
+
+    // Angular Material Modules
     MatSlideToggleModule,
     MatInputModule,
     MatFormFieldModule,
     MatStepperModule,
     MatButtonModule,
     MatIconModule,
-
-    LucideAngularModule.pick({
-      CircleX, 
-      CircleCheck, 
-      Check, 
-      X, 
-      Eye, 
-      EyeClosed,
-      User,
-      Building
-    })
-],
+    MatSelectModule,
+  ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     BuscarClasseUseCase,
     { provide: BuscarClassePort, useClass: BuscarClasseAdapter },
     BuscarCondicaoMedicaUseCase,
-    { provide: BuscarCondicaoMedicaPort, useClass: BuscarCondicaoMedicaAdapter },
+    {
+      provide: BuscarCondicaoMedicaPort,
+      useClass: BuscarCondicaoMedicaAdapter,
+    },
     InserirCondicaoMedicaUseCase,
-    { provide: InserirCondicaoMedicaPort, useClass: InserirCondicaoMedicaAdapter },
+    {
+      provide: InserirCondicaoMedicaPort,
+      useClass: InserirCondicaoMedicaAdapter,
+    },
     DeletarCondicaoMedicaUseCase,
-    { provide: DeletarCondicaoMedicaPort, useClass: DeletarCondicaoMedicaAdapter },
+    {
+      provide: DeletarCondicaoMedicaPort,
+      useClass: DeletarCondicaoMedicaAdapter,
+    },
     EditarCondicaoMedicaUseCase,
-    { provide: EditarCondicaoMedicaPort, useClass: EditarCondicaoMedicaAdapter },
+    {
+      provide: EditarCondicaoMedicaPort,
+      useClass: EditarCondicaoMedicaAdapter,
+    },
     BuscarEventoUseCase,
     { provide: BuscarEventoPort, useClass: BuscarEventoAdapter },
     BuscarIgrejaUseCase,
@@ -120,6 +160,8 @@ import {MatIconModule} from '@angular/material/icon';
     { provide: DeletarInscricaoPort, useClass: DeletarInscricaoAdapter },
     EditarInscricaoUseCase,
     { provide: EditarInscricaoPort, useClass: EditarInscricaoAdapter },
+    BuscarRegiaoUseCase,
+    { provide: BuscarRegiaoPort, useClass: BuscarRegiaoAdapter },
   ],
   bootstrap: [AppComponent],
 })

@@ -5,4 +5,5 @@ export enum ControllersEnum {
     Funcao = 'Funcoes',
     Instrumento = 'Instrumento',
     Inscricao = 'Inscricao',
+    Regiao = 'Regiao',
 }
