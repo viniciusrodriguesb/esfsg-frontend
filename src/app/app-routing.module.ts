@@ -5,11 +5,23 @@ import { LoginComponent } from './presentation/pages/login/login.component';
 import { NgModule } from '@angular/core';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
 import { FormDadosIgrejaComponent } from './presentation/pages/cadastro/form-dados-igreja/form-dados-igreja.component';
+import { FormUsuarioComponent } from './presentation/pages/login/form-usuario/form-usuario.component';
+import { FormAdminComponent } from './presentation/pages/login/form-admin/form-admin.component';
 
 export const routes: Routes = [
   {
     path: Rotas.LOGIN,
     component: LoginComponent,
+    children: [
+      {
+        path: Rotas.LOGIN_USUARIO,
+        component: FormUsuarioComponent,
+      },
+      {
+        path: Rotas.LOGIN_ADMINISTRADOR,
+        component: FormAdminComponent,
+      },
+    ],
   },
   {
     path: Rotas.CADASTRO,

@@ -1,9 +1,5 @@
 <div class="flex flex-col gap-2.5">
-  <!-- <h1 class="text-[1.5rem] font-bold text-[#333333]">Dados Pessoais</h1>
-  <p class="text-[0.875rem] text-[#808080]">
-    Preencha os campos abaixo com seus dados pessoais.
-  </p> -->
-  <form class="grid grid-cols-8 gap-3.5 py-5" [formGroup]="formCadastro">
+  <form class="grid grid-cols-8 gap-3.5 py-7" [formGroup]="formCadastro">
     <app-input
       class="col-start-1 col-end-9"
       [(formController)]="formCadastro.controls['deficiencia']"
@@ -19,7 +15,7 @@
       class="col-start-1 col-end-5"
       [tipo]="'select'"
       [label]="'Classe'"
-      [placeholder]="'Selecione uma classe'"
+      [placeholder]="'Selecione'"
       [formController]="formCadastro.controls['classe']"
       [opcoes]="classes"
       [formSubmetido]="formSubmetido"
@@ -30,7 +26,7 @@
       class="col-start-5 col-end-9"
       [tipo]="'select'"
       [label]="'Igreja'"
-      [placeholder]="'Selecione um nome'"
+      [placeholder]="'Selecione'"
       [formController]="formCadastro.controls['igreja']"
       [opcoes]="igrejas"
       [formSubmetido]="formSubmetido"

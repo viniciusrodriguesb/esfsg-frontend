@@ -78,6 +78,12 @@ import { FormDadosIgrejaComponent } from './presentation/pages/cadastro/form-dad
 import { BuscarRegiaoUseCase } from './core/application/use-cases/regiao/buscar-regiao.usecase';
 import { BuscarRegiaoPort } from './core/domain/ports/regiao/buscar-regiao.port';
 import { BuscarRegiaoAdapter } from './infrastructure/adapter/regiao/buscar-regiao.adapter';
+import { FormUsuarioComponent } from './presentation/pages/login/form-usuario/form-usuario.component';
+import { FormAdminComponent } from './presentation/pages/login/form-admin/form-admin.component';
+import { ValidarUsuarioUseCase } from './core/application/use-cases/usuario/validar-usuario.usecase';
+import { ValidarUsuarioPort } from './core/domain/ports/usuario/validar-usuario.port';
+import { ValidarUsuarioAdapter } from './infrastructure/adapter/usuario/validar-usuario.adapter';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -86,7 +92,9 @@ import { BuscarRegiaoAdapter } from './infrastructure/adapter/regiao/buscar-regi
     CadastroComponent,
     InputComponent,
     FormDadosPessoaisComponent,
-    FormDadosIgrejaComponent
+    FormDadosIgrejaComponent,
+    FormUsuarioComponent,
+    FormAdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,6 +116,7 @@ import { BuscarRegiaoAdapter } from './infrastructure/adapter/regiao/buscar-regi
       Building,
       ChevronLeft
     }),
+    SweetAlert2Module.forRoot(),
 
     // Angular Material Modules
     MatSlideToggleModule,
@@ -162,6 +171,8 @@ import { BuscarRegiaoAdapter } from './infrastructure/adapter/regiao/buscar-regi
     { provide: EditarInscricaoPort, useClass: EditarInscricaoAdapter },
     BuscarRegiaoUseCase,
     { provide: BuscarRegiaoPort, useClass: BuscarRegiaoAdapter },
+    ValidarUsuarioUseCase,
+    { provide: ValidarUsuarioPort, useClass: ValidarUsuarioAdapter },
   ],
   bootstrap: [AppComponent],
 })

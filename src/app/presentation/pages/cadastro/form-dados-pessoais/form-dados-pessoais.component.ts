@@ -108,7 +108,7 @@ export class FormDadosPessoaisComponent {
   }
 
   voltar() {
-    this.router.navigate([Rotas.LOGIN]);
+    this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_USUARIO]);
   }
 
   testar() {

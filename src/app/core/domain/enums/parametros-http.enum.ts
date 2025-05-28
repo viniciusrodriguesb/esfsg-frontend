@@ -1,3 +1,4 @@
 export enum ParametrosHttpEnum {
-  Id = 'id'
+  Id = 'id',
+  Cpf = 'CPF'
 }

@@ -1,4 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+import { Rotas } from './core/domain/enums/rotas.enum';
 @Component({
   selector: 'app-root',
   standalone: false,
@@ -8,4 +10,11 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent {
   title = 'esfsg-frontend';
+
+  constructor(private readonly router: Router) {}
+
+  ngOnInit() {
+    // Redireciona para a página de login ao iniciar a aplicação
+    this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_USUARIO]);
+  }
 }

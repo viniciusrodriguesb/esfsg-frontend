@@ -1,55 +1,13 @@
 <div class="flex justify-center items-center h-lvh-screen">
   <div
-    class="flex flex-col gap-8 py-20 px-16 w-[35%] h-screen max-sm:w-full max-sm:px-10 max-sm:h-full"
+    class="flex flex-col py-20 px-16 w-[55%] h-screen max-sm:w-full max-sm:px-4 max-sm:h-full"
   >
     <div class="flex gap-3.5 items-center">
       <div class="w-12 h-12 rounded-full bg-gray-300"></div>
       <p>Evangelho Sem Fronteiras</p>
     </div>
-    <p class="text-2xl font-semibold">Bom te ver de novo 👋</p>
-    <form
-      (ngSubmit)="onSubmit()"
-      #loginForm="ngForm"
-      class="flex flex-col gap-5 h-full"
-    >
-      <app-input
-        [(formController)]="formLogin.controls['email']"
-        [placeholder]="'Email'"
-        [id]="'email'"
-        [name]="'email'"
-        [tipo]="'email'"
-        [formSubmetido]="formSubmetido"
-        [label]="'Email'"
-      ></app-input>
-      <app-input
-        [(formController)]="formLogin.controls['senha']"
-        [placeholder]="'Senha'"
-        [id]="'senha'"
-        [name]="'senha'"
-        [tipo]="'password'"
-        [formSubmetido]="formSubmetido"
-        [label]="'Senha'"
-      ></app-input>
-      <div class="flex items-center justify-between">
-        <div class="flex items-center">
-          <mat-slide-toggle></mat-slide-toggle>
-          <label for="lembrar" class="text-sm font-medium">Lembrar-me</label>
-        </div>
-        <a href="#" class="text-sm text-[#007AFF] font-medium"
-          >Esqueceu a senha?</a
-        >
-      </div>
-
-      <button
-        class="bg-[#007AFF] text-white font-semibold rounded-[0.5rem] py-2.5"
-      >
-        Entrar
-      </button>
-      <div class="flex items-center justify-center gap-2">
-        <p class="text-sm font-medium">Não tem uma conta?</p>
-        <a href="#" class="text-[#007AFF] font-medium">Criar conta</a>
-      </div>
-    </form>
+    <p class="text-2xl mt-8 font-semibold">Bom te ver de novo 👋</p>
+    <router-outlet></router-outlet>
   </div>
   <div
     class="bg-[url(/img/bg-login.png)] bg-no-repeat bg-cover w-[65%] h-screen max-sm:hidden"

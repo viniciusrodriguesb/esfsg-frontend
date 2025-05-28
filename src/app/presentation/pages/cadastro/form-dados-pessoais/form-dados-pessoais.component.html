@@ -1,8 +1,4 @@
 <div class="flex flex-col gap-2.5">
-  <!-- <h1 class="text-[1.5rem] font-bold text-[#333333]">Dados Pessoais</h1>
-  <p class="text-[0.875rem] text-[#808080]">
-    Preencha os campos abaixo com seus dados pessoais.
-  </p> -->
   <form class="grid grid-cols-8 gap-3.5 py-7" [formGroup]="formCadastro">
     <app-input
       class="col-start-1 col-end-9"
@@ -54,7 +50,7 @@
       class="col-start-4 col-end-7"
       [tipo]="'select'"
       [label]="'Possui filhos?'"
-      [placeholder]="'Selecione um nome'"
+      [placeholder]="'Selecione'"
       [formController]="formCadastro.controls['igreja']"
       [opcoes]="opcoesBoleanas"
       [formSubmetido]="formSubmetido"

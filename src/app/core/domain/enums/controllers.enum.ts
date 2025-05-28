@@ -6,4 +6,5 @@ export enum ControllersEnum {
     Instrumento = 'Instrumento',
     Inscricao = 'Inscricao',
     Regiao = 'Regiao',
+    Usuario = 'Usuario',
 }

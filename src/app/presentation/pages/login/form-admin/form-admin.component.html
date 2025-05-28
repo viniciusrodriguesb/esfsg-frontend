@@ -1,0 +1,44 @@
+    <div class="flex flex-col gap-2.5">
+        <form
+          (ngSubmit)="onSubmit()"
+          #loginForm="ngForm"
+          class="flex flex-col gap-5 h-full py-7"
+        >
+          <app-input
+            [(formController)]="formLogin.controls['email']"
+            [placeholder]="'Email'"
+            [id]="'email'"
+            [name]="'email'"
+            [tipo]="'email'"
+            [formSubmetido]="formSubmetido"
+            [label]="'Email'"
+          ></app-input>
+          <app-input
+            [(formController)]="formLogin.controls['senha']"
+            [placeholder]="'Senha'"
+            [id]="'senha'"
+            [name]="'senha'"
+            [tipo]="'password'"
+            [formSubmetido]="formSubmetido"
+            [label]="'Senha'"
+          ></app-input>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <mat-slide-toggle></mat-slide-toggle>
+              <label for="lembrar" class="text-sm font-medium">Lembrar-me</label>
+            </div>
+            <a href="#" class="text-sm text-[#007AFF] font-medium"
+              >Esqueceu a senha?</a
+            >
+          </div>
+          <button
+            class="bg-[#007AFF] text-white font-semibold rounded-[0.5rem] py-2.5"
+          >
+            Entrar
+          </button>
+          <div class="flex items-center justify-center gap-2">
+            <p class="text-sm font-medium">Não tem uma conta?</p>
+            <a href="#" class="text-[#007AFF] font-medium">Criar conta</a>
+          </div>
+        </form>
+    </div>

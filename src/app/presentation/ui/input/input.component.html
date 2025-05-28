@@ -7,13 +7,13 @@
     <!-- Wrapper estilizado -->
     <div
       [ngClass]="{ 'opacity-60': disabled }"
-      class="bg-[#F2F2F2] text-[#808080] border border-[#E5E5E5] rounded-[0.5rem] w-full py-3.5 px-4 focus:outline-none flex items-center gap-3.5 max-sm:gap-2 max-sm:py-3 max-sm:px-3"
+      class="bg-[#F2F2F2] text-[#808080] border border-[#E5E5E5] rounded-[0.5rem] w-full py-3.5 px-4 focus:outline-none flex items-center gap-3.5 max-sm:gap-2 max-sm:py-[13px] max-sm:px-2.5"
     >
       <!-- Campo de texto ou número -->
       <input
         *ngIf="tipoInput !== 'select'"
         [mask]="mask"
-        class="outline-none w-full max-sm:text-[10px] bg-transparent"
+        class="outline-none w-full max-sm:text-[11px] bg-transparent"
         [formControl]="formController"
         [placeholder]="placeholder"
         [type]="tipoInput"
@@ -26,7 +26,7 @@
       <!-- Campo select -->
       <select
         *ngIf="tipoInput === 'select'"
-        class="outline-none w-full max-sm:text-[10px] bg-transparent"
+        class="outline-none w-full py-[1px] max-sm:text-[11px] bg-transparent"
         [formControl]="formController"
         [disabled]="disabled"
         [id]="id"
