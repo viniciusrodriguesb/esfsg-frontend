@@ -21,12 +21,12 @@ import { DeletarCondicaoMedicaAdapter } from './infrastructure/adapter/condicao-
 import { EditarCondicaoMedicaUseCase } from './core/application/use-cases/condicao-medica/editar-condicao-medica.usecase';
 import { EditarCondicaoMedicaPort } from './core/domain/ports/condicao-medica/editar-condicao-medica.port';
 import { EditarCondicaoMedicaAdapter } from './infrastructure/adapter/condicao-medica/editar-condicao-medica.adapter';
-import { BuscarEventoUseCase } from './core/application/use-cases/funcao/buscar-evento.usecase';
-import { BuscarIgrejaUseCase } from './core/application/use-cases/funcao/buscar-igreja.usecase';
-import { BuscarEventoPort } from './core/domain/ports/funcao/buscar-evento.port';
-import { BuscarIgrejaPort } from './core/domain/ports/funcao/buscar-igreja.port';
-import { BuscarEventoAdapter } from './infrastructure/adapter/funcao/buscar-evento.adapter';
-import { BuscarIgrejaAdapter } from './infrastructure/adapter/funcao/buscar-igreja.adapter';
+import { BuscarFuncaoEventoUseCase } from './core/application/use-cases/funcao/buscar-funcao-evento.usecase';
+import { BuscarFuncaoIgrejaUseCase } from './core/application/use-cases/funcao/buscar-funcao-igreja.usecase';
+import { BuscarFuncaoEventoPort } from './core/domain/ports/funcao/buscar-funcao-evento.port';
+import { BuscarFuncaoIgrejaPort } from './core/domain/ports/funcao/buscar-funcao-igreja.port';
+import { BuscarFuncaoEventoAdapter } from './infrastructure/adapter/funcao/buscar-funcao-evento.adapter';
+import { BuscarFuncaoIgrejaAdapter } from './infrastructure/adapter/funcao/buscar-funcao-igreja.adapter';
 import { BuscarInstrumentoUseCase } from './core/application/use-cases/instrumento/buscar-instrumento.usecase';
 import { BuscarInstrumentoAdapter } from './infrastructure/adapter/instrumento/buscar-instrumento.adapter';
 import { BuscarInstrumentoPort } from './core/domain/ports/instrumento/buscar-instrumento.port';
@@ -69,6 +69,8 @@ import {
   User,
   Building,
   ChevronLeft,
+  Ticket,
+  ChevronRight,
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -84,6 +86,10 @@ import { ValidarUsuarioUseCase } from './core/application/use-cases/usuario/vali
 import { ValidarUsuarioPort } from './core/domain/ports/usuario/validar-usuario.port';
 import { ValidarUsuarioAdapter } from './infrastructure/adapter/usuario/validar-usuario.adapter';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { FormInicialComponent } from './presentation/pages/cadastro/form-inicial/form-inicial.component';
+import { BuscarEventoUseCase } from './core/application/use-cases/evento/buscar-evento.usecase';
+import { BuscarEventoAdapter } from './infrastructure/adapter/evento/buscar-evento.adapter';
+import { BuscarEventoPort } from './core/domain/ports/evento/buscar-evento.port';
 
 @NgModule({
   declarations: [
@@ -95,6 +101,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     FormDadosIgrejaComponent,
     FormUsuarioComponent,
     FormAdminComponent,
+    FormInicialComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +121,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
       EyeClosed,
       User,
       Building,
-      ChevronLeft
+      ChevronLeft,
+      ChevronRight,
+      Ticket
     }),
     SweetAlert2Module.forRoot(),
 
@@ -130,7 +139,10 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     BuscarClasseUseCase,
-    { provide: BuscarClassePort, useClass: BuscarClasseAdapter },
+    {
+      provide: BuscarClassePort,
+      useClass: BuscarClasseAdapter,
+    },
     BuscarCondicaoMedicaUseCase,
     {
       provide: BuscarCondicaoMedicaPort,
@@ -151,12 +163,21 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
       provide: EditarCondicaoMedicaPort,
       useClass: EditarCondicaoMedicaAdapter,
     },
-    BuscarEventoUseCase,
-    { provide: BuscarEventoPort, useClass: BuscarEventoAdapter },
-    BuscarIgrejaUseCase,
-    { provide: BuscarIgrejaPort, useClass: BuscarIgrejaAdapter },
+    BuscarFuncaoEventoUseCase,
+    {
+      provide: BuscarFuncaoEventoPort,
+      useClass: BuscarFuncaoEventoAdapter,
+    },
+    BuscarFuncaoIgrejaUseCase,
+    {
+      provide: BuscarFuncaoIgrejaPort,
+      useClass: BuscarFuncaoIgrejaAdapter,
+    },
     BuscarInstrumentoUseCase,
-    { provide: BuscarInstrumentoPort, useClass: BuscarInstrumentoAdapter },
+    {
+      provide: BuscarInstrumentoPort,
+      useClass: BuscarInstrumentoAdapter,
+    },
     InserirInstrumentoUseCase,
     { provide: InserirInstrumentoPort, useClass: InserirInstrumentoAdapter },
     DeletarInstrumentoUseCase,
@@ -173,6 +194,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     { provide: BuscarRegiaoPort, useClass: BuscarRegiaoAdapter },
     ValidarUsuarioUseCase,
     { provide: ValidarUsuarioPort, useClass: ValidarUsuarioAdapter },
+    BuscarEventoUseCase,
+    { provide: BuscarEventoPort, useClass: BuscarEventoAdapter }, // Uncomment if you have an adapter for BuscarEvento
   ],
   bootstrap: [AppComponent],
 })

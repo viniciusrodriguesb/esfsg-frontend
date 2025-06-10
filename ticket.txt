@@ -1,0 +1,101 @@
+<div class="max-w-xs mx-auto bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 relative">
+  <!-- Corte lateral esquerda -->
+  <div class="absolute left-0 top-1/2 -translate-y-1/2 bg-white w-6 h-6 rounded-full shadow-inner z-10 border border-gray-300"></div>
+  <!-- Corte lateral direita -->
+  <div class="absolute right-0 top-1/2 -translate-y-1/2 bg-white w-6 h-6 rounded-full shadow-inner z-10 border border-gray-300"></div>
+
+  <div class="p-4 flex flex-col items-center text-center">
+    <!-- QR Code -->
+    <img src="URL_DO_QRCODE_AQUI" alt="QR Code" class="w-40 h-40 object-contain mb-2" />
+
+    <!-- Número do ticket -->
+    <p class="text-yellow-500 font-semibold tracking-widest text-sm">1000162855</p>
+
+    <div class="w-full border-dashed border-t border-gray-300 my-4"></div>
+
+    <!-- Informações principais -->
+    <div class="w-full text-gray-700 text-sm space-y-1">
+      <div class="flex justify-between">
+        <span class="font-medium">Evento:</span>
+        <span class="text-right">Evangelho Sem Fronteiras</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="font-medium">Data:</span>
+        <span class="text-right">01/08/2025</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="font-medium">Igreja Vigília:</span>
+        <span class="text-right">MUTUÁ</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="font-medium">Igreja Evento:</span>
+        <span class="text-right">MUTUÁ</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="font-medium">Valor Integral:</span>
+        <span class="text-right">R$ 20,00</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="font-medium">Valor Parcial:</span>
+        <span class="text-right">R$ 10,00</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+____________________________________________________
+
+<div class="max-w-md mx-auto bg-white rounded-2xl shadow-lg p-6 border border-dashed border-gray-300 relative">
+  <div class="absolute -left-4 top-1/2 transform -translate-y-1/2 bg-white border-2 border-gray-300 w-8 h-8 rounded-full z-10"></div>
+  <div class="absolute -right-4 top-1/2 transform -translate-y-1/2 bg-white border-2 border-gray-300 w-8 h-8 rounded-full z-10"></div>
+
+  <div class="text-center">
+    <h2 class="text-xl font-bold text-gray-800">🎫 Evangelho Sem Fronteiras</h2>
+    <p class="text-sm text-gray-500">Ingresso do Evento</p>
+  </div>
+
+  <div class="border-t border-dashed border-gray-300 my-4"></div>
+
+  <div class="text-sm space-y-2 text-gray-700">
+    <p><strong>Data:</strong> 01/08/2025</p>
+    <p><strong>Igreja da Vigília:</strong> MUTUÁ</p>
+    <p><strong>Igreja do Evento:</strong> MUTUÁ</p>
+    <p><strong>Valor Integral:</strong> R$ 20,00</p>
+    <p><strong>Valor Parcial:</strong> R$ 10,00</p>
+  </div>
+
+  <div class="mt-4 text-center">
+    <p class="text-xs text-gray-400">Apresente este ticket na entrada</p>
+  </div>
+</div>
+
+_________________________________________________________
+
+  <div
+    class="bg-white rounded-2xl shadow-lg p-6 border border-dashed border-gray-300 relative"
+    *ngIf="exibeCampos"
+  >
+    <ng-container *ngFor="let evento of eventos">
+      <div class="text-center">
+        <h2 class="text-sm font-bold text-gray-800">🎫 {{ evento.nome }}</h2>
+        <!-- <p class="text-sm text-gray-500">Ingresso do Evento</p> -->
+      </div>
+
+      <div class="border-t border-dashed border-gray-300 my-4"></div>
+
+      <div class="text-[11px] space-y-2 text-gray-700">
+        <p>Data: 01/08/2025</p>
+        <p>Igreja da Vigília: MUTUÁ</p>
+        <p>Igreja do Evento: MUTUÁ</p>
+        <p>Valor Integral: R$ 20,00</p>
+        <p>Valor Parcial: R$ 10,00</p>
+      </div>
+
+      <button
+        (click)="prosseguir()"
+        class="bg-[#007AFF] w-full mt-4 text-white font-semibold rounded-[0.5rem] py-2.5"
+      >
+        Inscrever-se
+      </button>
+    </ng-container>
+  </div>

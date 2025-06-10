@@ -15,6 +15,8 @@ export class LoginComponent {
     senha: ['', [Validators.required, Validators.minLength(8)]],
   });
 
+  exibe = false;
+
   formSubmetido = false;
 
   onSubmit() {

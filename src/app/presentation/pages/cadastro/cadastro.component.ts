@@ -1,12 +1,10 @@
 import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
-  FormGroup,
-  FormControl,
+  Validators
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Rotas } from '../../../core/domain/enums/rotas.enum';
 
 @Component({
   selector: 'app-cadastro',
@@ -51,6 +49,12 @@ export class CadastroComponent {
       label: 'Confirmação',
     },
   ];
+
+  constructor(private readonly router: Router) {}
+
+  ngOnInit(){
+    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_INICIAL]);
+  }
 
   testar() {
     this.formSubmetido = true;

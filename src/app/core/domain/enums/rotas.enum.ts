@@ -5,4 +5,5 @@ export enum Rotas {
   FORM_DADOS_IGREJA = 'dados-igreja',
   LOGIN_USUARIO = 'usuario',
   LOGIN_ADMINISTRADOR = 'administrador',
+  FORM_INICIAL = 'inicio',
 }

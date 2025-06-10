@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TabelaDominioResponseDto } from '../../../../core/application/dto/response/tabela-dominio-response.dto';
 import { BuscarClasseUseCase } from '../../../../core/application/use-cases/classe/buscar-classe.usecase';
-import { BuscarIgrejaUseCase } from '../../../../core/application/use-cases/funcao/buscar-igreja.usecase';
+import { BuscarFuncaoIgrejaUseCase } from '../../../../core/application/use-cases/funcao/buscar-funcao-igreja.usecase';
 import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 import { Router } from '@angular/router';
 
@@ -50,7 +50,7 @@ export class FormDadosIgrejaComponent {
 
   constructor(
     private readonly buscarClasseUsecase: BuscarClasseUseCase,
-    private readonly buscarIgrejasUsecase: BuscarIgrejaUseCase,
+    private readonly buscarFuncaoIgrejasUsecase: BuscarFuncaoIgrejaUseCase,
     private readonly router: Router
   ) {}
 
@@ -61,7 +61,7 @@ export class FormDadosIgrejaComponent {
   }
 
   public buscarIgrejas() {
-    this.buscarIgrejasUsecase.execute().subscribe({
+    this.buscarFuncaoIgrejasUsecase.execute().subscribe({
       next: (igrejas) => {
         this.igrejas = igrejas;
         console.log(igrejas);

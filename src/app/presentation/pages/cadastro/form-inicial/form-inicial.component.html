@@ -1,0 +1,67 @@
+<div class="flex flex-col gap-2.5">
+  <form class="grid grid-cols-8 gap-3.5 py-7" [formGroup]="formInicial">
+    <app-input
+      class="col-start-1 col-end-9"
+      [tipo]="'select'"
+      [label]="'Regiões'"
+      [placeholder]="'Selecione'"
+      [formController]="formInicial.controls['regioes']"
+      [opcoes]="regioes"
+      mensagemErro="Campo obrigatório"
+      (valorSelecionado)="selecionarRegiao($event)"
+    ></app-input>
+  </form>
+  <p class="text-[12px] font-medium">Eventos:</p>
+  <div
+    class="bg-white rounded-2xl shadow-lg p-6 border border-dashed border-gray-300 relative"
+    *ngIf="exibeCampos"
+  >
+    <ng-container *ngFor="let evento of eventos">
+      <div class="flex text-[12px] items-center justify-between">
+        <p class="flex items-center font-semibold gap-2.5">
+          <i-lucide name="ticket" class="w-4"></i-lucide> {{ evento.nome }}
+        </p>
+        
+        <p> ( {{ evento.dataEvento }} )</p>
+      </div>
+
+      <div class="border-t border-dashed border-gray-300 my-4"></div>
+      <div class="text-[10px] space-y-2 text-gray-700">
+        <p class="flex items-center justify-between font-semibold">
+          Vigília:<span class="font-normal"> MUTUÁ</span>
+        </p>
+        <p class="flex items-center justify-between font-semibold">
+          Evento: <span class="font-normal"> MUTUÁ</span>
+        </p>
+        <p class="flex items-center justify-between font-semibold">
+          Valor Parcial: <span class="font-normal">R$ 10,00</span>
+        </p>
+      </div>
+
+      <div class="border-t border-dashed border-gray-300 my-4"></div>
+      <div class="flex items-center justify-between">
+        <p class="font-semibold text-[18px]">R$ {{ evento.valorIntegral }} <span class="text-[8px] text-gray-500"> (valor integral )</span></p>
+
+        <button
+          (click)="prosseguir()"
+          class="w-8 h-8 flex items-center justify-center bg-[#007AFF] rounded-full"
+        >
+          <i-lucide class="w-3 text-white" name="chevron-right"></i-lucide>
+        </button>
+      </div>
+      <!-- <button
+        (click)="prosseguir()"
+        class="bg-[#007AFF] text-[12px] w-full mt-4 text-white font-semibold rounded-[0.5rem] py-2.5"
+      >
+        Inscrever-se
+      </button> -->
+    </ng-container>
+  </div>
+
+  <!-- <button
+      (click)="voltar()"
+      class="border-2 border-[#007AFF] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
+    >
+      Voltar
+    </button> -->
+</div>
