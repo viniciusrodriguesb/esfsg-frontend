@@ -1,8 +1,8 @@
 <div class="flex flex-col gap-2.5">
-  <form class="grid grid-cols-8 gap-3.5 py-7" [formGroup]="formCadastro">
+  <form class="grid grid-cols-8 gap-3.5 py-7" [formGroup]="formDadosPessoais">
     <app-input
       class="col-start-1 col-end-9"
-      [(formController)]="formCadastro.controls['nomeCompleto']"
+      [(formController)]="formDadosPessoais.controls['nomeCompleto']"
       [placeholder]="'Nome Completo'"
       [id]="'nomeCompleto'"
       [name]="'nomeCompleto'"
@@ -13,7 +13,7 @@
     ></app-input>
     <app-input
       class="col-start-1 col-end-4"
-      [(formController)]="formCadastro.controls['cpf']"
+      [(formController)]="formDadosPessoais.controls['cpf']"
       [placeholder]="'CPF'"
       [id]="'cpf'"
       [name]="'cpf'"
@@ -25,7 +25,7 @@
     ></app-input>
     <app-input
       class="col-start-4 col-end-9"
-      [(formController)]="formCadastro.controls['nascimento']"
+      [(formController)]="formDadosPessoais.controls['nascimento']"
       [placeholder]="'dd/mm/aaaa'"
       [id]="'nascimento'"
       [name]="'nascimento'"
@@ -36,7 +36,7 @@
     ></app-input>
     <app-input
       class="col-start-1 col-end-4"
-      [(formController)]="formCadastro.controls['telefone']"
+      [(formController)]="formDadosPessoais.controls['telefone']"
       [placeholder]="'Telefone'"
       [id]="'telefone'"
       [name]="'telefone'"
@@ -47,33 +47,22 @@
       [mask]="'(00) 00000-0000'"
     ></app-input>
     <app-input
-      class="col-start-4 col-end-7"
-      [tipo]="'select'"
-      [label]="'Possui filhos?'"
-      [placeholder]="'Selecione'"
-      [formController]="formCadastro.controls['igreja']"
-      [opcoes]="opcoesBoleanas"
+      class="col-start-4 col-end-9"
+      [(formController)]="formDadosPessoais.controls['email']"
+      [placeholder]="'Email'"
+      [id]="'email'"
+      [name]="'email'"
+      [tipo]="'email'"
       [formSubmetido]="formSubmetido"
-      mensagemErro="Campo obrigatório"
-      (valorSelecionado)="tes($event)"
-    ></app-input>
-    <app-input
-      [disabled]="validacaoFilhos"
-      class="col-start-7 col-end-9"
-      [(formController)]="formCadastro.controls['qntdFilhos']"
-      [placeholder]="'0'"
-      [id]="'qntdFilhos'"
-      [name]="'qntdFilhos'"
-      [tipo]="'text'"
-      [formSubmetido]="formSubmetido"
-      [label]="'Quantos?'"
+      [label]="'Email'"
       [contemIcone]="true"
-      [mask]="'0'"
     ></app-input>
   </form>
   <div class="flex flex-col gap-1.5">
     <button
       (click)="prosseguir()"
+      [disabled]="!formDadosPessoais.valid"
+       [ngClass]="{ 'opacity-60': !formDadosPessoais.valid }"
       class="bg-[#007AFF] text-white font-semibold rounded-[0.5rem] py-2.5"
     >
       Prosseguir

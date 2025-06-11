@@ -20,8 +20,13 @@ export class FormUsuarioComponent {
 
   formSubmetido = false;
 
-  constructor(private readonly validarUsuarioUseCase: ValidarUsuarioUseCase, private readonly router: Router) {}
-
+  constructor(
+    private readonly validarUsuarioUseCase: ValidarUsuarioUseCase,
+    private readonly router: Router
+  ) {}
+  ngOnInit() {
+    console.log('formLogin', this.formLogin.valid);
+  }
   onSubmit() {
     this.formSubmetido = true;
     if (this.formLogin.valid) {
@@ -49,10 +54,10 @@ export class FormUsuarioComponent {
             text: 'Não encontramos esse cpf, iremos te encaminhar para o cadastro.',
             confirmButtonText: 'Ir para cadastro',
           }).then((result) => {
-          if (result.isConfirmed) {
-          this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
-          }
-        });
+            if (result.isConfirmed) {
+              this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
+            }
+          });
         }
       },
       error: (error) => {
@@ -63,7 +68,7 @@ export class FormUsuarioComponent {
           confirmButtonText: 'Ir para cadastro',
         }).then((result) => {
           if (result.isConfirmed) {
-          this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
+            this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
           }
         });
       },

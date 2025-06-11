@@ -6,6 +6,7 @@ import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 import { BuscarRegiaoUseCase } from '../../../../core/application/use-cases/regiao/buscar-regiao.usecase';
 import { BuscarEventoUseCase } from '../../../../core/application/use-cases/evento/buscar-evento.usecase';
 import { EventoResponseDto } from '../../../../core/application/dto/response/evento-response.dto';
+import { NomePipe } from '../../../pipes/nome.pipe';
 
 @Component({
   selector: 'app-form-inicial',
@@ -17,7 +18,7 @@ export class FormInicialComponent {
   private readonly _formBuilder = inject(FormBuilder);
 
   formInicial = this._formBuilder.group({
-    regioes: [null, Validators.required],
+    regioes: ['', Validators.required],
   });
 
   exibeCampos = false;
@@ -27,7 +28,8 @@ export class FormInicialComponent {
   constructor(
     private readonly buscarRegiaoUsecase: BuscarRegiaoUseCase,
     private readonly buscarEventoUsecase: BuscarEventoUseCase,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly nomePipe: NomePipe
   ) {}
 
   ngOnInit() {
@@ -36,12 +38,12 @@ export class FormInicialComponent {
 
   public buscarEvento() {
     this.buscarEventoUsecase
-      .execute(this.formInicial.get('regioes')?.value)
+      .execute(parseInt(this.formInicial.get('regioes')?.value))
       .subscribe({
         next: (resposta) => {
-          this.eventos = resposta;
           if (resposta) {
-            console.log('Eventos encontrados:', resposta);
+            this.eventos = resposta;
+            this.exibeCampos = true;
           }
         },
         error: (erro) => {
@@ -50,11 +52,15 @@ export class FormInicialComponent {
       });
   }
 
+  private formatarNomes( nomes: TabelaDominioResponseDto[]): TabelaDominioResponseDto[] {
+    return nomes.map((nome) => ({ ...nome, descricao: this.nomePipe.transform(nome.descricao)}));
+  }
+
   public buscarRegiao() {
     this.buscarRegiaoUsecase.execute().subscribe({
       next: (resposta) => {
         if (resposta) {
-          this.regioes = resposta;
+          this.regioes = this.formatarNomes(resposta);
         }
       },
       error: (erro) => {
@@ -65,8 +71,6 @@ export class FormInicialComponent {
 
   public selecionarRegiao(evento: any) {
     this.buscarEvento();
-    this.exibeCampos = true;
-    console.log('Eventos:', this.eventos);
   }
 
   prosseguir() {

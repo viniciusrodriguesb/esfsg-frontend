@@ -71,6 +71,7 @@ import {
   ChevronLeft,
   Ticket,
   ChevronRight,
+  Trash2,
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -90,6 +91,7 @@ import { FormInicialComponent } from './presentation/pages/cadastro/form-inicial
 import { BuscarEventoUseCase } from './core/application/use-cases/evento/buscar-evento.usecase';
 import { BuscarEventoAdapter } from './infrastructure/adapter/evento/buscar-evento.adapter';
 import { BuscarEventoPort } from './core/domain/ports/evento/buscar-evento.port';
+import { NomePipe } from './presentation/pipes/nome.pipe';
 
 @NgModule({
   declarations: [
@@ -123,7 +125,8 @@ import { BuscarEventoPort } from './core/domain/ports/evento/buscar-evento.port'
       Building,
       ChevronLeft,
       ChevronRight,
-      Ticket
+      Ticket,
+      Trash2
     }),
     SweetAlert2Module.forRoot(),
 
@@ -195,7 +198,8 @@ import { BuscarEventoPort } from './core/domain/ports/evento/buscar-evento.port'
     ValidarUsuarioUseCase,
     { provide: ValidarUsuarioPort, useClass: ValidarUsuarioAdapter },
     BuscarEventoUseCase,
-    { provide: BuscarEventoPort, useClass: BuscarEventoAdapter }, // Uncomment if you have an adapter for BuscarEvento
+    { provide: BuscarEventoPort, useClass: BuscarEventoAdapter },
+    NomePipe
   ],
   bootstrap: [AppComponent],
 })

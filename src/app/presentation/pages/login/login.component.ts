@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { NomePipe } from '../../pipes/nome.pipe';
 
 @Component({
   selector: 'app-login',
@@ -19,12 +20,4 @@ export class LoginComponent {
 
   formSubmetido = false;
 
-  onSubmit() {
-    this.formSubmetido = true;
-    if (this.formLogin.valid) {
-      console.log('Formulário válido', this.formLogin.value);
-    } else {
-      console.log('Formulário inválido');
-    }
-  }
 }
