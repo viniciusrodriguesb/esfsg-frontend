@@ -16,16 +16,17 @@
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <mat-slide-toggle></mat-slide-toggle>
-        <label for="lembrar" class="text-sm font-medium">Lembrar-me</label>
+        <span class="text-sm font-medium">Lembrar-me</span>
       </div>
     </div>
     <button
       [disabled]="!formLogin.valid"
       (click)="realizarLogin()"
       [ngClass]="{ 'opacity-60': !formLogin.valid }"
-      class="bg-[#007AFF] text-white font-semibold rounded-[0.5rem] py-2.5"
+      class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
     >
       Entrar
+      <i-lucide class="w-5" name="move-right"></i-lucide>
     </button>
   </form>
 </div>

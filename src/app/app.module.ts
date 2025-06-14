@@ -72,6 +72,8 @@ import {
   Ticket,
   ChevronRight,
   Trash2,
+  Plus,
+  MoveRight,
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -126,7 +128,9 @@ import { NomePipe } from './presentation/pipes/nome.pipe';
       ChevronLeft,
       ChevronRight,
       Ticket,
-      Trash2
+      Trash2,
+      Plus,
+      MoveRight
     }),
     SweetAlert2Module.forRoot(),
 

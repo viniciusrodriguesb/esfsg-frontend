@@ -4,6 +4,8 @@ import { ValidarUsuarioUseCase } from '../../../../core/application/use-cases/us
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Rotas } from '../../../../core/domain/enums/rotas.enum';
+import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
+import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
 
 @Component({
   selector: 'app-form-usuario',
@@ -19,33 +21,31 @@ export class FormUsuarioComponent {
   });
 
   formSubmetido = false;
+  inscricaoUsuario: InscricaoRequestDto = new InscricaoRequestDto();
 
   constructor(
     private readonly validarUsuarioUseCase: ValidarUsuarioUseCase,
     private readonly router: Router
   ) {}
-  ngOnInit() {
-    console.log('formLogin', this.formLogin.valid);
-  }
-  onSubmit() {
-    this.formSubmetido = true;
-    if (this.formLogin.valid) {
-      console.log('Formulário válido', this.formLogin.value);
-    } else {
-      console.log('Formulário inválido');
-    }
-  }
 
-  realizarLogin() {
+  public realizarLogin() {
     this.formSubmetido = true;
 
     this.validarUsuarioUseCase.execute(this.formLogin.value.cpf).subscribe({
-      next: (usuario) => {
-        if (usuario) {
+      next: (resultado) => {
+        if (resultado) {
           Swal.fire({
             icon: 'success',
-            title: 'Usuário validado com sucesso!',
-            text: `Bem-vindo, ${usuario || 'usuário'}!`,
+            title: 'Bem-vindo!',
+            text: `Tudo certo com seu acesso, ${
+              resultado.nomeCompleto || 'usuário'
+            }!`,
+            customClass: {
+              title: 'swal-title',
+              confirmButton: 'swal-confirm-btn',
+              popup: 'swal-popup',
+            },
+            buttonsStyling: false,
           });
         } else {
           Swal.fire({
@@ -53,6 +53,12 @@ export class FormUsuarioComponent {
             title: 'Opa!',
             text: 'Não encontramos esse cpf, iremos te encaminhar para o cadastro.',
             confirmButtonText: 'Ir para cadastro',
+            customClass: {
+              title: 'swal-title',
+              confirmButton: 'swal-confirm-btn',
+              popup: 'swal-popup',
+            },
+            buttonsStyling: false,
           }).then((result) => {
             if (result.isConfirmed) {
               this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
@@ -64,10 +70,21 @@ export class FormUsuarioComponent {
         Swal.fire({
           icon: 'warning',
           title: 'Opa!',
-          text: 'Não encontramos esse cpf, iremos te encaminhar para o cadastro.',
+          text: 'Não encontramos esse CPF, iremos te encaminhar para o cadastro.',
           confirmButtonText: 'Ir para cadastro',
+          customClass: {
+            title: 'swal-title',
+            confirmButton: 'swal-confirm-btn',
+            popup: 'swal-popup',
+          },
+          buttonsStyling: false,
         }).then((result) => {
           if (result.isConfirmed) {
+            console.log(this.formLogin.value.cpf);
+            
+            this.inscricaoUsuario.cpf = this.formLogin.value.cpf;
+            this.inscricaoUsuario.usuario.cpf = this.formLogin.value.cpf;
+            localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario))
             this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
           }
         });

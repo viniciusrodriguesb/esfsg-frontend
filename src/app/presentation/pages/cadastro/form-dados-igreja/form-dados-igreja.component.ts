@@ -12,6 +12,10 @@ import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 import { Router } from '@angular/router';
 import { BuscarInstrumentoUseCase } from '../../../../core/application/use-cases/instrumento/buscar-instrumento.usecase';
 import { NomePipe } from '../../../pipes/nome.pipe';
+import { PeriodoEnum } from '../../../../core/domain/enums/periodo.enum';
+import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
+import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
+import { BuscarFuncaoEventoUseCase } from '../../../../core/application/use-cases/funcao/buscar-funcao-evento.usecase';
 
 @Component({
   selector: 'app-form-dados-igreja',
@@ -24,9 +28,13 @@ export class FormDadosIgrejaComponent {
 
   formDadosIgreja = this._formBuilder.group({
     classe: ['', Validators.required],
-    igreja: ['', Validators.required],
+    funcaoEvento: ['', Validators.required],
     dons: ['', Validators.required],
     deficiencia: ['', Validators.required],
+    periodo: ['', Validators.required],
+    visitas: ['', Validators.required],
+    carro: ['', Validators.required],
+    quantidadeVagas: ['', Validators.required],
     instrumentos: this._formBuilder.array([
       this._formBuilder.control('', Validators.required),
     ]),
@@ -37,21 +45,53 @@ export class FormDadosIgrejaComponent {
   classes: TabelaDominioResponseDto[] = [];
   igrejas: TabelaDominioResponseDto[] = [];
   opcoesInstrumentos: TabelaDominioResponseDto[] = [];
+  opcoesBooleanas: TabelaDominioResponseDto[] = [
+    { id: 1, descricao: 'Sim' },
+    { id: 2, descricao: 'Não' },
+  ];
+  opcoesFuncaoEvento: TabelaDominioResponseDto[] = [];
+  periodos: TabelaDominioResponseDto[] = [
+    { id: 1, descricao: PeriodoEnum.Tarde },
+    { id: 2, descricao: PeriodoEnum.Integral },
+  ];
+
+  exibeInfoVisita = false;
+  inscricaoUsuario: InscricaoRequestDto;
 
   constructor(
     private readonly buscarClasseUsecase: BuscarClasseUseCase,
-    private readonly buscarFuncaoIgrejasUsecase: BuscarFuncaoIgrejaUseCase,
     private readonly router: Router,
     private readonly buscarInstrumentosUsecase: BuscarInstrumentoUseCase,
+    private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
     private readonly nomePipe: NomePipe
   ) {}
 
   ngOnInit() {
+    this.inscricaoUsuario = JSON.parse( localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
+
     this.buscarClasse();
-    this.buscarIgrejas();
     this.buscarInstrumentos();
+    this.buscarFuncaoEvento();
   }
 
+  public exibirCamposVisita(evento: any) {
+    if (evento == 1) {
+      this.exibeInfoVisita = true;
+    } else {
+      this.exibeInfoVisita = false;
+    }
+  }
+
+  public buscarFuncaoEvento(){
+    this.buscarFuncaoEventoUsecase.execute(this.inscricaoUsuario.idEvento).subscribe({
+      next: (resultado) => { 
+        this.opcoesFuncaoEvento = this.formatarNomes(resultado);
+      },
+      error: () => {
+
+      }
+    })
+  }
   public buscarInstrumentos() {
     this.buscarInstrumentosUsecase.execute().subscribe({
       next: (instrumentos) => {
@@ -60,18 +100,6 @@ export class FormDadosIgrejaComponent {
         } else {
           this.opcoesInstrumentos = this.formatarNomes(instrumentos);
         }
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
-  }
-
-  public buscarIgrejas() {
-    this.buscarFuncaoIgrejasUsecase.execute().subscribe({
-      next: (igrejas) => {
-        this.igrejas = this.formatarNomes(igrejas);
-        console.log(igrejas);
       },
       error: (error) => {
         console.error(error);
@@ -95,6 +123,7 @@ export class FormDadosIgrejaComponent {
       'formDadosIgreja',
       JSON.stringify(this.formDadosIgreja.value)
     );
+    console.log(this.formDadosIgreja.value);
   }
 
   voltar() {
@@ -121,7 +150,12 @@ export class FormDadosIgrejaComponent {
     this.instrumentosFormArray.removeAt(index);
   }
 
-  private formatarNomes( nomes: TabelaDominioResponseDto[]): TabelaDominioResponseDto[] {
-    return nomes.map((nome) => ({ ...nome, descricao: this.nomePipe.transform(nome.descricao)}));
+  private formatarNomes(
+    nomes: TabelaDominioResponseDto[]
+  ): TabelaDominioResponseDto[] {
+    return nomes.map((nome) => ({
+      ...nome,
+      descricao: this.nomePipe.transform(nome.descricao),
+    }));
   }
 }

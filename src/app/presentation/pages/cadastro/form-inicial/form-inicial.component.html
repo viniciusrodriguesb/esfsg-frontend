@@ -5,7 +5,7 @@
       [tipo]="'select'"
       [label]="'Regiões'"
       [placeholder]="'Selecione'"
-      [formController]="formInicial.controls['regioes']"
+      [formController]="formInicial.controls['regiao']"
       [opcoes]="regioes"
       mensagemErro="Campo obrigatório"
       (valorSelecionado)="selecionarRegiao($event)"
@@ -39,10 +39,10 @@
         <div class="flex items-center justify-between">
           <p class="font-semibold text-[18px]">R$ {{ evento.valorIntegral }} <span class="text-[8px] text-gray-500"> (valor integral )</span></p>
           <button
-            (click)="prosseguir()"
-            class="w-8 h-8 flex items-center justify-center bg-[#007AFF] rounded-full"
+            (click)="prosseguir(1)"
+            class="w-8 h-8 flex text-[14px] items-center justify-center bg-[#007AFF] rounded-full"
           >
-            <i-lucide class="w-3 text-white" name="chevron-right"></i-lucide>
+           <i-lucide class="w-3 text-white" name="move-right"></i-lucide>
           </button>
         </div>
         <!-- <button

@@ -7,6 +7,8 @@ import { BuscarRegiaoUseCase } from '../../../../core/application/use-cases/regi
 import { BuscarEventoUseCase } from '../../../../core/application/use-cases/evento/buscar-evento.usecase';
 import { EventoResponseDto } from '../../../../core/application/dto/response/evento-response.dto';
 import { NomePipe } from '../../../pipes/nome.pipe';
+import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
+import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
 
 @Component({
   selector: 'app-form-inicial',
@@ -18,12 +20,13 @@ export class FormInicialComponent {
   private readonly _formBuilder = inject(FormBuilder);
 
   formInicial = this._formBuilder.group({
-    regioes: ['', Validators.required],
+    regiao: ['', Validators.required],
   });
 
   exibeCampos = false;
   regioes: TabelaDominioResponseDto[] = [];
   eventos: EventoResponseDto[] = [];
+  inscricaoUsuario: InscricaoRequestDto;
 
   constructor(
     private readonly buscarRegiaoUsecase: BuscarRegiaoUseCase,
@@ -34,11 +37,12 @@ export class FormInicialComponent {
 
   ngOnInit() {
     this.buscarRegiao();
+    this.inscricaoUsuario = JSON.parse(localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
   }
 
   public buscarEvento() {
     this.buscarEventoUsecase
-      .execute(parseInt(this.formInicial.get('regioes')?.value))
+      .execute(parseInt(this.formInicial.get('regiao')?.value))
       .subscribe({
         next: (resposta) => {
           if (resposta) {
@@ -73,11 +77,10 @@ export class FormInicialComponent {
     this.buscarEvento();
   }
 
-  prosseguir() {
-    localStorage.setItem(
-      'formCadastro',
-      JSON.stringify(this.formInicial.value)
-    );
+  prosseguir(idEvento: number) {
+    this.inscricaoUsuario.idEvento = idEvento;
+
+    localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
     this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
   }
 

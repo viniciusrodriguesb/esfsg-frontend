@@ -1,11 +1,21 @@
 import { Component, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { BuscarClasseUseCase } from '../../../../core/application/use-cases/classe/buscar-classe.usecase';
 import { BuscarFuncaoIgrejaUseCase } from '../../../../core/application/use-cases/funcao/buscar-funcao-igreja.usecase';
 import { TabelaDominioResponseDto } from '../../../../core/application/dto/response/tabela-dominio-response.dto';
 import { Router } from '@angular/router';
 import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 import { BuscarInstrumentoUseCase } from '../../../../core/application/use-cases/instrumento/buscar-instrumento.usecase';
+import { NomePipe } from '../../../pipes/nome.pipe';
+import { BuscarCondicaoMedicaUseCase } from '../../../../core/application/use-cases/condicao-medica/buscar-condicao-medica.usecase';
+import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
+import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
 
 @Component({
   selector: 'app-form-dados-pessoais',
@@ -22,6 +32,8 @@ export class FormDadosPessoaisComponent {
     telefone: ['', Validators.required],
     nascimento: ['', Validators.required],
     email: ['', [Validators.email]],
+    condicoesMedicas: this._formBuilder.array([this._formBuilder.control('')]),
+    funcoesIgreja: this._formBuilder.array([this._formBuilder.control('')]),
   });
 
   opcoesBoleanas: TabelaDominioResponseDto[] = [
@@ -30,29 +42,34 @@ export class FormDadosPessoaisComponent {
   ];
 
   formSubmetido = false;
-
-  classes: TabelaDominioResponseDto[] = [];
-  igrejas: TabelaDominioResponseDto[] = [];
-
+  opcoesCondicoes: TabelaDominioResponseDto[] = [];
+  opcoesFuncoes: TabelaDominioResponseDto[] = [];
   validacaoFilhos = true;
+  inscricaoUsuario: InscricaoRequestDto;
 
   constructor(
-    private readonly buscarClasseUsecase: BuscarClasseUseCase,
+    private readonly buscarCondicaoMedicaUsecase: BuscarCondicaoMedicaUseCase,
     private readonly buscarFuncaoIgrejasUsecase: BuscarFuncaoIgrejaUseCase,
     private readonly router: Router,
-
+    private readonly nomePipe: NomePipe
   ) {}
 
   ngOnInit() {
-    this.buscarClasse();
-    this.buscarIgrejas();
+    this.inscricaoUsuario = JSON.parse( localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
+
+    if (this.inscricaoUsuario) {
+      this.preencherFormulario(this.inscricaoUsuario);
+    }
+
+    this.buscarCondicaoMedica();
+    this.buscarFuncoesIgrejas();
   }
-  
-  public buscarIgrejas() {
+
+  public buscarFuncoesIgrejas() {
     this.buscarFuncaoIgrejasUsecase.execute().subscribe({
-      next: (igrejas) => {
-        this.igrejas = igrejas;
-        console.log(igrejas);
+      next: (resultado) => {
+        this.opcoesFuncoes = this.formatarNomes(resultado);
+        console.log(resultado);
       },
       error: (error) => {
         console.error(error);
@@ -60,26 +77,113 @@ export class FormDadosPessoaisComponent {
     });
   }
 
-  public buscarClasse() {
-    this.buscarClasseUsecase.execute().subscribe({
-      next: (classes) => {
-        this.classes = classes;
+  public buscarCondicaoMedica() {
+    this.buscarCondicaoMedicaUsecase.execute().subscribe({
+      next: (resultado) => {
+        this.opcoesCondicoes = this.formatarNomes(resultado);
       },
-      error: (error) => {
-        console.error(error);
-      },
+      error: () => {},
     });
   }
 
   prosseguir() {
+    this.preencherObjetoInscricao();
     localStorage.setItem(
-      'formDadosPessoais',
-      JSON.stringify(this.formDadosPessoais.value)
+      ParametroStorageEnum.FORM_INSCRICAO,
+      JSON.stringify(this.inscricaoUsuario)
     );
     this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_IGREJA]);
   }
 
   voltar() {
     this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_USUARIO]);
+  }
+
+  private preencherObjetoInscricao() {
+    this.inscricaoUsuario.usuario.telefone =
+      this.formDadosPessoais.get('telefone').value;
+    this.inscricaoUsuario.usuario.email =
+      this.formDadosPessoais.get('email').value;
+    this.inscricaoUsuario.usuario.nomeCompleto =
+      this.formDadosPessoais.get('nomeCompleto').value;
+    this.inscricaoUsuario.usuario.nascimento =
+      this.formDadosPessoais.get('nascimento').value;
+    this.inscricaoUsuario.usuario.condicoesMedicas = this.formDadosPessoais
+      .get('condicoesMedicas')
+      .value.map((v: string) => Number(v));
+    this.inscricaoUsuario.usuario.funcoesIgreja = this.formDadosPessoais
+      .get('funcoesIgreja')
+      .value.map((v: string) => Number(v));
+  }
+
+  preencherFormulario(dados: any): void {
+    this.formDadosPessoais.patchValue({
+      cpf: dados.cpf || '',
+      nomeCompleto: dados.usuario?.nomeCompleto || '',
+      telefone: dados.usuario?.telefone || '',
+      nascimento: dados.usuario?.nascimento || '',
+      email: dados.usuario?.email || '',
+    });
+
+    this.setFormArrayValues( 'condicoesMedicas', dados.usuario?.condicoesMedicas);
+    this.setFormArrayValues('funcoesIgreja', dados.usuario?.funcoesIgreja);
+  }
+
+  setFormArrayValues(nomeCampo: string, valores: any[]): void {
+    const formArray = this.formDadosPessoais.get(nomeCampo) as FormArray;
+    formArray.clear();
+
+    if (Array.isArray(valores) && valores.length > 0) {
+      valores.forEach((valor) =>
+        formArray.push(this._formBuilder.control(valor))
+      );
+    } else {
+      formArray.push(this._formBuilder.control(''));
+    }
+  }
+
+  get condicoesMedicasFormArray(): FormArray {
+    return this.formDadosPessoais.get('funcoesIgreja') as FormArray;
+  }
+
+  get condicoesMedicas(): FormControl[] {
+    return this.condicoesMedicasFormArray.controls as FormControl[];
+  }
+
+  adicionarCondicaoMedica() {
+    this.condicoesMedicasFormArray.push(
+      this._formBuilder.control('', Validators.required)
+    );
+  }
+
+  removerCondicaoMedica(index: number) {
+    this.condicoesMedicasFormArray.removeAt(index);
+  }
+
+  private formatarNomes(
+    nomes: TabelaDominioResponseDto[]
+  ): TabelaDominioResponseDto[] {
+    return nomes.map((nome) => ({
+      ...nome,
+      descricao: this.nomePipe.transform(nome.descricao),
+    }));
+  }
+
+  get funcoesIgrejaFormArray(): FormArray {
+    return this.formDadosPessoais.get('condicoesMedicas') as FormArray;
+  }
+
+  get funcoesIgreja(): FormControl[] {
+    return this.funcoesIgrejaFormArray.controls as FormControl[];
+  }
+
+  adicionarFuncaoIgreja() {
+    this.funcoesIgrejaFormArray.push(
+      this._formBuilder.control('', Validators.required)
+    );
+  }
+
+  removerFuncaoIgreja(index: number) {
+    this.funcoesIgrejaFormArray.removeAt(index);
   }
 }

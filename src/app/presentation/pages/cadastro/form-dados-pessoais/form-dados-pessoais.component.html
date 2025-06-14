@@ -1,75 +1,148 @@
 <div class="flex flex-col gap-2.5">
-  <form class="grid grid-cols-8 gap-3.5 py-7" [formGroup]="formDadosPessoais">
-    <app-input
-      class="col-start-1 col-end-9"
-      [(formController)]="formDadosPessoais.controls['nomeCompleto']"
-      [placeholder]="'Nome Completo'"
-      [id]="'nomeCompleto'"
-      [name]="'nomeCompleto'"
-      [tipo]="'text'"
-      [formSubmetido]="formSubmetido"
-      [label]="'Nome Completo'"
-      [contemIcone]="true"
-    ></app-input>
-    <app-input
-      class="col-start-1 col-end-4"
-      [(formController)]="formDadosPessoais.controls['cpf']"
-      [placeholder]="'CPF'"
-      [id]="'cpf'"
-      [name]="'cpf'"
-      [tipo]="'text'"
-      [formSubmetido]="formSubmetido"
-      [label]="'CPF'"
-      [contemIcone]="true"
-      [mask]="'000.000.000-00'"
-    ></app-input>
-    <app-input
-      class="col-start-4 col-end-9"
-      [(formController)]="formDadosPessoais.controls['nascimento']"
-      [placeholder]="'dd/mm/aaaa'"
-      [id]="'nascimento'"
-      [name]="'nascimento'"
-      [formSubmetido]="formSubmetido"
-      [label]="'Data de nascimento'"
-      [contemIcone]="true"
-      [mask]="'00/00/0000'"
-    ></app-input>
-    <app-input
-      class="col-start-1 col-end-4"
-      [(formController)]="formDadosPessoais.controls['telefone']"
-      [placeholder]="'Telefone'"
-      [id]="'telefone'"
-      [name]="'telefone'"
-      [tipo]="'text'"
-      [formSubmetido]="formSubmetido"
-      [label]="'Telefone'"
-      [contemIcone]="true"
-      [mask]="'(00) 00000-0000'"
-    ></app-input>
-    <app-input
-      class="col-start-4 col-end-9"
-      [(formController)]="formDadosPessoais.controls['email']"
-      [placeholder]="'Email'"
-      [id]="'email'"
-      [name]="'email'"
-      [tipo]="'email'"
-      [formSubmetido]="formSubmetido"
-      [label]="'Email'"
-      [contemIcone]="true"
-    ></app-input>
+  <form class=" py-7" [formGroup]="formDadosPessoais">
+    <div class="grid grid-cols-8 gap-3.5">
+      <app-input
+        class="col-start-1 col-end-9"
+        [(formController)]="formDadosPessoais.controls['nomeCompleto']"
+        [placeholder]="'Nome Completo'"
+        [id]="'nomeCompleto'"
+        [name]="'nomeCompleto'"
+        [tipo]="'text'"
+        [formSubmetido]="formSubmetido"
+        [label]="'Nome Completo'"
+        [contemIcone]="true"
+      ></app-input>
+      <app-input
+        class="col-start-1 col-end-4"
+        [(formController)]="formDadosPessoais.controls['cpf']"
+        [placeholder]="'CPF'"
+        [id]="'cpf'"
+        [name]="'cpf'"
+        [tipo]="'text'"
+        [formSubmetido]="formSubmetido"
+        [label]="'CPF'"
+        [contemIcone]="true"
+        [mask]="'000.000.000-00'"
+      ></app-input>
+      <app-input
+        class="col-start-4 col-end-9"
+        [(formController)]="formDadosPessoais.controls['nascimento']"
+        [placeholder]="'dd/mm/aaaa'"
+        [id]="'nascimento'"
+        [name]="'nascimento'"
+        [formSubmetido]="formSubmetido"
+        [label]="'Data de nascimento'"
+        [contemIcone]="true"
+        [mask]="'00/00/0000'"
+      ></app-input>
+      <app-input
+        class="col-start-1 col-end-4"
+        [(formController)]="formDadosPessoais.controls['telefone']"
+        [placeholder]="'Telefone'"
+        [id]="'telefone'"
+        [name]="'telefone'"
+        [tipo]="'text'"
+        [formSubmetido]="formSubmetido"
+        [label]="'Telefone'"
+        [contemIcone]="true"
+        [mask]="'(00) 00000-0000'"
+      ></app-input>
+      <app-input
+        class="col-start-4 col-end-9"
+        [(formController)]="formDadosPessoais.controls['email']"
+        [placeholder]="'Email'"
+        [id]="'email'"
+        [name]="'email'"
+        [tipo]="'email'"
+        [formSubmetido]="formSubmetido"
+        [label]="'Email'"
+        [contemIcone]="true"
+      ></app-input>
+    </div>
+          <div class="flex flex-col gap-2 mt-9">
+      <div
+        class="flex items-center justify-between gap-3.5 text-[10px] font-medium"
+      >
+        <p>Informe sua(s) função(oes) na igreja:</p>
+        <button
+          (click)="adicionarFuncaoIgreja()"
+          class="w-6 h-6 flex items-center justify-center bg-[#007AFF] rounded-full"
+        >
+          <i-lucide class="w-3 text-white" name="plus"></i-lucide>
+        </button>
+      </div>
+      <div
+        *ngFor="let funcaoCtrl of funcoesIgreja; let i = index"
+        class="flex items-center justify-between gap-3.5"
+      >
+        <app-input
+          class="w-full"
+          [tipo]="'select'"
+          [placeholder]="'Selecione'"
+          [formController]="funcaoCtrl"
+          [opcoes]="opcoesFuncoes"
+          [formSubmetido]="formSubmetido"
+          mensagemErro="Campo obrigatório"
+        ></app-input>
+        <button
+          type="button"
+          class="font-bold"
+          (click)="removerFuncaoIgreja(i)"
+          *ngIf="funcoesIgreja.length > 1"
+        >
+          <i-lucide class="w-4" name="trash-2"></i-lucide>
+        </button>
+      </div>
+    </div>
+      <div class="flex flex-col gap-2 mt-9">
+      <div
+        class="flex items-center justify-between gap-3.5 text-[10px] font-medium"
+      >
+        <p>Caso possua, adicione a condição médica:</p>
+        <button
+          (click)="adicionarCondicaoMedica()"
+          class="w-6 h-6 flex items-center justify-center bg-[#007AFF] rounded-full"
+        >
+          <i-lucide class="w-3 text-white" name="plus"></i-lucide>
+        </button>
+      </div>
+      <div
+        *ngFor="let condicaoCtrl of condicoesMedicas; let i = index"
+        class="flex items-center justify-between gap-3.5"
+      >
+        <app-input
+          class="w-full"
+          [tipo]="'select'"
+          [placeholder]="'Selecione'"
+          [formController]="condicaoCtrl"
+          [opcoes]="opcoesCondicoes"
+          [formSubmetido]="formSubmetido"
+          mensagemErro="Campo obrigatório"
+        ></app-input>
+        <button
+          type="button"
+          class="font-bold"
+          (click)="removerCondicaoMedica(i)"
+          *ngIf="condicoesMedicas.length > 1"
+        >
+          <i-lucide class="w-4" name="trash-2"></i-lucide>
+        </button>
+      </div>
+    </div>
   </form>
   <div class="flex flex-col gap-1.5">
     <button
       (click)="prosseguir()"
       [disabled]="!formDadosPessoais.valid"
        [ngClass]="{ 'opacity-60': !formDadosPessoais.valid }"
-      class="bg-[#007AFF] text-white font-semibold rounded-[0.5rem] py-2.5"
+      class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
     >
       Prosseguir
+       <i-lucide class="w-4" name="move-right"></i-lucide>
     </button>
     <button
       (click)="voltar()"
-      class="border-2 border-[#007AFF] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
+      class="border-2 border-[#007AFF] text-[14px] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
     >
       Voltar
     </button>
