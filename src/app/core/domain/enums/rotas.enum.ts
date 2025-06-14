@@ -6,4 +6,5 @@ export enum Rotas {
   LOGIN_USUARIO = 'usuario',
   LOGIN_ADMINISTRADOR = 'administrador',
   FORM_INICIAL = 'inicio',
+  FORM_DADOS_ADICIONAIS = 'dados-adicionais'
 }

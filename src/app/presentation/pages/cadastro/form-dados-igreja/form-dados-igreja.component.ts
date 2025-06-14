@@ -36,7 +36,7 @@ export class FormDadosIgrejaComponent {
     carro: ['', Validators.required],
     quantidadeVagas: ['', Validators.required],
     instrumentos: this._formBuilder.array([
-      this._formBuilder.control('', Validators.required),
+      this._formBuilder.control(''),
     ]),
   });
 
@@ -119,11 +119,7 @@ export class FormDadosIgrejaComponent {
   }
 
   prosseguir() {
-    localStorage.setItem(
-      'formDadosIgreja',
-      JSON.stringify(this.formDadosIgreja.value)
-    );
-    console.log(this.formDadosIgreja.value);
+    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_ADICIONAIS])
   }
 
   voltar() {

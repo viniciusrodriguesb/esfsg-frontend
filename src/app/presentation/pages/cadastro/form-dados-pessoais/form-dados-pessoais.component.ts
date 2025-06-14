@@ -1,9 +1,12 @@
 import { Component, inject } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { BuscarClasseUseCase } from '../../../../core/application/use-cases/classe/buscar-classe.usecase';
@@ -32,8 +35,14 @@ export class FormDadosPessoaisComponent {
     telefone: ['', Validators.required],
     nascimento: ['', Validators.required],
     email: ['', [Validators.email]],
-    condicoesMedicas: this._formBuilder.array([this._formBuilder.control('')]),
-    funcoesIgreja: this._formBuilder.array([this._formBuilder.control('')]),
+    condicoesMedicas: this._formBuilder.array(
+      [this._formBuilder.control('', Validators.required)],
+      [this.validarFormArrayComTodosObrigatorios()]
+    ),
+    funcoesIgreja: this._formBuilder.array(
+      [this._formBuilder.control('', Validators.required)],
+      [this.validarFormArrayComTodosObrigatorios()]
+    ),
   });
 
   opcoesBoleanas: TabelaDominioResponseDto[] = [
@@ -55,7 +64,9 @@ export class FormDadosPessoaisComponent {
   ) {}
 
   ngOnInit() {
-    this.inscricaoUsuario = JSON.parse( localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
+    this.inscricaoUsuario = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)
+    ) as InscricaoRequestDto;
 
     if (this.inscricaoUsuario) {
       this.preencherFormulario(this.inscricaoUsuario);
@@ -96,7 +107,9 @@ export class FormDadosPessoaisComponent {
   }
 
   voltar() {
-    this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_USUARIO]);
+    console.log(this.formDadosPessoais.valid);
+
+    // this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_USUARIO]);
   }
 
   private preencherObjetoInscricao() {
@@ -125,8 +138,21 @@ export class FormDadosPessoaisComponent {
       email: dados.usuario?.email || '',
     });
 
-    this.setFormArrayValues( 'condicoesMedicas', dados.usuario?.condicoesMedicas);
+    this.setFormArrayValues(
+      'condicoesMedicas',
+      dados.usuario?.condicoesMedicas
+    );
     this.setFormArrayValues('funcoesIgreja', dados.usuario?.funcoesIgreja);
+  }
+
+  validarFormArrayComTodosObrigatorios(): ValidatorFn {
+    return (formArray: AbstractControl): ValidationErrors | null => {
+      const array = formArray as FormArray;
+      const invalido = array.controls.some(
+        (control) => !control.value || control.invalid
+      );
+      return invalido ? { campoObrigatorioNoArray: true } : null;
+    };
   }
 
   setFormArrayValues(nomeCampo: string, valores: any[]): void {

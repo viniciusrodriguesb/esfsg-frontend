@@ -8,6 +8,7 @@ import { FormDadosIgrejaComponent } from './presentation/pages/cadastro/form-dad
 import { FormUsuarioComponent } from './presentation/pages/login/form-usuario/form-usuario.component';
 import { FormAdminComponent } from './presentation/pages/login/form-admin/form-admin.component';
 import { FormInicialComponent } from './presentation/pages/cadastro/form-inicial/form-inicial.component';
+import { FormDadosAdicionaisComponent } from './presentation/pages/cadastro/form-dados-adicionais/form-dados-adicionais.component';
 
 export const routes: Routes = [
   {
@@ -30,7 +31,7 @@ export const routes: Routes = [
     children: [
       {
         path: Rotas.FORM_INICIAL,
-        component: FormInicialComponent
+        component: FormInicialComponent,
         //redirectTo: Rotas.FORM_DADOS_PESSOAIS,
       },
       {
@@ -40,7 +41,11 @@ export const routes: Routes = [
       {
         path: Rotas.FORM_DADOS_IGREJA,
         component: FormDadosIgrejaComponent,
-      }
+      },
+      {
+        path: Rotas.FORM_DADOS_ADICIONAIS,
+        component: FormDadosAdicionaisComponent,
+      },
     ],
   },
 ];

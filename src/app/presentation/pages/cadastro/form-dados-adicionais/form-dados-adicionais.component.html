@@ -1,0 +1,130 @@
+<div class="flex flex-col gap-2.5">
+  <form class="py-7" [formGroup]="formDadosAdicionais">
+    <div class="grid grid-cols-8 gap-3.5">
+      <div class="col-start-1 col-end-9">
+        <app-input
+          class="w-full"
+          [tipo]="'select'"
+          [label]="'Igreja'"
+          [placeholder]="'Selecione'"
+          [formController]="formDadosAdicionais.controls['igreja']"
+          [opcoes]="igrejas"
+          [formSubmetido]="formSubmetido"
+          mensagemErro="Campo obrigatório"
+        ></app-input>
+        <span (click)="exibirCamposIgrejaNova()" class="text-[10px] text-[#007AFF] font-medium"
+          >Não possuo igreja na lista informada</span
+        >
+      </div>
+      <app-input
+      *ngIf="exibeCamposNovaIgreja"
+        class="col-start-1 col-end-5"
+        [tipo]="'select'"
+        [label]="'Regiões'"
+        [placeholder]="'Selecione'"
+        [formController]="formDadosAdicionais.controls['idRegiaoIgrejaNova']"
+        [opcoes]="regioes"
+        mensagemErro="Campo obrigatório"
+      ></app-input>
+      <app-input
+      *ngIf="exibeCamposNovaIgreja"
+        class="col-start-5 col-end-9"
+        [(formController)]="formDadosAdicionais.controls['nomeIgrejaNova']"
+        [placeholder]="'Nome da igreja'"
+        [id]="'nomeIgreja'"
+        [name]="'nomeIgreja'"
+        [tipo]="'text'"
+        [formSubmetido]="formSubmetido"
+        [label]="'Nome da igreja'"
+        [contemIcone]="true"
+      ></app-input>
+      <app-input
+      *ngIf="exibeCamposNovaIgreja"
+        class="col-start-1 col-end-9"
+        [(formController)]="formDadosAdicionais.controls['pastorIgrejaNova']"
+        [placeholder]="'Informe a deficiência'"
+        [id]="'pastor'"
+        [name]="'pastor'"
+        [tipo]="'text'"
+        [formSubmetido]="formSubmetido"
+        [label]="'Nome do pastor'"
+        [contemIcone]="true"
+      ></app-input>
+      <div class="col-start-1 col-end-9 flex flex-col gap-2 mt-7">
+        <div
+          class="flex items-center justify-between gap-3.5 text-[10px] font-medium"
+        >
+          <p>Caso tenha um menor de idade, adicione os dados:</p>
+          <button
+            (click)="adicionarInscricaoMenor()"
+            class="w-6 h-6 flex items-center justify-center bg-[#007AFF] rounded-full"
+          >
+            <i-lucide class="w-3 text-white" name="plus"></i-lucide>
+          </button>
+        </div>
+        <div
+          *ngFor="let menorCtrl of menores; let i = index"
+          class="grid grid-cols-8 gap-3.5 bg-white rounded-2xl shadow-lg p-6 border border-gray-300 relative"
+        >
+          <app-input
+            class="col-start-1 col-end-5"
+            [tipo]="'number'"
+            [label]="'Idade'"
+            [placeholder]="'Idade'"
+            [formController]="getFormControl(menorCtrl, 'idade')"
+            mensagemErro="Campo obrigatório"
+            [formSubmetido]="formSubmetido"
+          ></app-input>
+          <app-input
+            class="col-start-5 col-end-9"
+            [tipo]="'text'"
+            [label]="'Nome'"
+            [placeholder]="'Nome'"
+            [formController]="getFormControl(menorCtrl, 'nome')"
+            mensagemErro="Campo obrigatório"
+            [formSubmetido]="formSubmetido"
+          ></app-input>
+          <div class="col-start-1 col-end-9">
+            <div class="flex items-center justify-center gap-3.5">
+              <app-input
+                class="w-full"
+                [tipo]="'select'"
+                [label]="'Condição médica'"
+                [placeholder]="'Condição médica'"
+                [formController]="getFormControl(menorCtrl, 'idCondicaoMedica')"
+                [opcoes]="opcoesCondicoes"
+                mensagemErro="Campo obrigatório"
+                [formSubmetido]="formSubmetido"
+              ></app-input>
+              <button
+                type="button"
+                class="font-bold pt-5"
+                (click)="removerInscricaoMenor(i)"
+                *ngIf="menores.length > 1"
+              >
+                <i-lucide class="w-4" name="trash-2"></i-lucide>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="flex flex-col gap-1.5">
+    <button
+      (click)="prosseguir()"
+      [disabled]="!formDadosAdicionais.valid"
+      [ngClass]="{ 'opacity-60': !formDadosAdicionais.valid }"
+      class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+    >
+      Prosseguir
+      <i-lucide class="w-4" name="move-right"></i-lucide>
+    </button>
+    <button
+      (click)="voltar()"
+      class="border-2 border-[#007AFF] text-[14px] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
+    >
+      Voltar
+    </button>
+  </div>
+</div>

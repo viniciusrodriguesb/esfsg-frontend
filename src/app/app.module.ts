@@ -94,6 +94,7 @@ import { BuscarEventoUseCase } from './core/application/use-cases/evento/buscar-
 import { BuscarEventoAdapter } from './infrastructure/adapter/evento/buscar-evento.adapter';
 import { BuscarEventoPort } from './core/domain/ports/evento/buscar-evento.port';
 import { NomePipe } from './presentation/pipes/nome.pipe';
+import { FormDadosAdicionaisComponent } from './presentation/pages/cadastro/form-dados-adicionais/form-dados-adicionais.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { NomePipe } from './presentation/pipes/nome.pipe';
     FormDadosIgrejaComponent,
     FormUsuarioComponent,
     FormAdminComponent,
-    FormInicialComponent
+    FormInicialComponent,
+    FormDadosAdicionaisComponent
   ],
   imports: [
     BrowserModule,
