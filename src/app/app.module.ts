@@ -95,6 +95,8 @@ import { BuscarEventoAdapter } from './infrastructure/adapter/evento/buscar-even
 import { BuscarEventoPort } from './core/domain/ports/evento/buscar-evento.port';
 import { NomePipe } from './presentation/pipes/nome.pipe';
 import { FormDadosAdicionaisComponent } from './presentation/pages/cadastro/form-dados-adicionais/form-dados-adicionais.component';
+import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
+import player from 'lottie-web';
 
 @NgModule({
   declarations: [
@@ -115,6 +117,7 @@ import { FormDadosAdicionaisComponent } from './presentation/pages/cadastro/form
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    LottieComponent,
 
     // Configuração das bibliotecas
     NgxMaskModule.forRoot(),
@@ -146,6 +149,7 @@ import { FormDadosAdicionaisComponent } from './presentation/pages/cadastro/form
     MatSelectModule,
   ],
   providers: [
+     provideLottieOptions({ player: () => player }),
     provideHttpClient(withInterceptorsFromDi()),
     BuscarClasseUseCase,
     {
