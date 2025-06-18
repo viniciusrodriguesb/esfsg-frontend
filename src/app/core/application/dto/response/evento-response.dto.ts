@@ -1,4 +1,5 @@
 export interface EventoResponseDto {
+  id: number
   nome: string
   limiteIntegral: number
   limiteParcial: number

@@ -15,6 +15,6 @@ export class AppComponent {
 
   ngOnInit() {
     // Redireciona para a página de login ao iniciar a aplicação
-    this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_USUARIO]);
+    //this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_USUARIO]);
   }
 }

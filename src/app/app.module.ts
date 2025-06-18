@@ -97,6 +97,8 @@ import { NomePipe } from './presentation/pipes/nome.pipe';
 import { FormDadosAdicionaisComponent } from './presentation/pages/cadastro/form-dados-adicionais/form-dados-adicionais.component';
 import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
+import { ConfirmacaoComponent } from './presentation/pages/cadastro/confirmacao/confirmacao.component';
+import { FormDadosEventoComponent } from './presentation/pages/cadastro/form-dados-evento/form-dados-evento.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +111,9 @@ import player from 'lottie-web';
     FormUsuarioComponent,
     FormAdminComponent,
     FormInicialComponent,
-    FormDadosAdicionaisComponent
+    FormDadosAdicionaisComponent,
+    ConfirmacaoComponent,
+    FormDadosEventoComponent
   ],
   imports: [
     BrowserModule,

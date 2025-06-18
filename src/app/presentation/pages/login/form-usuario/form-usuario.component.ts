@@ -40,13 +40,18 @@ export class FormUsuarioComponent {
             text: `Tudo certo com seu acesso, ${
               resultado.nomeCompleto || 'usuário'
             }!`,
+             confirmButtonText: 'Avançar',
             customClass: {
               title: 'swal-title',
               confirmButton: 'swal-confirm-btn',
               popup: 'swal-popup',
             },
             buttonsStyling: false,
-          });
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate([Rotas.CADASTRO, Rotas.FORM_INICIAL]);
+            }
+          });;
         } else {
           Swal.fire({
             icon: 'warning',
@@ -61,7 +66,7 @@ export class FormUsuarioComponent {
             buttonsStyling: false,
           }).then((result) => {
             if (result.isConfirmed) {
-              this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
+              this.router.navigate([Rotas.CADASTRO, Rotas.FORM_INICIAL]);
             }
           });
         }
@@ -79,13 +84,11 @@ export class FormUsuarioComponent {
           },
           buttonsStyling: false,
         }).then((result) => {
-          if (result.isConfirmed) {
-            console.log(this.formLogin.value.cpf);
-            
+          if (result.isConfirmed) {            
             this.inscricaoUsuario.cpf = this.formLogin.value.cpf;
             this.inscricaoUsuario.usuario.cpf = this.formLogin.value.cpf;
             localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario))
-            this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
+            this.router.navigate([Rotas.CADASTRO, Rotas.FORM_INICIAL]);
           }
         });
       },

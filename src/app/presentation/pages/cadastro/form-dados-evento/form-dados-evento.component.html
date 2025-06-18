@@ -1,0 +1,145 @@
+<div class="flex flex-col gap-2.5">
+  <form class="py-7" [formGroup]="formDadosIgreja">
+    <div class="grid grid-cols-8 gap-3.5">
+      <app-input
+        class="col-start-1 col-end-9"
+        [(formController)]="formDadosIgreja.controls['deficiencia']"
+        [placeholder]="'Informe a deficiência'"
+        [id]="'deficiencia'"
+        [name]="'deficiencia'"
+        [tipo]="'text'"
+        [formSubmetido]="formSubmetido"
+        [label]="'Possui alguma deficiência?'"
+        [contemIcone]="true"
+      ></app-input>
+      <app-input
+        class="col-start-1 col-end-5"
+        [tipo]="'select'"
+        [label]="'Classe'"
+        [placeholder]="'Selecione'"
+        [formController]="formDadosIgreja.controls['classe']"
+        [opcoes]="classes"
+        [formSubmetido]="formSubmetido"
+        mensagemErro="Campo obrigatório"
+      ></app-input>
+      <app-input
+        class="col-start-5 col-end-9"
+        [tipo]="'select'"
+        [label]="'Função evento'"
+        [placeholder]="'Selecione'"
+        [formController]="formDadosIgreja.controls['funcaoEvento']"
+        [opcoes]="opcoesFuncaoEvento"
+        [formSubmetido]="formSubmetido"
+        mensagemErro="Campo obrigatório"
+      ></app-input>
+
+      <app-input
+        class="col-start-1 col-end-5"
+        [tipo]="'select'"
+        [label]="'Período'"
+        [placeholder]="'Selecione'"
+        [formController]="formDadosIgreja.controls['periodo']"
+        [opcoes]="periodos"
+        [formSubmetido]="formSubmetido"
+        mensagemErro="Campo obrigatório"
+      ></app-input>
+      <app-input
+        class="col-start-5 col-end-9"
+        [tipo]="'select'"
+        [label]="'Possui dons?'"
+        [placeholder]="'Selecione'"
+        [formController]="formDadosIgreja.controls['dons']"
+        [opcoes]="opcoesBooleanas"
+        [formSubmetido]="formSubmetido"
+        mensagemErro="Campo obrigatório"
+      ></app-input>
+
+      <app-input
+        class="col-start-1 col-end-9"
+        [tipo]="'select'"
+        [label]="'Está disponível para visitas?'"
+        [placeholder]="'Selecione'"
+        [formController]="formDadosIgreja.controls['visitas']"
+        [opcoes]="opcoesBooleanas"
+        [formSubmetido]="formSubmetido"
+        mensagemErro="Campo obrigatório"
+        (valorSelecionado)="exibirCamposVisita($event)"
+      ></app-input>
+      <app-input
+        *ngIf="exibeInfoVisita"
+        class="col-start-1 col-end-5"
+        [tipo]="'select'"
+        [label]="'Possui Carro?'"
+        [placeholder]="'Selecione'"
+        [formController]="formDadosIgreja.controls['carro']"
+        [opcoes]="opcoesBooleanas"
+        [formSubmetido]="formSubmetido"
+        mensagemErro="Campo obrigatório"
+      ></app-input>
+      <app-input
+        *ngIf="exibeInfoVisita"
+        class="col-start-5 col-end-9"
+        [tipo]="'number'"
+        [label]="'Quantas vagas estão disponíveis?'"
+        [placeholder]="'Informe'"
+        [formController]="formDadosIgreja.controls['quantidadeVagas']"
+        [formSubmetido]="formSubmetido"
+        mensagemErro="Campo obrigatório"
+      ></app-input>
+    </div>
+
+    <div class="flex flex-col gap-2 mt-9">
+      <div
+        class="flex items-center justify-between gap-3.5 text-[10px] font-medium"
+      >
+        <p>Adicione um instrumento</p>
+        <button
+          (click)="adicionarInstrumento()"
+          class="w-6 h-6 flex items-center justify-center bg-[#007AFF] rounded-full"
+        >
+          <i-lucide class="w-3 text-white" name="plus"></i-lucide>
+        </button>
+      </div>
+      <div
+        *ngFor="let instrumentoCtrl of instrumentos; let i = index"
+        class="flex items-center justify-between gap-3.5"
+      >
+        <app-input
+          class="w-full"
+          [tipo]="'select'"
+          [placeholder]="'Selecione'"
+          [formController]="instrumentoCtrl"
+          [opcoes]="opcoesInstrumentos"
+          [formSubmetido]="formSubmetido"
+          mensagemErro="Campo obrigatório"
+        ></app-input>
+        <button
+          type="button"
+          class="font-bold"
+          (click)="removerInstrumento(i)"
+          *ngIf="instrumentos.length > 1"
+        >
+          <i-lucide class="w-4" name="trash-2"></i-lucide>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="flex flex-col gap-1.5">
+    <button
+      (click)="prosseguir()"
+        [disabled]="!formDadosIgreja.valid"
+       [ngClass]="{ 'opacity-60': !formDadosIgreja.valid }"
+      class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+    >
+      Prosseguir
+      <i-lucide class="w-4" name="move-right"></i-lucide>
+    </button>
+    <button
+      (click)="voltar()"
+      class="border-2 text-[14px] border-[#007AFF] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
+    >
+      Voltar
+    </button>
+  </div>
+</div>

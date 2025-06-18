@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { catchError, Observable, of } from "rxjs";
 import { ControllersEnum } from "../../../core/domain/enums/controllers.enum";
 import { ENVIRONMENT } from "../../../environment/environment-des";
 import { TabelaDominioResponseDto } from "../../../core/application/dto/response/tabela-dominio-response.dto";
@@ -14,11 +14,16 @@ export class BuscarCondicaoMedicaAdapter extends BuscarCondicaoMedicaPort {
   }
 
   buscarCondicoesMedicas(): Observable<TabelaDominioResponseDto[] | null> {
-    try {
-      return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.CondicaoMedica}/${ENVIRONMENT.VERSAO}`);
-    } catch (error) {
-      console.error('Erro ao buscar condições médicas:', error);
-      return of(null);
-    }
+    const listaFixa: TabelaDominioResponseDto[] = [
+      { id: 1, descricao: 'Hipertensão' },
+      { id: 2, descricao: 'Diabetes' },
+      { id: 3, descricao: 'Asma' }
+    ];
+    return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.CondicaoMedica}/${ENVIRONMENT.VERSAO}`).pipe(
+      catchError((error) => {
+        console.error('Erro ao buscar condições médicas:', error);
+        return of(listaFixa);
+      })
+    );
   }
 }

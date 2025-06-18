@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { TabelaDominioResponseDto } from '../../../core/application/dto/response/tabela-dominio-response.dto';
 import { ENVIRONMENT } from '../../../environment/environment-des';
 import { ControllersEnum } from '../../../core/domain/enums/controllers.enum';
@@ -14,11 +14,15 @@ export class BuscarRegiaoAdapter extends BuscarRegiaoPort {
   }
 
   buscarRegioes(): Observable<TabelaDominioResponseDto[] | null> {
-    try {
-      return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Regiao}/${ENVIRONMENT.VERSAO}`);
-    } catch (error) {
-      console.error('Erro ao buscar regiões:', error);
-      return of(null);
-    }
+      const listaFixa: TabelaDominioResponseDto[] = [
+      { id: 1, descricao: 'São Gonçalo' }
+      // Adicione mais itens conforme necessário
+    ];
+      return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Regiao}/${ENVIRONMENT.VERSAO}`).pipe(
+        catchError(error => {
+          console.error('Erro ao buscar regiões:', error);
+          return of(listaFixa);
+        })
+      );
   }
 }
