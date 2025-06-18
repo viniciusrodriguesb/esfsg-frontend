@@ -15,6 +15,7 @@ import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-st
 import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 import { NomePipe } from '../../../pipes/nome.pipe';
 import { BuscarRegiaoUseCase } from '../../../../core/application/use-cases/regiao/buscar-regiao.usecase';
+import { BuscarIgrejaUseCase } from '../../../../core/application/use-cases/igreja/buscar-classe.usecase';
 
 @Component({
   selector: 'app-form-dados-adicionais',
@@ -43,12 +44,7 @@ export class FormDadosAdicionaisComponent {
   opcoesFuncoes: TabelaDominioResponseDto[] = [];
   validacaoFilhos = true;
   inscricaoUsuario: InscricaoRequestDto;
-  igrejas: TabelaDominioResponseDto[] = [
-    {
-      id: 1,
-      descricao: 'teste',
-    },
-  ];
+  igrejas: TabelaDominioResponseDto[] = [];
 
   regioes: TabelaDominioResponseDto[] = [];
   exibeCamposNovaIgreja: boolean = false;
@@ -57,6 +53,7 @@ export class FormDadosAdicionaisComponent {
     private readonly buscarCondicaoMedicaUsecase: BuscarCondicaoMedicaUseCase,
     private readonly buscarFuncaoIgrejasUsecase: BuscarFuncaoIgrejaUseCase,
     private readonly buscarRegiaoUsecase: BuscarRegiaoUseCase,
+    private readonly buscarIgrejaUsecase: BuscarIgrejaUseCase,
     private readonly router: Router,
     private readonly nomePipe: NomePipe
   ) {}
@@ -72,6 +69,20 @@ export class FormDadosAdicionaisComponent {
 
     this.buscarRegiao();
     this.buscarCondicaoMedica();
+    this.buscarIgrejas();
+  }
+
+  public buscarIgrejas() {
+    this.buscarIgrejaUsecase.execute().subscribe({
+      next: (resposta) => {
+        if (resposta) {
+          this.igrejas = this.formatarNomes(resposta);
+        }
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar igrejas:', erro);
+      },
+    });
   }
 
   public exibirCamposIgrejaNova(){

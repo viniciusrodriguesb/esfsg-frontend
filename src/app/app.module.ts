@@ -99,6 +99,9 @@ import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 import { ConfirmacaoComponent } from './presentation/pages/cadastro/confirmacao/confirmacao.component';
 import { FormDadosEventoComponent } from './presentation/pages/cadastro/form-dados-evento/form-dados-evento.component';
+import { BuscarIgrejaUseCase } from './core/application/use-cases/igreja/buscar-classe.usecase';
+import { BuscarIgrejaAdapter } from './infrastructure/adapter/igreja/buscar-igreja.adapter';
+import { BuscarIgrejaPort } from './core/domain/ports/igreja/buscar-igreja.port';
 
 @NgModule({
   declarations: [
@@ -213,6 +216,8 @@ import { FormDadosEventoComponent } from './presentation/pages/cadastro/form-dad
     { provide: ValidarUsuarioPort, useClass: ValidarUsuarioAdapter },
     BuscarEventoUseCase,
     { provide: BuscarEventoPort, useClass: BuscarEventoAdapter },
+    BuscarIgrejaUseCase,
+    { provide: BuscarIgrejaPort, useClass: BuscarIgrejaAdapter },
     NomePipe
   ],
   bootstrap: [AppComponent],

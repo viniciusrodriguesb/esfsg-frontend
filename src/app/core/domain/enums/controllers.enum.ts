@@ -7,4 +7,5 @@ export enum ControllersEnum {
     Inscricao = 'Inscricao',
     Regiao = 'Regiao',
     Usuario = 'Usuario',
+    Igreja = 'Igreja',
 }
