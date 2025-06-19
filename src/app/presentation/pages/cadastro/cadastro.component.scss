@@ -48,19 +48,3 @@
 ::ng-deep .mat-stepper-vertical, .mat-stepper-horizontal{
   background: none !important;
 }
-
-
-// /* Quando o passo anterior está completo, muda a linha vertical */
-// ::ng-deep .mat-step-header.mat-completed + .mat-vertical-content-container::before {
-//   border-left: 2px solid #25c196 !important; // verde, como seu ícone
-// }
-
-// /* Quando o passo atual está ativo */
-// ::ng-deep .mat-step-header.mat-active + .mat-vertical-content-container::before {
-//   border-left: 2px solid #007aff !important; // azul, como já está
-// }
-
-// /* Quando o passo ainda não foi atingido */
-// ::ng-deep .mat-step-header:not(.mat-active):not(.mat-completed) + .mat-vertical-content-container::before {
-//   border-left: 2px dashed #ccc !important; // cinza tracejado, por exemplo
-// }

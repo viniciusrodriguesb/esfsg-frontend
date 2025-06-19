@@ -1,5 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  Validators,
+  FormArray,
+  FormControl,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
 import { TabelaDominioResponseDto } from '../../../../core/application/dto/response/tabela-dominio-response.dto';
@@ -15,30 +20,20 @@ import { NomePipe } from '../../../pipes/nome.pipe';
   selector: 'app-form-dados-evento',
   standalone: false,
   templateUrl: './form-dados-evento.component.html',
-  styleUrl: './form-dados-evento.component.scss'
+  styleUrl: './form-dados-evento.component.scss',
 })
-export class FormDadosEventoComponent{
+export class FormDadosEventoComponent {
   private readonly _formBuilder = inject(FormBuilder);
 
-  formDadosIgreja = this._formBuilder.group({
-    classe: ['', Validators.required],
+  formDadosEvento = this._formBuilder.group({
     funcaoEvento: ['', Validators.required],
-    dons: ['', Validators.required],
-    deficiencia: ['', Validators.required],
     periodo: ['', Validators.required],
-    visitas: ['', Validators.required],
-    carro: ['', Validators.required],
-    quantidadeVagas: ['', Validators.required],
-    instrumentos: this._formBuilder.array([
-      this._formBuilder.control(''),
-    ]),
+    visitas: [''],
+    carro: [''],
+    quantidadeVagas: [''],
   });
 
   formSubmetido = false;
-
-  classes: TabelaDominioResponseDto[] = [];
-  igrejas: TabelaDominioResponseDto[] = [];
-  opcoesInstrumentos: TabelaDominioResponseDto[] = [];
   opcoesBooleanas: TabelaDominioResponseDto[] = [
     { id: 1, descricao: 'Sim' },
     { id: 2, descricao: 'Não' },
@@ -53,19 +48,52 @@ export class FormDadosEventoComponent{
   inscricaoUsuario: InscricaoRequestDto;
 
   constructor(
-    private readonly buscarClasseUsecase: BuscarClasseUseCase,
     private readonly router: Router,
-    private readonly buscarInstrumentosUsecase: BuscarInstrumentoUseCase,
     private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
     private readonly nomePipe: NomePipe
   ) {}
 
   ngOnInit() {
-    this.inscricaoUsuario = JSON.parse( localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
+    this.inscricaoUsuario = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)
+    ) as InscricaoRequestDto;
 
-    this.buscarClasse();
-    this.buscarInstrumentos();
+    if (this.inscricaoUsuario) {
+      this.preencherFormulario(this.inscricaoUsuario);
+    }
+
     this.buscarFuncaoEvento();
+    console.log('evento form',this.formDadosEvento.value);
+    
+  }
+
+  private preencherObjetoInscricao() {
+    const formValue = this.formDadosEvento.value;
+
+    this.inscricaoUsuario = {
+      ...this.inscricaoUsuario,
+      idFuncaoEvento: parseInt(formValue.funcaoEvento ?? ''),
+      periodo: formValue.periodo ?? '',
+      visita: {
+        visita: formValue.visitas == '1',
+        carro: formValue.carro == '1',
+        vagas: parseInt(formValue.quantidadeVagas ?? ''),
+      },
+    };
+  }
+
+  preencherFormulario(dados: InscricaoRequestDto): void {
+    this.formDadosEvento.patchValue({
+      funcaoEvento: dados.idFuncaoEvento?.toString() || '',
+      periodo: dados.periodo || '',
+      visitas: dados.visita?.visita ? '1' : '2',
+      carro: dados.visita?.carro ? '1' : '2',
+      quantidadeVagas: dados.visita?.vagas?.toString() || '',
+    });
+
+    if (this.formDadosEvento.get('visitas')?.value === '1') {
+      this.exibeInfoVisita = true;
+    }
   }
 
   public exibirCamposVisita(evento: any) {
@@ -76,68 +104,28 @@ export class FormDadosEventoComponent{
     }
   }
 
-  public buscarFuncaoEvento(){
-    this.buscarFuncaoEventoUsecase.execute(this.inscricaoUsuario.idEvento).subscribe({
-      next: (resultado) => { 
-        this.opcoesFuncaoEvento = this.formatarNomes(resultado);
-      },
-      error: () => {
-
-      }
-    })
-  }
-  public buscarInstrumentos() {
-    this.buscarInstrumentosUsecase.execute().subscribe({
-      next: (instrumentos) => {
-        if (!instrumentos || instrumentos.length === 0) {
-          console.error('Nenhum instrumento encontrado.');
-        } else {
-          this.opcoesInstrumentos = this.formatarNomes(instrumentos);
-        }
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
-  }
-
-  public buscarClasse() {
-    this.buscarClasseUsecase.execute().subscribe({
-      next: (classes) => {
-        this.classes = this.formatarNomes(classes);
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
+  public buscarFuncaoEvento() {
+    this.buscarFuncaoEventoUsecase
+      .execute(this.inscricaoUsuario.idEvento)
+      .subscribe({
+        next: (resultado) => {
+          this.opcoesFuncaoEvento = this.formatarNomes(resultado);
+        },
+        error: () => {},
+      });
   }
 
   prosseguir() {
-    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_ADICIONAIS])
+    this.preencherObjetoInscricao();
+    localStorage.setItem(
+      ParametroStorageEnum.FORM_INSCRICAO,
+      JSON.stringify(this.inscricaoUsuario)
+    );
+    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_ADICIONAIS]);
   }
 
   voltar() {
-    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
-  }
-
-  // Getter do FormArray completo — para adicionar e remover
-  get instrumentosFormArray(): FormArray {
-    return this.formDadosIgreja.get('instrumentos') as FormArray;
-  }
-
-  // Getter apenas dos controles — para uso no template
-  get instrumentos(): FormControl[] {
-    return this.instrumentosFormArray.controls as FormControl[];
-  }
-
-  adicionarInstrumento() {
-    this.instrumentosFormArray.push(
-      this._formBuilder.control('', Validators.required)
-    );
-  }
-
-  removerInstrumento(index: number) {
-    this.instrumentosFormArray.removeAt(index);
+    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_IGREJA]);
   }
 
   private formatarNomes(
@@ -149,4 +137,3 @@ export class FormDadosEventoComponent{
     }));
   }
 }
-

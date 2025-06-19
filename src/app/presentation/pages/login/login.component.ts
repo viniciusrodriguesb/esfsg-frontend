@@ -9,12 +9,5 @@ import { AnimationOptions } from 'ngx-lottie';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  options: AnimationOptions = {
-    path: '/animations/confirmacao.json',
-    loop: false,
-  };
-
-  animationCreated(animationItem: AnimationItem): void {
-    console.log(animationItem);
-  }
+ 
 }

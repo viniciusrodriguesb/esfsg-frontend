@@ -5,6 +5,9 @@ import {
   FormArray,
   FormControl,
   FormGroup,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
@@ -16,6 +19,7 @@ import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 import { NomePipe } from '../../../pipes/nome.pipe';
 import { BuscarRegiaoUseCase } from '../../../../core/application/use-cases/regiao/buscar-regiao.usecase';
 import { BuscarIgrejaUseCase } from '../../../../core/application/use-cases/igreja/buscar-classe.usecase';
+import { InscricaoMenorRequestDto } from '../../../../core/application/dto/request/inscricao-menor-request.dto';
 
 @Component({
   selector: 'app-form-dados-adicionais',
@@ -64,12 +68,88 @@ export class FormDadosAdicionaisComponent {
     ) as InscricaoRequestDto;
 
     if (this.inscricaoUsuario) {
-      //this.preencherFormulario(this.inscricaoUsuario);
+      this.preencherFormulario(this.inscricaoUsuario);
     }
 
     this.buscarRegiao();
     this.buscarCondicaoMedica();
     this.buscarIgrejas();
+  }
+
+  private preencherObjetoInscricao() {
+    const formValue = this.formDadosAdicionais.value;
+
+    this.inscricaoUsuario = {
+      ...this.inscricaoUsuario,
+      usuario: {
+        ...this.inscricaoUsuario?.usuario,
+        idIgreja: formValue.igreja ? parseInt(formValue.igreja) : undefined,
+      },
+      igreja: {
+        idRegiao: formValue.idRegiaoIgrejaNova
+          ? parseInt(formValue.idRegiaoIgrejaNova)
+          : undefined,
+        nome: formValue.nomeIgrejaNova || undefined,
+        pastor: formValue.pastorIgrejaNova || undefined,
+      },
+      inscricaoMenor: Array.isArray(formValue.inscricaoMenor)
+        ? formValue.inscricaoMenor.map((menor: any) => ({
+            idade: menor.idade,
+            nome: menor.nome,
+            idCondicaoMedica: menor.idCondicaoMedica,
+          }))
+        : [],
+    };
+  }
+
+  preencherFormulario(dados: InscricaoRequestDto): void {
+    this.formDadosAdicionais.patchValue({
+      igreja: dados.usuario?.idIgreja?.toString() || '',
+      idRegiaoIgrejaNova: dados.igreja?.idRegiao?.toString() || '',
+      nomeIgrejaNova: dados.igreja?.nome || '',
+      pastorIgrejaNova: dados.igreja?.pastor || '',
+    });
+
+    const menores: Array<InscricaoMenorRequestDto> = dados.inscricaoMenor ?? [];
+
+    if (Array.isArray(menores) && menores.length > 0) {
+      const formArray = this.formDadosAdicionais.get(
+        'inscricaoMenor'
+      ) as FormArray;
+      formArray.clear();
+      menores.forEach((menor) => {
+        formArray.push(
+          this._formBuilder.group({
+            idade: [menor.idade ?? ''],
+            nome: [menor.nome ?? ''],
+            idCondicaoMedica: [menor.idCondicaoMedica ?? ''],
+          })
+        );
+      });
+    }
+  }
+
+  setFormArrayValues(nomeCampo: string, valores: any[]): void {
+    const formArray = this.formDadosAdicionais.get(nomeCampo) as FormArray;
+    formArray.clear();
+
+    if (Array.isArray(valores) && valores.length > 0) {
+      valores.forEach((valor) =>
+        formArray.push(this._formBuilder.control(valor))
+      );
+    } else {
+      formArray.push(this._formBuilder.control(''));
+    }
+  }
+
+  validarFormArrayComTodosObrigatorios(): ValidatorFn {
+    return (formArray: AbstractControl): ValidationErrors | null => {
+      const array = formArray as FormArray;
+      const invalido = array.controls.some(
+        (control) => !control.value || control.invalid
+      );
+      return invalido ? { campoObrigatorioNoArray: true } : null;
+    };
   }
 
   public buscarIgrejas() {
@@ -85,7 +165,7 @@ export class FormDadosAdicionaisComponent {
     });
   }
 
-  public exibirCamposIgrejaNova(){
+  public exibirCamposIgrejaNova() {
     this.exibeCamposNovaIgreja = true;
   }
 
@@ -124,59 +204,19 @@ export class FormDadosAdicionaisComponent {
   }
 
   prosseguir() {
-    // this.preencherObjetoInscricao();
+    this.preencherObjetoInscricao();
     localStorage.setItem(
       ParametroStorageEnum.FORM_INSCRICAO,
       JSON.stringify(this.inscricaoUsuario)
     );
-    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_IGREJA]);
+
+    this.router.navigate([Rotas.CADASTRO, Rotas.CONFIRMACAO_DADOS_CADASTRO]);
   }
 
   voltar() {
-    this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_USUARIO]);
-  }
-
-  // private preencherObjetoInscricao() {
-  //   this.inscricaoUsuario.usuario.telefone =
-  //     this.formDadosAdicionais.get('telefone').value;
-  //   this.inscricaoUsuario.usuario.email =
-  //     this.formDadosAdicionais.get('email').value;
-  //   this.inscricaoUsuario.usuario.nomeCompleto =
-  //     this.formDadosAdicionais.get('nomeCompleto').value;
-  //   this.inscricaoUsuario.usuario.nascimento =
-  //     this.formDadosAdicionais.get('nascimento').value;
-  //   this.inscricaoUsuario.usuario.condicoesMedicas = this.formDadosAdicionais
-  //     .get('condicoesMedicas')
-  //     .value.map((v: string) => Number(v));
-  //   this.inscricaoUsuario.usuario.funcoesIgreja = this.formDadosAdicionais
-  //     .get('funcoesIgreja')
-  //     .value.map((v: string) => Number(v));
-  // }
-
-  // preencherFormulario(dados: any): void {
-  //   this.formDadosAdicionais.patchValue({
-  //     cpf: dados.cpf || '',
-  //     nomeCompleto: dados.usuario?.nomeCompleto || '',
-  //     telefone: dados.usuario?.telefone || '',
-  //     nascimento: dados.usuario?.nascimento || '',
-  //     email: dados.usuario?.email || '',
-  //   });
-
-  //   this.setFormArrayValues( 'condicoesMedicas', dados.usuario?.condicoesMedicas);
-  //   this.setFormArrayValues('funcoesIgreja', dados.usuario?.funcoesIgreja);
-  // }
-
-  setFormArrayValues(nomeCampo: string, valores: any[]): void {
-    const formArray = this.formDadosAdicionais.get(nomeCampo) as FormArray;
-    formArray.clear();
-
-    if (Array.isArray(valores) && valores.length > 0) {
-      valores.forEach((valor) =>
-        formArray.push(this._formBuilder.control(valor))
-      );
-    } else {
-      formArray.push(this._formBuilder.control(''));
-    }
+    console.log('entrou');
+    
+    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_EVENTO]);
   }
 
   private formatarNomes(

@@ -9,6 +9,9 @@ import { FormUsuarioComponent } from './presentation/pages/login/form-usuario/fo
 import { FormAdminComponent } from './presentation/pages/login/form-admin/form-admin.component';
 import { FormInicialComponent } from './presentation/pages/cadastro/form-inicial/form-inicial.component';
 import { FormDadosAdicionaisComponent } from './presentation/pages/cadastro/form-dados-adicionais/form-dados-adicionais.component';
+import { FormDadosEventoComponent } from './presentation/pages/cadastro/form-dados-evento/form-dados-evento.component';
+import { ConfirmacaoComponent } from './presentation/pages/cadastro/confirmacao/confirmacao.component';
+import { SucessoComponent } from './presentation/pages/cadastro/sucesso/sucesso.component';
 
 export const routes: Routes = [
   {
@@ -43,9 +46,21 @@ export const routes: Routes = [
         component: FormDadosIgrejaComponent,
       },
       {
+        path: Rotas.FORM_DADOS_EVENTO,
+        component: FormDadosEventoComponent,
+      },
+      {
         path: Rotas.FORM_DADOS_ADICIONAIS,
         component: FormDadosAdicionaisComponent,
       },
+      {
+        path: Rotas.CONFIRMACAO_DADOS_CADASTRO,
+        component: ConfirmacaoComponent,
+      },
+      {
+        path: Rotas.SUCESSO_CADASTRO,
+        component: SucessoComponent,
+      }
     ],
   },
 ];

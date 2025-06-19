@@ -85,6 +85,6 @@ export class FormInicialComponent {
   }
 
   voltar() {
-    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
+    this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_USUARIO]);
   }
 }

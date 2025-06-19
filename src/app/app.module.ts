@@ -74,6 +74,17 @@ import {
   Trash2,
   Plus,
   MoveRight,
+  Church,
+  CirclePlus,
+  Car,
+  Pencil,
+  Baby,
+  CheckCheck,
+  LogIn,
+  ListCheck,
+  MapPin,
+  BadgeCheck,
+  HandHeart,
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -102,6 +113,7 @@ import { FormDadosEventoComponent } from './presentation/pages/cadastro/form-dad
 import { BuscarIgrejaUseCase } from './core/application/use-cases/igreja/buscar-classe.usecase';
 import { BuscarIgrejaAdapter } from './infrastructure/adapter/igreja/buscar-igreja.adapter';
 import { BuscarIgrejaPort } from './core/domain/ports/igreja/buscar-igreja.port';
+import { SucessoComponent } from './presentation/pages/cadastro/sucesso/sucesso.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +128,8 @@ import { BuscarIgrejaPort } from './core/domain/ports/igreja/buscar-igreja.port'
     FormInicialComponent,
     FormDadosAdicionaisComponent,
     ConfirmacaoComponent,
-    FormDadosEventoComponent
+    FormDadosEventoComponent,
+    SucessoComponent
   ],
   imports: [
     BrowserModule,
@@ -142,7 +155,18 @@ import { BuscarIgrejaPort } from './core/domain/ports/igreja/buscar-igreja.port'
       Ticket,
       Trash2,
       Plus,
-      MoveRight
+      MoveRight,
+      Church,
+      Baby,
+      Car,
+      Pencil,
+      CheckCheck,
+      ListCheck,
+      LogIn,
+      CirclePlus,
+      MapPin,
+      BadgeCheck,
+      HandHeart
     }),
     SweetAlert2Module.forRoot(),
 

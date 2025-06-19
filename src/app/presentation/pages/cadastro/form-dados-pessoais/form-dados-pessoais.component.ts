@@ -107,9 +107,7 @@ export class FormDadosPessoaisComponent {
   }
 
   voltar() {
-    console.log(this.formDadosPessoais.valid);
-
-    // this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_USUARIO]);
+    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_INICIAL]);
   }
 
   private preencherObjetoInscricao() {

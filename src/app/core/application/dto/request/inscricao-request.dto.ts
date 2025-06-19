@@ -6,8 +6,8 @@ import { VisitaRequestDto } from "./visita-request.dto"
 export class InscricaoRequestDto {
   cpf: string = ''
   periodo: string = ''
-  idFuncaoEvento: number = 0
-  idEvento: number = 0
+  idFuncaoEvento: number
+  idEvento: number
   visita: VisitaRequestDto = new VisitaRequestDto()
   usuario: UsuarioRequestDto = new UsuarioRequestDto()
   inscricaoMenor: InscricaoMenorRequestDto[] = []

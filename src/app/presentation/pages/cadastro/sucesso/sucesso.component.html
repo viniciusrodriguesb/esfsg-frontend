@@ -1,0 +1,17 @@
+<div class="flex flex-col items-center justify-center gap-8 h-10/12">
+  <ng-lottie
+    [options]="options"
+    (animationCreated)="animationCreated($event)"
+    
+  />
+  <div class="flex flex-col items-center gap-2 px-4">
+    <p class="text-[16px] font-semibold">Cadastro realizado com sucesso!</p>
+    <span class="text-[12px] font-normal text-center">Agora que você se cadastrou, basta clicar no botão abaixo para acessar todas as funcionalidades do sistema.</span>
+  </div>
+  <button
+    class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2 w-1/2"
+  >
+    Acessar
+    <i-lucide class="w-4" name="log-in"></i-lucide>
+  </button>
+</div>

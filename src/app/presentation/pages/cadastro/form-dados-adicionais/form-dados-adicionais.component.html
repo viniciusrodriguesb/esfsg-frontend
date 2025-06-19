@@ -1,5 +1,18 @@
 <div class="flex flex-col gap-2.5">
-  <form class="py-7" [formGroup]="formDadosAdicionais">
+    <div class="flex flex-col gap-2">
+    <div class="flex items-center gap-2">
+      <div
+        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+      >
+        <i-lucide class="w-3.5 text-white" name="circle-plus"></i-lucide>
+      </div>
+      <p class="text-2xl font-semibold">Dados adicionais</p>
+    </div>
+    <p class="text-[12px]">
+      Preencha os dados abaixo para continuar o cadastro
+    </p>
+  </div>
+  <form class="pb-7 pt-4" [formGroup]="formDadosAdicionais">
     <div class="grid grid-cols-8 gap-3.5">
       <div class="col-start-1 col-end-9">
         <app-input
@@ -64,7 +77,7 @@
         </div>
         <div
           *ngFor="let menorCtrl of menores; let i = index"
-          class="grid grid-cols-8 gap-3.5 bg-white rounded-2xl shadow-lg p-6 border border-gray-300 relative"
+          class="grid grid-cols-8 gap-3.5 bg-white rounded-2xl shadow-lg p-6 relative"
         >
           <app-input
             class="col-start-1 col-end-5"

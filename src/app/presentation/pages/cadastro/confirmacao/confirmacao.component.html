@@ -1,1 +1,209 @@
-<p>confirmacao works!</p>
+<div class="flex flex-col gap-2.5 pb-2.5">
+  <div class="flex flex-col gap-2">
+    <div class="flex items-center gap-2">
+      <div
+        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+      >
+        <i-lucide class="w-3.5 text-white" name="badge-check"></i-lucide>
+      </div>
+      <p class="text-2xl font-semibold">Confirmação</p>
+    </div>
+    <p class="text-[12px]">
+      Confirme os dados abaixo antes de prosseguir com a inscrição.
+    </p>
+  </div>
+  <!-- Dados Pessoais -->
+  <div
+    class="flex flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div
+          class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+        >
+          <i-lucide class="w-3.5" name="user"></i-lucide>
+        </div>
+        <p class="font-bold text-[12px]">Dados Pessoais</p>
+      </div>
+      <span class="text-[10px] text-[#222] opacity-70 underline">
+        <i-lucide class="w-3" name="pencil"></i-lucide>
+      </span>
+    </div>
+    <span class="h-0.5 bg-[#F6F6F6]"></span>
+    <div class="flex flex-col gap-1.5 text-[10px]">
+      <p class="flex justify-between">
+        <span class="font-medium">Nome:</span>
+        {{ inscricaoUsuario.usuario.nomeCompleto }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">CPF:</span> {{ inscricaoUsuario.usuario.cpf }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Email:</span>
+        {{ inscricaoUsuario.usuario.email }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Telefone:</span>
+        {{ inscricaoUsuario.usuario.telefone }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Nascimento:</span>
+        {{ inscricaoUsuario.usuario.nascimento | date : "dd/MM/yyyy" }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">PCD:</span> {{ inscricaoUsuario.usuario.pcd }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Possui dons?</span>
+        {{ inscricaoUsuario.usuario.dons ? "Sim" : "Não" }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Informações do Evento -->
+  <div
+    class="flex flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div
+          class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+        >
+          <i-lucide class="w-3.5" name="ticket"></i-lucide>
+        </div>
+        <p class="font-bold text-[12px]">Evento</p>
+      </div>
+      <span class="text-[10px] text-[#222] opacity-70 underline">
+        <i-lucide class="w-3" name="pencil"></i-lucide>
+      </span>
+    </div>
+    <span class="h-0.5 bg-[#F6F6F6]"></span>
+    <div class="flex flex-col gap-1.5 text-[10px]">
+      <p class="flex justify-between">
+        <span class="font-medium">Período:</span> {{ inscricaoUsuario.periodo }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Função:</span>
+        {{ inscricaoUsuario.idFuncaoEvento }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Evento:</span> {{ inscricaoUsuario.idEvento }}
+      </p>
+    </div>
+  </div>
+
+  <div class="flex gap-2.5">
+    <!-- Informações sobre Visita -->
+    <div
+      class="flex flex-1/2 flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative"
+    >
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div
+            class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+          >
+            <i-lucide class="w-3.5" name="car"></i-lucide>
+          </div>
+          <p class="font-bold text-[12px]">Visita</p>
+        </div>
+        <span class="text-[10px] text-[#222] opacity-70 underline">
+          <i-lucide class="w-3" name="pencil"></i-lucide>
+        </span>
+      </div>
+      <span class="h-0.5 bg-[#F6F6F6]"></span>
+      <div class="flex flex-col gap-1.5 text-[10px]">
+        <p class="flex justify-between">
+          <span class="font-medium">Vai visitar?</span>
+          {{ inscricaoUsuario.visita.visita ? "Sim" : "Não" }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Vagas no carro:</span>
+          {{ inscricaoUsuario.visita.vagas }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Possui carro?</span>
+          {{ inscricaoUsuario.visita.carro ? "Sim" : "Não" }}
+        </p>
+      </div>
+    </div>
+    <!-- Informações da Igreja -->
+    <div
+      class="flex flex-1/2 flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative"
+    >
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div
+            class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+          >
+            <i-lucide class="w-3.5" name="church"></i-lucide>
+          </div>
+          <p class="font-bold text-[12px]">Igreja</p>
+        </div>
+        <span class="text-[10px] text-[#222] opacity-70 underline">
+          <i-lucide class="w-3" name="pencil"></i-lucide>
+        </span>
+      </div>
+      <span class="h-0.5 bg-[#F6F6F6]"></span>
+      <div class="flex flex-col gap-1.5 text-[10px]">
+        <p class="flex justify-between">
+          <span class="font-medium">Nome:</span>
+          {{ inscricaoUsuario.igreja.nome }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Pastor:</span>
+          {{ inscricaoUsuario.igreja.pastor }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Região:</span>
+          {{ inscricaoUsuario.igreja.idRegiao }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inscrição de Menores (caso exista) -->
+  <div
+    *ngIf="inscricaoUsuario.inscricaoMenor?.length"
+    class="flex flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div
+          class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+        >
+          <i-lucide class="w-3.5" name="baby"></i-lucide>
+        </div>
+        <p class="font-bold text-[12px]">Inscrição de Menor</p>
+      </div>
+      <span class="text-[10px] text-[#222] opacity-70 underline">
+        <i-lucide class="w-3" name="pencil"></i-lucide>
+      </span>
+    </div>
+    <span class="h-0.5 bg-[#F6F6F6]"></span>
+    <div
+      *ngFor="let menor of inscricaoUsuario.inscricaoMenor; let last = last"
+      [ngClass]="{ 'border-b border-dashed border-gray-300': !last }"
+      class="flex flex-col gap-1.5 text-[10px] pb-3"
+    >
+      <p class="flex justify-between">
+        <span class="font-medium">Nome:</span> {{ menor.nome }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Idade:</span> {{ menor.idade }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Condição Médica:</span>
+        {{ menor.idCondicaoMedica }}
+      </p>
+    </div>
+  </div>
+  <div class="flex flex-col gap-1.5">
+    <button
+      (click)="prosseguir()"
+      class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+    >
+      Concluir
+      <i-lucide class="w-4" name="check-check"></i-lucide>
+    </button>
+  </div>
+</div>

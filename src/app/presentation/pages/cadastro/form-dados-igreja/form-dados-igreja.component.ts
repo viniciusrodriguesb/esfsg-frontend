@@ -1,8 +1,11 @@
 import { Component, inject } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormControl,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { TabelaDominioResponseDto } from '../../../../core/application/dto/response/tabela-dominio-response.dto';
@@ -28,16 +31,9 @@ export class FormDadosIgrejaComponent {
 
   formDadosIgreja = this._formBuilder.group({
     classe: ['', Validators.required],
-    funcaoEvento: ['', Validators.required],
     dons: ['', Validators.required],
-    deficiencia: ['', Validators.required],
-    periodo: ['', Validators.required],
-    visitas: ['', Validators.required],
-    carro: ['', Validators.required],
-    quantidadeVagas: ['', Validators.required],
-    instrumentos: this._formBuilder.array([
-      this._formBuilder.control(''),
-    ]),
+    pcd: ['', Validators.required],
+    instrumentos: this._formBuilder.array([this._formBuilder.control('')]),
   });
 
   formSubmetido = false;
@@ -67,7 +63,13 @@ export class FormDadosIgrejaComponent {
   ) {}
 
   ngOnInit() {
-    this.inscricaoUsuario = JSON.parse( localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
+    this.inscricaoUsuario = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)
+    ) as InscricaoRequestDto;
+
+    if (this.inscricaoUsuario) {
+      this.preencherFormulario(this.inscricaoUsuario);
+    }
 
     this.buscarClasse();
     this.buscarInstrumentos();
@@ -82,15 +84,15 @@ export class FormDadosIgrejaComponent {
     }
   }
 
-  public buscarFuncaoEvento(){
-    this.buscarFuncaoEventoUsecase.execute(this.inscricaoUsuario.idEvento).subscribe({
-      next: (resultado) => { 
-        this.opcoesFuncaoEvento = this.formatarNomes(resultado);
-      },
-      error: () => {
-
-      }
-    })
+  public buscarFuncaoEvento() {
+    this.buscarFuncaoEventoUsecase
+      .execute(this.inscricaoUsuario.idEvento)
+      .subscribe({
+        next: (resultado) => {
+          this.opcoesFuncaoEvento = this.formatarNomes(resultado);
+        },
+        error: () => {},
+      });
   }
   public buscarInstrumentos() {
     this.buscarInstrumentosUsecase.execute().subscribe({
@@ -119,7 +121,12 @@ export class FormDadosIgrejaComponent {
   }
 
   prosseguir() {
-    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_ADICIONAIS])
+    this.preencherObjetoInscricao();
+    localStorage.setItem(
+      ParametroStorageEnum.FORM_INSCRICAO,
+      JSON.stringify(this.inscricaoUsuario)
+    );
+    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_EVENTO]);
   }
 
   voltar() {
@@ -153,5 +160,64 @@ export class FormDadosIgrejaComponent {
       ...nome,
       descricao: this.nomePipe.transform(nome.descricao),
     }));
+  }
+
+  private preencherObjetoInscricao() {
+    const formValue = this.formDadosIgreja.value;
+
+    this.inscricaoUsuario = {
+      ...this.inscricaoUsuario,
+      usuario: {
+        ...this.inscricaoUsuario.usuario,
+        idClasse: parseInt(formValue.classe ?? ''),
+        dons: formValue.dons == '1',
+        pcd: formValue.pcd ?? '',
+        instrumentos: Array.isArray(formValue.instrumentos)
+          ? formValue.instrumentos.filter((i) => i !== '').map((i) => Number(i))
+          : [],
+      }
+    };
+  }
+
+  preencherFormulario(dados: InscricaoRequestDto): void {
+    this.formDadosIgreja.patchValue({
+      classe: dados.usuario?.idClasse?.toString() || '',
+      dons: dados.usuario?.dons ? '1' : '2',
+      pcd: dados.usuario?.pcd || '',
+    });
+
+    this.setFormArrayValues(
+      'instrumentos',
+      Array.isArray(dados.usuario?.instrumentos)
+        ? dados.usuario.instrumentos.map((i) => i?.toString())
+        : []
+    );
+
+    if(this.formDadosIgreja.get('visitas')?.value === '1') {
+      this.exibeInfoVisita = true;
+    }
+  }
+
+  setFormArrayValues(nomeCampo: string, valores: any[]): void {
+    const formArray = this.formDadosIgreja.get(nomeCampo) as FormArray;
+    formArray.clear();
+
+    if (Array.isArray(valores) && valores.length > 0) {
+      valores.forEach((valor) =>
+        formArray.push(this._formBuilder.control(valor, Validators.required))
+      );
+    } else {
+      formArray.push(this._formBuilder.control('', Validators.required));
+    }
+  }
+
+  validarFormArrayComTodosObrigatorios(): ValidatorFn {
+    return (formArray: AbstractControl): ValidationErrors | null => {
+      const array = formArray as FormArray;
+      const invalido = array.controls.some(
+        (control) => !control.value || control.invalid
+      );
+      return invalido ? { campoObrigatorioNoArray: true } : null;
+    };
   }
 }
