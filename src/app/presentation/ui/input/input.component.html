@@ -1,8 +1,11 @@
 <div class="{{ classeInput }}">
   <div class="flex flex-col gap-2">
-    <label [for]="id" [for]="id" class="text-sm font-medium max-sm:text-[10px]">{{
-      label
-    }}</label>
+    <label
+      [for]="id"
+      [for]="id"
+      class="text-sm font-medium max-sm:text-[10px]"
+      >{{ label }}</label
+    >
 
     <!-- Wrapper estilizado -->
     <div
@@ -13,7 +16,7 @@
       <input
         *ngIf="tipoInput !== 'select'"
         [mask]="mask"
-        class="outline-none w-full max-sm:text-[11px] bg-transparent"
+        class="outline-none w-full max-sm:text-[12px] bg-transparent"
         [formControl]="formController"
         [placeholder]="placeholder"
         [type]="tipoInput"
@@ -40,25 +43,22 @@
       </select>
 
       <!-- Ícone de validação -->
-      <i-lucide
-        *ngIf="
-          contemIcone &&
-          formController.valid &&
-          (formSubmetido || formController.touched)
-        "
-        name="check"
-        class="w-3 h-fit text-green-600/50"
-      ></i-lucide>
-
-      <i-lucide
-        *ngIf="
-          contemIcone &&
-          formController.invalid &&
-          (formSubmetido || formController.touched)
-        "
-        name="x"
-        class="w-3 h-fit text-red-600/50"
-      ></i-lucide>
+      <div class="w-4 h-4 flex items-center justify-center">
+        <ng-container
+          *ngIf="contemIcone && (formSubmetido || formController.touched)"
+        >
+          <i-lucide
+            *ngIf="formController.valid"
+            name="check"
+            class="text-green-600/50"
+          ></i-lucide>
+          <i-lucide
+            *ngIf="formController.invalid"
+            name="x"
+            class="text-red-600/50"
+          ></i-lucide>
+        </ng-container>
+      </div>
 
       <!-- Ícone para password -->
       <ng-container *ngIf="tipo === 'password'">
