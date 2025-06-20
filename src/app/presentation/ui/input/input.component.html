@@ -16,7 +16,7 @@
       <input
         *ngIf="tipoInput !== 'select'"
         [mask]="mask"
-        class="outline-none w-full max-sm:text-[12px] bg-transparent"
+        class="outline-none w-full max-sm:text-[11px] bg-transparent"
         [formControl]="formController"
         [placeholder]="placeholder"
         [type]="tipoInput"
@@ -43,7 +43,7 @@
       </select>
 
       <!-- Ícone de validação -->
-      <div class="h-3 flex items-center justify-center" *ngIf="tipo !== 'select'">
+      <div class="h-[13px] flex items-center justify-center" *ngIf="tipo !== 'select'">
         <ng-container
           *ngIf="contemIcone && (formSubmetido || formController.touched)"
         >
