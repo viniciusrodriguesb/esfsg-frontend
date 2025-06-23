@@ -20,6 +20,7 @@ import { NomePipe } from '../../../pipes/nome.pipe';
 import { BuscarRegiaoUseCase } from '../../../../core/application/use-cases/regiao/buscar-regiao.usecase';
 import { BuscarIgrejaUseCase } from '../../../../core/application/use-cases/igreja/buscar-classe.usecase';
 import { InscricaoMenorRequestDto } from '../../../../core/application/dto/request/inscricao-menor-request.dto';
+import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
 
 @Component({
   selector: 'app-form-dados-adicionais',
@@ -52,6 +53,7 @@ export class FormDadosAdicionaisComponent {
 
   regioes: TabelaDominioResponseDto[] = [];
   exibeCamposNovaIgreja: boolean = false;
+  resumoInscricao: ResumoInscricaoDto;
 
   constructor(
     private readonly buscarCondicaoMedicaUsecase: BuscarCondicaoMedicaUseCase,
@@ -63,9 +65,8 @@ export class FormDadosAdicionaisComponent {
   ) {}
 
   ngOnInit() {
-    this.inscricaoUsuario = JSON.parse(
-      localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)
-    ) as InscricaoRequestDto;
+    this.inscricaoUsuario = JSON.parse(localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
+    this.resumoInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)) as ResumoInscricaoDto;
 
     if (this.inscricaoUsuario) {
       this.preencherFormulario(this.inscricaoUsuario);
@@ -76,30 +77,63 @@ export class FormDadosAdicionaisComponent {
     this.buscarIgrejas();
   }
 
-  private preencherObjetoInscricao() {
-    const formValue = this.formDadosAdicionais.value;
+private preencherObjetoInscricao() {
+  const formValue = this.formDadosAdicionais.value;
 
-    this.inscricaoUsuario = {
-      ...this.inscricaoUsuario,
-      usuario: {
-        ...this.inscricaoUsuario?.usuario,
-        idIgreja: formValue.igreja ? parseInt(formValue.igreja) : undefined,
-      },
-      igreja: {
+  const igrejaPreenchida =
+    formValue.idRegiaoIgrejaNova ||
+    formValue.nomeIgrejaNova?.trim() ||
+    formValue.pastorIgrejaNova?.trim();
+
+  const igreja = igrejaPreenchida
+    ? {
         idRegiao: formValue.idRegiaoIgrejaNova
           ? parseInt(formValue.idRegiaoIgrejaNova)
           : undefined,
         nome: formValue.nomeIgrejaNova || undefined,
         pastor: formValue.pastorIgrejaNova || undefined,
-      },
-      inscricaoMenor: Array.isArray(formValue.inscricaoMenor)
-        ? formValue.inscricaoMenor.map((menor: any) => ({
-            idade: menor.idade,
-            nome: menor.nome,
-            idCondicaoMedica: menor.idCondicaoMedica,
-          }))
-        : [],
-    };
+      }
+    : undefined;
+
+  const menoresValidos = (formValue.inscricaoMenor || []).filter((menor: any) => {
+    return (
+      menor.nome?.trim() ||
+      menor.idade ||
+      menor.idCondicaoMedica
+    );
+  });
+
+  const inscricaoMenor = menoresValidos.length
+    ? menoresValidos.map((menor: any) => ({
+        idade: Number(menor.idade),
+        nome: menor.nome,
+        idCondicaoMedica: Number(menor.idCondicaoMedica),
+      }))
+    : undefined;
+
+  this.inscricaoUsuario = {
+    ...this.inscricaoUsuario,
+    usuario: {
+      ...this.inscricaoUsuario?.usuario,
+      idIgreja: formValue.igreja ? parseInt(formValue.igreja) : undefined,
+    },
+    ...(igreja && { igreja }),
+    ...(inscricaoMenor && { inscricaoMenor })
+  };
+}
+
+  private preencherObjetoResumoInscricao(){
+    this.resumoInscricao.igrejaExiste.nome = this.igrejas.find((igreja) => igreja.id === parseInt(this.formDadosAdicionais.get('igreja')?.value))?.descricao || '';
+    this.resumoInscricao.igrejaNova.regiao = this.regioes.find((regiao) => regiao.id === parseInt(this.formDadosAdicionais.get('idRegiaoIgrejaNova')?.value))?.descricao || '';
+    this.resumoInscricao.igrejaNova.nome = this.formDadosAdicionais.get('nomeIgrejaNova')?.value || '';
+    this.resumoInscricao.igrejaNova.pastor = this.formDadosAdicionais.get('pastorIgrejaNova')?.value || '';
+    this.resumoInscricao.inscricaoMenor = this.formDadosAdicionais.get('inscricaoMenor')?.value.map((menor: InscricaoMenorRequestDto) => ({
+      idade: Number(menor.idade),
+      nome: menor.nome,
+      condicaoMedica: this.opcoesCondicoes.find((condicao) => condicao.id == menor.idCondicaoMedica)?.descricao,
+    })) || [];
+
+    localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO, JSON.stringify(this.resumoInscricao));
   }
 
   preencherFormulario(dados: InscricaoRequestDto): void {
@@ -110,7 +144,7 @@ export class FormDadosAdicionaisComponent {
       pastorIgrejaNova: dados.igreja?.pastor || '',
     });
 
-    const menores: Array<InscricaoMenorRequestDto> = dados.inscricaoMenor ?? [];
+    const menores: Array<InscricaoMenorRequestDto> = dados.inscricaoMenor;
 
     if (Array.isArray(menores) && menores.length > 0) {
       const formArray = this.formDadosAdicionais.get(
@@ -120,9 +154,9 @@ export class FormDadosAdicionaisComponent {
       menores.forEach((menor) => {
         formArray.push(
           this._formBuilder.group({
-            idade: [menor.idade ?? ''],
+            idade: [menor.idade ?? 0],
             nome: [menor.nome ?? ''],
-            idCondicaoMedica: [menor.idCondicaoMedica ?? ''],
+            idCondicaoMedica: [menor.idCondicaoMedica ?? 0],
           })
         );
       });
@@ -204,18 +238,14 @@ export class FormDadosAdicionaisComponent {
   }
 
   prosseguir() {
+    this.preencherObjetoResumoInscricao();
     this.preencherObjetoInscricao();
-    localStorage.setItem(
-      ParametroStorageEnum.FORM_INSCRICAO,
-      JSON.stringify(this.inscricaoUsuario)
-    );
 
+    localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
     this.router.navigate([Rotas.CADASTRO, Rotas.CONFIRMACAO_DADOS_CADASTRO]);
   }
 
-  voltar() {
-    console.log('entrou');
-    
+  voltar() {    
     this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_EVENTO]);
   }
 
@@ -230,9 +260,9 @@ export class FormDadosAdicionaisComponent {
 
   criarInscricaoMenor(): FormGroup {
     return this._formBuilder.group({
-      idade: [''],
+      idade: [null],
       nome: [''],
-      idCondicaoMedica: [''],
+      idCondicaoMedica: [null],
     });
   }
 

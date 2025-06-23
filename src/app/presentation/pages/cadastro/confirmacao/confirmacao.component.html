@@ -33,30 +33,62 @@
     <div class="flex flex-col gap-1.5 text-[10px]">
       <p class="flex justify-between">
         <span class="font-medium">Nome:</span>
-        {{ inscricaoUsuario.usuario.nomeCompleto }}
+        {{ resumoInscricao.usuario.nome }}
       </p>
       <p class="flex justify-between">
-        <span class="font-medium">CPF:</span> {{ inscricaoUsuario.usuario.cpf }}
+        <span class="font-medium">CPF:</span> {{ resumoInscricao.usuario.cpf }}
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Email:</span>
-        {{ inscricaoUsuario.usuario.email }}
+        {{ resumoInscricao.usuario.email || "Não informado" }}
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Telefone:</span>
-        {{ inscricaoUsuario.usuario.telefone }}
+        {{ resumoInscricao.usuario.telefone }}
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Nascimento:</span>
-        {{ inscricaoUsuario.usuario.nascimento | date : "dd/MM/yyyy" }}
+        {{ resumoInscricao.usuario.dataNascimento | date : "dd/MM/yyyy" }}
       </p>
       <p class="flex justify-between">
-        <span class="font-medium">PCD:</span> {{ inscricaoUsuario.usuario.pcd }}
+        <span class="font-medium">PCD:</span> {{ resumoInscricao.usuario.pcd }}
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Possui dons?</span>
-        {{ inscricaoUsuario.usuario.dons ? "Sim" : "Não" }}
+        {{ resumoInscricao.usuario.dons }}
       </p>
+      <p
+        class="flex justify-between"
+        *ngIf="resumoInscricao.igrejaExiste.nome != ''"
+      >
+        <span class="font-medium">Igreja:</span>
+        {{ resumoInscricao.igrejaExiste.nome }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Classe:</span>
+        {{ resumoInscricao.igrejaExiste.classe }}
+      </p>
+    </div>
+
+    <div class="h-0.5 bg-[#F6F6F6] w-full"></div>
+    <div class="flex flex-col gap-1.5 text-[10px] pb-3 border-b border-dashed border-gray-300"
+    >
+       <div class="flex flex-col gap-2">
+        <p class="font-medium">Instrumentos:</p>
+        <span *ngFor="let instrumento of resumoInscricao.usuario.instrumentos"> {{ instrumento }} </span>
+      </div>
+    </div>
+    <div class="flex flex-col gap-1.5 text-[10px] pb-3 border-b border-dashed border-gray-300">
+      <div class="flex flex-col gap-2">
+        <p class="font-medium">Condições Médicas:</p>
+        <span *ngFor="let condicao of resumoInscricao.usuario.condicaoMedica"> {{ condicao }} </span>
+      </div>
+    </div>
+    <div class="flex flex-col gap-1.5 text-[10px] pb-3">
+       <div class="flex flex-col gap-2">
+        <p class="font-medium">Funções na igreja:</p>
+        <span *ngFor="let funcao of resumoInscricao.usuario.funcoesIgreja"> {{ funcao }} </span>
+      </div>
     </div>
   </div>
 
@@ -80,14 +112,16 @@
     <span class="h-0.5 bg-[#F6F6F6]"></span>
     <div class="flex flex-col gap-1.5 text-[10px]">
       <p class="flex justify-between">
-        <span class="font-medium">Período:</span> {{ inscricaoUsuario.periodo }}
+        <span class="font-medium">Período:</span>
+        {{ resumoInscricao.evento.periodo }}
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Função:</span>
-        {{ inscricaoUsuario.idFuncaoEvento }}
+        {{ resumoInscricao.evento.funcao }}
       </p>
       <p class="flex justify-between">
-        <span class="font-medium">Evento:</span> {{ inscricaoUsuario.idEvento }}
+        <span class="font-medium">Evento:</span>
+        {{ resumoInscricao.evento.nome }}
       </p>
     </div>
   </div>
@@ -114,22 +148,20 @@
       <div class="flex flex-col gap-1.5 text-[10px]">
         <p class="flex justify-between">
           <span class="font-medium">Vai visitar?</span>
-          {{ inscricaoUsuario.visita.visita ? "Sim" : "Não" }}
+          {{ resumoInscricao.visita.visita }}
         </p>
         <p class="flex justify-between">
           <span class="font-medium">Vagas no carro:</span>
-          {{ inscricaoUsuario.visita.vagas }}
+          {{ resumoInscricao.visita.vagas }}
         </p>
         <p class="flex justify-between">
           <span class="font-medium">Possui carro?</span>
-          {{ inscricaoUsuario.visita.carro ? "Sim" : "Não" }}
+          {{ resumoInscricao.visita.carro }}
         </p>
       </div>
     </div>
     <!-- Informações da Igreja -->
-    <div
-      class="flex flex-1/2 flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative"
-    >
+    <div class="flex flex-1/2 flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative" *ngIf="!verificarIgrejaNova()">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <div
@@ -147,15 +179,15 @@
       <div class="flex flex-col gap-1.5 text-[10px]">
         <p class="flex justify-between">
           <span class="font-medium">Nome:</span>
-          {{ inscricaoUsuario.igreja.nome }}
+          {{ resumoInscricao.igrejaNova.nome }}
         </p>
         <p class="flex justify-between">
           <span class="font-medium">Pastor:</span>
-          {{ inscricaoUsuario.igreja.pastor }}
+          {{ resumoInscricao.igrejaNova.pastor }}
         </p>
         <p class="flex justify-between">
           <span class="font-medium">Região:</span>
-          {{ inscricaoUsuario.igreja.idRegiao }}
+          {{ resumoInscricao.igrejaNova.regiao }}
         </p>
       </div>
     </div>
@@ -163,7 +195,7 @@
 
   <!-- Inscrição de Menores (caso exista) -->
   <div
-    *ngIf="inscricaoUsuario.inscricaoMenor?.length"
+    *ngIf="!verificarInscricaoMenor()"
     class="flex flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative"
   >
     <div class="flex items-center justify-between">
@@ -181,7 +213,7 @@
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
     <div
-      *ngFor="let menor of inscricaoUsuario.inscricaoMenor; let last = last"
+      *ngFor="let menor of resumoInscricao.inscricaoMenor; let last = last"
       [ngClass]="{ 'border-b border-dashed border-gray-300': !last }"
       class="flex flex-col gap-1.5 text-[10px] pb-3"
     >
@@ -193,13 +225,13 @@
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Condição Médica:</span>
-        {{ menor.idCondicaoMedica }}
+        {{ menor.condicaoMedica }}
       </p>
     </div>
   </div>
   <div class="flex flex-col gap-1.5">
     <button
-      (click)="prosseguir()"
+      (click)="inserirInscricao()"
       class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
     >
       Concluir

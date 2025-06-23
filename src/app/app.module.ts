@@ -85,6 +85,9 @@ import {
   MapPin,
   BadgeCheck,
   HandHeart,
+  QrCode,
+  Ban,
+  MessageSquare,
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -114,6 +117,10 @@ import { BuscarIgrejaUseCase } from './core/application/use-cases/igreja/buscar-
 import { BuscarIgrejaAdapter } from './infrastructure/adapter/igreja/buscar-igreja.adapter';
 import { BuscarIgrejaPort } from './core/domain/ports/igreja/buscar-igreja.port';
 import { SucessoComponent } from './presentation/pages/cadastro/sucesso/sucesso.component';
+import { PerfilComponent } from './presentation/pages/perfil/perfil.component';
+import { BuscarInscricaoUseCase } from './core/application/use-cases/inscricao/buscar-inscricao.usecase';
+import { BuscarInscricaoAdapter } from './infrastructure/adapter/inscricao/buscar-inscricao.adapter';
+import { BuscarInscricaoPort } from './core/domain/ports/inscricao/buscar-inscricao.port';
 
 @NgModule({
   declarations: [
@@ -129,7 +136,8 @@ import { SucessoComponent } from './presentation/pages/cadastro/sucesso/sucesso.
     FormDadosAdicionaisComponent,
     ConfirmacaoComponent,
     FormDadosEventoComponent,
-    SucessoComponent
+    SucessoComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
@@ -166,7 +174,10 @@ import { SucessoComponent } from './presentation/pages/cadastro/sucesso/sucesso.
       CirclePlus,
       MapPin,
       BadgeCheck,
-      HandHeart
+      HandHeart,
+      QrCode,
+      Ban,
+      MessageSquare
     }),
     SweetAlert2Module.forRoot(),
 
@@ -242,7 +253,9 @@ import { SucessoComponent } from './presentation/pages/cadastro/sucesso/sucesso.
     { provide: BuscarEventoPort, useClass: BuscarEventoAdapter },
     BuscarIgrejaUseCase,
     { provide: BuscarIgrejaPort, useClass: BuscarIgrejaAdapter },
-    NomePipe
+    NomePipe,
+    BuscarInscricaoUseCase,
+    { provide: BuscarInscricaoPort, useClass: BuscarInscricaoAdapter },
   ],
   bootstrap: [AppComponent],
 })

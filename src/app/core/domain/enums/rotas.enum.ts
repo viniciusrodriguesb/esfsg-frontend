@@ -11,4 +11,6 @@ export enum Rotas {
   FORM_DADOS_ADICIONAIS = 'dados-adicionais',
   CONFIRMACAO_DADOS_CADASTRO = 'confirmacao-dados-cadastro',
   SUCESSO_CADASTRO = 'sucesso-cadastro',
+
+  PERFIL = 'perfil'
 }

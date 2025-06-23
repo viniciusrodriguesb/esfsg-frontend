@@ -9,6 +9,9 @@ import { EventoResponseDto } from '../../../../core/application/dto/response/eve
 import { NomePipe } from '../../../pipes/nome.pipe';
 import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
 import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
+import { BuscarInscricaoUseCase } from '../../../../core/application/use-cases/inscricao/buscar-inscricao.usecase';
+import { UsuarioResponseDto } from '../../../../core/application/dto/response/usuario-response.dto';
+import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
 
 @Component({
   selector: 'app-form-inicial',
@@ -27,10 +30,13 @@ export class FormInicialComponent {
   regioes: TabelaDominioResponseDto[] = [];
   eventos: EventoResponseDto[] = [];
   inscricaoUsuario: InscricaoRequestDto;
+  usuarioExistente: UsuarioResponseDto;
+  resumoInscricao: ResumoInscricaoDto;
 
   constructor(
     private readonly buscarRegiaoUsecase: BuscarRegiaoUseCase,
     private readonly buscarEventoUsecase: BuscarEventoUseCase,
+    private readonly buscarInscricaoUsecase: BuscarInscricaoUseCase,
     private readonly router: Router,
     private readonly nomePipe: NomePipe
   ) {}
@@ -38,6 +44,21 @@ export class FormInicialComponent {
   ngOnInit() {
     this.buscarRegiao();
     this.inscricaoUsuario = JSON.parse(localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
+    this.usuarioExistente = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_EXISTENTE)) as UsuarioResponseDto;
+    this.resumoInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)) as ResumoInscricaoDto;
+  }
+
+  public buscarInscricao(idEvento: number) {
+    this.buscarInscricaoUsecase.execute(idEvento, this.usuarioExistente.id).subscribe({
+      next: (resposta) => {
+        if(resposta){
+          this.router.navigate([Rotas.PERFIL]);
+        }
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar inscrição:', erro);
+      },
+    });
   }
 
   public buscarEvento() {
@@ -79,9 +100,17 @@ export class FormInicialComponent {
 
   prosseguir(idEvento: number) {
     this.inscricaoUsuario.idEvento = idEvento;
+    
+    if(this.usuarioExistente !== null) {
+      this.buscarInscricao(idEvento);
+    }else{
+      this.resumoInscricao.evento.nome = this.eventos.find(evento => evento.id === idEvento)?.nome || '';
+      
+      localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
+      localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO, JSON.stringify(this.resumoInscricao));
 
-    localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
-    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
+      this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
+    }
   }
 
   voltar() {

@@ -1,6 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
+import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 
 @Component({
   selector: 'app-sucesso',
@@ -16,7 +18,14 @@ export class SucessoComponent {
     loop: false,
   };
 
+  constructor(
+    private readonly router: Router
+  ) {}
+
   animationCreated(animationItem: AnimationItem): void {
     console.log(animationItem);
+  }
+  navegarParaPerfil(){
+    this.router.navigate([Rotas.PERFIL]);
   }
 }

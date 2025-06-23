@@ -19,6 +19,7 @@ import { PeriodoEnum } from '../../../../core/domain/enums/periodo.enum';
 import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
 import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
 import { BuscarFuncaoEventoUseCase } from '../../../../core/application/use-cases/funcao/buscar-funcao-evento.usecase';
+import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
 
 @Component({
   selector: 'app-form-dados-igreja',
@@ -53,6 +54,7 @@ export class FormDadosIgrejaComponent {
 
   exibeInfoVisita = false;
   inscricaoUsuario: InscricaoRequestDto;
+  resumoInscricao: ResumoInscricaoDto;
 
   constructor(
     private readonly buscarClasseUsecase: BuscarClasseUseCase,
@@ -63,9 +65,8 @@ export class FormDadosIgrejaComponent {
   ) {}
 
   ngOnInit() {
-    this.inscricaoUsuario = JSON.parse(
-      localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)
-    ) as InscricaoRequestDto;
+    this.inscricaoUsuario = JSON.parse(localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
+    this.resumoInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)) as ResumoInscricaoDto;
 
     if (this.inscricaoUsuario) {
       this.preencherFormulario(this.inscricaoUsuario);
@@ -74,6 +75,25 @@ export class FormDadosIgrejaComponent {
     this.buscarClasse();
     this.buscarInstrumentos();
     this.buscarFuncaoEvento();
+  }
+
+  private preencherObjetoResumoInscricao() {
+    this.preencherArrayInstrumentos(this.formDadosIgreja.get('instrumentos').value.map((v: string) => Number(v)))
+    this.resumoInscricao.usuario.pcd = this.formDadosIgreja.get('pcd')?.value;
+    this.resumoInscricao.igrejaExiste.classe = this.classes.find((classe) => classe.id === parseInt(this.formDadosIgreja.get('classe')?.value)).descricao;
+    this.resumoInscricao.usuario.dons = this.formDadosIgreja.get('dons')?.value === '1' ? 'Sim' : 'Não';
+
+    localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO, JSON.stringify(this.resumoInscricao));
+  }
+
+  private preencherArrayInstrumentos(instrumentos: number[]) {
+    this.resumoInscricao.usuario.instrumentos = [];
+    instrumentos.forEach((idInstrumento) => {
+      const instrumento = this.opcoesInstrumentos.find((i) => i.id === idInstrumento).descricao;
+      if (instrumento) {
+        this.resumoInscricao.usuario.instrumentos.push(instrumento);
+      }
+    });
   }
 
   public exibirCamposVisita(evento: any) {
@@ -121,11 +141,10 @@ export class FormDadosIgrejaComponent {
   }
 
   prosseguir() {
+    this.preencherObjetoResumoInscricao();
     this.preencherObjetoInscricao();
-    localStorage.setItem(
-      ParametroStorageEnum.FORM_INSCRICAO,
-      JSON.stringify(this.inscricaoUsuario)
-    );
+
+    localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
     this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_EVENTO]);
   }
 
@@ -175,7 +194,7 @@ export class FormDadosIgrejaComponent {
         instrumentos: Array.isArray(formValue.instrumentos)
           ? formValue.instrumentos.filter((i) => i !== '').map((i) => Number(i))
           : [],
-      }
+      },
     };
   }
 
@@ -193,7 +212,7 @@ export class FormDadosIgrejaComponent {
         : []
     );
 
-    if(this.formDadosIgreja.get('visitas')?.value === '1') {
+    if (this.formDadosIgreja.get('visitas')?.value === '1') {
       this.exibeInfoVisita = true;
     }
   }

@@ -19,6 +19,8 @@ import { NomePipe } from '../../../pipes/nome.pipe';
 import { BuscarCondicaoMedicaUseCase } from '../../../../core/application/use-cases/condicao-medica/buscar-condicao-medica.usecase';
 import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
 import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
+import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
+import moment from 'moment';
 
 @Component({
   selector: 'app-form-dados-pessoais',
@@ -55,6 +57,7 @@ export class FormDadosPessoaisComponent {
   opcoesFuncoes: TabelaDominioResponseDto[] = [];
   validacaoFilhos = true;
   inscricaoUsuario: InscricaoRequestDto;
+  resumoInscricao: ResumoInscricaoDto;
 
   constructor(
     private readonly buscarCondicaoMedicaUsecase: BuscarCondicaoMedicaUseCase,
@@ -64,9 +67,8 @@ export class FormDadosPessoaisComponent {
   ) {}
 
   ngOnInit() {
-    this.inscricaoUsuario = JSON.parse(
-      localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)
-    ) as InscricaoRequestDto;
+    this.inscricaoUsuario = JSON.parse(localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
+    this.resumoInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)) as ResumoInscricaoDto;
 
     if (this.inscricaoUsuario) {
       this.preencherFormulario(this.inscricaoUsuario);
@@ -97,12 +99,31 @@ export class FormDadosPessoaisComponent {
     });
   }
 
+  preencherArrayCondicoesMedicas(condicoes: number[]) {
+    this.resumoInscricao.usuario.condicaoMedica = [];
+    condicoes.forEach((idCondicao) => {
+      const condicao = this.opcoesCondicoes.find((c) => c.id === idCondicao).descricao;
+      if (condicao) {
+        this.resumoInscricao.usuario.condicaoMedica.push(condicao);
+      }
+    });
+  }
+
+  preencherArrayFuncoesIgreja(funcoes: number[]) {
+    this.resumoInscricao.usuario.funcoesIgreja = [];
+    funcoes.forEach((idFuncao) => {
+      const funcao = this.opcoesFuncoes.find((f) => f.id === idFuncao).descricao;
+      if (funcao) {
+        this.resumoInscricao.usuario.funcoesIgreja.push(funcao);
+      }
+    });
+  }
+
   prosseguir() {
     this.preencherObjetoInscricao();
-    localStorage.setItem(
-      ParametroStorageEnum.FORM_INSCRICAO,
-      JSON.stringify(this.inscricaoUsuario)
-    );
+    this.preencherObjetoResumoInscricao();
+
+    localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
     this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_IGREJA]);
   }
 
@@ -110,15 +131,25 @@ export class FormDadosPessoaisComponent {
     this.router.navigate([Rotas.CADASTRO, Rotas.FORM_INICIAL]);
   }
 
+  private formatarDataParaISO(dataStr: string): string {
+    const dia = dataStr.slice(0, 2);
+    const mes = dataStr.slice(2, 4);
+    const ano = dataStr.slice(4, 8);
+
+    const data = new Date(+ano, +mes - 1, +dia);
+    return data.toISOString();
+  }
+
+
   private preencherObjetoInscricao() {
     this.inscricaoUsuario.usuario.telefone =
       this.formDadosPessoais.get('telefone').value;
-    this.inscricaoUsuario.usuario.email =
-      this.formDadosPessoais.get('email').value;
+    if(this.formDadosPessoais.get('email').value) {
+      this.inscricaoUsuario.usuario.email = this.formDadosPessoais.get('email').value;
+    }
     this.inscricaoUsuario.usuario.nomeCompleto =
       this.formDadosPessoais.get('nomeCompleto').value;
-    this.inscricaoUsuario.usuario.nascimento =
-      this.formDadosPessoais.get('nascimento').value;
+    this.inscricaoUsuario.usuario.nascimento = this.formatarDataParaISO(this.formDadosPessoais.get('nascimento').value);
     this.inscricaoUsuario.usuario.condicoesMedicas = this.formDadosPessoais
       .get('condicoesMedicas')
       .value.map((v: string) => Number(v));
@@ -127,12 +158,25 @@ export class FormDadosPessoaisComponent {
       .value.map((v: string) => Number(v));
   }
 
+  private preencherObjetoResumoInscricao() {
+    this.preencherArrayCondicoesMedicas(this.formDadosPessoais.get('condicoesMedicas').value.map((v: string) => Number(v)))
+    this.preencherArrayFuncoesIgreja(this.formDadosPessoais.get('funcoesIgreja').value.map((v: string) => Number(v)))
+
+    this.resumoInscricao.usuario.cpf = this.inscricaoUsuario.usuario.cpf;
+    this.resumoInscricao.usuario.nome = this.inscricaoUsuario.usuario.nomeCompleto;
+    this.resumoInscricao.usuario.telefone = this.inscricaoUsuario.usuario.telefone;
+    this.resumoInscricao.usuario.dataNascimento = this.inscricaoUsuario.usuario.nascimento;
+    this.resumoInscricao.usuario.email = this.inscricaoUsuario.usuario.email;
+
+    localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO, JSON.stringify(this.resumoInscricao));
+  }
+
   preencherFormulario(dados: any): void {
     this.formDadosPessoais.patchValue({
       cpf: dados.cpf || '',
       nomeCompleto: dados.usuario?.nomeCompleto || '',
       telefone: dados.usuario?.telefone || '',
-      nascimento: dados.usuario?.nascimento || '',
+      nascimento:moment(dados.usuario?.nascimento || '').format('DDMMYYYY'),
       email: dados.usuario?.email || '',
     });
 
@@ -140,6 +184,8 @@ export class FormDadosPessoaisComponent {
       'condicoesMedicas',
       dados.usuario?.condicoesMedicas
     );
+    console.log(this.formDadosPessoais.value);
+    
     this.setFormArrayValues('funcoesIgreja', dados.usuario?.funcoesIgreja);
   }
 
@@ -167,7 +213,7 @@ export class FormDadosPessoaisComponent {
   }
 
   get condicoesMedicasFormArray(): FormArray {
-    return this.formDadosPessoais.get('funcoesIgreja') as FormArray;
+    return this.formDadosPessoais.get('condicoesMedicas') as FormArray;
   }
 
   get condicoesMedicas(): FormControl[] {
@@ -194,7 +240,7 @@ export class FormDadosPessoaisComponent {
   }
 
   get funcoesIgrejaFormArray(): FormArray {
-    return this.formDadosPessoais.get('condicoesMedicas') as FormArray;
+    return this.formDadosPessoais.get('funcoesIgreja') as FormArray;
   }
 
   get funcoesIgreja(): FormControl[] {

@@ -12,6 +12,7 @@ import { FormDadosAdicionaisComponent } from './presentation/pages/cadastro/form
 import { FormDadosEventoComponent } from './presentation/pages/cadastro/form-dados-evento/form-dados-evento.component';
 import { ConfirmacaoComponent } from './presentation/pages/cadastro/confirmacao/confirmacao.component';
 import { SucessoComponent } from './presentation/pages/cadastro/sucesso/sucesso.component';
+import { PerfilComponent } from './presentation/pages/perfil/perfil.component';
 
 export const routes: Routes = [
   {
@@ -62,6 +63,10 @@ export const routes: Routes = [
         component: SucessoComponent,
       }
     ],
+  },
+  {
+    path: Rotas.PERFIL,
+    component: PerfilComponent,
   },
 ];
 

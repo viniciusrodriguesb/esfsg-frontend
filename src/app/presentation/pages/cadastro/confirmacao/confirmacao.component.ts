@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
 import { Router } from '@angular/router';
 import { Rotas } from '../../../../core/domain/enums/rotas.enum';
+import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
+import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
+import { InserirInscricaoUseCase } from '../../../../core/application/use-cases/inscricao/inserir-inscricao.usecase';
 
 @Component({
   selector: 'app-confirmacao',
@@ -10,51 +13,92 @@ import { Rotas } from '../../../../core/domain/enums/rotas.enum';
   styleUrl: './confirmacao.component.scss',
 })
 export class ConfirmacaoComponent {
-  inscricaoUsuario: InscricaoRequestDto = {
-    cpf: '123.456.789-00',
-    periodo: '27 a 31 de Dezembro de 2024',
-    idFuncaoEvento: 2,
-    idEvento: 1,
-    visita: {
-      visita: true,
-      carro: true,
-      vagas: 4,
-    },
-    usuario: {
-      nomeCompleto: 'Lucas Andrade',
-      cpf: '987.654.321-00',
-      senha: 'SenhaSegura123!',
-      email: 'lucas.andrade@email.com',
-      telefone: '(21) 99876-5432',
-      nascimento: '2000-04-25',
-      pcd: 'Nenhuma',
-      dons: true,
-      idIgreja: 5,
-      idClasse: 2,
-      condicoesMedicas: [1, 3], // Por exemplo: 1 = Diabetes, 3 = Asma
-      instrumentos: [2, 5], // Ex: 2 = Violão, 5 = Teclado
-      funcoesIgreja: [1, 4], // Ex: 1 = Líder de Louvor, 4 = Professor
-    },
-    inscricaoMenor: [
-      {
-        nome: 'Maria Silva',
-        idade: 12,
-        idCondicaoMedica: 1,
-      },
-      {
-        nome: 'Pedro Silva',
-        idade: 10,
-        idCondicaoMedica: 2,
-      },
-    ],
-    igreja: {
-      nome: 'Igreja Batista Central',
-      idRegiao: 3,
-      pastor: 'Pastor Carlos',
-    },
-  };
 
-  constructor(private readonly router: Router) {}
+ mockInscricaoUsuario: ResumoInscricaoDto = {
+  visita: {
+    visita: 'Sim',
+    carro: 'Sim',
+    vagas: 3,
+  },
+  usuario: {
+    nome: 'João da Silva',
+    cpf: '123.456.789-00',
+    email: 'joao.silva@example.com',
+    telefone: '(11) 91234-5678',
+    dataNascimento: '1990-05-20',
+    pcd: 'Não',
+    dons: 'Música, Ensino',
+    condicaoMedica: ['Asma'],
+    instrumentos: ['Violão', 'Teclado'],
+    funcoesIgreja: ['Professor de Escola Sabatina', 'Líder de Jovens'],
+  },
+  inscricaoMenor: [
+    {
+      nome: 'Ana Clara Silva',
+      idade: 10,
+      condicaoMedica: 'Nenhuma',
+    },
+    {
+      nome: 'Lucas Silva',
+      idade: 8,
+      condicaoMedica: 'Alergia a amendoim',
+    },
+  ],
+  igrejaExiste: {
+    nome: 'Igreja Central de São Paulo',
+    classe: 'Classe dos Jovens Adultos',
+  },
+  igrejaNova: {
+    nome: 'Igreja Esperança Viva',
+    regiao: 'Zona Norte',
+    pastor: 'Pr. Marcos Oliveira',
+  },
+  evento: {
+    nome: 'Congresso Jovem 2025',
+    periodo: '27 a 31 de Dezembro de 2025',
+    funcao: 'Voluntário - Apoio Geral',
+  },
+};
+
+  resumoInscricao: ResumoInscricaoDto;
+  inscricaoUsuario: InscricaoRequestDto;
+  
+
+  constructor(
+    private readonly router: Router,
+    private readonly inserirInscricaoUsecase: InserirInscricaoUseCase
+  ) {}
+
+  ngOnInit(){
+
+    this.resumoInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)) as ResumoInscricaoDto;
+    this.inscricaoUsuario = JSON.parse(localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
+    if(!this.resumoInscricao) {
+      this.resumoInscricao = this.mockInscricaoUsuario;
+    }
+  }
+
+  inserirInscricao() {
+    console.log(this.inscricaoUsuario);
+    
+    this.inserirInscricaoUsecase.execute(this.inscricaoUsuario).subscribe({
+      next: (resultado) => {
+        console.log('Inscrição inserida com sucesso:', resultado);
+        this.prosseguir();
+      },
+      error: (error) => {
+        console.error('Erro ao inserir inscrição:', error);
+      }
+    });
+  }
+
+  verificarInscricaoMenor() {
+    return this.resumoInscricao.inscricaoMenor[0].nome === '';
+  }
+
+  verificarIgrejaNova() {
+    return this.resumoInscricao.igrejaNova.nome === '';
+  }
 
   prosseguir() {
     this.router.navigate([Rotas.CADASTRO, Rotas.SUCESSO_CADASTRO]);

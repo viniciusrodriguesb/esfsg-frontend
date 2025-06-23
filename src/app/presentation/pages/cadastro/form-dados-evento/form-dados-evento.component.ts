@@ -15,6 +15,7 @@ import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-st
 import { PeriodoEnum } from '../../../../core/domain/enums/periodo.enum';
 import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 import { NomePipe } from '../../../pipes/nome.pipe';
+import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
 
 @Component({
   selector: 'app-form-dados-evento',
@@ -46,6 +47,7 @@ export class FormDadosEventoComponent {
 
   exibeInfoVisita = false;
   inscricaoUsuario: InscricaoRequestDto;
+  resumoInscricao: ResumoInscricaoDto;
 
   constructor(
     private readonly router: Router,
@@ -54,9 +56,8 @@ export class FormDadosEventoComponent {
   ) {}
 
   ngOnInit() {
-    this.inscricaoUsuario = JSON.parse(
-      localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)
-    ) as InscricaoRequestDto;
+    this.inscricaoUsuario = JSON.parse(localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
+    this.resumoInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)) as ResumoInscricaoDto;
 
     if (this.inscricaoUsuario) {
       this.preencherFormulario(this.inscricaoUsuario);
@@ -80,6 +81,16 @@ export class FormDadosEventoComponent {
         vagas: parseInt(formValue.quantidadeVagas ?? ''),
       },
     };
+  }
+
+  private preencherObjetoResumoInscricao(){
+    this.resumoInscricao.evento.periodo = this.periodos.find((p) => p.id === parseInt(this.formDadosEvento.get('periodo')?.value))?.descricao || '';
+    this.resumoInscricao.evento.funcao = this.opcoesFuncaoEvento.find((f) => f.id === parseInt(this.formDadosEvento.get('funcaoEvento')?.value))?.descricao || '';
+    this.resumoInscricao.visita.visita = this.formDadosEvento.get('visitas')?.value === '1' ? 'Sim' : 'Não';
+    this.resumoInscricao.visita.carro = this.formDadosEvento.get('carro')?.value === '1' ? 'Sim' : 'Não';
+    this.resumoInscricao.visita.vagas = parseInt(this.formDadosEvento.get('quantidadeVagas')?.value) || 0;
+
+    localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO, JSON.stringify(this.resumoInscricao));
   }
 
   preencherFormulario(dados: InscricaoRequestDto): void {
@@ -116,11 +127,10 @@ export class FormDadosEventoComponent {
   }
 
   prosseguir() {
+    this.preencherObjetoResumoInscricao();
     this.preencherObjetoInscricao();
-    localStorage.setItem(
-      ParametroStorageEnum.FORM_INSCRICAO,
-      JSON.stringify(this.inscricaoUsuario)
-    );
+    
+    localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO,JSON.stringify(this.inscricaoUsuario));
     this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_ADICIONAIS]);
   }
 

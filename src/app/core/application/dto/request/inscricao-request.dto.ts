@@ -10,6 +10,6 @@ export class InscricaoRequestDto {
   idEvento: number
   visita: VisitaRequestDto = new VisitaRequestDto()
   usuario: UsuarioRequestDto = new UsuarioRequestDto()
-  inscricaoMenor: InscricaoMenorRequestDto[] = []
-  igreja: IgrejaRequestDto = new IgrejaRequestDto()
+  inscricaoMenor: InscricaoMenorRequestDto[]
+  igreja: IgrejaRequestDto
 }

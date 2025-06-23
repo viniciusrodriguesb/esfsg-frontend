@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
 import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
+import { UsuarioResponseDto } from '../../../../core/application/dto/response/usuario-response.dto';
+import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
 
 @Component({
   selector: 'app-form-usuario',
@@ -22,6 +24,8 @@ export class FormUsuarioComponent {
 
   formSubmetido = false;
   inscricaoUsuario: InscricaoRequestDto = new InscricaoRequestDto();
+  usuarioExistente: UsuarioResponseDto; 
+  resumoInscricao: ResumoInscricaoDto = new ResumoInscricaoDto(); 
 
   constructor(
     private readonly validarUsuarioUseCase: ValidarUsuarioUseCase,
@@ -49,9 +53,11 @@ export class FormUsuarioComponent {
             buttonsStyling: false,
           }).then((result) => {
             if (result.isConfirmed) {
+              this.usuarioExistente = resultado;
+              localStorage.setItem(ParametroStorageEnum.USUARIO_EXISTENTE, JSON.stringify(this.usuarioExistente));
               this.router.navigate([Rotas.CADASTRO, Rotas.FORM_INICIAL]);
             }
-          });;
+          });
         } else {
           Swal.fire({
             icon: 'warning',
@@ -87,7 +93,11 @@ export class FormUsuarioComponent {
           if (result.isConfirmed) {            
             this.inscricaoUsuario.cpf = this.formLogin.value.cpf;
             this.inscricaoUsuario.usuario.cpf = this.formLogin.value.cpf;
+
+            this.resumoInscricao.usuario.cpf = this.formLogin.value.cpf;
+            
             localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario))
+            localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO, JSON.stringify(this.resumoInscricao))
             this.router.navigate([Rotas.CADASTRO, Rotas.FORM_INICIAL]);
           }
         });
