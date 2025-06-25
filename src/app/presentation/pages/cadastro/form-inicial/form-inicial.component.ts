@@ -13,6 +13,7 @@ import { BuscarInscricaoUseCase } from '../../../../core/application/use-cases/i
 import { UsuarioResponseDto } from '../../../../core/application/dto/response/usuario-response.dto';
 import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
 import { InscricaoResponseDto } from '../../../../core/application/dto/response/inscricao-response.dto';
+import { StatusHttpEnum } from '../../../../core/domain/enums/status-http.enum';
 
 @Component({
   selector: 'app-form-inicial',
@@ -58,10 +59,24 @@ export class FormInicialComponent {
           this.statusInscricao = resposta;
           localStorage.setItem(ParametroStorageEnum.STATUS_INSCRICAO, JSON.stringify(this.statusInscricao));
           this.router.navigate([Rotas.PERFIL]);
+        }else{
+          this.resumoInscricao.evento.nome = this.eventos.find(evento => evento.id === idEvento)?.nome || '';
+
+          this.preencherResumoComUsuarioExistente();
+
+          localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
+          localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO, JSON.stringify(this.resumoInscricao));
+
+          this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_EVENTO]);
         }
       },
       error: (erro) => {
-        console.error('Erro ao buscar inscrição:', erro);
+        if (erro.status === StatusHttpEnum.NOT_FOUND  ) {
+          console.log('entrou');
+          
+          localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
+          this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_EVENTO]);
+        }
       },
     });
   }
@@ -120,5 +135,19 @@ export class FormInicialComponent {
 
   voltar() {
     this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_USUARIO]);
+  }
+
+  private preencherResumoComUsuarioExistente() {
+    this.resumoInscricao.usuario.nome = this.usuarioExistente.nomeCompleto;
+    this.resumoInscricao.usuario.cpf = this.usuarioExistente.cpf;
+    this.resumoInscricao.usuario.email = this.usuarioExistente.email;
+    this.resumoInscricao.usuario.telefone = this.usuarioExistente.telefone ?? '';
+    this.resumoInscricao.usuario.dataNascimento = this.usuarioExistente.nascimento;
+    this.resumoInscricao.usuario.pcd = this.usuarioExistente.pcd;
+    this.resumoInscricao.usuario.condicaoMedica = this.usuarioExistente.condicoesMedica || [];
+    this.resumoInscricao.usuario.funcoesIgreja = this.usuarioExistente.funcoesIgreja || [];
+    this.resumoInscricao.usuario.instrumentos = this.usuarioExistente.instrumentos || [];
+    this.resumoInscricao.usuario.dons = this.usuarioExistente.possuiDons ? 'Sim' : 'Não';
+    this.resumoInscricao.igrejaExiste.classe = this.usuarioExistente.classe.descricao;
   }
 }

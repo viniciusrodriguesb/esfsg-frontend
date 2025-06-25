@@ -1,8 +1,5 @@
 import { Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
 import { TabelaDominioResponseDto } from '../../../../core/application/dto/response/tabela-dominio-response.dto';
@@ -12,6 +9,7 @@ import { PeriodoEnum } from '../../../../core/domain/enums/periodo.enum';
 import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 import { NomePipe } from '../../../pipes/nome.pipe';
 import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
+import { UsuarioResponseDto } from '../../../../core/application/dto/response/usuario-response.dto';
 
 @Component({
   selector: 'app-form-dados-evento',
@@ -44,6 +42,7 @@ export class FormDadosEventoComponent {
   exibeInfoVisita = false;
   inscricaoUsuario: InscricaoRequestDto;
   resumoInscricao: ResumoInscricaoDto;
+  usuarioExistente: UsuarioResponseDto;
 
   constructor(
     private readonly router: Router,
@@ -54,12 +53,13 @@ export class FormDadosEventoComponent {
   ngOnInit() {
     this.inscricaoUsuario = JSON.parse(localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
     this.resumoInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)) as ResumoInscricaoDto;
+    this.usuarioExistente = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_EXISTENTE)) as UsuarioResponseDto;
 
     if (this.inscricaoUsuario) {
       this.preencherFormulario(this.inscricaoUsuario);
     }
 
-    this.buscarFuncaoEvento();    
+    this.buscarFuncaoEvento();
   }
 
   private preencherObjetoInscricao() {
@@ -77,14 +77,24 @@ export class FormDadosEventoComponent {
     };
   }
 
-  private preencherObjetoResumoInscricao(){
-    this.resumoInscricao.evento.periodo = this.formDadosEvento.get('periodo')?.value == PeriodoEnum.Integral ? 'Integral' : 'Tarde';
-    this.resumoInscricao.evento.funcao = this.opcoesFuncaoEvento.find((f) => f.id === parseInt(this.formDadosEvento.get('funcaoEvento')?.value))?.descricao || '';
-    this.resumoInscricao.visita.visita = this.formDadosEvento.get('visitas')?.value === '1' ? 'Sim' : 'Não';
-    this.resumoInscricao.visita.carro = this.formDadosEvento.get('carro')?.value === '1' ? 'Sim' : 'Não';
-    this.resumoInscricao.visita.vagas = parseInt(this.formDadosEvento.get('quantidadeVagas')?.value) || 0;
+  private preencherObjetoResumoInscricao() {
+    this.resumoInscricao.evento.periodo =
+      this.formDadosEvento.get('periodo')?.value == PeriodoEnum.Integral
+        ? 'Integral'
+        : 'Tarde';
+    this.resumoInscricao.evento.funcao =
+      this.opcoesFuncaoEvento.find(
+        (f) =>
+          f.id === parseInt(this.formDadosEvento.get('funcaoEvento')?.value)
+      )?.descricao || '';
+    this.resumoInscricao.visita.visita =
+      this.formDadosEvento.get('visitas')?.value === '1' ? 'Sim' : 'Não';
+    this.resumoInscricao.visita.carro =
+      this.formDadosEvento.get('carro')?.value === '1' ? 'Sim' : 'Não';
+    this.resumoInscricao.visita.vagas =
+      parseInt(this.formDadosEvento.get('quantidadeVagas')?.value) || 0;
 
-    localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO, JSON.stringify(this.resumoInscricao));
+    localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO,JSON.stringify(this.resumoInscricao));
   }
 
   preencherFormulario(dados: InscricaoRequestDto): void {
@@ -123,9 +133,14 @@ export class FormDadosEventoComponent {
   prosseguir() {
     this.preencherObjetoResumoInscricao();
     this.preencherObjetoInscricao();
-    
-    localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO,JSON.stringify(this.inscricaoUsuario));
-    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_ADICIONAIS]);
+
+    localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
+
+    if (this.usuarioExistente.cpf != null) {
+      this.router.navigate([Rotas.CADASTRO, Rotas.CONFIRMACAO_DADOS_CADASTRO]);
+    } else {
+      this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_ADICIONAIS]);
+    }
   }
 
   voltar() {

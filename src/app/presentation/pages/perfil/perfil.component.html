@@ -18,7 +18,7 @@
     <div
       class="flex justify-between bg-green-100 rounded-lg px-4 py-2 mt-4 text-center text-sm"
     >
-      <p>Status: {{ statusInscricao.status }}</p>
+      <p>Status: {{ statusInscricao?.status }}</p>
     </div>
 
     <div class="flex flex-col gap-3.5 relative">
@@ -101,7 +101,7 @@
     </div>
   </div>
 
-  <div class="bg-white rounded-lg shadow-lg p-6 relative">
+  <div class="bg-white rounded-lg shadow-lg p-6 relative" *ngIf="exibicaoCardPagamento">
     <div class="flex flex-col gap-3.5 relative">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">

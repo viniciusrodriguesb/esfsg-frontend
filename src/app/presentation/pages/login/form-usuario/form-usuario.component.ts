@@ -8,6 +8,7 @@ import { InscricaoRequestDto } from '../../../../core/application/dto/request/in
 import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
 import { UsuarioResponseDto } from '../../../../core/application/dto/response/usuario-response.dto';
 import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
+import { StatusHttpEnum } from '../../../../core/domain/enums/status-http.enum';
 
 @Component({
   selector: 'app-form-usuario',
@@ -54,10 +55,13 @@ export class FormUsuarioComponent {
           }).then((result) => {
             if (result.isConfirmed) {
               this.usuarioExistente = resultado;
-              localStorage.setItem(
-                ParametroStorageEnum.USUARIO_EXISTENTE,
-                JSON.stringify(this.usuarioExistente)
-              );
+              this.inscricaoUsuario.cpf = this.formLogin.value.cpf;
+              this.inscricaoUsuario.usuario.cpf = this.formLogin.value.cpf;
+              this.resumoInscricao.usuario.cpf = this.formLogin.value.cpf;
+              
+              localStorage.setItem(ParametroStorageEnum.USUARIO_EXISTENTE, JSON.stringify(this.usuarioExistente));
+              localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO, JSON.stringify(this.resumoInscricao));
+              localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
               this.router.navigate([Rotas.CADASTRO, Rotas.FORM_INICIAL]);
             }
           });
@@ -81,7 +85,7 @@ export class FormUsuarioComponent {
         }
       },
       error: (error) => {
-        if (error.status === 404) {
+        if (error.status === StatusHttpEnum.NOT_FOUND) {
           Swal.fire({
             icon: 'warning',
             title: 'Opa!',
@@ -97,17 +101,10 @@ export class FormUsuarioComponent {
             if (result.isConfirmed) {
               this.inscricaoUsuario.cpf = this.formLogin.value.cpf;
               this.inscricaoUsuario.usuario.cpf = this.formLogin.value.cpf;
-
               this.resumoInscricao.usuario.cpf = this.formLogin.value.cpf;
 
-              localStorage.setItem(
-                ParametroStorageEnum.FORM_INSCRICAO,
-                JSON.stringify(this.inscricaoUsuario)
-              );
-              localStorage.setItem(
-                ParametroStorageEnum.RESUMO_INSCRICAO,
-                JSON.stringify(this.resumoInscricao)
-              );
+              localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
+              localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO, JSON.stringify(this.resumoInscricao));
               this.router.navigate([Rotas.CADASTRO, Rotas.FORM_INICIAL]);
             }
           });
