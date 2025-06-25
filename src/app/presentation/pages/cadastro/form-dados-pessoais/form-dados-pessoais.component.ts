@@ -38,8 +38,8 @@ export class FormDadosPessoaisComponent {
     nascimento: ['', Validators.required],
     email: ['', [Validators.email]],
     condicoesMedicas: this._formBuilder.array(
-      [this._formBuilder.control('', Validators.required)],
-      [this.validarFormArrayComTodosObrigatorios()]
+      [this._formBuilder.control('')],
+      //[this.validarFormArrayComTodosObrigatorios()]
     ),
     funcoesIgreja: this._formBuilder.array(
       [this._formBuilder.control('', Validators.required)],
@@ -150,16 +150,24 @@ export class FormDadosPessoaisComponent {
     this.inscricaoUsuario.usuario.nomeCompleto =
       this.formDadosPessoais.get('nomeCompleto').value;
     this.inscricaoUsuario.usuario.nascimento = this.formatarDataParaISO(this.formDadosPessoais.get('nascimento').value);
-    this.inscricaoUsuario.usuario.condicoesMedicas = this.formDadosPessoais
-      .get('condicoesMedicas')
-      .value.map((v: string) => Number(v));
+    
+    const condicoes = this.formDadosPessoais.get('condicoesMedicas')?.value;
+    if(condicoes.some(v => v && v.trim() !== '')){
+      this.inscricaoUsuario.usuario.condicoesMedicas = condicoes.map((v: string) => Number(v));
+    }
+   
     this.inscricaoUsuario.usuario.funcoesIgreja = this.formDadosPessoais
       .get('funcoesIgreja')
       .value.map((v: string) => Number(v));
   }
 
   private preencherObjetoResumoInscricao() {
-    this.preencherArrayCondicoesMedicas(this.formDadosPessoais.get('condicoesMedicas').value.map((v: string) => Number(v)))
+
+    const condicoes = this.formDadosPessoais.get('condicoesMedicas')?.value;
+    if(condicoes.some(v => v && v.trim() !== '')){
+      this.preencherArrayCondicoesMedicas(condicoes.map((v: string) => Number(v)))
+    }
+
     this.preencherArrayFuncoesIgreja(this.formDadosPessoais.get('funcoesIgreja').value.map((v: string) => Number(v)))
 
     this.resumoInscricao.usuario.cpf = this.inscricaoUsuario.usuario.cpf;

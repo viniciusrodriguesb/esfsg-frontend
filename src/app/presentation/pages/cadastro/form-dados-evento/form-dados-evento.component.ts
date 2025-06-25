@@ -1,16 +1,12 @@
 import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
-  Validators,
-  FormArray,
-  FormControl,
+  Validators
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { InscricaoRequestDto } from '../../../../core/application/dto/request/inscricao-request.dto';
 import { TabelaDominioResponseDto } from '../../../../core/application/dto/response/tabela-dominio-response.dto';
-import { BuscarClasseUseCase } from '../../../../core/application/use-cases/classe/buscar-classe.usecase';
 import { BuscarFuncaoEventoUseCase } from '../../../../core/application/use-cases/funcao/buscar-funcao-evento.usecase';
-import { BuscarInstrumentoUseCase } from '../../../../core/application/use-cases/instrumento/buscar-instrumento.usecase';
 import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
 import { PeriodoEnum } from '../../../../core/domain/enums/periodo.enum';
 import { Rotas } from '../../../../core/domain/enums/rotas.enum';
@@ -63,9 +59,7 @@ export class FormDadosEventoComponent {
       this.preencherFormulario(this.inscricaoUsuario);
     }
 
-    this.buscarFuncaoEvento();
-    console.log('evento form',this.formDadosEvento.value);
-    
+    this.buscarFuncaoEvento();    
   }
 
   private preencherObjetoInscricao() {
@@ -74,7 +68,7 @@ export class FormDadosEventoComponent {
     this.inscricaoUsuario = {
       ...this.inscricaoUsuario,
       idFuncaoEvento: parseInt(formValue.funcaoEvento ?? ''),
-      periodo: formValue.periodo ?? '',
+      periodo: formValue.periodo == PeriodoEnum.Integral ? 'Integral' : 'Tarde',
       visita: {
         visita: formValue.visitas == '1',
         carro: formValue.carro == '1',
@@ -84,7 +78,7 @@ export class FormDadosEventoComponent {
   }
 
   private preencherObjetoResumoInscricao(){
-    this.resumoInscricao.evento.periodo = this.periodos.find((p) => p.id === parseInt(this.formDadosEvento.get('periodo')?.value))?.descricao || '';
+    this.resumoInscricao.evento.periodo = this.formDadosEvento.get('periodo')?.value == PeriodoEnum.Integral ? 'Integral' : 'Tarde';
     this.resumoInscricao.evento.funcao = this.opcoesFuncaoEvento.find((f) => f.id === parseInt(this.formDadosEvento.get('funcaoEvento')?.value))?.descricao || '';
     this.resumoInscricao.visita.visita = this.formDadosEvento.get('visitas')?.value === '1' ? 'Sim' : 'Não';
     this.resumoInscricao.visita.carro = this.formDadosEvento.get('carro')?.value === '1' ? 'Sim' : 'Não';
@@ -96,7 +90,7 @@ export class FormDadosEventoComponent {
   preencherFormulario(dados: InscricaoRequestDto): void {
     this.formDadosEvento.patchValue({
       funcaoEvento: dados.idFuncaoEvento?.toString() || '',
-      periodo: dados.periodo || '',
+      periodo: dados.periodo == PeriodoEnum.Integral ? '1' : '2',
       visitas: dados.visita?.visita ? '1' : '2',
       carro: dados.visita?.carro ? '1' : '2',
       quantidadeVagas: dados.visita?.vagas?.toString() || '',

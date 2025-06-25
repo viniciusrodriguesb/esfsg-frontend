@@ -33,7 +33,7 @@ export class FormDadosIgrejaComponent {
   formDadosIgreja = this._formBuilder.group({
     classe: ['', Validators.required],
     dons: ['', Validators.required],
-    pcd: ['', Validators.required],
+    pcd: [''],
     instrumentos: this._formBuilder.array([this._formBuilder.control('')]),
   });
 
@@ -78,7 +78,12 @@ export class FormDadosIgrejaComponent {
   }
 
   private preencherObjetoResumoInscricao() {
-    this.preencherArrayInstrumentos(this.formDadosIgreja.get('instrumentos').value.map((v: string) => Number(v)))
+
+    const instrumento = this.formDadosIgreja.get('instrumentos')?.value;
+    if(instrumento.some(v => v && v.trim() !== '')){
+      this.preencherArrayInstrumentos(instrumento.map((v: string) => Number(v)))
+    }
+   
     this.resumoInscricao.usuario.pcd = this.formDadosIgreja.get('pcd')?.value;
     this.resumoInscricao.igrejaExiste.classe = this.classes.find((classe) => classe.id === parseInt(this.formDadosIgreja.get('classe')?.value)).descricao;
     this.resumoInscricao.usuario.dons = this.formDadosIgreja.get('dons')?.value === '1' ? 'Sim' : 'Não';
@@ -164,7 +169,7 @@ export class FormDadosIgrejaComponent {
 
   adicionarInstrumento() {
     this.instrumentosFormArray.push(
-      this._formBuilder.control('', Validators.required)
+      this._formBuilder.control('')
     );
   }
 
@@ -223,10 +228,10 @@ export class FormDadosIgrejaComponent {
 
     if (Array.isArray(valores) && valores.length > 0) {
       valores.forEach((valor) =>
-        formArray.push(this._formBuilder.control(valor, Validators.required))
+        formArray.push(this._formBuilder.control(valor))
       );
     } else {
-      formArray.push(this._formBuilder.control('', Validators.required));
+      formArray.push(this._formBuilder.control(''));
     }
   }
 

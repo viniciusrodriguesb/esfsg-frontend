@@ -32,7 +32,7 @@ export class FormDadosAdicionaisComponent {
   private readonly _formBuilder = inject(FormBuilder);
 
   formDadosAdicionais = this._formBuilder.group({
-    igreja: ['', Validators.required],
+    igreja: [''],
     idRegiaoIgrejaNova: [''],
     nomeIgrejaNova: [''],
     pastorIgrejaNova: [''],
@@ -120,10 +120,14 @@ private preencherObjetoInscricao() {
     ...(igreja && { igreja }),
     ...(inscricaoMenor && { inscricaoMenor })
   };
-}
+} 
 
   private preencherObjetoResumoInscricao(){
-    this.resumoInscricao.igrejaExiste.nome = this.igrejas.find((igreja) => igreja.id === parseInt(this.formDadosAdicionais.get('igreja')?.value))?.descricao || '';
+
+    if(!this.exibeCamposNovaIgreja){
+      this.resumoInscricao.igrejaExiste.nome = this.igrejas.find((igreja) => igreja.id === parseInt(this.formDadosAdicionais.get('igreja')?.value))?.descricao || '';
+    }
+
     this.resumoInscricao.igrejaNova.regiao = this.regioes.find((regiao) => regiao.id === parseInt(this.formDadosAdicionais.get('idRegiaoIgrejaNova')?.value))?.descricao || '';
     this.resumoInscricao.igrejaNova.nome = this.formDadosAdicionais.get('nomeIgrejaNova')?.value || '';
     this.resumoInscricao.igrejaNova.pastor = this.formDadosAdicionais.get('pastorIgrejaNova')?.value || '';
@@ -200,6 +204,7 @@ private preencherObjetoInscricao() {
   }
 
   public exibirCamposIgrejaNova() {
+    this.formDadosAdicionais.get('igreja')?.setValue('');
     this.exibeCamposNovaIgreja = true;
   }
 
