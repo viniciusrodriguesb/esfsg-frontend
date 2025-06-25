@@ -88,6 +88,8 @@ import {
   QrCode,
   Ban,
   MessageSquare,
+  Wallet,
+  Copy,
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -121,6 +123,12 @@ import { PerfilComponent } from './presentation/pages/perfil/perfil.component';
 import { BuscarInscricaoUseCase } from './core/application/use-cases/inscricao/buscar-inscricao.usecase';
 import { BuscarInscricaoAdapter } from './infrastructure/adapter/inscricao/buscar-inscricao.adapter';
 import { BuscarInscricaoPort } from './core/domain/ports/inscricao/buscar-inscricao.port';
+import { BuscarQrCodeCheckinUseCase } from './core/application/use-cases/qrcode/buscar-qrcode-checkin.usecase';
+import { BuscarQrCodeCheckinAdapter } from './infrastructure/adapter/qrcode/buscar-qrcode-checkin.adapter';
+import { BuscarQrCodeCheckinPort } from './core/domain/ports/qrcode/buscar-qrcode-checkin.port';
+import { BuscarQrCodePagamentoPort } from './core/domain/ports/qrcode/buscar-qrcode-pagamento.port';
+import { BuscarQrCodePagamentoUseCase } from './core/application/use-cases/qrcode/buscar-qrcode-pagamento.usecase';
+import { BuscarQrCodePagamentoAdapter } from './infrastructure/adapter/qrcode/buscar-qrcode-pagamento.adapter';
 
 @NgModule({
   declarations: [
@@ -137,7 +145,7 @@ import { BuscarInscricaoPort } from './core/domain/ports/inscricao/buscar-inscri
     ConfirmacaoComponent,
     FormDadosEventoComponent,
     SucessoComponent,
-    PerfilComponent
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -177,7 +185,9 @@ import { BuscarInscricaoPort } from './core/domain/ports/inscricao/buscar-inscri
       HandHeart,
       QrCode,
       Ban,
-      MessageSquare
+      MessageSquare,
+      Wallet,
+      Copy
     }),
     SweetAlert2Module.forRoot(),
 
@@ -191,7 +201,7 @@ import { BuscarInscricaoPort } from './core/domain/ports/inscricao/buscar-inscri
     MatSelectModule,
   ],
   providers: [
-     provideLottieOptions({ player: () => player }),
+    provideLottieOptions({ player: () => player }),
     provideHttpClient(withInterceptorsFromDi()),
     BuscarClasseUseCase,
     {
@@ -256,6 +266,13 @@ import { BuscarInscricaoPort } from './core/domain/ports/inscricao/buscar-inscri
     NomePipe,
     BuscarInscricaoUseCase,
     { provide: BuscarInscricaoPort, useClass: BuscarInscricaoAdapter },
+    BuscarQrCodeCheckinUseCase,
+    { provide: BuscarQrCodeCheckinPort, useClass: BuscarQrCodeCheckinAdapter },
+    BuscarQrCodePagamentoUseCase,
+    {
+      provide: BuscarQrCodePagamentoPort,
+      useClass: BuscarQrCodePagamentoAdapter,
+    },
   ],
   bootstrap: [AppComponent],
 })
