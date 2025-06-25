@@ -71,20 +71,19 @@
     </div>
 
     <div class="h-0.5 bg-[#F6F6F6] w-full"></div>
-    <div class="flex flex-col gap-1.5 text-[10px] pb-3 border-b border-dashed border-gray-300"
-    >
+    <div class="flex flex-col gap-1.5 text-[10px] pb-3 border-b border-dashed border-gray-300" *ngIf="resumoInscricao.usuario.instrumentos.length > 0">
        <div class="flex flex-col gap-2">
         <p class="font-medium">Instrumentos:</p>
         <span *ngFor="let instrumento of resumoInscricao.usuario.instrumentos"> {{ instrumento }} </span>
       </div>
     </div>
-    <div class="flex flex-col gap-1.5 text-[10px] pb-3 border-b border-dashed border-gray-300">
+    <div class="flex flex-col gap-1.5 text-[10px] pb-3 border-b border-dashed border-gray-300" *ngIf=" resumoInscricao.usuario.condicaoMedica.length > 0">
       <div class="flex flex-col gap-2">
         <p class="font-medium">Condições Médicas:</p>
         <span *ngFor="let condicao of resumoInscricao.usuario.condicaoMedica"> {{ condicao }} </span>
       </div>
     </div>
-    <div class="flex flex-col gap-1.5 text-[10px] pb-3">
+    <div class="flex flex-col gap-1.5 text-[10px] pb-3" *ngIf=" resumoInscricao.usuario.funcoesIgreja.length > 0">
        <div class="flex flex-col gap-2">
         <p class="font-medium">Funções na igreja:</p>
         <span *ngFor="let funcao of resumoInscricao.usuario.funcoesIgreja"> {{ funcao }} </span>
