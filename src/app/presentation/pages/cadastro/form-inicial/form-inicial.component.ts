@@ -12,6 +12,7 @@ import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-st
 import { BuscarInscricaoUseCase } from '../../../../core/application/use-cases/inscricao/buscar-inscricao.usecase';
 import { UsuarioResponseDto } from '../../../../core/application/dto/response/usuario-response.dto';
 import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
+import { InscricaoResponseDto } from '../../../../core/application/dto/response/inscricao-response.dto';
 
 @Component({
   selector: 'app-form-inicial',
@@ -29,9 +30,11 @@ export class FormInicialComponent {
   exibeCampos = false;
   regioes: TabelaDominioResponseDto[] = [];
   eventos: EventoResponseDto[] = [];
+
   inscricaoUsuario: InscricaoRequestDto;
   usuarioExistente: UsuarioResponseDto;
   resumoInscricao: ResumoInscricaoDto;
+  statusInscricao: InscricaoResponseDto;
 
   constructor(
     private readonly buscarRegiaoUsecase: BuscarRegiaoUseCase,
@@ -52,6 +55,8 @@ export class FormInicialComponent {
     this.buscarInscricaoUsecase.execute(idEvento, this.usuarioExistente.id).subscribe({
       next: (resposta) => {
         if(resposta){
+          this.statusInscricao = resposta;
+          localStorage.setItem(ParametroStorageEnum.STATUS_INSCRICAO, JSON.stringify(this.statusInscricao));
           this.router.navigate([Rotas.PERFIL]);
         }
       },
@@ -99,7 +104,7 @@ export class FormInicialComponent {
   }
 
   prosseguir(idEvento: number) {
-    this.inscricaoUsuario.idEvento = idEvento;
+    console.log('Evento selecionado:', idEvento);
     
     if(this.usuarioExistente !== null) {
       this.buscarInscricao(idEvento);

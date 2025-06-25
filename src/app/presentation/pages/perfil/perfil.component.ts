@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { UsuarioResponseDto } from '../../../core/application/dto/response/usuario-response.dto';
+import { ParametroStorageEnum } from '../../../core/domain/enums/parametro-storage.enum';
+import { BuscarQrCodePagamentoUseCase } from '../../../core/application/use-cases/qrcode/buscar-qrcode-pagamento.usecase';
+import { QrCodePagamentoResponseDto } from '../../../core/application/dto/response/qrcode-pagamento-response.dto';
+import { InscricaoResponseDto } from '../../../core/application/dto/response/inscricao-response.dto';
 
 @Component({
   selector: 'app-perfil',
@@ -7,23 +12,33 @@ import { Component } from '@angular/core';
   styleUrl: './perfil.component.scss'
 })
 export class PerfilComponent  {
-  user = {
-    nomeCompleto: 'LUCIANA DA CONCEICAO FERREIRA DE SOUSA',
-    email: 'luconfe@gmail.com',
-    telefone: '(21) 99187 1630',
-    grupo: 'Professor(a) de CIA',
-    igreja: 'JARDIM CALIFÓRNIA',
-    periodo: 'Período Integral',
-    statusPagamento: 'Pagamento confirmado!',
-  };
 
-  perfilCampos = [
-    { label: 'Nome Completo', value: 'LUCIANA DA CONCEICAO FERREIRA DE SOUSA' },
-    { label: 'E-mail', value: 'luconfe@gmail.com' },
-    { label: 'Telefone', value: '(21) 99187 1630' },
-    { label: 'Grupo', value: 'Professor(a) de CIA' },
-    { label: 'Igreja', value: 'JARDIM CALIFÓRNIA' },
-    { label: 'Período', value: 'Período Integral' },
-    { label: 'Status do Pagamento', value: 'Pagamento confirmado!' },
-  ];
+  usuarioExistente: UsuarioResponseDto;
+  statusInscricao: InscricaoResponseDto;
+  informacoesPagamento: QrCodePagamentoResponseDto;
+
+  constructor(private readonly buscarQrCodePagamentoUsecase: BuscarQrCodePagamentoUseCase) {}
+
+  ngOnInit(){
+    this.statusInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.STATUS_INSCRICAO)) as InscricaoResponseDto;
+    this.usuarioExistente = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_EXISTENTE)) as UsuarioResponseDto;
+    this.buscarQrCodePagemento();
+  }
+
+  public buscarQrCodePagemento(){
+    this.statusInscricao.idStatus = 6;
+
+    this.buscarQrCodePagamentoUsecase.execute(this.statusInscricao.idStatus).subscribe({
+      next: (resposta) => {
+        this.informacoesPagamento = resposta;
+      },
+      error: (err) => {
+        console.error('Erro ao buscar QR Code de pagamento:', err);
+      }
+    });
+  }
+
+  public copiarPix(){
+    
+  }
 }

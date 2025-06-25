@@ -18,17 +18,80 @@
     <div
       class="flex justify-between bg-green-100 rounded-lg px-4 py-2 mt-4 text-center text-sm"
     >
-      <p>Pagamento confirmado:</p>
+      <p>Status: {{ statusInscricao.status }}</p>
     </div>
 
-    <div class="py-10 flex flex-col gap-3">
+    <div class="flex flex-col gap-3.5 relative">
+      <span class="h-0.5 bg-[#F6F6F6]"></span>
+      <div class="flex flex-col gap-1.5 text-[10px]">
+        <p class="flex justify-between">
+          <span class="font-medium">Nome:</span>
+          {{ usuarioExistente.nomeCompleto }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">CPF:</span> {{ usuarioExistente.cpf }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Email:</span>
+          {{ usuarioExistente.email || "Não informado" }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Telefone:</span>
+          {{ usuarioExistente.telefone }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Nascimento:</span>
+          {{ usuarioExistente.nascimento }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">PCD:</span> {{ usuarioExistente.pcd }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Possui dons?</span>
+          {{ usuarioExistente.possuiDons == true ? "Sim" : "Não" }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Classe:</span>
+          {{ usuarioExistente.classe.descricao }}
+        </p>
+      </div>
+
+      <div class="h-0.5 bg-[#F6F6F6] w-full"></div>
       <div
-        *ngFor="let item of perfilCampos"
-        class="flex items-center gap-3 text-gray-700 text-sm hover:text-green-600 cursor-pointer"
+        class="flex flex-col gap-1.5 text-[10px] pb-3 border-b border-dashed border-gray-300"
+        *ngIf="usuarioExistente.instrumentos.length > 0"
       >
-        <p class="font-medium">{{ item.value }}</p>
+        <div class="flex flex-col gap-2">
+          <p class="font-medium">Instrumentos:</p>
+          <span *ngFor="let instrumento of usuarioExistente.instrumentos">
+            {{ instrumento }}
+          </span>
+        </div>
+      </div>
+      <div
+        class="flex flex-col gap-1.5 text-[10px] pb-3 border-b border-dashed border-gray-300"
+        *ngIf="usuarioExistente.condicoesMedica.length > 0"
+      >
+        <div class="flex flex-col gap-2">
+          <p class="font-medium">Condições Médicas:</p>
+          <span *ngFor="let condicao of usuarioExistente.condicoesMedica">
+            {{ condicao }}
+          </span>
+        </div>
+      </div>
+      <div
+        class="flex flex-col gap-1.5 text-[10px] pb-3"
+        *ngIf="usuarioExistente.funcoesIgreja.length > 0"
+      >
+        <div class="flex flex-col gap-2">
+          <p class="font-medium">Funções na igreja:</p>
+          <span *ngFor="let funcao of usuarioExistente.funcoesIgreja">
+            {{ funcao }}
+          </span>
+        </div>
       </div>
     </div>
+
     <div class="flex justify-end">
       <button
         class="w-13 h-13 flex text-[14px] items-center justify-center bg-[#007AFF] rounded-full shadow-lg"
@@ -37,7 +100,42 @@
       </button>
     </div>
   </div>
-  <div class="flex flex-col gap-1.5">
+
+  <div class="bg-white rounded-lg shadow-lg p-6 relative">
+    <div class="flex flex-col gap-3.5 relative">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div
+            class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+          >
+            <i-lucide class="w-3.5" name="wallet"></i-lucide>
+          </div>
+          <p class="font-bold text-[12px]">Pagamento</p>
+        </div>
+      </div>
+      <span class="h-0.5 bg-[#F6F6F6]"></span>
+      <div class="flex flex-col gap-1.5 text-[10px]">
+        <p class=" font-medium">
+          Sua inscrição foi registrada com sucesso!
+          <span class="font-normal"> Para concluir o processo, é necessário realizar o pagamento da taxa de inscrição.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-center flex-col gap-2.5 justify-center">
+      <img
+        class="w-55 h-w-55"
+        [src]="`data:image/jpeg;base64,${informacoesPagamento.imagemBase64}`"
+        alt=""
+      />
+      <button class="bg-[#007AFF] w-[80%] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2" (click)="copiarPix()">
+        Pix copia e cola
+        <i-lucide class="w-4" name="copy"></i-lucide>
+      </button>
+    </div>
+  </div>
+
+  <!-- <div class="flex flex-col gap-1.5">
     <button
       class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
     >
@@ -50,5 +148,5 @@
       Entrar no grupo whatsApp
       <i-lucide class="w-4" name="message-square"></i-lucide>
     </button>
-  </div>
+  </div> -->
 </div>

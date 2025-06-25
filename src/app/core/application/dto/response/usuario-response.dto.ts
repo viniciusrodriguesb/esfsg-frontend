@@ -3,7 +3,7 @@ import { TabelaDominioResponseDto } from './tabela-dominio-response.dto';
 export interface UsuarioResponseDto {
   id: number;
   nomeCompleto: string;
-  cPF: string;
+  cpf: string;
   email: string;
   telefone: string | null;
   nascimento: string;
