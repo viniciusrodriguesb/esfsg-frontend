@@ -1,6 +1,4 @@
-import { Component} from '@angular/core';
-import { AnimationItem } from 'lottie-web';
-import { AnimationOptions } from 'ngx-lottie';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -9,5 +7,7 @@ import { AnimationOptions } from 'ngx-lottie';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
- 
+  ngOnInit() {
+    localStorage.clear();
+  }
 }

@@ -104,8 +104,8 @@ export class FormInicialComponent {
   }
 
   prosseguir(idEvento: number) {
-    console.log('Evento selecionado:', idEvento);
-    
+    this.inscricaoUsuario.idEvento = idEvento;
+
     if(this.usuarioExistente !== null) {
       this.buscarInscricao(idEvento);
     }else{
