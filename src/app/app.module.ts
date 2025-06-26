@@ -129,6 +129,9 @@ import { BuscarQrCodeCheckinPort } from './core/domain/ports/qrcode/buscar-qrcod
 import { BuscarQrCodePagamentoPort } from './core/domain/ports/qrcode/buscar-qrcode-pagamento.port';
 import { BuscarQrCodePagamentoUseCase } from './core/application/use-cases/qrcode/buscar-qrcode-pagamento.usecase';
 import { BuscarQrCodePagamentoAdapter } from './infrastructure/adapter/qrcode/buscar-qrcode-pagamento.adapter';
+import { BuscarPeriodoEventoUseCase } from './core/application/use-cases/evento/buscar-periodo-evento.usecase';
+import { BuscarPeriodoEventoPort } from './core/domain/ports/evento/buscar-periodo-evento.port';
+import { BuscarPeriodoEventoAdapter } from './infrastructure/adapter/evento/buscar-periodo-evento.adapter';
 
 @NgModule({
   declarations: [
@@ -273,6 +276,8 @@ import { BuscarQrCodePagamentoAdapter } from './infrastructure/adapter/qrcode/bu
       provide: BuscarQrCodePagamentoPort,
       useClass: BuscarQrCodePagamentoAdapter,
     },
+    BuscarPeriodoEventoUseCase,
+    { provide: BuscarPeriodoEventoPort, useClass: BuscarPeriodoEventoAdapter },
   ],
   bootstrap: [AppComponent],
 })

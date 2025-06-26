@@ -10,6 +10,7 @@ import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 import { NomePipe } from '../../../pipes/nome.pipe';
 import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
 import { UsuarioResponseDto } from '../../../../core/application/dto/response/usuario-response.dto';
+import { BuscarPeriodoEventoUseCase } from '../../../../core/application/use-cases/evento/buscar-periodo-evento.usecase';
 
 @Component({
   selector: 'app-form-dados-evento',
@@ -47,6 +48,7 @@ export class FormDadosEventoComponent {
   constructor(
     private readonly router: Router,
     private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
+    private readonly buscarPeriodoEventoUsecase: BuscarPeriodoEventoUseCase,
     private readonly nomePipe: NomePipe
   ) {}
 
@@ -60,6 +62,20 @@ export class FormDadosEventoComponent {
     }
 
     this.buscarFuncaoEvento();
+    this.buscarPeriodoEvento();
+  }
+
+  private buscarPeriodoEvento() {
+    this.buscarPeriodoEventoUsecase.execute(this.inscricaoUsuario.idEvento).subscribe({
+      next: (resultado) => {
+        let array = [];
+        resultado.forEach((valor, index) =>{
+          array.push({ id: index + 1, descricao: valor });
+        })
+        this.periodos = array;
+      },
+      error: () => {},
+    });
   }
 
   private preencherObjetoInscricao() {
@@ -120,9 +136,7 @@ export class FormDadosEventoComponent {
   }
 
   public buscarFuncaoEvento() {
-    this.buscarFuncaoEventoUsecase
-      .execute(this.inscricaoUsuario.idEvento)
-      .subscribe({
+    this.buscarFuncaoEventoUsecase.execute(this.inscricaoUsuario.idEvento).subscribe({
         next: (resultado) => {
           this.opcoesFuncaoEvento = this.formatarNomes(resultado);
         },
