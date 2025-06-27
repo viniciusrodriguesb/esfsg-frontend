@@ -13,8 +13,13 @@ import { FormDadosEventoComponent } from './presentation/pages/cadastro/form-dad
 import { ConfirmacaoComponent } from './presentation/pages/cadastro/confirmacao/confirmacao.component';
 import { SucessoComponent } from './presentation/pages/cadastro/sucesso/sucesso.component';
 import { PerfilComponent } from './presentation/pages/perfil/perfil.component';
+import { EscolhaInicialComponent } from './presentation/pages/escolha-inicial/escolha-inicial.component';
 
 export const routes: Routes = [
+  {
+    path: Rotas.ESCOLHA_INICIAL,
+    component: EscolhaInicialComponent,
+  },
   {
     path: Rotas.LOGIN,
     component: LoginComponent,

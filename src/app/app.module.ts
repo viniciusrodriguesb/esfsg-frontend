@@ -90,6 +90,7 @@ import {
   MessageSquare,
   Wallet,
   Copy,
+  ShieldUser,
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -132,6 +133,7 @@ import { BuscarQrCodePagamentoAdapter } from './infrastructure/adapter/qrcode/bu
 import { BuscarPeriodoEventoUseCase } from './core/application/use-cases/evento/buscar-periodo-evento.usecase';
 import { BuscarPeriodoEventoPort } from './core/domain/ports/evento/buscar-periodo-evento.port';
 import { BuscarPeriodoEventoAdapter } from './infrastructure/adapter/evento/buscar-periodo-evento.adapter';
+import { EscolhaInicialComponent } from './presentation/pages/escolha-inicial/escolha-inicial.component';
 
 @NgModule({
   declarations: [
@@ -149,6 +151,7 @@ import { BuscarPeriodoEventoAdapter } from './infrastructure/adapter/evento/busc
     FormDadosEventoComponent,
     SucessoComponent,
     PerfilComponent,
+    EscolhaInicialComponent
   ],
   imports: [
     BrowserModule,
@@ -190,7 +193,8 @@ import { BuscarPeriodoEventoAdapter } from './infrastructure/adapter/evento/busc
       Ban,
       MessageSquare,
       Wallet,
-      Copy
+      Copy,
+      ShieldUser
     }),
     SweetAlert2Module.forRoot(),
 

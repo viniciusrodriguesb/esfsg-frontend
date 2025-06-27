@@ -1,4 +1,5 @@
 export enum Rotas {
+  ESCOLHA_INICIAL = '',
   LOGIN = 'login',
   LOGIN_USUARIO = 'usuario',
   LOGIN_ADMINISTRADOR = 'administrador',

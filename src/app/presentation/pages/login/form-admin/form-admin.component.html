@@ -2,7 +2,7 @@
         <form
           (ngSubmit)="onSubmit()"
           #loginForm="ngForm"
-          class="flex flex-col gap-5 h-full py-7"
+          class="flex flex-col gap-5 h-full pb-7 pt-4"
         >
           <app-input
             [(formController)]="formLogin.controls['email']"
@@ -25,19 +25,19 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center">
               <mat-slide-toggle></mat-slide-toggle>
-              <label for="lembrar" class="text-sm font-medium">Lembrar-me</label>
+              <label for="lembrar" class="text-[12px] font-medium">Lembrar-me</label>
             </div>
-            <a href="#" class="text-sm text-[#007AFF] font-medium"
+            <a href="#" class="text-sm text-[#007AFF] text-[10px] font-medium"
               >Esqueceu a senha?</a
             >
           </div>
           <button
-            class="bg-[#007AFF] text-white font-semibold rounded-[0.5rem] py-2.5"
+            class="bg-[#007AFF] text-white text-[12px] font-semibold rounded-[0.5rem] py-2.5"
           >
             Entrar
           </button>
-          <div class="flex items-center justify-center gap-2">
-            <p class="text-sm font-medium">Não tem uma conta?</p>
+          <div class="flex items-center justify-center gap-1 text-[10px]">
+            <p class=" font-medium">Não tem uma conta?</p>
             <a href="#" class="text-[#007AFF] font-medium">Criar conta</a>
           </div>
         </form>
