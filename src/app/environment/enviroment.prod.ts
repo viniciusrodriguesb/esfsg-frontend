@@ -1,4 +1,4 @@
-const URL_BASE = 'https://esfsg-backend-cfdpfqgshmh5fydg.brazilsouth-01.azurewebsites.net/';
+const URL_BASE = 'https://esfsg-backend-cfdpfqgshmh5fydg.brazilsouth-01.azurewebsites.net';
 const VERSAO = 'v1';
 const COMPLEMENTO = 'api';
 const URL_API = `${URL_BASE}/${COMPLEMENTO}`;
