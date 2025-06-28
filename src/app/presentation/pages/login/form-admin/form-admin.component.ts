@@ -34,13 +34,13 @@ export class FormAdminComponent {
       next: (usuario) => {
         if (usuario) {
           localStorage.setItem(ParametroStorageEnum.USUARIO_LOGADO, JSON.stringify(usuario.dados));
-          this.router.navigate([Rotas.HOME_LOGADA])
+          this.router.navigate([Rotas.HOME_LOGADA, Rotas.DASHBOARD_INICIAL])
         } else {
           console.log('Usuário não encontrado');
         }
       },
       error: (error) => {
-        this.router.navigate([Rotas.HOME_LOGADA])
+        this.router.navigate([Rotas.HOME_LOGADA, Rotas.DASHBOARD_INICIAL])
         console.error('Erro ao buscar usuário:', error);
       }
     });

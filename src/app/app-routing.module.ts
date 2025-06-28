@@ -15,6 +15,8 @@ import { SucessoComponent } from './presentation/pages/cadastro/sucesso/sucesso.
 import { PerfilComponent } from './presentation/pages/perfil/perfil.component';
 import { EscolhaInicialComponent } from './presentation/pages/escolha-inicial/escolha-inicial.component';
 import { HomeLogadaComponent } from './presentation/pages/home-logada/home-logada.component';
+import { DashboardInicialComponent } from './presentation/pages/home-logada/dashboard-inicial/dashboard-inicial.component';
+import { CheckInComponent } from './presentation/pages/home-logada/check-in/check-in.component';
 
 export const routes: Routes = [
   {
@@ -67,7 +69,7 @@ export const routes: Routes = [
       {
         path: Rotas.SUCESSO_CADASTRO,
         component: SucessoComponent,
-      }
+      },
     ],
   },
   {
@@ -77,7 +79,17 @@ export const routes: Routes = [
   {
     path: Rotas.HOME_LOGADA,
     component: HomeLogadaComponent,
-  }
+    children: [
+      {
+        path: Rotas.DASHBOARD_INICIAL,
+        component: DashboardInicialComponent,
+      },
+      {
+        path: Rotas.CHECK_IN,
+        component: CheckInComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({

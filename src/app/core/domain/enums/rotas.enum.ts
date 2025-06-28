@@ -16,4 +16,6 @@ export enum Rotas {
   PERFIL = 'perfil',
 
   HOME_LOGADA = 'home-logada',
+  DASHBOARD_INICIAL = 'dashboard-inicial',
+  CHECK_IN = 'check-in'
 }

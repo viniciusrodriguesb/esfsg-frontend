@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-dashboard-inicial',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard-inicial.component.scss'
 })
 export class DashboardInicialComponent {
-
+   options: AnimationOptions = {
+    path: '/animations/animation-perfil.json',
+    renderer: 'svg',
+    loop: false,
+  };
 }

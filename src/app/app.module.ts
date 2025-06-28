@@ -98,6 +98,7 @@ import {
   Sun,
   Moon,
   Banknote,
+  Menu,
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -146,6 +147,7 @@ import { BuscarUsuarioAdminPort } from './core/domain/ports/usuario/buscar-usuar
 import { BuscarUsuarioAdminAdapter } from './infrastructure/adapter/usuario/buscar-usuario-admin.adapter';
 import { HomeLogadaComponent } from './presentation/pages/home-logada/home-logada.component';
 import { DashboardInicialComponent } from './presentation/pages/home-logada/dashboard-inicial/dashboard-inicial.component';
+import { CheckInComponent } from './presentation/pages/home-logada/check-in/check-in.component';
 
 @NgModule({
   declarations: [
@@ -165,7 +167,8 @@ import { DashboardInicialComponent } from './presentation/pages/home-logada/dash
     PerfilComponent,
     EscolhaInicialComponent,
     HomeLogadaComponent,
-    DashboardInicialComponent
+    DashboardInicialComponent,
+    CheckInComponent
   ],
   imports: [
     BrowserModule,
@@ -215,7 +218,8 @@ import { DashboardInicialComponent } from './presentation/pages/home-logada/dash
       CircleAlert,
       Sun,
       Moon,
-      Banknote
+      Banknote,
+      Menu
     }),
     SweetAlert2Module.forRoot(),
 
