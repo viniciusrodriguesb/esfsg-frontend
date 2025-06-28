@@ -1,4 +1,5 @@
 export enum ParametrosHttpEnum {
   Id = 'id',
-  Cpf = 'CPF'
+  Cpf = 'CPF',
+  Senha = 'senha',
 }

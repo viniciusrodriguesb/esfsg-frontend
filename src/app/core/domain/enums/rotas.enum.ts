@@ -13,5 +13,7 @@ export enum Rotas {
   CONFIRMACAO_DADOS_CADASTRO = 'confirmacao-dados-cadastro',
   SUCESSO_CADASTRO = 'sucesso-cadastro',
 
-  PERFIL = 'perfil'
+  PERFIL = 'perfil',
+
+  HOME_LOGADA = 'home-logada',
 }

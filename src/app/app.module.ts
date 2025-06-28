@@ -92,6 +92,11 @@ import {
   Copy,
   ShieldUser,
   MoveLeft,
+  Calendar,
+  Ellipsis,
+  CircleAlert,
+  Sun,
+  Moon,
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -135,6 +140,11 @@ import { BuscarPeriodoEventoUseCase } from './core/application/use-cases/evento/
 import { BuscarPeriodoEventoPort } from './core/domain/ports/evento/buscar-periodo-evento.port';
 import { BuscarPeriodoEventoAdapter } from './infrastructure/adapter/evento/buscar-periodo-evento.adapter';
 import { EscolhaInicialComponent } from './presentation/pages/escolha-inicial/escolha-inicial.component';
+import { BuscarUsuarioAdminUseCase } from './core/application/use-cases/usuario/buscar-usuario-admin.usecase';
+import { BuscarUsuarioAdminPort } from './core/domain/ports/usuario/buscar-usuario-admin.port';
+import { BuscarUsuarioAdminAdapter } from './infrastructure/adapter/usuario/buscar-usuario-admin.adapter';
+import { HomeLogadaComponent } from './presentation/pages/home-logada/home-logada.component';
+import { DashboardInicialComponent } from './presentation/pages/home-logada/dashboard-inicial/dashboard-inicial.component';
 
 @NgModule({
   declarations: [
@@ -152,7 +162,9 @@ import { EscolhaInicialComponent } from './presentation/pages/escolha-inicial/es
     FormDadosEventoComponent,
     SucessoComponent,
     PerfilComponent,
-    EscolhaInicialComponent
+    EscolhaInicialComponent,
+    HomeLogadaComponent,
+    DashboardInicialComponent
   ],
   imports: [
     BrowserModule,
@@ -196,7 +208,12 @@ import { EscolhaInicialComponent } from './presentation/pages/escolha-inicial/es
       MessageSquare,
       Wallet,
       Copy,
-      ShieldUser
+      ShieldUser,
+      Calendar,
+      Ellipsis,
+      CircleAlert,
+      Sun,
+      Moon
     }),
     SweetAlert2Module.forRoot(),
 
@@ -284,6 +301,8 @@ import { EscolhaInicialComponent } from './presentation/pages/escolha-inicial/es
     },
     BuscarPeriodoEventoUseCase,
     { provide: BuscarPeriodoEventoPort, useClass: BuscarPeriodoEventoAdapter },
+    BuscarUsuarioAdminUseCase,
+    { provide: BuscarUsuarioAdminPort, useClass: BuscarUsuarioAdminAdapter }
   ],
   bootstrap: [AppComponent],
 })

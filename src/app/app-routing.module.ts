@@ -14,6 +14,7 @@ import { ConfirmacaoComponent } from './presentation/pages/cadastro/confirmacao/
 import { SucessoComponent } from './presentation/pages/cadastro/sucesso/sucesso.component';
 import { PerfilComponent } from './presentation/pages/perfil/perfil.component';
 import { EscolhaInicialComponent } from './presentation/pages/escolha-inicial/escolha-inicial.component';
+import { HomeLogadaComponent } from './presentation/pages/home-logada/home-logada.component';
 
 export const routes: Routes = [
   {
@@ -73,6 +74,10 @@ export const routes: Routes = [
     path: Rotas.PERFIL,
     component: PerfilComponent,
   },
+  {
+    path: Rotas.HOME_LOGADA,
+    component: HomeLogadaComponent,
+  }
 ];
 
 @NgModule({
