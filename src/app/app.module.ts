@@ -97,6 +97,7 @@ import {
   CircleAlert,
   Sun,
   Moon,
+  Banknote,
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -213,7 +214,8 @@ import { DashboardInicialComponent } from './presentation/pages/home-logada/dash
       Ellipsis,
       CircleAlert,
       Sun,
-      Moon
+      Moon,
+      Banknote
     }),
     SweetAlert2Module.forRoot(),
 
