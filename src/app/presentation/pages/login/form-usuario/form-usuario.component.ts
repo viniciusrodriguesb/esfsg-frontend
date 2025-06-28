@@ -124,4 +124,8 @@ export class FormUsuarioComponent {
       },
     });
   }
+
+  public voltar(){
+    this.router.navigate([Rotas.ESCOLHA_INICIAL])
+  }
 }

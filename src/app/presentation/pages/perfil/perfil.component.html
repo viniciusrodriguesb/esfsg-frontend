@@ -3,16 +3,12 @@
 >
   <div class="bg-white rounded-lg shadow-lg p-6 relative">
     <div class="flex justify-center mt-6">
-      <img
-        src="https://randomuser.me/api/portraits/men/75.jpg"
-        alt="Profile"
-        class="w-24 h-24 rounded-full border-4 border-white shadow"
-      />
+      <ng-lottie [options]="options" class="w-24 h-24" />
     </div>
 
     <div class="text-center">
-      <h2 class="text-lg font-semibold">Johan Smith</h2>
-      <p class="text-sm text-gray-500">California, USA</p>
+      <h2 class="text-lg font-semibold">{{ usuarioExistente.nomeCompleto }}</h2>
+      <p class="text-sm text-gray-500">{{usuarioExistente.classe.descricao}}</p>
     </div>
 
     <div
@@ -92,16 +88,52 @@
       </div>
     </div>
 
-    <div class="flex justify-end">
-      <button
-        class="w-13 h-13 flex text-[14px] items-center justify-center bg-[#007AFF] rounded-full shadow-lg"
-      >
+    <div class="flex justify-end" *ngIf="exibicaoBotaoCheckin">
+      <button (click)="exibirCardCheckin()"class="w-13 h-13 flex text-[14px] items-center justify-center bg-[#007AFF] rounded-full shadow-lg">
         <i-lucide class="w-5 text-white" name="qr-code"></i-lucide>
       </button>
     </div>
   </div>
 
-  <div class="bg-white rounded-lg shadow-lg p-6 relative" *ngIf="exibicaoCardPagamento">
+  <div
+    class="bg-white rounded-lg shadow-lg p-6 relative"
+    *ngIf="exibicaoCardCheckin"
+  >
+    <div class="flex flex-col gap-3.5 relative">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div
+            class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+          >
+            <i-lucide class="w-3.5" name="ticket"></i-lucide>
+          </div>
+          <p class="font-bold text-[12px]">Checkin</p>
+        </div>
+      </div>
+      <span class="h-0.5 bg-[#F6F6F6]"></span>
+      <div class="flex flex-col gap-1.5 text-[10px]">
+        <p class="font-medium">
+          Sua inscrição foi paga com sucesso!
+          <span class="font-normal">
+          Basta apresentar o qrCode gerado na hora do check-in do evento.</span
+          >
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-center flex-col gap-2.5 justify-center">
+      <img
+        class="w-55 h-w-55"
+        [src]="`data:image/jpeg;base64,${informacoesCheckin.imagemBase64}`"
+        alt=""
+      />
+    </div>
+  </div>
+
+    <div
+    class="bg-white rounded-lg shadow-lg p-6 relative"
+    *ngIf="exibicaoCardPagamento"
+  >
     <div class="flex flex-col gap-3.5 relative">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
@@ -115,9 +147,12 @@
       </div>
       <span class="h-0.5 bg-[#F6F6F6]"></span>
       <div class="flex flex-col gap-1.5 text-[10px]">
-        <p class=" font-medium">
+        <p class="font-medium">
           Sua inscrição foi registrada com sucesso!
-          <span class="font-normal"> Para concluir o processo, é necessário realizar o pagamento da taxa de inscrição.</span>
+          <span class="font-normal">
+            Para concluir o processo, é necessário realizar o pagamento da taxa
+            de inscrição.</span
+          >
         </p>
       </div>
     </div>
@@ -128,7 +163,10 @@
         [src]="`data:image/jpeg;base64,${informacoesPagamento.imagemBase64}`"
         alt=""
       />
-      <button class="bg-[#007AFF] w-[80%] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2" (click)="copiarPix()">
+      <button
+        class="bg-[#007AFF] w-[80%] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+        (click)="copiarPix()"
+      >
         Pix copia e cola
         <i-lucide class="w-4" name="copy"></i-lucide>
       </button>

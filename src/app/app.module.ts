@@ -91,6 +91,7 @@ import {
   Wallet,
   Copy,
   ShieldUser,
+  MoveLeft,
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -178,6 +179,7 @@ import { EscolhaInicialComponent } from './presentation/pages/escolha-inicial/es
       Trash2,
       Plus,
       MoveRight,
+      MoveLeft,
       Church,
       Baby,
       Car,

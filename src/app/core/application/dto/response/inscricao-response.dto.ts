@@ -4,4 +4,5 @@ export interface InscricaoResponseDto {
   status: string
   idStatus: number
   visita: boolean
+  id: number
 }
