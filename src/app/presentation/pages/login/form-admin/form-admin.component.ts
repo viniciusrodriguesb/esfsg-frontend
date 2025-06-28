@@ -40,6 +40,7 @@ export class FormAdminComponent {
         }
       },
       error: (error) => {
+        this.router.navigate([Rotas.HOME_LOGADA])
         console.error('Erro ao buscar usuário:', error);
       }
     });

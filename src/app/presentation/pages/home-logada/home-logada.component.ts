@@ -19,9 +19,9 @@ export class HomeLogadaComponent {
   ngOnInit(){
     this.usuarioLogado = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_LOGADO))
     
-    if(this.usuarioLogado === null || this.usuarioLogado === undefined) {
-      console.error('Usuário não encontrado no armazenamento local.');
-      this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_ADMINISTRADOR]);
-    }
+    // if(this.usuarioLogado === null || this.usuarioLogado === undefined) {
+    //   console.error('Usuário não encontrado no armazenamento local.');
+    //   this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_ADMINISTRADOR]);
+    // }
   }
 }
