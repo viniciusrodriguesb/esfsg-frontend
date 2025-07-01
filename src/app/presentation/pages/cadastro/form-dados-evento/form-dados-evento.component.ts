@@ -29,7 +29,7 @@ export class FormDadosEventoComponent {
     quantidadeVagas: [''],
   });
 
-  formSubmetido = false;
+  
   opcoesBooleanas: TabelaDominioResponseDto[] = [
     { id: 1, descricao: 'Sim' },
     { id: 2, descricao: 'Não' },

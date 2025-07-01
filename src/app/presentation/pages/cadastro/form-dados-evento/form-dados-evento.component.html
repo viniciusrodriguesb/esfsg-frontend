@@ -21,7 +21,6 @@
         [placeholder]="'Selecione'"
         [formController]="formDadosEvento.controls['periodo']"
         [opcoes]="periodos"
-        [formSubmetido]="formSubmetido"
         mensagemErro="Campo obrigatório"
       ></app-input>
       <app-input
@@ -31,7 +30,6 @@
         [placeholder]="'Selecione'"
         [formController]="formDadosEvento.controls['funcaoEvento']"
         [opcoes]="opcoesFuncaoEvento"
-        [formSubmetido]="formSubmetido"
         mensagemErro="Campo obrigatório"
       ></app-input>
 
@@ -42,7 +40,6 @@
         [placeholder]="'Selecione'"
         [formController]="formDadosEvento.controls['visitas']"
         [opcoes]="opcoesBooleanas"
-        [formSubmetido]="formSubmetido"
         mensagemErro="Campo obrigatório"
         (valorSelecionado)="exibirCamposVisita($event)"
       ></app-input>
@@ -54,7 +51,6 @@
         [placeholder]="'Selecione'"
         [formController]="formDadosEvento.controls['carro']"
         [opcoes]="opcoesBooleanas"
-        [formSubmetido]="formSubmetido"
         mensagemErro="Campo obrigatório"
       ></app-input>
       <app-input
@@ -64,7 +60,6 @@
         [label]="'Quantas vagas estão disponíveis?'"
         [placeholder]="'Informe'"
         [formController]="formDadosEvento.controls['quantidadeVagas']"
-        [formSubmetido]="formSubmetido"
         mensagemErro="Campo obrigatório"
       ></app-input>
     </div>

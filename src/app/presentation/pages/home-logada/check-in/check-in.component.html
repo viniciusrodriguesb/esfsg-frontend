@@ -1,1 +1,272 @@
-<p>check-in works!</p>
+<div class="flex flex-col gap-3.5 pb-3.5">
+  <div
+    class="bg-white rounded-2xl shadow-md pt-5 pb-5 pl-5 border border-dashed border-gray-300 relative flex items-center h-25 overflow-hidden"
+  >
+    <p class="text-[10px] text-justify">
+      Olá, esta é tela de check-in, aqui você pode visualizar inscritos na lista
+      abaixo e validar sua presença no evento.
+    </p>
+    <ng-lottie [options]="options" class="w-60 h-60" />
+  </div>
+
+  <form class="grid grid-cols-8 gap-3.5" [formGroup]="formCheckin">
+    <app-input
+      class="col-start-1 col-end-5"
+      [tipo]="'select'"
+      [label]="'Função evento'"
+      [placeholder]="'Selecione'"
+      [formController]="formCheckin.controls['funcaoEvento']"
+      [opcoes]="opcoesFuncaoEvento"
+      mensagemErro="Campo obrigatório"
+    ></app-input>
+    <app-input
+      class="col-start-5 col-end-9"
+      [tipo]="'select'"
+      [label]="'Período'"
+      [placeholder]="'Selecione'"
+      [formController]="formCheckin.controls['periodo']"
+      [opcoes]="periodos"
+      mensagemErro="Campo obrigatório"
+    ></app-input>
+    <div class="col-start-1 col-end-9 flex items-end gap-2">
+      <app-input
+        class="w-full"
+        [(formController)]="formCheckin.controls['nome']"
+        [placeholder]="'Nome do participante'"
+        [id]="'nome'"
+        [name]="'nome'"
+        [tipo]="'text'"
+        [label]="'Nome'"
+      ></app-input>
+
+      <button
+        class="bg-emerald-300 flex items-center justify-center rounded-[8px] py-3 px-4"
+      >
+        <i-lucide class="w-3.5" name="search"></i-lucide>
+      </button>
+    </div>
+  </form>
+
+  <div
+    class="flex flex-col gap-3 bg-white rounded-[18px] shadow-lg p-5 relative"
+  >
+    <div class="flex flex-col gap-4 text-[10px]">
+      <div
+        class="flex items-center justify-between border-b border-dashed border-gray-300 pb-3.5"
+      >
+        <div class="flex gap-3.5 items-center w-full">
+          <div
+            class="bg-emerald-300 flex items-center justify-center h-4 w-4 rounded-[4px]"
+          >
+            <i-lucide class="w-2" name="check"></i-lucide>
+          </div>
+          <div class="flex items-center justify-between w-full">
+            <div class="flex gap-3.5 items-center">
+              <div class="flex items-center gap-2 w-[118px]">
+                <p class="flex flex-col justify-between">
+                  <span
+                    class="font-medium flex items-center justify-start gap-1"
+                    >Matheus V G D Ribeiro
+                    <i-lucide name="info" class="w-2.5"></i-lucide
+                  ></span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Igreja São Pedro</span
+                  >
+                </p>
+              </div>
+              <div class="h-4 w-[1px] bg-gray-300"></div>
+              <div class="flex items-center gap-2">
+                <p class="flex flex-col justify-between">
+                  <span class="font-medium">Integral</span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Evangelista</span
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="bg-red-300 flex items-center justify-center h-5 w-5 rounded-[4px]"
+            >
+              <i-lucide class="w-2" name="ban"></i-lucide>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex items-center justify-between border-b border-dashed border-gray-300 pb-3.5"
+      >
+        <div class="flex gap-3.5 items-center w-full">
+          <input type="checkbox" class="w-3 h-3" />
+          <div class="flex items-center justify-between w-full">
+            <div class="flex gap-3.5 items-center">
+              <div class="flex items-center gap-2 w-[118px]">
+                <p class="flex flex-col justify-between">
+                  <span
+                    class="font-medium flex items-center justify-start gap-1"
+                    >Matheus V G D Ribeiro
+                    <i-lucide name="info" class="w-2.5"></i-lucide
+                  ></span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Igreja São Pedro</span
+                  >
+                </p>
+              </div>
+              <div class="h-4 w-[1px] bg-gray-300"></div>
+              <div class="flex items-center gap-2">
+                <p class="flex flex-col justify-between">
+                  <span class="font-medium">Integral</span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Evangelista</span
+                  >
+                </p>
+              </div>
+              <div class="h-4 w-[1px] bg-gray-300"></div>
+              <div class="flex items-center gap-2">
+                <p class="flex flex-col justify-between">
+                  <span class="font-medium">Status</span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Presente</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex items-center justify-between border-b border-dashed border-gray-300 pb-3.5"
+      >
+        <div class="flex gap-3.5 items-center w-full">
+          <input type="checkbox" class="w-3 h-3" />
+          <div class="flex items-center justify-between w-full">
+            <div class="flex gap-3.5 items-center">
+              <div class="flex items-center gap-2 w-[118px]">
+                <p class="flex flex-col justify-between">
+                  <span
+                    class="font-medium flex items-center justify-start gap-1"
+                    >Matheus V G D Ribeiro
+                    <i-lucide name="info" class="w-2.5"></i-lucide
+                  ></span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Igreja São Pedro</span
+                  >
+                </p>
+              </div>
+              <div class="h-4 w-[1px] bg-gray-300"></div>
+              <div class="flex items-center gap-2">
+                <p class="flex flex-col justify-between">
+                  <span class="font-medium">Integral</span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Evangelista</span
+                  >
+                </p>
+              </div>
+              <div class="h-4 w-[1px] bg-gray-300"></div>
+              <div class="flex items-center gap-2">
+                <p class="flex flex-col justify-between">
+                  <span class="font-medium">Status</span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Presente</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex items-center justify-between border-b border-dashed border-gray-300 pb-3.5"
+      >
+        <div class="flex gap-3.5 items-center w-full">
+          <input type="checkbox" class="w-3 h-3" />
+          <div class="flex items-center justify-between w-full">
+            <div class="flex gap-3.5 items-center">
+              <div class="flex items-center gap-2 w-[118px]">
+                <p class="flex flex-col justify-between">
+                  <span
+                    class="font-medium flex items-center justify-start gap-1"
+                    >Matheus V G D Ribeiro
+                    <i-lucide name="info" class="w-2.5"></i-lucide
+                  ></span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Igreja São Pedro</span
+                  >
+                </p>
+              </div>
+              <div class="h-4 w-[1px] bg-gray-300"></div>
+              <div class="flex items-center gap-2">
+                <p class="flex flex-col justify-between">
+                  <span class="font-medium">Integral</span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Evangelista</span
+                  >
+                </p>
+              </div>
+              <div class="h-4 w-[1px] bg-gray-300"></div>
+              <div class="flex items-center gap-2">
+                <p class="flex flex-col justify-between">
+                  <span class="font-medium">Status</span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Presente</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between">
+        <div class="flex gap-3.5 items-center w-full">
+          <input type="checkbox" class="w-3 h-3" />
+          <div class="flex items-center justify-between w-full">
+            <div class="flex gap-3.5 items-center">
+              <div class="flex items-center gap-2 w-[118px]">
+                <p class="flex flex-col justify-between">
+                  <span
+                    class="font-medium flex items-center justify-start gap-1"
+                    >Matheus V G D Ribeiro
+                    <i-lucide name="info" class="w-2.5"></i-lucide
+                  ></span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Igreja São Pedro</span
+                  >
+                </p>
+              </div>
+              <div class="h-4 w-[1px] bg-gray-300"></div>
+              <div class="flex items-center gap-2">
+                <p class="flex flex-col justify-between">
+                  <span class="font-medium">Integral</span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Evangelista</span
+                  >
+                </p>
+              </div>
+              <div class="h-4 w-[1px] bg-gray-300"></div>
+              <div class="flex items-center gap-2">
+                <p class="flex flex-col justify-between">
+                  <span class="font-medium">Status</span>
+                  <span class="font-normal text-[9px] text-gray-500"
+                    >Ausente</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <button
+    class="w-full bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+  >
+    Validar
+    <i-lucide class="w-4" name="check-check"></i-lucide>
+  </button> -->
+  <button
+    class="w-full bg-rose-600 text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+  >
+    Zerar
+    <i-lucide class="w-4" name="trash2"></i-lucide>
+  </button>
+</div>
