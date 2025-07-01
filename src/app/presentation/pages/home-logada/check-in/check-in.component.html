@@ -40,6 +40,7 @@
       ></app-input>
 
       <button
+        (click)="buscarParticipantesCheckin()"
         class="bg-emerald-300 flex items-center justify-center rounded-[8px] py-3 px-4"
       >
         <i-lucide class="w-3.5" name="search"></i-lucide>
@@ -47,235 +48,100 @@
     </div>
   </form>
 
-  <div
-    class="flex flex-col gap-3 bg-white rounded-[18px] shadow-lg p-5 relative"
-  >
-    <div class="flex flex-col gap-4 text-[10px]">
-      <div
-        class="flex items-center justify-between border-b border-dashed border-gray-300 pb-3.5"
-      >
-        <div class="flex gap-3.5 items-center w-full">
-          <input type="checkbox" class="w-3 h-3" />
-          <div class="flex items-center justify-between w-full">
-            <div class="flex gap-3.5 items-center">
-              <div class="flex items-center gap-2 w-[118px]">
-                <p class="flex flex-col justify-between">
-                  <span
-                    class="font-medium flex items-center justify-start gap-1"
-                    >Matheus V G D Ribeiro
-                    <i-lucide name="info" class="w-2.5"></i-lucide
-                  ></span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Igreja São Pedro</span
-                  >
-                </p>
+  <div class="flex flex-col gap-3.5" *ngIf="exibicaoListaParticipantes">
+    <div
+      class="flex flex-col gap-3 bg-white rounded-[18px] shadow-lg p-5 relative"
+    >
+      <div class="flex flex-col gap-4 text-[10px]">
+        <div
+          [ngClass]="{
+            ' border-b border-dashed border-gray-300 pb-3':
+              checkin?.itens.length > 1 && i != checkin?.itens.length - 1
+          }"
+          class="flex items-center justify-between"
+          *ngFor="let participante of checkin?.itens; let i = index"
+        >
+          <div class="flex gap-3.5 items-center w-full">
+            <input type="checkbox" class="w-3 h-3" />
+            <div class="flex items-center justify-between w-full">
+              <div class="flex gap-3.5 items-center">
+                <div class="flex items-center gap-2 w-[100px]">
+                  <p class="flex flex-col justify-between">
+                    <span
+                      class="font-medium flex items-center justify-start gap-1"
+                      >{{ participante?.nome | nomeAbreviado }}
+                      <i-lucide name="info" class="w-2.5"></i-lucide
+                    ></span>
+                    <span class="font-normal text-[9px] text-gray-500">{{
+                      participante.igreja.igreja | nomeFormatado
+                    }}</span>
+                  </p>
+                </div>
+                <div class="h-4 w-[1px] bg-gray-300"></div>
+                <div class="flex items-center gap-2 w-[70px]">
+                  <p class="flex flex-col justify-between">
+                    <span class="font-medium">{{
+                      participante.evento.periodo
+                    }}</span>
+                    <span class="font-normal text-[9px] text-gray-500">{{
+                      participante.evento.funcaoEvento | nomeFormatado
+                    }}</span>
+                  </p>
+                </div>
+                <div class="h-4 w-[1px] bg-gray-300"></div>
+                <div class="flex items-center gap-2">
+                  <p class="flex flex-col justify-between">
+                    <span class="font-medium">Status</span>
+                    <span class="font-normal text-[9px] text-gray-500">{{
+                      participante.presenca ? "Presente" : "Ausente"
+                    }}</span>
+                  </p>
+                </div>
               </div>
-              <div class="h-4 w-[1px] bg-gray-300"></div>
-              <div class="flex items-center gap-2">
-                <p class="flex flex-col justify-between">
-                  <span class="font-medium">Integral</span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Evangelista</span
-                  >
-                </p>
+              <div
+                *ngIf="participante.presenca"
+                class="bg-emerald-300 flex items-center justify-center h-4 w-4 rounded-[4px]"
+              >
+                <i-lucide class="w-2" name="check"></i-lucide>
               </div>
-              <div class="h-4 w-[1px] bg-gray-300"></div>
-              <div class="flex items-center gap-2">
-                <p class="flex flex-col justify-between">
-                  <span class="font-medium">Status</span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Presente</span
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="flex items-center justify-between border-b border-dashed border-gray-300 pb-3.5"
-      >
-        <div class="flex gap-3.5 items-center w-full">
-          <input type="checkbox" class="w-3 h-3" />
-          <div class="flex items-center justify-between w-full">
-            <div class="flex gap-3.5 items-center">
-              <div class="flex items-center gap-2 w-[118px]">
-                <p class="flex flex-col justify-between">
-                  <span
-                    class="font-medium flex items-center justify-start gap-1"
-                    >Matheus V G D Ribeiro
-                    <i-lucide name="info" class="w-2.5"></i-lucide
-                  ></span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Igreja São Pedro</span
-                  >
-                </p>
-              </div>
-              <div class="h-4 w-[1px] bg-gray-300"></div>
-              <div class="flex items-center gap-2">
-                <p class="flex flex-col justify-between">
-                  <span class="font-medium">Integral</span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Evangelista</span
-                  >
-                </p>
-              </div>
-              <div class="h-4 w-[1px] bg-gray-300"></div>
-              <div class="flex items-center gap-2">
-                <p class="flex flex-col justify-between">
-                  <span class="font-medium">Status</span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Presente</span
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="flex items-center justify-between border-b border-dashed border-gray-300 pb-3.5"
-      >
-        <div class="flex gap-3.5 items-center w-full">
-          <input type="checkbox" class="w-3 h-3" />
-          <div class="flex items-center justify-between w-full">
-            <div class="flex gap-3.5 items-center">
-              <div class="flex items-center gap-2 w-[118px]">
-                <p class="flex flex-col justify-between">
-                  <span
-                    class="font-medium flex items-center justify-start gap-1"
-                    >Matheus V G D Ribeiro
-                    <i-lucide name="info" class="w-2.5"></i-lucide
-                  ></span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Igreja São Pedro</span
-                  >
-                </p>
-              </div>
-              <div class="h-4 w-[1px] bg-gray-300"></div>
-              <div class="flex items-center gap-2">
-                <p class="flex flex-col justify-between">
-                  <span class="font-medium">Integral</span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Evangelista</span
-                  >
-                </p>
-              </div>
-              <div class="h-4 w-[1px] bg-gray-300"></div>
-              <div class="flex items-center gap-2">
-                <p class="flex flex-col justify-between">
-                  <span class="font-medium">Status</span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Presente</span
-                  >
-                </p>
-              </div>
-            </div>
-            <div
-              class="bg-emerald-300 flex items-center justify-center h-4 w-4 rounded-[4px]"
-            >
-              <i-lucide class="w-2" name="check"></i-lucide>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="flex items-center justify-between border-b border-dashed border-gray-300 pb-3.5"
-      >
-        <div class="flex gap-3.5 items-center w-full">
-          <input type="checkbox" class="w-3 h-3" />
-          <div class="flex items-center justify-between w-full">
-            <div class="flex gap-3.5 items-center">
-              <div class="flex items-center gap-2 w-[118px]">
-                <p class="flex flex-col justify-between">
-                  <span
-                    class="font-medium flex items-center justify-start gap-1"
-                    >Matheus V G D Ribeiro
-                    <i-lucide name="info" class="w-2.5"></i-lucide
-                  ></span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Igreja São Pedro</span
-                  >
-                </p>
-              </div>
-              <div class="h-4 w-[1px] bg-gray-300"></div>
-              <div class="flex items-center gap-2">
-                <p class="flex flex-col justify-between">
-                  <span class="font-medium">Integral</span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Evangelista</span
-                  >
-                </p>
-              </div>
-              <div class="h-4 w-[1px] bg-gray-300"></div>
-              <div class="flex items-center gap-2">
-                <p class="flex flex-col justify-between">
-                  <span class="font-medium">Status</span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Presente</span
-                  >
-                </p>
-              </div>
-            </div>
-            <div
-              class="bg-red-300 flex items-center justify-center h-4 w-4 rounded-[4px]"
-            >
-              <i-lucide class="w-2" name="ban"></i-lucide>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex items-center justify-between">
-        <div class="flex gap-3.5 items-center w-full">
-          <input type="checkbox" class="w-3 h-3" />
-          <div class="flex items-center justify-between w-full">
-            <div class="flex gap-3.5 items-center">
-              <div class="flex items-center gap-2 w-[118px]">
-                <p class="flex flex-col justify-between">
-                  <span
-                    class="font-medium flex items-center justify-start gap-1"
-                    >Matheus V G D Ribeiro
-                    <i-lucide name="info" class="w-2.5"></i-lucide
-                  ></span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Igreja São Pedro</span
-                  >
-                </p>
-              </div>
-              <div class="h-4 w-[1px] bg-gray-300"></div>
-              <div class="flex items-center gap-2">
-                <p class="flex flex-col justify-between">
-                  <span class="font-medium">Integral</span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Evangelista</span
-                  >
-                </p>
-              </div>
-              <div class="h-4 w-[1px] bg-gray-300"></div>
-              <div class="flex items-center gap-2">
-                <p class="flex flex-col justify-between">
-                  <span class="font-medium">Status</span>
-                  <span class="font-normal text-[9px] text-gray-500"
-                    >Ausente</span
-                  >
-                </p>
+              <div
+                *ngIf="!participante.presenca"
+                class="bg-red-300 flex items-center justify-center h-4 w-4 rounded-[4px]"
+              >
+                <i-lucide class="w-2" name="ban"></i-lucide>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- <button
+      class="w-full bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+    >
+      Validar
+      <i-lucide class="w-4" name="check-check"></i-lucide>
+    </button> -->
+    <button
+      class="w-full bg-rose-600 text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+    >
+      Zerar
+      <i-lucide class="w-4" name="trash2"></i-lucide>
+    </button>
   </div>
-  <!-- <button
-    class="w-full bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+
+  <div
+    *ngIf="!exibicaoListaParticipantes"
+    class="bg-white rounded-2xl shadow-md pb-5 pl-5 pr-5 border border-dashed border-gray-300 relative flex flex-col items-center"
   >
-    Validar
-    <i-lucide class="w-4" name="check-check"></i-lucide>
-  </button> -->
-  <button
-    class="w-full bg-rose-600 text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
-  >
-    Zerar
-    <i-lucide class="w-4" name="trash2"></i-lucide>
-  </button>
+    <ng-lottie [options]="animacaoErro" class="w-30 h-30" />
+
+    <div class="flex flex-col items-center gap-1">
+      <p class="text-[12px] font-medium text-justify">
+        Ops, nenhum participante encontrado!
+      </p>
+      <p class="text-[10px] text-center">
+        Selecione outros filtros e realize a consulta para tentar novamente.
+      </p>
+    </div>
+  </div>
 </div>

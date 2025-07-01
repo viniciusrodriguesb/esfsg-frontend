@@ -157,6 +157,10 @@ import { BuscarDadosDashboardAdapter } from './infrastructure/adapter/dashboard/
 import { BuscarProximoEventoUseCase } from './core/application/use-cases/dashboard/buscar-proximo-evento.usecase';
 import { BuscarProximoEventoPort } from './core/domain/ports/dashboard/buscar-proximo-evento.port';
 import { BuscarProximoEventoAdapter } from './infrastructure/adapter/dashboard/buscar-proximo-evento.adapter';
+import { BuscarParticipantesCheckinPort } from './core/domain/ports/checkin/buscar-participantes-checkin.port';
+import { BuscarParticipantesCheckinUseCase } from './core/application/use-cases/checkin/buscar-participantes-checkin.usecase';
+import { BuscarParticipantesCheckinAdapter } from './infrastructure/adapter/checkin/buscar-participantes-checkin.adapter';
+import { NomeAbreviadoPipe } from './presentation/pipes/nome-abreviado.pipe';
 
 @NgModule({
   declarations: [
@@ -187,54 +191,52 @@ import { BuscarProximoEventoAdapter } from './infrastructure/adapter/dashboard/b
     FormsModule,
     ReactiveFormsModule,
     LottieComponent,
-
     // Configuração das bibliotecas
     NgxMaskModule.forRoot(),
     LucideAngularModule.pick({
-      CircleX,
-      CircleCheck,
-      Check,
-      X,
-      Eye,
-      EyeClosed,
-      User,
-      Building,
-      ChevronLeft,
-      ChevronRight,
-      Ticket,
-      Trash2,
-      Plus,
-      MoveRight,
-      MoveLeft,
-      Church,
-      Baby,
-      Car,
-      Pencil,
-      CheckCheck,
-      ListCheck,
-      LogIn,
-      CirclePlus,
-      MapPin,
-      BadgeCheck,
-      HandHeart,
-      QrCode,
-      Ban,
-      MessageSquare,
-      Wallet,
-      Copy,
-      ShieldUser,
-      Calendar,
-      Ellipsis,
-      CircleAlert,
-      Sun,
-      Moon,
-      Banknote,
-      Menu,
-      Info,
-      Search
+        CircleX,
+        CircleCheck,
+        Check,
+        X,
+        Eye,
+        EyeClosed,
+        User,
+        Building,
+        ChevronLeft,
+        ChevronRight,
+        Ticket,
+        Trash2,
+        Plus,
+        MoveRight,
+        MoveLeft,
+        Church,
+        Baby,
+        Car,
+        Pencil,
+        CheckCheck,
+        ListCheck,
+        LogIn,
+        CirclePlus,
+        MapPin,
+        BadgeCheck,
+        HandHeart,
+        QrCode,
+        Ban,
+        MessageSquare,
+        Wallet,
+        Copy,
+        ShieldUser,
+        Calendar,
+        Ellipsis,
+        CircleAlert,
+        Sun,
+        Moon,
+        Banknote,
+        Menu,
+        Info,
+        Search
     }),
     SweetAlert2Module.forRoot(),
-
     // Angular Material Modules
     MatSlideToggleModule,
     MatInputModule,
@@ -243,10 +245,16 @@ import { BuscarProximoEventoAdapter } from './infrastructure/adapter/dashboard/b
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
-  ],
+    NomeAbreviadoPipe,
+    NomePipe
+],
   providers: [
     provideLottieOptions({ player: () => player }),
     provideHttpClient(withInterceptorsFromDi()),
+
+    NomePipe,
+    NomeAbreviadoPipe,
+
     BuscarClasseUseCase,
     {
       provide: BuscarClassePort,
@@ -307,7 +315,6 @@ import { BuscarProximoEventoAdapter } from './infrastructure/adapter/dashboard/b
     { provide: BuscarEventoPort, useClass: BuscarEventoAdapter },
     BuscarIgrejaUseCase,
     { provide: BuscarIgrejaPort, useClass: BuscarIgrejaAdapter },
-    NomePipe,
     BuscarInscricaoUseCase,
     { provide: BuscarInscricaoPort, useClass: BuscarInscricaoAdapter },
     BuscarQrCodeCheckinUseCase,
@@ -325,6 +332,8 @@ import { BuscarProximoEventoAdapter } from './infrastructure/adapter/dashboard/b
     { provide: BuscarDadosDashboardPort, useClass: BuscarDadosDashboardAdapter },
     BuscarProximoEventoUseCase,
     { provide: BuscarProximoEventoPort, useClass: BuscarProximoEventoAdapter },
+    BuscarParticipantesCheckinUseCase,
+    { provide: BuscarParticipantesCheckinPort, useClass: BuscarParticipantesCheckinAdapter },
   ],
   bootstrap: [AppComponent],
 })

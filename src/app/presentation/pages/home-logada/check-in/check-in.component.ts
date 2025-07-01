@@ -5,6 +5,9 @@ import { BuscarFuncaoEventoUseCase } from '../../../../core/application/use-case
 import { PeriodoEnum } from '../../../../core/domain/enums/periodo.enum';
 import { NomePipe } from '../../../pipes/nome.pipe';
 import { AnimationOptions } from 'ngx-lottie';
+import { BuscarParticipantesCheckinUseCase } from '../../../../core/application/use-cases/checkin/buscar-participantes-checkin.usecase';
+import { CheckinRequestDto } from '../../../../core/application/dto/request/checkin-request.dto';
+import { CheckinResponseDto } from '../../../../core/application/dto/response/checkin-response-response.dto';
 
 @Component({
   selector: 'app-check-in',
@@ -19,6 +22,12 @@ export class CheckInComponent {
     path: '/animations/animation-check-in.json',
     renderer: 'svg',
     loop: true,
+  };
+
+  animacaoErro: AnimationOptions = {
+    path: '/animations/animation-not-found.json',
+    renderer: 'svg',
+    loop: false,
   };
 
   formCheckin = this._formBuilder.group({
@@ -72,14 +81,52 @@ export class CheckInComponent {
     },
   ];
 
+  checkin: CheckinResponseDto;
+  exibicaoListaParticipantes: boolean = false;
 
   constructor(
     private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
+    private readonly buscarParticipantesCheckinUsecase: BuscarParticipantesCheckinUseCase,
     private readonly nomePipe: NomePipe
   ) {}
 
   ngOnInit() {
     this.buscarFuncaoEvento();
+    this.buscarParticipantesCheckin();
+  }
+
+  public buscarParticipantesCheckin() {
+    const checkinRequest: CheckinRequestDto = {
+      funcaoEvento: this.formCheckin.get('funcaoEvento')?.value
+        ? [Number.parseInt(this.formCheckin.get('funcaoEvento')?.value)]
+        : undefined,
+      periodo: this.formCheckin.get('periodo')?.value,
+      nome: this.formCheckin.get('nome')?.value,
+      pagina: 0,
+      tamanhoPagina: 6,
+    };
+
+    this.buscarParticipantesCheckinUsecase.execute(checkinRequest).subscribe({
+      next: (resultado) => {
+        console.log('resultado', resultado);
+        
+        if (resultado != null) {
+          this.exibicaoListaParticipantes = true;
+        }else{
+          console.log('nenhum participante encontrado');
+          
+          this.exibicaoListaParticipantes = false;
+        }
+
+        
+        this.checkin = resultado;
+      },
+      error: (error) => {
+        console.log('entrou');
+        
+        this.exibicaoListaParticipantes = false;
+      },
+    });
   }
 
   public buscarFuncaoEvento() {
@@ -99,5 +146,4 @@ export class CheckInComponent {
       descricao: this.nomePipe.transform(nome.descricao),
     }));
   }
-  
 }

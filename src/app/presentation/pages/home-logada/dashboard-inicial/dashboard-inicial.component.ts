@@ -35,7 +35,7 @@ export class DashboardInicialComponent {
   };
 
   animacaoErro: AnimationOptions = {
-    path: '/animations/animation-error.json',
+    path: '/animations/animation-not-found.json',
     renderer: 'svg',
     loop: false,
   };
