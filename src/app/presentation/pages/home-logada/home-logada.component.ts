@@ -50,6 +50,7 @@ export class HomeLogadaComponent {
   selectedDevice: MediaDeviceInfo | undefined;
 
   handleQrCodeResult(result: string): void {
+    alert('QR Code lido: ' + result);
     console.log('QR Code:', result);
     // Aqui você pode tratar o valor lido
   }
