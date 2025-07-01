@@ -1,11 +1,13 @@
- <div class="flex items-center justify-between mb-3.5">
-    <div class="flex items-center gap-2">
-      <ng-lottie [options]="options" class="w-12 h-12" />
+<div class="flex items-center justify-between mb-3.5">
+  <div class="flex items-center gap-2">
+    <ng-lottie [options]="options" class="w-12 h-12" />
 
-      <p class="flex flex-col justify-between">
-        <span class="font-normal text-[9px] text-gray-500">Olá, bem-vindo</span>
-        <span class="font-medium text-[12px]">João Lucas da Silva Pereira</span>
-      </p>
-    </div>
-    <i-lucide (click)="navegar()" name="menu" class="w-6"></i-lucide>
+    <p class="flex flex-col justify-between">
+      <span class="font-normal text-[9px] text-gray-500">Olá, bem-vindo</span>
+      <span class="font-medium text-[12px]">João Lucas da Silva Pereira</span>
+    </p>
   </div>
+  <button (click)="openSidebar()">
+    <i-lucide name="menu" class="w-6"></i-lucide>
+  </button>
+</div>

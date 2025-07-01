@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
 import { Rotas } from '../../../core/domain/enums/rotas.enum';
@@ -16,9 +16,17 @@ export class HeaderComponent {
     loop: false,
   };
 
+  isSidebarOpen = false;
+
+  @Output() toggleMenu = new EventEmitter<void>();
+
+  openSidebar() {
+    this.toggleMenu.emit();
+  }
+
   constructor(private readonly router: Router) {}
 
-  navegar(){
-    this.router.navigate([Rotas.HOME_LOGADA, Rotas.CHECK_IN])
+  navegar() {
+    this.router.navigate([Rotas.HOME_LOGADA, Rotas.CHECK_IN]);
   }
 }

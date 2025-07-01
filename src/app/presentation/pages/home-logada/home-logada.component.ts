@@ -16,6 +16,9 @@ export class HomeLogadaComponent {
   
   constructor(private readonly router: Router) {}
 
+  
+  isSidebarOpen = false;
+
   ngOnInit(){
     this.usuarioLogado = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_LOGADO))
     
@@ -23,5 +26,14 @@ export class HomeLogadaComponent {
     //   console.error('Usuário não encontrado no armazenamento local.');
     //   this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_ADMINISTRADOR]);
     // }
+  }
+
+   toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  navegar() {
+    this.router.navigate([Rotas.HOME_LOGADA, Rotas.CHECK_IN]);
+    this.toggleSidebar();
   }
 }

@@ -9,4 +9,5 @@ export enum ControllersEnum {
     Usuario = 'Usuario',
     Igreja = 'Igreja',
     QrCode = 'QRCode',	
+    Dashboard = 'Dashboard',
 }

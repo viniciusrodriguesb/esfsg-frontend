@@ -151,6 +151,12 @@ import { HomeLogadaComponent } from './presentation/pages/home-logada/home-logad
 import { DashboardInicialComponent } from './presentation/pages/home-logada/dashboard-inicial/dashboard-inicial.component';
 import { CheckInComponent } from './presentation/pages/home-logada/check-in/check-in.component';
 import { HeaderComponent } from './presentation/ui/header/header.component';
+import { BuscarDadosDashboardUseCase } from './core/application/use-cases/dashboard/buscar-dados-dashboard.usecase';
+import { BuscarDadosDashboardPort } from './core/domain/ports/dashboard/buscar-dados-dashboard.port';
+import { BuscarDadosDashboardAdapter } from './infrastructure/adapter/dashboard/buscar-dados-dashboard.adapter';
+import { BuscarProximoEventoUseCase } from './core/application/use-cases/dashboard/buscar-proximo-evento.usecase';
+import { BuscarProximoEventoPort } from './core/domain/ports/dashboard/buscar-proximo-evento.port';
+import { BuscarProximoEventoAdapter } from './infrastructure/adapter/dashboard/buscar-proximo-evento.adapter';
 
 @NgModule({
   declarations: [
@@ -314,7 +320,11 @@ import { HeaderComponent } from './presentation/ui/header/header.component';
     BuscarPeriodoEventoUseCase,
     { provide: BuscarPeriodoEventoPort, useClass: BuscarPeriodoEventoAdapter },
     BuscarUsuarioAdminUseCase,
-    { provide: BuscarUsuarioAdminPort, useClass: BuscarUsuarioAdminAdapter }
+    { provide: BuscarUsuarioAdminPort, useClass: BuscarUsuarioAdminAdapter },
+    BuscarDadosDashboardUseCase,
+    { provide: BuscarDadosDashboardPort, useClass: BuscarDadosDashboardAdapter },
+    BuscarProximoEventoUseCase,
+    { provide: BuscarProximoEventoPort, useClass: BuscarProximoEventoAdapter },
   ],
   bootstrap: [AppComponent],
 })

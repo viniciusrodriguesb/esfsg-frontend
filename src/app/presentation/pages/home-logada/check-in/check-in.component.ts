@@ -34,6 +34,45 @@ export class CheckInComponent {
 
   opcoesFuncaoEvento: TabelaDominioResponseDto[] = [];
 
+  resposta = [
+    {
+      idCheckin: 1,
+      presenca: false,
+      nome: 'Matheus V G D Ribeiro',
+      igreja: { igreja: 'São Pedro', classe: 'JOVEM' },
+      evento: { periodo: 'Manhã', funcaoEvento: 'EVANGELISTA' },
+    },
+    {
+      idCheckin: 2,
+      presenca: true,
+      nome: 'Zezinho da Costa',
+      igreja: { igreja: 'Teste inscrição', classe: 'VARÕES' },
+      evento: { periodo: 'Tarde', funcaoEvento: 'CHECK-IN' },
+    },
+    {
+      idCheckin: 3,
+      presenca: false,
+      nome: 'Israel Costa',
+      igreja: { igreja: 'PORTO DA PEDRA', classe: 'VARÕES' },
+      evento: { periodo: 'Tarde', funcaoEvento: 'CHECK-IN' },
+    },
+    {
+      idCheckin: 4,
+      presenca: false,
+      nome: 'Vinicius Rodrigues Bastos',
+      igreja: { igreja: 'MUTUÁ', classe: 'JOVEM' },
+      evento: { periodo: 'Tarde', funcaoEvento: 'TELECOMUNICAÇÕES' },
+    },
+    {
+      idCheckin: 5,
+      presenca: true,
+      nome: 'teste',
+      igreja: { igreja: 'BARRO VERMELHO', classe: 'JOVEM' },
+      evento: { periodo: 'Tarde', funcaoEvento: 'INSTRUMENTISTA' },
+    },
+  ];
+
+
   constructor(
     private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
     private readonly nomePipe: NomePipe
@@ -60,4 +99,5 @@ export class CheckInComponent {
       descricao: this.nomePipe.transform(nome.descricao),
     }));
   }
+  
 }
