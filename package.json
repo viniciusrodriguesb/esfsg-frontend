@@ -23,6 +23,7 @@
     "@angular/router": "^19.0.0",
     "@sweetalert2/ngx-sweetalert2": "^13.0.0",
     "@tailwindcss/postcss": "^4.1.5",
+    "@zxing/ngx-scanner": "^20.0.0",
     "lottie-web": "^5.13.0",
     "lucide-angular": "^0.511.0",
     "moment": "^2.30.1",

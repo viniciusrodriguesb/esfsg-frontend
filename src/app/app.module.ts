@@ -101,6 +101,7 @@ import {
   Menu,
   Info,
   Search,
+  BrushCleaning,
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -161,6 +162,7 @@ import { BuscarParticipantesCheckinPort } from './core/domain/ports/checkin/busc
 import { BuscarParticipantesCheckinUseCase } from './core/application/use-cases/checkin/buscar-participantes-checkin.usecase';
 import { BuscarParticipantesCheckinAdapter } from './infrastructure/adapter/checkin/buscar-participantes-checkin.adapter';
 import { NomeAbreviadoPipe } from './presentation/pipes/nome-abreviado.pipe';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -182,7 +184,7 @@ import { NomeAbreviadoPipe } from './presentation/pipes/nome-abreviado.pipe';
     HomeLogadaComponent,
     DashboardInicialComponent,
     CheckInComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -234,9 +236,12 @@ import { NomeAbreviadoPipe } from './presentation/pipes/nome-abreviado.pipe';
         Banknote,
         Menu,
         Info,
-        Search
+        Search,
+        BrushCleaning
     }),
     SweetAlert2Module.forRoot(),
+
+    ZXingScannerModule,
     // Angular Material Modules
     MatSlideToggleModule,
     MatInputModule,

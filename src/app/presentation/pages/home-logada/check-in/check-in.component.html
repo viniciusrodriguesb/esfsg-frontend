@@ -9,9 +9,9 @@
     <ng-lottie [options]="options" class="w-60 h-60" />
   </div>
 
-  <form class="grid grid-cols-8 gap-3.5" [formGroup]="formCheckin">
+  <form class="grid grid-cols-9 gap-3.5" [formGroup]="formCheckin">
     <app-input
-      class="col-start-1 col-end-5"
+      class="col-start-1 col-end-4"
       [tipo]="'select'"
       [label]="'Função evento'"
       [placeholder]="'Selecione'"
@@ -20,7 +20,7 @@
       mensagemErro="Campo obrigatório"
     ></app-input>
     <app-input
-      class="col-start-5 col-end-9"
+      class="col-start-4 col-end-7"
       [tipo]="'select'"
       [label]="'Período'"
       [placeholder]="'Selecione'"
@@ -28,7 +28,16 @@
       [opcoes]="periodos"
       mensagemErro="Campo obrigatório"
     ></app-input>
-    <div class="col-start-1 col-end-9 flex items-end gap-2">
+        <app-input
+      class="col-start-7 col-end-10"
+      [tipo]="'select'"
+      [label]="'Status'"
+      [placeholder]="'Selecione'"
+      [formController]="formCheckin.controls['periodo']"
+      [opcoes]="periodos"
+      mensagemErro="Campo obrigatório"
+    ></app-input>
+    <div class="col-start-1 col-end-10 flex items-end gap-2">
       <app-input
         class="w-full"
         [(formController)]="formCheckin.controls['nome']"
@@ -41,9 +50,9 @@
 
       <button
         (click)="buscarParticipantesCheckin()"
-        class="bg-emerald-300 flex items-center justify-center rounded-[8px] py-3 px-4"
+        class="bg-[#007AFF] flex items-center justify-center rounded-[8px] py-3 px-4"
       >
-        <i-lucide class="w-3.5" name="search"></i-lucide>
+        <i-lucide class="w-3.5 text-white" name="search"></i-lucide>
       </button>
     </div>
   </form>
@@ -115,18 +124,26 @@
         </div>
       </div>
     </div>
-    <!-- <button
-      class="w-full bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
-    >
-      Validar
-      <i-lucide class="w-4" name="check-check"></i-lucide>
-    </button> -->
-    <button
-      class="w-full bg-rose-600 text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
-    >
-      Zerar
-      <i-lucide class="w-4" name="trash2"></i-lucide>
-    </button>
+    <div class="flex w-full items-center gap-2.5">
+      <button
+        class="w-full opacity-50 bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+      >
+        Validar
+        <i-lucide class="w-4" name="check-check"></i-lucide>
+      </button>
+      <button
+        class=" bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] px-4 py-2.5 flex items-center justify-center gap-2"
+      >
+
+        <i-lucide class="w-4" name="circle-alert"></i-lucide>
+      </button>
+      <!-- <button
+        class="w-full bg-rose-600 text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+      >
+        Zerar
+        <i-lucide class="w-4" name="trash2"></i-lucide>
+      </button> -->
+    </div>
   </div>
 
   <div
