@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-3 bg-white rounded-[18px] shadow-lg p-5 relative">
+<div class="flex flex-col gap-3  shadow-lg p-5 relative">
   <div class="flex items-center justify-between">
     <div class="flex items-center justify-between gap-1 w-full">
       <p class="font-bold text-[14px] flex items-center gap-2">
@@ -8,12 +8,14 @@
     </div>
   </div>
   <span class="h-0.5 bg-[#F6F6F6]"></span>
-  <zxing-scanner
-    [autostart]="true"
-    (scanSuccess)="handleQrCodeResult($event)"
-    [torch]="true"
-    [tryHarder]="true"
-    [device]="selectedDevice"
-    [formats]="formatsEnabled"
-  ></zxing-scanner>
+  <div class="overflow-hidden rounded-[12px]">
+    <zxing-scanner
+      [autostart]="true"
+      (scanSuccess)="handleQrCodeResult($event)"
+      [torch]="true"
+      [tryHarder]="true"
+      [device]="selectedDevice"
+      [formats]="formatsEnabled"
+    ></zxing-scanner>
+  </div>
 </div>
