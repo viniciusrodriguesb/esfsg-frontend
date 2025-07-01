@@ -159,7 +159,7 @@ export class FormDadosPessoaisComponent {
     );
 
     const condicoes = this.formDadosPessoais.get('condicoesMedicas')?.value;
-    if (condicoes.some((v) => v && v.trim() !== '')) {
+    if (condicoes.some((v) => v && v !== '')) {
       this.inscricaoUsuario.usuario.condicoesMedicas = condicoes.map(
         (v: string) => Number(v)
       );
@@ -172,7 +172,7 @@ export class FormDadosPessoaisComponent {
 
   private preencherObjetoResumoInscricao() {
     const condicoes = this.formDadosPessoais.get('condicoesMedicas')?.value;
-    if (condicoes.some((v) => v && v.trim() !== '')) {
+    if (condicoes.some((v) => v && v !== '')) {
       this.preencherArrayCondicoesMedicas(
         condicoes.map((v: string) => Number(v))
       );

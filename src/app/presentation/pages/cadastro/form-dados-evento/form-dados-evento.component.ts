@@ -150,7 +150,7 @@ export class FormDadosEventoComponent {
 
     localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
 
-    if (this.usuarioExistente.cpf != null) {
+    if (this.usuarioExistente?.cpf != null) {
       this.router.navigate([Rotas.CADASTRO, Rotas.CONFIRMACAO_DADOS_CADASTRO]);
     } else {
       this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_ADICIONAIS]);
