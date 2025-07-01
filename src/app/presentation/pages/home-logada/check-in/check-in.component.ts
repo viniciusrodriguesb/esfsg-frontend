@@ -9,6 +9,8 @@ import { BuscarParticipantesCheckinUseCase } from '../../../../core/application/
 import { CheckinRequestDto } from '../../../../core/application/dto/request/checkin-request.dto';
 import { CheckinResponseDto } from '../../../../core/application/dto/response/checkin-response-response.dto';
 
+import { MatDialog } from '@angular/material/dialog';
+import { ModalQrcodeCheckinComponent } from '../../../ui/modais/modal-qrcode-checkin/modal-qrcode-checkin.component';
 @Component({
   selector: 'app-check-in',
   standalone: false,
@@ -43,51 +45,14 @@ export class CheckInComponent {
 
   opcoesFuncaoEvento: TabelaDominioResponseDto[] = [];
 
-  resposta = [
-    {
-      idCheckin: 1,
-      presenca: false,
-      nome: 'Matheus V G D Ribeiro',
-      igreja: { igreja: 'São Pedro', classe: 'JOVEM' },
-      evento: { periodo: 'Manhã', funcaoEvento: 'EVANGELISTA' },
-    },
-    {
-      idCheckin: 2,
-      presenca: true,
-      nome: 'Zezinho da Costa',
-      igreja: { igreja: 'Teste inscrição', classe: 'VARÕES' },
-      evento: { periodo: 'Tarde', funcaoEvento: 'CHECK-IN' },
-    },
-    {
-      idCheckin: 3,
-      presenca: false,
-      nome: 'Israel Costa',
-      igreja: { igreja: 'PORTO DA PEDRA', classe: 'VARÕES' },
-      evento: { periodo: 'Tarde', funcaoEvento: 'CHECK-IN' },
-    },
-    {
-      idCheckin: 4,
-      presenca: false,
-      nome: 'Vinicius Rodrigues Bastos',
-      igreja: { igreja: 'MUTUÁ', classe: 'JOVEM' },
-      evento: { periodo: 'Tarde', funcaoEvento: 'TELECOMUNICAÇÕES' },
-    },
-    {
-      idCheckin: 5,
-      presenca: true,
-      nome: 'teste',
-      igreja: { igreja: 'BARRO VERMELHO', classe: 'JOVEM' },
-      evento: { periodo: 'Tarde', funcaoEvento: 'INSTRUMENTISTA' },
-    },
-  ];
-
   checkin: CheckinResponseDto;
   exibicaoListaParticipantes: boolean = false;
 
   constructor(
     private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
     private readonly buscarParticipantesCheckinUsecase: BuscarParticipantesCheckinUseCase,
-    private readonly nomePipe: NomePipe
+    private readonly nomePipe: NomePipe,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -109,21 +74,20 @@ export class CheckInComponent {
     this.buscarParticipantesCheckinUsecase.execute(checkinRequest).subscribe({
       next: (resultado) => {
         console.log('resultado', resultado);
-        
+
         if (resultado != null) {
           this.exibicaoListaParticipantes = true;
-        }else{
+        } else {
           console.log('nenhum participante encontrado');
-          
+
           this.exibicaoListaParticipantes = false;
         }
 
-        
         this.checkin = resultado;
       },
       error: (error) => {
         console.log('entrou');
-        
+
         this.exibicaoListaParticipantes = false;
       },
     });
@@ -145,5 +109,19 @@ export class CheckInComponent {
       ...nome,
       descricao: this.nomePipe.transform(nome.descricao),
     }));
+  }
+
+  abrirScanner() {
+    const dialogRef = this.dialog.open(ModalQrcodeCheckinComponent, {
+      width: '90%',
+      height: 'auto',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('QR Code lido:', result);
+        // Faça algo com o resultado
+      }
+    });
   }
 }

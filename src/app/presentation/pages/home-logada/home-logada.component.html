@@ -1,4 +1,4 @@
-<!-- <div class="relative h-screen flex flex-col px-4 py-8">
+<div class="relative h-screen flex flex-col px-4 py-8">
   <app-header (toggleMenu)="toggleSidebar()"></app-header>
   <router-outlet></router-outlet>
 
@@ -38,17 +38,4 @@
     *ngIf="isSidebarOpen"
     (click)="toggleSidebar()"
   ></div>
-</div> -->
-<zxing-scanner
-  [autostart]="true"
-  (scanSuccess)="handleQrCodeResult($event)"
-  [torch]="true"
-  [tryHarder]="true"
-  [device]="selectedDevice"
-  [formats]="formatsEnabled"
-></zxing-scanner>
-<select (change)="onDeviceSelect($event)">
-  <option *ngFor="let device of availableDevices" [value]="device.deviceId">
-    {{ device.label || 'Camera ' + device.deviceId }}
-  </option>
-</select>
+</div>

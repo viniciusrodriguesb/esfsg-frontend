@@ -163,6 +163,7 @@ import { BuscarParticipantesCheckinUseCase } from './core/application/use-cases/
 import { BuscarParticipantesCheckinAdapter } from './infrastructure/adapter/checkin/buscar-participantes-checkin.adapter';
 import { NomeAbreviadoPipe } from './presentation/pipes/nome-abreviado.pipe';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ModalQrcodeCheckinComponent } from './presentation/ui/modais/modal-qrcode-checkin/modal-qrcode-checkin.component';
 
 @NgModule({
   declarations: [
@@ -185,6 +186,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     DashboardInicialComponent,
     CheckInComponent,
     HeaderComponent,
+    ModalQrcodeCheckinComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,19 @@
+<div class="flex flex-col gap-3 bg-white rounded-[18px] shadow-lg p-5 relative">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between gap-1 w-full">
+      <p class="font-bold text-[14px] flex items-center gap-2">
+        <i-lucide name="qr-code" class="w-4 text-gray-500"></i-lucide>
+        Ler QrCode
+      </p>
+    </div>
+  </div>
+  <span class="h-0.5 bg-[#F6F6F6]"></span>
+  <zxing-scanner
+    [autostart]="true"
+    (scanSuccess)="handleQrCodeResult($event)"
+    [torch]="true"
+    [tryHarder]="true"
+    [device]="selectedDevice"
+    [formats]="formatsEnabled"
+  ></zxing-scanner>
+</div>
