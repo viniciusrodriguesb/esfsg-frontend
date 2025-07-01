@@ -45,7 +45,9 @@ export interface ReembolsoSolicitado {
 
 export interface InscritosPeriodo {
   quantidadeInscritosIntegral: number
+  quantidadeLiberadaIntegral: number
   quantidadeInscritosTarde: number
+  quantidadeLiberadaTarde: number
 }
 
 export interface InscritosVisita {
