@@ -24,6 +24,8 @@ export class BuscarDadosDashboardAdapter extends BuscarDadosDashboardPort {
       inscritosPeriodo: {
         quantidadeInscritosIntegral: 80,
         quantidadeInscritosTarde: 20,
+        quantidadeLiberadaIntegral: 10,
+        quantidadeLiberadaTarde: 20
       },
       inscritosVisita: {
         inscritosDisponiveisVisita: 50,
