@@ -7,4 +7,6 @@ export class UsuarioAdminResponseDto {
 export class DadosUsuarioAdminResponseDto {
   id: number
   nome: string
+  cpf: string
+  role: number
 }

@@ -9,8 +9,10 @@ import { BuscarParticipantesCheckinUseCase } from '../../../../core/application/
 import { CheckinRequestDto } from '../../../../core/application/dto/request/checkin-request.dto';
 import { CheckinResponseDto } from '../../../../core/application/dto/response/checkin-response-response.dto';
 
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ModalQrcodeCheckinComponent } from '../../../ui/modais/modal-qrcode-checkin/modal-qrcode-checkin.component';
+import { ModalCheckinConfirmadoComponent } from '../../../ui/modais/modal-checkin-confirmado/modal-checkin-confirmado.component';
+
 @Component({
   selector: 'app-check-in',
   standalone: false,
@@ -47,6 +49,7 @@ export class CheckInComponent {
 
   checkin: CheckinResponseDto;
   exibicaoListaParticipantes: boolean = false;
+  listaParticipantes: any[] = [1];
 
   constructor(
     private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
@@ -111,6 +114,28 @@ export class CheckInComponent {
     }));
   }
 
+  public validarCheckin() {
+    if (this.listaParticipantes.length > 1) {
+      this.abrirModalConfirmacaoSucesso();
+    } else {
+      this.abrirScanner();
+    }
+  }
+
+  abrirModalConfirmacaoSucesso() {
+    const dialogRef = this.dialog.open(ModalCheckinConfirmadoComponent, {
+      width: '90%',
+      height: 'auto',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('QR Code lido:', result);
+        // Faça algo com o resultado
+        alert(`QR Code lido: $ {result}`);
+      }
+    });
+  }
+
   abrirScanner() {
     const dialogRef = this.dialog.open(ModalQrcodeCheckinComponent, {
       width: '90%',
@@ -121,6 +146,7 @@ export class CheckInComponent {
       if (result) {
         console.log('QR Code lido:', result);
         // Faça algo com o resultado
+        alert(`QR Code lido: $ {result}`);
       }
     });
   }

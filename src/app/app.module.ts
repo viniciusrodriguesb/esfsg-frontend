@@ -164,6 +164,10 @@ import { BuscarParticipantesCheckinAdapter } from './infrastructure/adapter/chec
 import { NomeAbreviadoPipe } from './presentation/pipes/nome-abreviado.pipe';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ModalQrcodeCheckinComponent } from './presentation/ui/modais/modal-qrcode-checkin/modal-qrcode-checkin.component';
+import { ValidarQrCodeParticipanteUseCase } from './core/application/use-cases/checkin/validar-qrcode-participante.usecase';
+import { ValidarQrCodeParticipantePort } from './core/domain/ports/checkin/validar-qrcode-participante.port';
+import { ValidarQrCodeParticipanteAdapter } from './infrastructure/adapter/checkin/validar-qrcode-participante.adapter';
+import { ModalCheckinConfirmadoComponent } from './presentation/ui/modais/modal-checkin-confirmado/modal-checkin-confirmado.component';
 
 @NgModule({
   declarations: [
@@ -186,7 +190,8 @@ import { ModalQrcodeCheckinComponent } from './presentation/ui/modais/modal-qrco
     DashboardInicialComponent,
     CheckInComponent,
     HeaderComponent,
-    ModalQrcodeCheckinComponent
+    ModalQrcodeCheckinComponent,
+    ModalCheckinConfirmadoComponent
   ],
   imports: [
     BrowserModule,
@@ -341,6 +346,8 @@ import { ModalQrcodeCheckinComponent } from './presentation/ui/modais/modal-qrco
     { provide: BuscarProximoEventoPort, useClass: BuscarProximoEventoAdapter },
     BuscarParticipantesCheckinUseCase,
     { provide: BuscarParticipantesCheckinPort, useClass: BuscarParticipantesCheckinAdapter },
+    ValidarQrCodeParticipanteUseCase,
+    { provide: ValidarQrCodeParticipantePort, useClass: ValidarQrCodeParticipanteAdapter },
   ],
   bootstrap: [AppComponent],
 })

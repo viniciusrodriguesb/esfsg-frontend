@@ -1,0 +1,54 @@
+<div class="flex flex-col gap-3.5">
+  <div class="flex flex-col gap-3.5 p-6 relative">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div
+          class="bg-emerald-300 flex items-center justify-center h-5 w-5 rounded-full"
+        >
+          <i-lucide class="w-2.5" name="check"></i-lucide>
+        </div>
+
+        <p class="font-bold text-[12px]">Checkin confirmado</p>
+      </div>
+      <button
+        (click)="fecharModal()"
+        class="flex items-center justify-center h-7 w-7 rounded-full"
+      >
+        <i-lucide class="w-3.5 text-rose-500" name="circle-x"></i-lucide>
+      </button>
+    </div>
+    <span class="h-0.5 bg-[#F6F6F6]"></span>
+    <div
+      class="flex flex-col gap-1.5 text-[10px] border-b border-dashed border-gray-300 pb-3.5"
+      *ngFor="let item of [1, 2, 3]"
+    >
+      <p class="flex justify-between">
+        <span class="font-medium">Nome:</span>
+        Vinicius Rodrigues Bastos
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Período:</span>
+        Tarde
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Classe:</span>
+
+        {{ "TELECOMUNICAÇÕES " | nomeFormatado }}
+      </p>
+      <div class="flex justify-between">
+        <p class="font-medium">Pulseira:</p>
+        <div class="flex items-center gap-1">
+          <span>Vermelha</span>
+          <div class="w-1.5 h-1.5 rounded-full bg-rose-500"></div>
+        </div>
+      </div>
+      <div class="flex justify-between">
+        <p class="font-medium">Etiqueta visita:</p>
+        <div class="flex items-center gap-1">
+          <span>Roxa</span>
+          <div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

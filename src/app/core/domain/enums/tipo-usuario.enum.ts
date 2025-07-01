@@ -1,0 +1,10 @@
+export enum TipoUsuarioEnum {
+    DESENVOLVEDOR = 1,
+    MASTER = 2,
+    PASTOR_ORGANIZADOR = 3,
+    PASTOR = 4,
+    ORGANIZADOR = 5,
+    PARTICIPANTE = 6
+}
+
+// TODO: Padrizar case dos enums
