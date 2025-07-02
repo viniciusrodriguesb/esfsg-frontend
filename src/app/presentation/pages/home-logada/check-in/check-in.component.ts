@@ -79,9 +79,7 @@ export class CheckInComponent {
       tamanhoPagina: 6,
     };
 
-    if (Number.parseInt(this.formCheckin.get('funcaoEvento')?.value) != 0) {
-      console.log('this.formCheckin.get(funcaoEvento)?.value', this.formCheckin.get('funcaoEvento')?.value);
-      
+    if (this.formCheckin.get('funcaoEvento')?.value && Number.parseInt(this.formCheckin.get('funcaoEvento')?.value) != 0) {      
       checkinRequest.funcaoEvento = [Number.parseInt(this.formCheckin.get('funcaoEvento')?.value)];
     } else {
       checkinRequest.funcaoEvento = null;
