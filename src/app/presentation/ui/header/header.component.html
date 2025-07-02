@@ -4,7 +4,7 @@
 
     <p class="flex flex-col justify-between">
       <span class="font-normal text-[9px] text-gray-500">Olá, bem-vindo</span>
-      <span class="font-medium text-[12px]">João Lucas da Silva Pereira</span>
+      <span class="font-medium text-[12px]">{{ usuarioLogado.nome | nomeFormatado }}</span>
     </p>
   </div>
   <button (click)="openSidebar()">

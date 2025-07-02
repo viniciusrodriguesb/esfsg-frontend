@@ -27,15 +27,19 @@
     </div>
 
     <nav class="flex flex-col p-4 gap-4 text-gray-700">
-      <a (click)="navegar()">🏠 Checkin</a>
-      <a (click)="navegar()">📄 Sobre</a>
-      <a (click)="navegar()">📞 Contato</a>
-      <a (click)="navegar()">⚙️ Configurações</a>
+      <a class="flex items-center gap-2" (click)="navegarDashboard()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="circle-gauge" class="w-4 text-gray-500"></i-lucide> Dashboard</a>
+      <a class="flex items-center gap-2" (click)="navegarCheckin()" *ngIf="usuarioLogado.role <= 4"><i-lucide name="calendar-check" class="w-4 text-gray-500"></i-lucide> Inscrições</a>
+      <a class="flex items-center gap-2" (click)="navegarCheckin()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="receipt" class="w-4 text-gray-500"></i-lucide> Pagamento</a>
+      <a class="flex items-center gap-2" (click)="navegarCheckin()" *ngIf="usuarioLogado.role <= 4"><i-lucide name="users-round" class="w-4 text-gray-500"></i-lucide> Visitas</a>
+      <a class="flex items-center gap-2" (click)="navegarCheckin()" *ngIf="usuarioLogado.role <= 5"><i-lucide name="list-checks" class="w-4 text-gray-500"></i-lucide> Check-in</a>
+      <a class="flex items-center gap-2" (click)="navegarCheckin()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="circle-user-round" class="w-4 text-gray-500"></i-lucide> Controle de usuários</a>
     </nav>
+
   </div>
   <div
     class="fixed inset-0 bg-zinc-900/20 bg-opacity-40 z-40"
     *ngIf="isSidebarOpen"
     (click)="toggleSidebar()"
   ></div>
+
 </div>

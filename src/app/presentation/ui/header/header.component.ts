@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
 import { Rotas } from '../../../core/domain/enums/rotas.enum';
+import { ParametroStorageEnum } from '../../../core/domain/enums/parametro-storage.enum';
+import { DadosUsuarioAdminResponseDto } from '../../../core/application/dto/response/usuario-admin.dto';
 
 @Component({
   selector: 'app-header',
@@ -15,10 +17,16 @@ export class HeaderComponent {
     renderer: 'svg',
     loop: false,
   };
-
+  usuarioLogado: DadosUsuarioAdminResponseDto;
   isSidebarOpen = false;
 
   @Output() toggleMenu = new EventEmitter<void>();
+
+  ngOnInit() {
+    this.usuarioLogado = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.USUARIO_LOGADO)
+    );
+  }
 
   openSidebar() {
     this.toggleMenu.emit();

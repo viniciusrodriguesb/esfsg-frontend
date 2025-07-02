@@ -102,6 +102,12 @@ import {
   Info,
   Search,
   BrushCleaning,
+  CircleGauge,
+  CalendarCheck,
+  Receipt,
+  UsersRound,
+  ListChecks,
+  CircleUserRound
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -244,7 +250,13 @@ import { ModalCheckinConfirmadoComponent } from './presentation/ui/modais/modal-
         Menu,
         Info,
         Search,
-        BrushCleaning
+        BrushCleaning,
+        CircleGauge,
+        CalendarCheck,
+        Receipt,
+        UsersRound,
+        ListChecks,
+        CircleUserRound
     }),
     SweetAlert2Module.forRoot(),
 

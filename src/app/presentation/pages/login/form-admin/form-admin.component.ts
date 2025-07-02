@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BuscarUsuarioAdminUseCase } from '../../../../core/application/use-cases/usuario/buscar-usuario-admin.usecase';
-import { DadosUsuarioAdminResponseDto, UsuarioAdminResponseDto } from '../../../../core/application/dto/response/usuario-admin.dto';
+import { DadosUsuarioAdminResponseDto } from '../../../../core/application/dto/response/usuario-admin.dto';
 import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
 import { Router } from '@angular/router';
 import { Rotas } from '../../../../core/domain/enums/rotas.enum';
@@ -14,6 +14,7 @@ import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 })
 export class FormAdminComponent {
   private readonly _formBuilder = inject(FormBuilder);
+  usuarioLogado: DadosUsuarioAdminResponseDto;
 
   formLogin = this._formBuilder.group({
     cpf: ['', Validators.required],
@@ -34,16 +35,34 @@ export class FormAdminComponent {
       next: (usuario) => {
         if (usuario) {
           localStorage.setItem(ParametroStorageEnum.USUARIO_LOGADO, JSON.stringify(usuario.dados));
-          this.router.navigate([Rotas.HOME_LOGADA, Rotas.DASHBOARD_INICIAL])
+          this.redirecionarUsuario();       
         } else {
-          console.log('Usuário não encontrado');
+          console.log(usuario.mensagem);
         }
       },
       error: (error) => {
         this.router.navigate([Rotas.HOME_LOGADA, Rotas.DASHBOARD_INICIAL])
-        console.error('Erro ao buscar usuário:', error);
+        console.error(error.error.mensagem);
       }
     });
+  }
+
+  private redirecionarUsuario(){
+    this.usuarioLogado = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_LOGADO));
+
+    if(this.usuarioLogado == null)
+      console.log('Dados do usuário não encontrados');
+
+    const role = this.usuarioLogado.role;
+    if (role <= 3) {
+        this.router.navigate([Rotas.HOME_LOGADA, Rotas.DASHBOARD_INICIAL]);
+      } else if (role === 5) {
+        this.router.navigate([Rotas.HOME_LOGADA, Rotas.CHECK_IN]);
+      } else if (role === 4) {
+        //this.router.navigate([Rotas.HOME_LOGADA, Rotas.INSCRICOES]); 
+      } else {
+        console.warn('Role não reconhecida:', role);
+      }
   }
 
   onSubmit() {

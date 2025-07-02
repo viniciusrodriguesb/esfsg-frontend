@@ -41,6 +41,7 @@ export class CheckInComponent {
   });
 
   periodos: TabelaDominioResponseDto[] = [
+    { id: 0, descricao: 'Selecione' },
     { id: 1, descricao: PeriodoEnum.Tarde },
     { id: 2, descricao: PeriodoEnum.Integral },
   ];
@@ -70,7 +71,7 @@ export class CheckInComponent {
         : undefined,
       periodo: this.formCheckin.get('periodo')?.value,
       nome: this.formCheckin.get('nome')?.value,
-      pagina: 0,
+      pagina: 1,
       tamanhoPagina: 6,
     };
 
@@ -99,7 +100,11 @@ export class CheckInComponent {
   public buscarFuncaoEvento() {
     this.buscarFuncaoEventoUsecase.execute(1).subscribe({
       next: (resultado) => {
-        this.opcoesFuncaoEvento = this.formatarNomes(resultado);
+        const funcoesFormatadas = this.formatarNomes(resultado);
+        this.opcoesFuncaoEvento = [
+          { id: 0, descricao: 'Selecione' },
+          ...funcoesFormatadas,
+        ];
       },
       error: () => {},
     });

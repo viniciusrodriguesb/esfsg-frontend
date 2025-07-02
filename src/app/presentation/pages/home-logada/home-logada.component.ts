@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UsuarioAdminResponseDto } from '../../../core/application/dto/response/usuario-admin.dto';
+import { DadosUsuarioAdminResponseDto, UsuarioAdminResponseDto } from '../../../core/application/dto/response/usuario-admin.dto';
 import { ParametroStorageEnum } from '../../../core/domain/enums/parametro-storage.enum';
 import { Router } from '@angular/router';
 import { Rotas } from '../../../core/domain/enums/rotas.enum';
@@ -11,7 +11,7 @@ import { Rotas } from '../../../core/domain/enums/rotas.enum';
   styleUrl: './home-logada.component.scss',
 })
 export class HomeLogadaComponent {
-  usuarioLogado: UsuarioAdminResponseDto;
+  usuarioLogado: DadosUsuarioAdminResponseDto;
   isSidebarOpen = false;
 
   constructor(private readonly router: Router) {}
@@ -20,19 +20,21 @@ export class HomeLogadaComponent {
     this.usuarioLogado = JSON.parse(
       localStorage.getItem(ParametroStorageEnum.USUARIO_LOGADO)
     );
-
-    // if(this.usuarioLogado === null || this.usuarioLogado === undefined) {
-    //   console.error('Usuário não encontrado no armazenamento local.');
-    //   this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_ADMINISTRADOR]);
-    // }
   }
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
-  navegar() {
+  navegarDashboard() {
+    this.router.navigate([Rotas.HOME_LOGADA, Rotas.DASHBOARD_INICIAL]);
+    this.toggleSidebar();
+  }
+
+   navegarCheckin() {
     this.router.navigate([Rotas.HOME_LOGADA, Rotas.CHECK_IN]);
     this.toggleSidebar();
   }
+
 }
+  
