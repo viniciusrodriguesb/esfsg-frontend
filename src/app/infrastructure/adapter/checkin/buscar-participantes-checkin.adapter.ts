@@ -17,6 +17,7 @@ export class BuscarParticipantesCheckinAdapter extends BuscarParticipantesChecki
   buscarParticipantesCheckin(checkinRequest: CheckinRequestDto): Observable<CheckinResponseDto | null> {
     
     let params = new HttpParams();
+    
     if (checkinRequest.pagina) {
       params = params.set('pagina', checkinRequest.pagina.toString());
     }
@@ -26,7 +27,7 @@ export class BuscarParticipantesCheckinAdapter extends BuscarParticipantesChecki
     if (checkinRequest.nome) {
       params = params.set('nome', checkinRequest.nome.toString());
     }
-    if (checkinRequest.validado !== undefined) {
+    if (checkinRequest.validado) {
       params = params.set('validado', checkinRequest.validado.toString());
     }
     if (checkinRequest.periodo) {

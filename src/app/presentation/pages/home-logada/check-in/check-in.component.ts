@@ -37,8 +37,15 @@ export class CheckInComponent {
   formCheckin = this._formBuilder.group({
     funcaoEvento: [''],
     periodo: [''],
+    status: [''],
     nome: [''],
   });
+
+  statusCheckin: TabelaDominioResponseDto[] = [
+    { id: 0, descricao: 'Selecione' },
+    { id: 1, descricao: 'Presente' },
+    { id: 2, descricao: 'Ausente' },
+  ];
 
   periodos: TabelaDominioResponseDto[] = [
     { id: 0, descricao: 'Selecione' },
@@ -66,14 +73,27 @@ export class CheckInComponent {
 
   public buscarParticipantesCheckin() {
     const checkinRequest: CheckinRequestDto = {
-      funcaoEvento: this.formCheckin.get('funcaoEvento')?.value
-        ? [Number.parseInt(this.formCheckin.get('funcaoEvento')?.value)]
-        : undefined,
-      periodo: this.formCheckin.get('periodo')?.value,
       nome: this.formCheckin.get('nome')?.value,
+      validado: Number.parseInt(this.formCheckin.get('status')?.value) == 1,
       pagina: 1,
       tamanhoPagina: 6,
     };
+
+    if (Number.parseInt(this.formCheckin.get('funcaoEvento')?.value) != 0) {
+      console.log('this.formCheckin.get(funcaoEvento)?.value', this.formCheckin.get('funcaoEvento')?.value);
+      
+      checkinRequest.funcaoEvento = [Number.parseInt(this.formCheckin.get('funcaoEvento')?.value)];
+    } else {
+      checkinRequest.funcaoEvento = null;
+    }
+
+    if (Number.parseInt(this.formCheckin.get('periodo')?.value) == 1) {
+      checkinRequest.periodo = PeriodoEnum.Tarde;
+    } else if (Number.parseInt(this.formCheckin.get('periodo')?.value) == 2) {
+      checkinRequest.periodo = PeriodoEnum.Integral;
+    } else {
+      checkinRequest.periodo = null;
+    }
 
     this.buscarParticipantesCheckinUsecase.execute(checkinRequest).subscribe({
       next: (resultado) => {
