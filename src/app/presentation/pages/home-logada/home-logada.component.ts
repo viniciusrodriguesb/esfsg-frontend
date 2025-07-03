@@ -36,5 +36,10 @@ export class HomeLogadaComponent {
     this.toggleSidebar();
   }
 
+  navegarGestaoInscricao(){
+    this.router.navigate([Rotas.HOME_LOGADA, Rotas.GESTAO_INSCRICAO]);
+    this.toggleSidebar();
+  }
+
 }
   

@@ -176,6 +176,12 @@ import { ValidarQrCodeParticipanteAdapter } from './infrastructure/adapter/check
 import { ModalCheckinConfirmadoComponent } from './presentation/ui/modais/modal-checkin-confirmado/modal-checkin-confirmado.component';
 import { ModalParticipanteHorarioErradoComponent } from './presentation/ui/modais/modal-participante-horario-errado/modal-participante-horario-errado.component';
 import { SnackbarComponent } from './presentation/ui/snackbar/snackbar.component';
+import { ObterTodasComponent } from './presentation/pages/home-logada/inscricao/obter-todas/obter-todas.component';
+import { PendentesAprovacaoComponent } from './presentation/pages/home-logada/inscricao/pendentes-aprovacao/pendentes-aprovacao.component';
+import { GestaoInscricaoComponent } from './presentation/pages/home-logada/inscricao/gestao-inscricao.component';
+import { GestaoInscricaoUseCase } from './core/application/use-cases/gestao-inscricao/gestao-inscricao-usecase';
+import { GestaoInscricaoPort } from './core/domain/ports/gestao-inscricao/gestao-inscricao.port';
+import { GestaoInscricaoAdapter } from './infrastructure/adapter/gestao-inscricao/gestao-inscricao.adapter';
 
 @NgModule({
   declarations: [
@@ -199,6 +205,9 @@ import { SnackbarComponent } from './presentation/ui/snackbar/snackbar.component
     DashboardInicialComponent,
     CheckInComponent,
     HeaderComponent,
+    ObterTodasComponent,
+    PendentesAprovacaoComponent,
+    GestaoInscricaoComponent,
     
     ModalQrcodeCheckinComponent,
     ModalCheckinConfirmadoComponent,
@@ -365,6 +374,8 @@ import { SnackbarComponent } from './presentation/ui/snackbar/snackbar.component
     { provide: BuscarParticipantesCheckinPort, useClass: BuscarParticipantesCheckinAdapter },
     ValidarQrCodeParticipanteUseCase,
     { provide: ValidarQrCodeParticipantePort, useClass: ValidarQrCodeParticipanteAdapter },
+    GestaoInscricaoUseCase,
+    {provide: GestaoInscricaoPort, useClass: GestaoInscricaoAdapter}
   ],
   bootstrap: [AppComponent],
 })

@@ -18,6 +18,9 @@ import { HomeLogadaComponent } from './presentation/pages/home-logada/home-logad
 import { DashboardInicialComponent } from './presentation/pages/home-logada/dashboard-inicial/dashboard-inicial.component';
 import { CheckInComponent } from './presentation/pages/home-logada/check-in/check-in.component';
 import { AuthGuard } from './guards/auth.guard';
+import { GestaoInscricaoComponent } from './presentation/pages/home-logada/inscricao/gestao-inscricao.component';
+import { ObterTodasComponent } from './presentation/pages/home-logada/inscricao/obter-todas/obter-todas.component';
+import { PendentesAprovacaoComponent } from './presentation/pages/home-logada/inscricao/pendentes-aprovacao/pendentes-aprovacao.component';
 
 export const routes: Routes = [
   {
@@ -89,6 +92,20 @@ export const routes: Routes = [
       {
         path: Rotas.CHECK_IN,
         component: CheckInComponent,
+      },
+      {
+        path: Rotas.GESTAO_INSCRICAO,
+        component: GestaoInscricaoComponent,
+        children: [
+          {
+            path: Rotas.OBTER_TODAS,
+            component: ObterTodasComponent,
+          },
+          {
+            path: Rotas.PENDENTES_APROVACAO,
+            component: PendentesAprovacaoComponent,
+          },
+        ],
       },
     ],
   },
