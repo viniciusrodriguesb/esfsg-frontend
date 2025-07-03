@@ -80,11 +80,11 @@
             <div class="flex items-center justify-between w-full">
               <div class="flex gap-3.5 items-center">
                 <div class="flex items-center gap-2 w-[100px]">
-                  <p class="flex flex-col justify-between">
+                  <p class="flex flex-col  justify-between">
                     <span
                       class="font-medium flex items-center justify-start gap-1"
                       >{{ participante?.nome | nomeAbreviado }}
-                      <i-lucide name="info" class="w-2.5"></i-lucide
+                      <i-lucide name="info" class="w-2.5 h-[15px]"></i-lucide
                     ></span>
                     <span class="font-normal text-[9px] text-gray-500">{{
                       participante.igreja.igreja | nomeFormatado
@@ -93,7 +93,7 @@
                 </div>
                 <div class="h-4 w-[1px] bg-gray-300"></div>
                 <div class="flex items-center gap-2 w-[70px]">
-                  <p class="flex flex-col justify-between">
+                  <p class="flex flex-col  justify-between">
                     <span class="font-medium">{{
                       participante.evento.periodo
                     }}</span>
@@ -104,7 +104,7 @@
                 </div>
                 <div class="h-4 w-[1px] bg-gray-300"></div>
                 <div class="flex items-center gap-2">
-                  <p class="flex flex-col justify-between">
+                  <p class="flex flex-col  justify-between">
                     <span class="font-medium">Status</span>
                     <span class="font-normal text-[9px] text-gray-500">{{
                       participante.presenca ? "Presente" : "Ausente"
