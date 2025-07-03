@@ -58,15 +58,10 @@ export class CadastroComponent {
 
   testar() {
     this.formSubmetido = true;
-    console.log(this.formCadastro.get('cpf')?.value);
-    console.log(this.formCadastro.valid);
-
     if (this.formCadastro.invalid) {
       this.formCadastro.markAllAsTouched();
       return;
     }
-
-    // lógica de envio...
   }
 }
 

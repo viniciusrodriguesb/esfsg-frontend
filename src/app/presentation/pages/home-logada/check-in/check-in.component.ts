@@ -149,8 +149,6 @@ export class CheckInComponent {
 
     this.buscarParticipantesCheckinUsecase.execute(checkinRequest).subscribe({
       next: (resultado) => {
-        console.log('resultado', resultado);
-
         if (resultado != null) {
           this.exibicaoListaParticipantes = true;
         } else {
@@ -160,8 +158,6 @@ export class CheckInComponent {
         this.checkin = resultado;
       },
       error: (error) => {
-        console.log('entrou');
-
         this.exibicaoListaParticipantes = false;
       },
     });
@@ -234,13 +230,7 @@ export class CheckInComponent {
     });
   }
 
-  private escolherEntreValidacaoRemocaoParticipante(): boolean {
-    console.log(
-      'participantesSelecionados',
-      this.participantesSelecionados,
-      this.participantesSelecionados.length
-    );
-
+  private escolherEntreValidacaoRemocaoParticipante(): boolean {    
     if (
       this.participantesSelecionados.length > 0 &&
       this.participantesSelecionados.every(

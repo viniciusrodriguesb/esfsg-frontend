@@ -225,7 +225,6 @@ private preencherObjetoInscricao() {
     this.buscarFuncaoIgrejasUsecase.execute().subscribe({
       next: (resultado) => {
         this.opcoesFuncoes = this.formatarNomes(resultado);
-        console.log(resultado);
       },
       error: (error) => {
         console.error(error);

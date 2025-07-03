@@ -21,6 +21,7 @@
         [placeholder]="'Selecione'"
         [formController]="formDadosEvento.controls['periodo']"
         [opcoes]="periodos"
+        [obrigatorio]="true"
         mensagemErro="Campo obrigatório"
       ></app-input>
       <app-input
@@ -30,6 +31,7 @@
         [placeholder]="'Selecione'"
         [formController]="formDadosEvento.controls['funcaoEvento']"
         [opcoes]="opcoesFuncaoEvento"
+        [obrigatorio]="true"
         mensagemErro="Campo obrigatório"
       ></app-input>
 
@@ -40,6 +42,7 @@
         [placeholder]="'Selecione'"
         [formController]="formDadosEvento.controls['visitas']"
         [opcoes]="opcoesBooleanas"
+        [obrigatorio]="true"
         mensagemErro="Campo obrigatório"
         (valorSelecionado)="exibirCamposVisita($event)"
       ></app-input>

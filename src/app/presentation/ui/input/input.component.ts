@@ -22,6 +22,7 @@ export class InputComponent {
   @Input() disabled: boolean = false;
   @Input() required: boolean = false;
   @Input() contemIcone: boolean = false;
+  @Input() obrigatorio: boolean = false;
   @Input() errorMessage: string = '';
   @Input() formSubmetido = false;
   @Input() mask: string = '';

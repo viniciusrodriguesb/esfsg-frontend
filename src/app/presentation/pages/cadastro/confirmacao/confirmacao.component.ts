@@ -79,11 +79,8 @@ export class ConfirmacaoComponent {
   }
 
   inserirInscricao() {
-    console.log(this.inscricaoUsuario);
-    
     this.inserirInscricaoUsecase.execute(this.inscricaoUsuario).subscribe({
       next: (resultado) => {
-        console.log('Inscrição inserida com sucesso:', resultado);
         this.prosseguir();
       },
       error: (error) => {

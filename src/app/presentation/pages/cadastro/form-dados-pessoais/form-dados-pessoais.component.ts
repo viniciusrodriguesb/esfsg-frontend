@@ -80,7 +80,6 @@ export class FormDadosPessoaisComponent {
     this.buscarFuncaoIgrejasUsecase.execute().subscribe({
       next: (resultado) => {
         this.opcoesFuncoes = this.formatarNomes(resultado);
-        console.log(resultado);
       },
       error: (error) => {
         console.error(error);
@@ -212,8 +211,6 @@ export class FormDadosPessoaisComponent {
       'condicoesMedicas',
       dados.usuario?.condicoesMedicas
     );
-    console.log(this.formDadosPessoais.value);
-
     this.setFormArrayValues('funcoesIgreja', dados.usuario?.funcoesIgreja);
   }
 

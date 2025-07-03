@@ -27,10 +27,10 @@
 
   <div class="flex flex-col gap-2.5" *ngIf="exibeCampos">
     <p class="text-[12px] font-medium">Eventos:</p>
-    <div
+    <div *ngFor="let evento of eventos"
       class="bg-white rounded-2xl shadow-lg p-6 border border-dashed border-gray-300 relative"
-    >
-      <ng-container *ngFor="let evento of eventos">
+    >    
+      <ng-container >
         <div class="flex text-[12px] items-center justify-between">
           <p class="flex items-center font-semibold gap-2.5">
             <i-lucide name="ticket" class="w-4"></i-lucide> {{ evento.nome }}
@@ -64,12 +64,6 @@
             <i-lucide class="w-3 text-white" name="move-right"></i-lucide>
           </button>
         </div>
-        <!-- <button
-          (click)="prosseguir()"
-          class="bg-[#007AFF] text-[12px] w-full mt-4 text-white font-semibold rounded-[0.5rem] py-2.5"
-        >
-          Inscrever-se
-        </button> -->
       </ng-container>
     </div>
   </div>
@@ -80,11 +74,4 @@
   >
     Voltar
   </button>
-
-  <!-- <button
-      (click)="voltar()"
-      class="border-2 border-[#007AFF] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
-    >
-      Voltar
-    </button> -->
 </div>

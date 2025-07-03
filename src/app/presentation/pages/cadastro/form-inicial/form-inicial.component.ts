@@ -72,8 +72,6 @@ export class FormInicialComponent {
       },
       error: (erro) => {
         if (erro.status === StatusHttpEnum.NOT_FOUND  ) {
-          console.log('entrou');
-          
           localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
           this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_EVENTO]);
         }
