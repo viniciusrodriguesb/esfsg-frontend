@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-3.5">
   <div class="flex flex-col gap-3.5 p-6 relative">
     <div class="flex items-center justify-between">
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" *ngIf="!data.remocaoCheckin">
         <div
           class="bg-emerald-300 flex items-center justify-center h-5 w-5 rounded-full"
         >
@@ -9,6 +9,15 @@
         </div>
 
         <p class="font-bold text-[12px]">Checkin confirmado</p>
+      </div>
+      <div class="flex items-center gap-2"  *ngIf="data.remocaoCheckin">
+        <div
+          class="bg-rose-500 flex items-center justify-center h-5 w-5 rounded-full"
+        >
+          <i-lucide class="w-2.5 text-white" name="ban"></i-lucide>
+        </div>
+
+        <p class="font-bold text-[12px]">Checkin zerado</p>
       </div>
       <button
         (click)="fecharModal()"
@@ -19,34 +28,44 @@
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
     <div
-      class="flex flex-col gap-1.5 text-[10px] border-b border-dashed border-gray-300 pb-3.5"
-      *ngFor="let item of [1, 2, 3]"
+      *ngFor="let item of data.resultadoValidacao; let i = index"
+      [ngClass]="{
+        'border-b border-dashed border-gray-300 pb-3.5':
+          i < data.resultadoValidacao.length - 1
+      }"
+      class="flex flex-col gap-1.5 text-[10px]"
     >
       <p class="flex justify-between">
         <span class="font-medium">Nome:</span>
-        Vinicius Rodrigues Bastos
+        {{ item.nomeCompleto | nomeAbreviado }}
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Período:</span>
-        Tarde
+        {{ item.periodo }}
       </p>
       <p class="flex justify-between">
-        <span class="font-medium">Classe:</span>
+        <span class="font-medium">Função:</span>
 
-        {{ "TELECOMUNICAÇÕES " | nomeFormatado }}
+        {{ item.grupo | nomeFormatado }}
       </p>
-      <div class="flex justify-between">
+      <div class="flex justify-between" *ngIf="item.pulseira != null">
         <p class="font-medium">Pulseira:</p>
         <div class="flex items-center gap-1">
-          <span>Vermelha</span>
-          <div class="w-1.5 h-1.5 rounded-full bg-rose-500"></div>
+          <span>{{ item.pulseira | nomeFormatado }}</span>
+          <div
+            class="w-1.5 h-1.5 rounded-full"
+            [style.background-color]="buscarCorHexa(item.pulseira)"
+          ></div>
         </div>
       </div>
-      <div class="flex justify-between">
+      <div class="flex justify-between" *ngIf="item.etiquetaVisita != null">
         <p class="font-medium">Etiqueta visita:</p>
         <div class="flex items-center gap-1">
-          <span>Roxa</span>
-          <div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
+          <span>{{ item.etiquetaVisita | nomeFormatado }}</span>
+          <div
+            class="w-1.5 h-1.5 rounded-full"
+            [style.background-color]="buscarCorHexa(item.etiquetaVisita)"
+          ></div>
         </div>
       </div>
     </div>

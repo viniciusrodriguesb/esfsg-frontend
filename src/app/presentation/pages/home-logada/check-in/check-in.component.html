@@ -28,7 +28,7 @@
       [opcoes]="periodos"
       mensagemErro="Campo obrigatório"
     ></app-input>
-        <app-input
+    <app-input
       class="col-start-7 col-end-10"
       [tipo]="'select'"
       [label]="'Status'"
@@ -71,7 +71,12 @@
           *ngFor="let participante of checkin?.itens; let i = index"
         >
           <div class="flex gap-3.5 items-center w-full">
-            <input type="checkbox" class="w-3 h-3" />
+            <input
+              type="checkbox"
+              [checked]="participantesSelecionados.includes(participante)"
+              (click)="selecionarParticipante(participante)"
+              class="w-3 h-3"
+            />
             <div class="flex items-center justify-between w-full">
               <div class="flex gap-3.5 items-center">
                 <div class="flex items-center gap-2 w-[100px]">
@@ -126,24 +131,37 @@
     </div>
     <div class="flex w-full items-center gap-2.5">
       <button
-      (click)="validarCheckin()"
+        (click)="validarCheckin()"
+        *ngIf="!exibicaoBotaoRemover"
+        [disabled]="!liberacaoBotaoValidar"
+        [ngClass]="{ 'opacity-50 cursor-not-allowed': !liberacaoBotaoValidar }"
         class="w-full bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
       >
         Validar
         <i-lucide class="w-4" name="check-check"></i-lucide>
       </button>
-      <!-- <button
-        class=" bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] px-4 py-2.5 flex items-center justify-center gap-2"
-      >
-
-        <i-lucide class="w-4" name="circle-alert"></i-lucide>
-      </button> -->
-      <!-- <button
+      <button
+        *ngIf="exibicaoBotaoRemover"
+        (click)="validarCheckin()"
         class="w-full bg-rose-600 text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
       >
         Zerar
         <i-lucide class="w-4" name="trash2"></i-lucide>
-      </button> -->
+      </button>
+      <button
+        *ngIf="listaParticipantesPeriodoErrado.length > 0 && !exibicaoBotaoRemover"
+        (click)="abrirModalParticipanteHorarioErrado()"
+        class="bg-amber-500 text-[14px] text-white font-semibold rounded-[0.5rem] px-4 py-2.5 flex items-center justify-center gap-2"
+      >
+        <i-lucide class="w-4" name="circle-alert"></i-lucide>
+      </button>
+      <button
+      *ngIf="!exibicaoBotaoRemover"
+        (click)="abrirScanner()"
+        class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] px-4 py-2.5 flex items-center justify-center gap-2"
+      >
+        <i-lucide class="w-4" name="qr-code"></i-lucide>
+      </button>
     </div>
   </div>
 
@@ -163,4 +181,3 @@
     </div>
   </div>
 </div>
-

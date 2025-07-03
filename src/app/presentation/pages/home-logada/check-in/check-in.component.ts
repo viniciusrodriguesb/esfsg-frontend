@@ -7,11 +7,23 @@ import { NomePipe } from '../../../pipes/nome.pipe';
 import { AnimationOptions } from 'ngx-lottie';
 import { BuscarParticipantesCheckinUseCase } from '../../../../core/application/use-cases/checkin/buscar-participantes-checkin.usecase';
 import { CheckinRequestDto } from '../../../../core/application/dto/request/checkin-request.dto';
-import { CheckinResponseDto } from '../../../../core/application/dto/response/checkin-response-response.dto';
+import {
+  CheckinResponseDto,
+  ItemCheckinDto,
+} from '../../../../core/application/dto/response/checkin-response-response.dto';
 
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ModalQrcodeCheckinComponent } from '../../../ui/modais/modal-qrcode-checkin/modal-qrcode-checkin.component';
 import { ModalCheckinConfirmadoComponent } from '../../../ui/modais/modal-checkin-confirmado/modal-checkin-confirmado.component';
+import { ValidarQrCodeParticipanteUseCase } from '../../../../core/application/use-cases/checkin/validar-qrcode-participante.usecase';
+import Swal from 'sweetalert2';
+import moment from 'moment';
+import {
+  DadoParticipanteDto,
+  ValidacaoQrCodeParticipanteResponseDto,
+} from '../../../../core/application/dto/response/validacao-checkin-response.dto';
+import { find } from 'rxjs/internal/operators/find';
+import { ModalParticipanteHorarioErradoComponent } from '../../../ui/modais/modal-participante-horario-errado/modal-participante-horario-errado.component';
 
 @Component({
   selector: 'app-check-in',
@@ -57,11 +69,23 @@ export class CheckInComponent {
 
   checkin: CheckinResponseDto;
   exibicaoListaParticipantes: boolean = false;
-  listaParticipantes: any[] = [1];
+  participantesSelecionados: ItemCheckinDto[] = [];
+
+  liberacaoBotaoValidar: boolean = false;
+  exibicaoBotaoRemover: boolean = false;
+
+  listaParticipantesPeriodoErrado: ItemCheckinDto[] = [];
+
+  public horarioAtual = moment();
+  public horarioMinimoTarde = moment(
+    this.horarioAtual.format('YYYY-MM-DD') + ' 23:00',
+    'YYYY-MM-DD HH:mm'
+  );
 
   constructor(
     private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
     private readonly buscarParticipantesCheckinUsecase: BuscarParticipantesCheckinUseCase,
+    private readonly validarQrCodeParticipanteUseCase: ValidarQrCodeParticipanteUseCase,
     private readonly nomePipe: NomePipe,
     private readonly dialog: MatDialog
   ) {}
@@ -71,16 +95,46 @@ export class CheckInComponent {
     this.buscarParticipantesCheckin();
   }
 
+  public selecionarParticipante(participante: ItemCheckinDto) {
+    // TODO: Colocar validaçao para não permitir selecionar participantes com status "Presente" e "Ausente" ao mesmo tempo antes de incluir na lista
+    if (this.participantesSelecionados.includes(participante)) {
+      this.participantesSelecionados.splice(
+        this.participantesSelecionados.indexOf(participante),
+        1
+      );
+    } else {
+      this.participantesSelecionados.push(participante);
+    }
+
+    this.limitarQuantidadeParticipantesSelecionados(
+      this.participantesSelecionados
+    );
+    this.liberarBotaoValidar();
+    this.impedirSelecaoParticipanteAusentePresente();
+    this.verificarParticipantePeriodoErrado();
+    this.escolherEntreValidacaoRemocaoParticipante();
+  }
+
   public buscarParticipantesCheckin() {
     const checkinRequest: CheckinRequestDto = {
       nome: this.formCheckin.get('nome')?.value,
-      validado: Number.parseInt(this.formCheckin.get('status')?.value) == 1,
       pagina: 1,
-      tamanhoPagina: 6,
+      tamanhoPagina: 7,
     };
 
-    if (this.formCheckin.get('funcaoEvento')?.value && Number.parseInt(this.formCheckin.get('funcaoEvento')?.value) != 0) {      
-      checkinRequest.funcaoEvento = [Number.parseInt(this.formCheckin.get('funcaoEvento')?.value)];
+    if (Number.parseInt(this.formCheckin.get('status')?.value) == 1) {
+      checkinRequest.validado = true;
+    } else if (Number.parseInt(this.formCheckin.get('status')?.value) == 2) {
+      checkinRequest.validado = false;
+    }
+
+    if (
+      this.formCheckin.get('funcaoEvento')?.value &&
+      Number.parseInt(this.formCheckin.get('funcaoEvento')?.value) != 0
+    ) {
+      checkinRequest.funcaoEvento = [
+        Number.parseInt(this.formCheckin.get('funcaoEvento')?.value),
+      ];
     } else {
       checkinRequest.funcaoEvento = null;
     }
@@ -100,8 +154,6 @@ export class CheckInComponent {
         if (resultado != null) {
           this.exibicaoListaParticipantes = true;
         } else {
-          console.log('nenhum participante encontrado');
-
           this.exibicaoListaParticipantes = false;
         }
 
@@ -128,34 +180,23 @@ export class CheckInComponent {
     });
   }
 
-  private formatarNomes(
-    nomes: TabelaDominioResponseDto[]
-  ): TabelaDominioResponseDto[] {
-    return nomes.map((nome) => ({
-      ...nome,
-      descricao: this.nomePipe.transform(nome.descricao),
-    }));
-  }
-
   public validarCheckin() {
-    if (this.listaParticipantes.length > 1) {
-      this.abrirModalConfirmacaoSucesso();
-    } else {
-      this.abrirScanner();
-    }
+    this.validarQrCodeParticipante(this.participantesSelecionados);
   }
 
-  abrirModalConfirmacaoSucesso() {
+  abrirModalConfirmacaoSucesso(resultadoValidacao: DadoParticipanteDto[]) {
     const dialogRef = this.dialog.open(ModalCheckinConfirmadoComponent, {
       width: '90%',
       height: 'auto',
+      data: {
+        resultadoValidacao: resultadoValidacao,
+        remocaoCheckin: this.escolherEntreValidacaoRemocaoParticipante(),
+      },
     });
+
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        console.log('QR Code lido:', result);
-        // Faça algo com o resultado
-        alert(`QR Code lido: $ {result}`);
-      }
+      this.buscarParticipantesCheckin();
+      this.limparVariaveis();
     });
   }
 
@@ -166,11 +207,167 @@ export class CheckInComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        console.log('QR Code lido:', result);
-        // Faça algo com o resultado
-        alert(`QR Code lido: $ {result}`);
+      this.buscarParticipantesCheckin();
+      this.limparVariaveis();
+    });
+  }
+
+  private validarQrCodeParticipante(
+    participantesSelecionados: ItemCheckinDto[]
+  ) {
+    const request = {
+      ids: participantesSelecionados.map(
+        (participante) => participante.idCheckin
+      ),
+      presenca: !this.escolherEntreValidacaoRemocaoParticipante(),
+    };
+
+    this.validarQrCodeParticipanteUseCase.execute(request).subscribe({
+      next: (response) => {
+        if (response.sucesso) {
+          this.abrirModalConfirmacaoSucesso(response.dados);
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao validar QR Code:', error);
+      },
+    });
+  }
+
+  private escolherEntreValidacaoRemocaoParticipante(): boolean {
+    console.log(
+      'participantesSelecionados',
+      this.participantesSelecionados,
+      this.participantesSelecionados.length
+    );
+
+    if (
+      this.participantesSelecionados.length > 0 &&
+      this.participantesSelecionados.every(
+        (participante) => participante.presenca
+      )
+    ) {
+      this.exibicaoBotaoRemover = true;
+    } else {
+      this.exibicaoBotaoRemover = false;
+    }
+    return this.participantesSelecionados.every(
+      (participante) => participante.presenca
+    );
+  }
+
+  private limitarQuantidadeParticipantesSelecionados(
+    participantesSelecionados: ItemCheckinDto[]
+  ) {
+    if (participantesSelecionados.length > 6) {
+      this.abrirModalLimiteParticipantes();
+    }
+  }
+
+  private impedirSelecaoParticipanteAusentePresente() {
+    if (
+      this.participantesSelecionados.find(
+        (participante) => participante.presenca
+      ) &&
+      this.participantesSelecionados.find(
+        (participante) => !participante.presenca
+      )
+    ) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atenção!',
+        text: 'Não é possível selecionar participantes com status "Presente" e "Ausente" ao mesmo tempo.',
+        confirmButtonText: 'Entendi',
+        customClass: {
+          title: 'swal-title',
+          confirmButton: 'swal-confirm-btn',
+          popup: 'swal-popup',
+        },
+        buttonsStyling: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.participantesSelecionados.pop();
+          this.escolherEntreValidacaoRemocaoParticipante();
+          // TODO: Implementar lógica para evitar a troca de cor do botao quando a pessoa selecionar um participante ausente e presente
+        }
+      });
+    }
+  }
+
+  private liberarBotaoValidar() {
+    if (this.participantesSelecionados.length > 0) {
+      this.liberacaoBotaoValidar = true;
+    } else {
+      this.liberacaoBotaoValidar = false;
+    }
+  }
+
+  private abrirModalLimiteParticipantes() {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Atenção!',
+      text: 'Não é possivel selecionar mais de 6 participantes.',
+      confirmButtonText: 'Entendi',
+      customClass: {
+        title: 'swal-title',
+        confirmButton: 'swal-confirm-btn',
+        popup: 'swal-popup',
+      },
+      buttonsStyling: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.participantesSelecionados = this.participantesSelecionados.slice(
+          0,
+          6
+        );
       }
     });
+  }
+
+  private verificarParticipantePeriodoErrado() {
+    this.listaParticipantesPeriodoErrado = [];
+
+    this.participantesSelecionados.forEach((participante) => {
+      if (
+        participante.evento.periodo == PeriodoEnum.Tarde &&
+        this.horarioAtual.isBefore(this.horarioMinimoTarde)
+      ) {
+        if (!this.listaParticipantesPeriodoErrado.includes(participante)) {
+          this.listaParticipantesPeriodoErrado.push(participante);
+        }
+      }
+    });
+  }
+
+  public abrirModalParticipanteHorarioErrado() {
+    const dialogRef = this.dialog.open(
+      ModalParticipanteHorarioErradoComponent,
+      {
+        width: '90%',
+        height: 'auto',
+        data: {
+          resultadoValidacao: this.listaParticipantesPeriodoErrado,
+          horarioMinimo: this.horarioMinimoTarde.format('HH:mm'),
+        },
+      }
+    );
+
+    dialogRef.afterClosed().subscribe((result) => {});
+  }
+
+  private limparVariaveis() {
+    this.participantesSelecionados = [];
+    this.liberacaoBotaoValidar = false;
+    this.listaParticipantesPeriodoErrado = [];
+    this.exibicaoBotaoRemover = false;
+  }
+
+  private formatarNomes(
+    nomes: TabelaDominioResponseDto[]
+  ): TabelaDominioResponseDto[] {
+    return nomes.map((nome) => ({
+      ...nome,
+      descricao: this.nomePipe.transform(nome.descricao),
+    }));
   }
 }

@@ -27,7 +27,7 @@ export class BuscarParticipantesCheckinAdapter extends BuscarParticipantesChecki
     if (checkinRequest.nome) {
       params = params.set('nome', checkinRequest.nome.toString());
     }
-    if (checkinRequest.validado) {
+    if (checkinRequest.validado != null) {
       params = params.set('validado', checkinRequest.validado.toString());
     }
     if (checkinRequest.periodo) {

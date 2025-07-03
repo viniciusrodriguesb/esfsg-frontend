@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { DadoParticipanteDto } from '../../../../core/application/dto/response/validacao-checkin-response.dto';
+import { CoresHexMap } from '../../../../core/domain/enums/cores-visita.enum';
 
 @Component({
   selector: 'app-modal-checkin-confirmado',
@@ -11,8 +13,12 @@ export class ModalCheckinConfirmadoComponent {
   
   constructor(
     private readonly dialog: MatDialog,
-    private readonly dialogRef: MatDialogRef<ModalCheckinConfirmadoComponent>
+    @Inject(MAT_DIALOG_DATA) public data: { resultadoValidacao: DadoParticipanteDto[], remocaoCheckin: boolean }
   ) {}
+
+  buscarCorHexa(cor: string): string {
+    return CoresHexMap[cor];
+  }
 
   fecharModal() {
     this.dialog.closeAll();

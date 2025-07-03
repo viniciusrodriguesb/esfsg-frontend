@@ -3,6 +3,7 @@ import { BarcodeFormat, BrowserMultiFormatReader } from '@zxing/browser';
 import { ValidarQrCodeParticipanteUseCase } from '../../../../core/application/use-cases/checkin/validar-qrcode-participante.usecase';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ModalCheckinConfirmadoComponent } from '../modal-checkin-confirmado/modal-checkin-confirmado.component';
+import { DadoParticipanteDto } from '../../../../core/application/dto/response/validacao-checkin-response.dto';
 @Component({
   selector: 'app-modal-qrcode-checkin',
   standalone: false,
@@ -41,7 +42,7 @@ export class ModalQrcodeCheckinComponent {
     this.validarQrCodeParticipanteUseCase.execute(request).subscribe({
       next: (response) => {
         if (response.sucesso) {
-          this.abrirModalConfirmacaoSucesso();
+          this.abrirModalConfirmacaoSucesso(response.dados);
           this.fecharModal();
         }
       },
@@ -56,18 +57,15 @@ export class ModalQrcodeCheckinComponent {
     this.dialogRef.close();
   }
 
-  abrirModalConfirmacaoSucesso() {
+  abrirModalConfirmacaoSucesso(resultadoValidacao: DadoParticipanteDto[]) {
     const dialogRef = this.dialog.open(ModalCheckinConfirmadoComponent, {
       width: '90%',
       height: 'auto',
+      data: { resultadoValidacao: resultadoValidacao, remocaoCheckin: false },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        console.log('QR Code lido:', result);
-        // Faça algo com o resultado
-        alert(`QR Code lido: $ {result}`);
-      }
+     
     });
   }
 }

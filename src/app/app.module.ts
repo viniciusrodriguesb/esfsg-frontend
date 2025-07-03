@@ -174,6 +174,7 @@ import { ValidarQrCodeParticipanteUseCase } from './core/application/use-cases/c
 import { ValidarQrCodeParticipantePort } from './core/domain/ports/checkin/validar-qrcode-participante.port';
 import { ValidarQrCodeParticipanteAdapter } from './infrastructure/adapter/checkin/validar-qrcode-participante.adapter';
 import { ModalCheckinConfirmadoComponent } from './presentation/ui/modais/modal-checkin-confirmado/modal-checkin-confirmado.component';
+import { ModalParticipanteHorarioErradoComponent } from './presentation/ui/modais/modal-participante-horario-errado/modal-participante-horario-errado.component';
 
 @NgModule({
   declarations: [
@@ -196,8 +197,10 @@ import { ModalCheckinConfirmadoComponent } from './presentation/ui/modais/modal-
     DashboardInicialComponent,
     CheckInComponent,
     HeaderComponent,
+    
     ModalQrcodeCheckinComponent,
-    ModalCheckinConfirmadoComponent
+    ModalCheckinConfirmadoComponent,
+    ModalParticipanteHorarioErradoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,43 @@
+<div class="flex flex-col gap-3.5">
+  <div class="flex flex-col gap-3.5 p-6 relative">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2" >
+        <div
+          class="bg-amber-500 flex items-center justify-center h-5 w-5 rounded-full"
+        >
+          <i-lucide class="w-3.5 text-white" name="circle-alert"></i-lucide>
+        </div>
+
+        <p class="font-bold text-[12px]">Participantes no horário indevido</p>
+      </div>
+      <button
+        (click)="fecharModal()"
+        class="flex items-center justify-center h-7 w-7 rounded-full"
+      >
+        <i-lucide class="w-3.5 text-rose-500" name="circle-x"></i-lucide>
+      </button>
+    </div>
+    <span class="h-0.5 bg-[#F6F6F6]"></span>
+    <div
+      *ngFor="let item of data.resultadoValidacao; let i = index"
+      [ngClass]="{
+        'border-b border-dashed border-gray-300 pb-3.5':
+          i < data.resultadoValidacao.length - 1
+      }"
+      class="flex flex-col gap-1.5 text-[10px]"
+    >
+      <p class="flex justify-between">
+        <span class="font-medium">Nome:</span>
+        {{ item.nome| nomeAbreviado }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Período:</span>
+        {{ item.evento.periodo }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Horário mínimo:</span>
+        {{ data.horarioMinimo }}
+      </p>
+    </div>
+  </div>
+</div>

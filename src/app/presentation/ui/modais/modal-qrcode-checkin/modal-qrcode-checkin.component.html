@@ -1,10 +1,16 @@
-<div class="flex flex-col gap-3  shadow-lg p-5 relative">
+<div class="flex flex-col gap-3 shadow-lg p-5 relative">
   <div class="flex items-center justify-between">
     <div class="flex items-center justify-between gap-1 w-full">
       <p class="font-bold text-[14px] flex items-center gap-2">
         <i-lucide name="qr-code" class="w-4 text-gray-500"></i-lucide>
         Ler QrCode
       </p>
+      <button
+        (click)="fecharModal()"
+        class="flex items-center justify-center h-7 w-7 rounded-full"
+      >
+        <i-lucide class="w-3.5 text-rose-500" name="circle-x"></i-lucide>
+      </button>
     </div>
   </div>
   <span class="h-0.5 bg-[#F6F6F6]"></span>
