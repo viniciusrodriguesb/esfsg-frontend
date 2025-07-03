@@ -17,6 +17,7 @@ import { EscolhaInicialComponent } from './presentation/pages/escolha-inicial/es
 import { HomeLogadaComponent } from './presentation/pages/home-logada/home-logada.component';
 import { DashboardInicialComponent } from './presentation/pages/home-logada/dashboard-inicial/dashboard-inicial.component';
 import { CheckInComponent } from './presentation/pages/home-logada/check-in/check-in.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -79,6 +80,7 @@ export const routes: Routes = [
   {
     path: Rotas.HOME_LOGADA,
     component: HomeLogadaComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: Rotas.DASHBOARD_INICIAL,
