@@ -1,6 +1,7 @@
 import { TabelaDominioResponseDto } from "./tabela-dominio-response.dto"
 
 export interface InscricaoParaLiberacaoResponse {
+  id: number;
   nome: string;
   idade: number;
   classe: string;

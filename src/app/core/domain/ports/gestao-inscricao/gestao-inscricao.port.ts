@@ -6,4 +6,5 @@ import { GestaoInscricaoResponse, InscricaoParaLiberacaoResponse } from "../../.
 export abstract class GestaoInscricaoPort {
   abstract buscarInscricaoPendente(request: InscricoesPendentesRequestDto): Observable<PaginacaoResponse<InscricaoParaLiberacaoResponse>>;
   abstract buscarInscricao(request: FiltroInscricaoRequest): Observable<PaginacaoResponse<GestaoInscricaoResponse>>;
+  abstract aprovarInscricao(request: number[]): Observable<void>;
 }

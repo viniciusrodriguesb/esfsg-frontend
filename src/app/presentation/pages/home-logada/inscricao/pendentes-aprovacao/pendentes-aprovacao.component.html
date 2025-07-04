@@ -4,7 +4,7 @@
       <div class="min-w-max flex flex-col gap-4 text-[10px] mb-4">
         <div class="flex items-center justify-between" *ngFor="let participante of inscricoesPendentes?.itens; let i = index">
           <div class="flex gap-3.5 items-center w-full">
-            <input type="checkbox" class="w-3 h-3" />
+            <input type="checkbox" class="w-3 h-3" name="check-{{i}}" (change)="inserirInscricoesSelecionadas(participante.id, $event)" />
             <div class="flex items-center justify-between w-full">
               <div class="flex gap-3.5 items-center">
                 <div class="flex items-center gap-2 w-[100px]">

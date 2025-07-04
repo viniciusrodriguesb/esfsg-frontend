@@ -16,4 +16,8 @@ export class GestaoInscricaoUseCase {
   executeTodas(filtro: FiltroInscricaoRequest): Observable<PaginacaoResponse<GestaoInscricaoResponse> | null> {
     return this.gestaoInscricaoPort.buscarInscricao(filtro);
   }
+
+  executarAprovacao(ids: number[]): Observable<void | null>{
+    return this.gestaoInscricaoPort.aprovarInscricao(ids);
+  }
 }

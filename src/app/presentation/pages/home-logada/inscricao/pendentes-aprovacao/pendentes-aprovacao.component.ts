@@ -26,10 +26,14 @@ export class PendentesAprovacaoComponent {
   inscricoesPendentes: PaginacaoResponse<InscricaoParaLiberacaoResponse>;
   usuarioLogado: DadosUsuarioAdminResponseDto;
 
-  constructor(private readonly gestaoInscricaoUseCase: GestaoInscricaoUseCase){}
+  constructor(
+    private readonly gestaoInscricaoUseCase: GestaoInscricaoUseCase
+  ) {}
 
   ngOnInit() {
-    this.usuarioLogado = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_LOGADO));
+    this.usuarioLogado = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.USUARIO_LOGADO)
+    );
     this.buscarInscricoesPendentes();
   }
 
@@ -40,22 +44,55 @@ export class PendentesAprovacaoComponent {
       tamanhoPagina: 20,
     };
 
-    this.gestaoInscricaoUseCase.executePendentes(inscricoesPendentesRequest).subscribe({
-      next: (resultado) => {
-         if (resultado != null) {
-          this.exibicaoListaParticipantes = true;
-        } else {
-          this.exibicaoListaParticipantes = false;
-        }
+    this.gestaoInscricaoUseCase
+      .executePendentes(inscricoesPendentesRequest)
+      .subscribe({
+        next: (resultado) => {
+          if (resultado != null) {
+            this.exibicaoListaParticipantes = true;
+          } else {
+            this.exibicaoListaParticipantes = false;
+          }
 
-        this.inscricoesPendentes = resultado;
-      }
-    });
+          this.inscricoesPendentes = resultado;
+        },
+      });
+  }
+
+  public inserirInscricoesSelecionadas(id: number, event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+
+    if (checked) {
+      this.participantesSelecionados.push(id);
+    } else {
+      this.participantesSelecionados = this.participantesSelecionados.filter(
+        (item) => item !== id
+      );
+    }
+
+    this.liberarBotaoAprovar();
   }
 
   public aprovarInscricao() {
-    console.log('Inscrição aprovada!');
+    let ids = this.participantesSelecionados;
+
+    if (!ids || ids.length === 0) {
+      alert('Selecione pelo menos uma inscrição para aprovar.');
+      return;
+    }
+
+    this.gestaoInscricaoUseCase.executarAprovacao(ids).subscribe({
+      next: () => {
+        this.participantesSelecionados = [];
+        this.liberacaoBotaoAprovar = false;
+        this.buscarInscricoesPendentes();
+      },
+      error: (err) => {
+        console.error('Erro ao aprovar inscrições:', err);
+      },
+    });
   }
+
   private liberarBotaoAprovar() {
     if (this.participantesSelecionados.length > 0) {
       this.liberacaoBotaoAprovar = true;

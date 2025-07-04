@@ -47,7 +47,9 @@ export class GestaoInscricaoAdapter extends GestaoInscricaoPort {
       );
   }
 
-  buscarInscricao(filtro: FiltroInscricaoRequest): Observable<PaginacaoResponse<GestaoInscricaoResponse>> {
+  buscarInscricao(
+    filtro: FiltroInscricaoRequest
+  ): Observable<PaginacaoResponse<GestaoInscricaoResponse>> {
     let params = new HttpParams();
 
     if (filtro.regiao !== undefined) {
@@ -88,5 +90,18 @@ export class GestaoInscricaoAdapter extends GestaoInscricaoPort {
           return of(null);
         })
       );
+  }
+
+  aprovarInscricao(ids: number[]): Observable<void> {
+    try {
+      return this.http.post<null>(
+        `${ENVIRONMENT.URL_API}/${ControllersEnum.GestaoInscricao}/${ENVIRONMENT.VERSAO}/aprovar`,
+        JSON.stringify(ids),
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+    } catch (error) {
+      console.error('Erro ao aprovar as inscrições:', error);
+      return of(null);
+    }
   }
 }
