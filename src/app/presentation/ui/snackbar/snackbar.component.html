@@ -1,15 +1,15 @@
-<div class="flex items-center gap-4">
+<div class="flex items-center gap-3">
   <div class="flex items-center justify-center">
     <ng-container [ngSwitch]="data.tipo">
-      <lucide-icon *ngSwitchCase="'success'" name="CircleCheck" class="text-green-500 w-6 h-6"></lucide-icon>
-      <lucide-icon *ngSwitchCase="'warning'" name="CircleAlert" class="text-yellow-500 w-6 h-6"></lucide-icon>
-      <lucide-icon *ngSwitchCase="'error'" name="CircleX" class="text-red-500 w-6 h-6"></lucide-icon>
-      <lucide-icon *ngSwitchDefault name="info" class="text-blue-500 w-6 h-6"></lucide-icon>
+      <lucide-icon *ngSwitchCase="'success'" name="CircleCheck" class="text-emerald-500 w-5.5"></lucide-icon>
+      <lucide-icon *ngSwitchCase="'warning'" name="CircleAlert" class="text-yellow-500 w-5.5"></lucide-icon>
+      <lucide-icon *ngSwitchCase="'error'" name="CircleX" class="text-rose-500 w-5.5"></lucide-icon>
+      <lucide-icon *ngSwitchDefault name="info" class="text-cyan-600 w-5.5"></lucide-icon>
     </ng-container>
   </div>
 
-  <div class="flex flex-col">
-    <span class="font-semibold text-base">{{ data.titulo }}</span>
-    <span class="text-sm text-white opacity-90">{{ data.mensagem }}</span>
+  <div class="flex flex-col text-zinc-800">
+    <span class="font-semibold text-[12px] ">{{ data.titulo }}</span>
+    <span class="text-[10px]">{{ data.mensagem }}</span>
   </div>
 </div>

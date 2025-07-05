@@ -6,12 +6,14 @@ import { SnackbarComponent } from '../presentation/ui/snackbar/snackbar.componen
   providedIn: 'root',
 })
 export class NotificacaoService {
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private readonly snackBar: MatSnackBar) {}
 
   private abrirSnackbar(titulo: string, mensagem: string, tipo: 'success' | 'warning' | 'error') {
     this.snackBar.openFromComponent(SnackbarComponent, {
       data: { titulo, mensagem, tipo },
       duration: 5000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top', 
       panelClass: [`${tipo}-snackbar`],
     });
   }

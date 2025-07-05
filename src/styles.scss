@@ -91,3 +91,17 @@ app-sucesso{
 .mdc-tab-indicator{
   background: #fff;
 }
+
+.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{
+  border-radius: 100px !important;
+  background: #fff !important;
+  width: 60% !important;
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__label{
+  line-height: normal !important;
+}
+
+.mat-mdc-snackbar-surface{
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
