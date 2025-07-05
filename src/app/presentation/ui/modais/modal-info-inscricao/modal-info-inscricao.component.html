@@ -1,0 +1,110 @@
+<div class="flex flex-col gap-3.5" *ngIf="data.tipoInscricao == pendente">
+  <div class="flex flex-col gap-3.5 p-6 relative">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div
+          class="bg-gray-200 flex items-center justify-center h-5 w-5 rounded-[6px]"
+        >
+          <i-lucide class="w-2.5" name="user"></i-lucide>
+        </div>
+
+        <p class="font-bold text-[12px]">Informações do inscrito</p>
+      </div>
+      <button
+        (click)="fecharModal()"
+        class="flex items-center justify-center h-7 w-7 rounded-full"
+      >
+        <i-lucide class="w-3.5 text-rose-500" name="circle-x"></i-lucide>
+      </button>
+    </div>
+    <span class="h-0.5 bg-[#F6F6F6]"></span>
+    <div class="flex flex-col gap-1.5 text-[10px]">
+      <p class="flex justify-between">
+        <span class="font-medium">Função:</span>
+        {{ data.dadosInscritoPendente.funcaoEvento | nomeFormatado }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Período:</span>
+        {{ data.dadosInscritoPendente.periodo }}
+      </p>
+    </div>
+    <span
+      *ngIf="data.dadosInscritoPendente.dependentes.length > 0"
+      class="h-0.5 border-b border-dashed border-gray-300 bg-[#F6F6F6]"
+    ></span>
+    <div
+      class="flex flex-col gap-1.5 text-[10px] pb-3"
+      *ngIf="data.dadosInscritoPendente.dependentes.length > 0"
+    >
+      <div class="flex flex-col gap-2">
+        <p class="font-semibold text-[11px]">Dependentes:</p>
+        <div
+          *ngFor="
+            let dependente of data.dadosInscritoPendente.dependentes;
+            let last = last
+          "
+          [ngClass]="{ 'border-b border-dashed border-gray-300 pb-3': !last }"
+          class="flex flex-col gap-1.5 text-[10px]"
+        >
+          <p class="flex justify-between">
+            <span class="font-medium">Nome:</span>
+            {{ dependente.nomeDependente }}
+          </p>
+          <p class="flex justify-between">
+            <span class="font-medium">Idade:</span>
+            {{ dependente.idadeDependente }} anos
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-col gap-3.5" *ngIf="data.tipoInscricao == todas">
+  <div class="flex flex-col gap-3.5 p-6 relative">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div
+          class="bg-gray-200 flex items-center justify-center h-5 w-5 rounded-[6px]"
+        >
+          <i-lucide class="w-2.5" name="user"></i-lucide>
+        </div>
+
+        <p class="font-bold text-[12px]">Informações do inscrito</p>
+      </div>
+      <button
+        (click)="fecharModal()"
+        class="flex items-center justify-center h-7 w-7 rounded-full"
+      >
+        <i-lucide class="w-3.5 text-rose-500" name="circle-x"></i-lucide>
+      </button>
+    </div>
+    <span class="h-0.5 bg-[#F6F6F6]"></span>
+    <div class="flex flex-col gap-1.5 text-[10px]">
+      <p class="flex justify-between">
+        <span class="font-medium">Função no evento:</span>
+        {{ data.dadosInscritoTodas.funcaoEvento | nomeFormatado }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Função na visita:</span>
+        {{ data.dadosInscritoTodas.funcaoVisita || 'Não Informado' | nomeFormatado }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Classe:</span>
+        {{ data.dadosInscritoTodas.classe | nomeFormatado }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Período:</span>
+        {{ data.dadosInscritoTodas.periodo }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Telefone:</span>
+        {{ data.dadosInscritoTodas.telefone }}
+      </p>
+      <p class="flex justify-between">
+        <span class="font-medium">Dependentes:</span>
+        {{ data.dadosInscritoTodas.qntdDependentes }}
+      </p>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,9 @@ import { GestaoInscricaoResponse } from '../../../../../core/application/dto/res
 import { PaginacaoResponse } from '../../../../../core/application/dto/response/paginacao-response.dto';
 import { GestaoInscricaoUseCase } from '../../../../../core/application/use-cases/gestao-inscricao/gestao-inscricao-usecase';
 import { FiltroInscricaoRequest } from '../../../../../core/application/dto/request/inscricoes-pendentes-request.dto';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalInfoInscricaoComponent } from '../../../../ui/modais/modal-info-inscricao/modal-info-inscricao.component';
+import { TipoFuncionalidadeInscricao } from '../../../../../core/domain/enums/tipo-funcionalidade-inscricao.enum';
 
 @Component({
   selector: 'app-obter-todas',
@@ -23,28 +26,47 @@ export class ObterTodasComponent {
   exibicaoListaParticipantes: boolean = false;
   inscricoes: PaginacaoResponse<GestaoInscricaoResponse>;
 
-  constructor(private readonly gestaoInscricaoUseCase: GestaoInscricaoUseCase){}
-  
-    ngOnInit() {
-      this.buscarInscricoes();
-    }
+  constructor(
+    private readonly gestaoInscricaoUseCase: GestaoInscricaoUseCase,
+    private readonly dialog: MatDialog
+  ) {}
 
-    public buscarInscricoes(){
-      const inscricoesRequest: FiltroInscricaoRequest = {            
-            pagina: 1,
-            tamanhoPagina: 20,
-          };
+  ngOnInit() {
+    this.buscarInscricoes();
+  }
 
-         this.gestaoInscricaoUseCase.executeTodas(inscricoesRequest).subscribe({
+  public buscarInscricoes() {
+    const inscricoesRequest: FiltroInscricaoRequest = {
+      pagina: 1,
+      tamanhoPagina: 20,
+    };
+
+    this.gestaoInscricaoUseCase.executeTodas(inscricoesRequest).subscribe({
       next: (resultado) => {
-         if (resultado != null) {
+        if (resultado != null) {
           this.exibicaoListaParticipantes = true;
         } else {
           this.exibicaoListaParticipantes = false;
         }
 
         this.inscricoes = resultado;
-      }
+      },
     });
-    }
+  }
+
+  public abrirModalInfoInscricao(inscrito: GestaoInscricaoResponse) {
+    const dialogRef = this.dialog.open(ModalInfoInscricaoComponent, {
+      width: '90%',
+      height: 'auto',
+      data: {
+        dadosInscritoPendente: null,
+        dadosInscritoTodas: inscrito,
+        tipoInscricao: TipoFuncionalidadeInscricao.TODAS,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Modal fechado com resultado:', result);
+    });
+  }
 }

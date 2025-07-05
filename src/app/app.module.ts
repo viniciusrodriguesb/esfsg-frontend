@@ -182,7 +182,8 @@ import { GestaoInscricaoComponent } from './presentation/pages/home-logada/inscr
 import { GestaoInscricaoUseCase } from './core/application/use-cases/gestao-inscricao/gestao-inscricao-usecase';
 import { GestaoInscricaoPort } from './core/domain/ports/gestao-inscricao/gestao-inscricao.port';
 import { GestaoInscricaoAdapter } from './infrastructure/adapter/gestao-inscricao/gestao-inscricao.adapter';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import { ModalInfoInscricaoComponent } from './presentation/ui/modais/modal-info-inscricao/modal-info-inscricao.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -211,7 +212,8 @@ import { GestaoInscricaoAdapter } from './infrastructure/adapter/gestao-inscrica
     
     ModalQrcodeCheckinComponent,
     ModalCheckinConfirmadoComponent,
-    ModalParticipanteHorarioErradoComponent
+    ModalParticipanteHorarioErradoComponent,
+    ModalInfoInscricaoComponent
   ],
   imports: [
     BrowserModule,
@@ -283,6 +285,9 @@ import { GestaoInscricaoAdapter } from './infrastructure/adapter/gestao-inscrica
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
+    MatTabsModule,
+
+    // Pipes
     NomeAbreviadoPipe,
     NomePipe
 ],

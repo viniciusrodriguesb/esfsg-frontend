@@ -79,3 +79,15 @@ mat-slide-toggle{
 app-sucesso{
   height: 100%;
 }
+
+// .mat-mdc-tab-body.mat-mdc-tab-body-active {
+//   padding-top: 14px;
+// }
+
+.mat-mdc-tab .mdc-tab__text-label {
+  font-weight: 600;
+  font-size: 12px;
+}
+.mdc-tab-indicator{
+  background: #fff;
+}

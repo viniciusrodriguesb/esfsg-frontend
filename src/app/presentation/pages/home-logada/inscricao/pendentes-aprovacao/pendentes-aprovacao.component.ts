@@ -6,6 +6,9 @@ import { ParametroStorageEnum } from '../../../../../core/domain/enums/parametro
 import { InscricaoParaLiberacaoResponse } from '../../../../../core/application/dto/response/inscricoes-response-dto';
 import { GestaoInscricaoUseCase } from '../../../../../core/application/use-cases/gestao-inscricao/gestao-inscricao-usecase';
 import { PaginacaoResponse } from '../../../../../core/application/dto/response/paginacao-response.dto';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalInfoInscricaoComponent } from '../../../../ui/modais/modal-info-inscricao/modal-info-inscricao.component';
+import { TipoFuncionalidadeInscricao } from '../../../../../core/domain/enums/tipo-funcionalidade-inscricao.enum';
 
 @Component({
   selector: 'app-pendentes-aprovacao',
@@ -27,7 +30,8 @@ export class PendentesAprovacaoComponent {
   usuarioLogado: DadosUsuarioAdminResponseDto;
 
   constructor(
-    private readonly gestaoInscricaoUseCase: GestaoInscricaoUseCase
+    private readonly gestaoInscricaoUseCase: GestaoInscricaoUseCase,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -91,6 +95,23 @@ export class PendentesAprovacaoComponent {
         console.error('Erro ao aprovar inscrições:', err);
       },
     });
+  }
+
+  public abrirModalInfoInscricao(inscrito: InscricaoParaLiberacaoResponse) {
+       const dialogRef = this.dialog.open(ModalInfoInscricaoComponent, {
+         width: '90%',
+         height: 'auto',
+         data: {
+           dadosInscritoPendente: inscrito,
+           dadosInscritoTodas: null,
+           tipoInscricao: TipoFuncionalidadeInscricao.PENDENTE,
+         },
+       });
+   
+       dialogRef.afterClosed().subscribe((result) => {
+         console.log('Modal fechado com resultado:', result);
+         
+       });
   }
 
   private liberarBotaoAprovar() {
