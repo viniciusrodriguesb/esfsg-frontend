@@ -24,6 +24,8 @@ import {
 } from '../../../../core/application/dto/response/validacao-checkin-response.dto';
 import { find } from 'rxjs/internal/operators/find';
 import { ModalParticipanteHorarioErradoComponent } from '../../../ui/modais/modal-participante-horario-errado/modal-participante-horario-errado.component';
+import { PaginacaoResponse } from '../../../../core/application/dto/response/paginacao-response.dto';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-check-in',
@@ -76,11 +78,12 @@ export class CheckInComponent {
 
   listaParticipantesPeriodoErrado: ItemCheckinDto[] = [];
 
-  public horarioAtual = moment();
-  public horarioMinimoTarde = moment(
+  horarioAtual = moment();
+  horarioMinimoTarde = moment(
     this.horarioAtual.format('YYYY-MM-DD') + ' 23:00',
     'YYYY-MM-DD HH:mm'
   );
+  pageEvent: PageEvent;
 
   constructor(
     private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
@@ -115,11 +118,15 @@ export class CheckInComponent {
     this.escolherEntreValidacaoRemocaoParticipante();
   }
 
-  public buscarParticipantesCheckin() {
+  public buscarParticipantesCheckin(paginacao?: PageEvent) {
+    this.participantesSelecionados = [];
+    this.listaParticipantesPeriodoErrado = [];
+    this.liberacaoBotaoValidar = false;
+
     const checkinRequest: CheckinRequestDto = {
       nome: this.formCheckin.get('nome')?.value,
-      pagina: 1,
-      tamanhoPagina: 7,
+      pagina: paginacao?.pageIndex + 1 || 1,
+      tamanhoPagina: paginacao?.pageSize || 10,
     };
 
     if (Number.parseInt(this.formCheckin.get('status')?.value) == 1) {
@@ -161,6 +168,7 @@ export class CheckInComponent {
         this.exibicaoListaParticipantes = false;
       },
     });
+    return paginacao;
   }
 
   public buscarFuncaoEvento() {
@@ -230,7 +238,7 @@ export class CheckInComponent {
     });
   }
 
-  private escolherEntreValidacaoRemocaoParticipante(): boolean {    
+  private escolherEntreValidacaoRemocaoParticipante(): boolean {
     if (
       this.participantesSelecionados.length > 0 &&
       this.participantesSelecionados.every(

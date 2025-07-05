@@ -5,6 +5,7 @@ import { InscricaoRequestDto } from "../../../core/application/dto/request/inscr
 import { ControllersEnum } from "../../../core/domain/enums/controllers.enum";
 import { InserirInscricaoPort } from "../../../core/domain/ports/inscricao/inserir-inscricao.port";
 import { ENVIRONMENT } from "../../../environment/environment-des";
+import { UsuarioResponseDto } from "../../../core/application/dto/response/usuario-response.dto";
 
 @Injectable({ providedIn: 'root' })
 export class InserirInscricaoAdapter extends InserirInscricaoPort {
@@ -13,7 +14,7 @@ export class InserirInscricaoAdapter extends InserirInscricaoPort {
     super();
   }
 
-  inserirInscricao(inscricao: InscricaoRequestDto): Observable<null> {
+  inserirInscricao(inscricao: InscricaoRequestDto): Observable<UsuarioResponseDto> {
     try {
       return this.http.post<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Inscricao}/${ENVIRONMENT.VERSAO}`, JSON.stringify(inscricao),    { headers: { 'Content-Type': 'application/json' } });
     } catch (error) {

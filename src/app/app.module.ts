@@ -184,6 +184,8 @@ import { GestaoInscricaoPort } from './core/domain/ports/gestao-inscricao/gestao
 import { GestaoInscricaoAdapter } from './infrastructure/adapter/gestao-inscricao/gestao-inscricao.adapter';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ModalInfoInscricaoComponent } from './presentation/ui/modais/modal-info-inscricao/modal-info-inscricao.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -286,6 +288,7 @@ import { ModalInfoInscricaoComponent } from './presentation/ui/modais/modal-info
     MatIconModule,
     MatSelectModule,
     MatTabsModule,
+    MatPaginatorModule,
 
     // Pipes
     NomeAbreviadoPipe,

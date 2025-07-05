@@ -1,60 +1,69 @@
 <div class="flex flex-col gap-3.5" *ngIf="exibicaoListaParticipantes">
-  <div
-    class="flex flex-col gap-3 bg-white rounded-b-2xl p-5 relative"
-  >
-    <div class="overflow-x-auto">
-      <div class="min-w-max flex flex-col gap-4 text-[10px] mb-4">
-        <div
-          class="flex items-center justify-between"
-          *ngFor="let participante of inscricoesPendentes?.itens; let i = index"
-        >
-          <div class="flex gap-3.5 items-center w-full">
-            <input
-              type="checkbox"
-              class="w-3 h-3"
-              name="check-{{ i }}"
-              (change)="inserirInscricoesSelecionadas(participante.id, $event)"
-            />
-            <div class="flex items-center justify-between w-full">
-              <div class="flex gap-3.5 items-center">
-                <div class="flex items-center gap-2 w-[100px]">
-                  <p class="flex flex-col justify-between">
-                    <span
-                      class="font-medium flex items-center justify-start gap-1"
-                    >
-                      {{ participante.nome | nomeAbreviado }}
-                      <i-lucide name="info" class="w-2.5 h-[15px]"></i-lucide>
-                    </span>
-                    <span class="font-normal text-[9px] text-gray-500">
-                      {{ participante.idade }} anos</span
-                    >
-                  </p>
-                </div>
-                <div class="h-4 w-[1px] bg-gray-300"></div>
-
-                <div class="flex items-center gap-2">
-                  <p class="flex flex-col justify-between">
-                    <span class="font-medium">Motivo do Bloqueio</span>
-                    <span class="font-normal text-[9px] text-gray-500">
-                      {{
-                        participante?.usuarioBloqueado?.motivoBloqueio
-                          ? participante.usuarioBloqueado.motivoBloqueio
-                          : "Não possui"
-                      }}</span
-                    >
-                  </p>
-                </div>
+  <div class="flex flex-col gap-3 bg-white rounded-b-2xl pl-5 pt-5 pr-5 pb-3 relative">
+    <div class="flex flex-col gap-4 text-[10px]">
+      <div
+        [ngClass]="{
+          ' border-b border-dashed border-gray-300 pb-3':
+            inscricoesPendentes?.itens.length > 1 &&
+            i != inscricoesPendentes?.itens.length - 1
+        }"
+        class="flex items-center justify-between"
+        *ngFor="let participante of inscricoesPendentes?.itens; let i = index"
+      >
+        <div class="flex gap-3.5 items-center w-full">
+          <input
+            type="checkbox"
+            class="w-3 h-3"
+            name="check-{{ i }}"
+            (change)="inserirInscricoesSelecionadas(participante.id, $event)"
+          />
+          <div class="flex items-center justify-between w-full">
+            <div class="flex gap-3.5 items-center">
+              <div class="flex items-center gap-2 w-[100px]">
+                <p class="flex flex-col justify-between">
+                  <span
+                    class="font-medium flex items-center justify-start gap-1"
+                  >
+                    {{ participante.nome | nomeAbreviado }}
+                    <i-lucide name="info" class="w-2.5 h-[15px]"></i-lucide>
+                  </span>
+                  <span class="font-normal text-[9px] text-gray-500">
+                    {{ participante.idade }} anos</span
+                  >
+                </p>
               </div>
-              <button
-                (click)="abrirModalInfoInscricao(participante)"
-                class="bg-gray-200 flex items-center justify-center h-4 w-4 rounded-[4px]"
-              >
-                <i-lucide class="w-2" name="plus"></i-lucide>
-              </button>
+              <div class="h-4 w-[1px] bg-gray-300"></div>
+
+              <div class="flex items-center gap-2">
+                <p class="flex flex-col justify-between">
+                  <span class="font-medium">Motivo do Bloqueio</span>
+                  <span class="font-normal text-[9px] text-gray-500">
+                    {{
+                      participante?.usuarioBloqueado?.motivoBloqueio
+                        ? participante.usuarioBloqueado.motivoBloqueio
+                        : "Não possui"
+                    }}</span
+                  >
+                </p>
+              </div>
             </div>
+            <button
+              (click)="abrirModalInfoInscricao(participante)"
+              class="bg-gray-200 flex items-center justify-center h-4 w-4 rounded-[4px]"
+            >
+              <i-lucide class="w-2" name="plus"></i-lucide>
+            </button>
           </div>
         </div>
       </div>
+      <mat-paginator
+        [hidePageSize]="true"
+        [length]="inscricoesPendentes?.totalItens"
+        [pageSize]="inscricoesPendentes?.tamanhoPagina"
+        aria-label="Select page"
+        (page)="pageEvent = buscarInscricoesPendentes($event)"
+      >
+      </mat-paginator>
     </div>
   </div>
 

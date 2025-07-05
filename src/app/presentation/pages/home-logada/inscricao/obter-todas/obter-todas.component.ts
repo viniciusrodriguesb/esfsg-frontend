@@ -7,6 +7,7 @@ import { FiltroInscricaoRequest } from '../../../../../core/application/dto/requ
 import { MatDialog } from '@angular/material/dialog';
 import { ModalInfoInscricaoComponent } from '../../../../ui/modais/modal-info-inscricao/modal-info-inscricao.component';
 import { TipoFuncionalidadeInscricao } from '../../../../../core/domain/enums/tipo-funcionalidade-inscricao.enum';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-obter-todas',
@@ -26,6 +27,8 @@ export class ObterTodasComponent {
   exibicaoListaParticipantes: boolean = false;
   inscricoes: PaginacaoResponse<GestaoInscricaoResponse>;
 
+  pageEvent: PageEvent;
+
   constructor(
     private readonly gestaoInscricaoUseCase: GestaoInscricaoUseCase,
     private readonly dialog: MatDialog
@@ -35,10 +38,10 @@ export class ObterTodasComponent {
     this.buscarInscricoes();
   }
 
-  public buscarInscricoes() {
+  public buscarInscricoes(paginacao?: PageEvent) {
     const inscricoesRequest: FiltroInscricaoRequest = {
-      pagina: 1,
-      tamanhoPagina: 20,
+      pagina: paginacao?.pageIndex + 1 || 1,
+      tamanhoPagina: paginacao?.pageSize || 10,
     };
 
     this.gestaoInscricaoUseCase.executeTodas(inscricoesRequest).subscribe({
@@ -52,6 +55,7 @@ export class ObterTodasComponent {
         this.inscricoes = resultado;
       },
     });
+    return paginacao;
   }
 
   public abrirModalInfoInscricao(inscrito: GestaoInscricaoResponse) {

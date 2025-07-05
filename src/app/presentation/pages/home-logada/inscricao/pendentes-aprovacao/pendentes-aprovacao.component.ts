@@ -9,6 +9,7 @@ import { PaginacaoResponse } from '../../../../../core/application/dto/response/
 import { MatDialog } from '@angular/material/dialog';
 import { ModalInfoInscricaoComponent } from '../../../../ui/modais/modal-info-inscricao/modal-info-inscricao.component';
 import { TipoFuncionalidadeInscricao } from '../../../../../core/domain/enums/tipo-funcionalidade-inscricao.enum';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-pendentes-aprovacao',
@@ -29,6 +30,8 @@ export class PendentesAprovacaoComponent {
   inscricoesPendentes: PaginacaoResponse<InscricaoParaLiberacaoResponse>;
   usuarioLogado: DadosUsuarioAdminResponseDto;
 
+  pageEvent: PageEvent;
+
   constructor(
     private readonly gestaoInscricaoUseCase: GestaoInscricaoUseCase,
     private readonly dialog: MatDialog
@@ -41,11 +44,14 @@ export class PendentesAprovacaoComponent {
     this.buscarInscricoesPendentes();
   }
 
-  public buscarInscricoesPendentes() {
+  public buscarInscricoesPendentes(paginacao?: PageEvent) {
+    this.participantesSelecionados = [];
+    this.liberacaoBotaoAprovar = false;
+    
     const inscricoesPendentesRequest: InscricoesPendentesRequestDto = {
       cpf: this.usuarioLogado.cpf,
-      pagina: 1,
-      tamanhoPagina: 20,
+      pagina: paginacao?.pageIndex + 1 || 1,
+      tamanhoPagina: paginacao?.pageSize || 10,
     };
 
     this.gestaoInscricaoUseCase
@@ -61,6 +67,7 @@ export class PendentesAprovacaoComponent {
           this.inscricoesPendentes = resultado;
         },
       });
+      return paginacao;
   }
 
   public inserirInscricoesSelecionadas(id: number, event: Event): void {
