@@ -33,7 +33,7 @@ export class FormDadosPessoaisComponent {
     nomeCompleto: ['', Validators.required],
     telefone: ['', Validators.required],
     nascimento: ['', [this.dataNascimentoValidator]],
-    email: ['', [Validators.email]],
+    email: ['', [Validators.email, Validators.required]],
     condicoesMedicas: this._formBuilder.array([this._formBuilder.control('')]),
     funcoesIgreja: this._formBuilder.array(
       [this._formBuilder.control('', Validators.required)],

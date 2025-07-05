@@ -54,7 +54,6 @@ export class PerfilComponent  {
 
   public inicializarPagina(){    
     if(this.statusInscricao?.idStatus === StatusPagamentoInscricaoEnum.AGUARDANDO_PAGAMENTO) {
-      this.exibicaoCardPagamento = true;
       this.buscarQrCodePagamento();
     }else if(this.statusInscricao?.idStatus === StatusPagamentoInscricaoEnum.PAGAMENTO_CONFIRMADO){
       this.exibicaoBotaoCheckin = true;
@@ -63,7 +62,6 @@ export class PerfilComponent  {
       this.exibicaoBotaoCheckin = false;
       this.exibicaoCardPagamento = false;
     }
-
   }
 
   public exibirCardCheckin(){
@@ -82,12 +80,17 @@ export class PerfilComponent  {
   }
 
   public buscarQrCodePagamento(){
-
     this.buscarQrCodePagamentoUsecase.execute(this.statusInscricao.id).subscribe({
-      next: (resposta) => {
-        this.informacoesPagamento = resposta;
+      next: (resposta) => {       
+        if(resposta){
+          this.informacoesPagamento = resposta;
+          this.exibicaoCardPagamento = true;
+        }else{
+          this.exibicaoCardPagamento = false;  
+        }                
       },
       error: (err) => {
+        this.exibicaoCardPagamento = false;        
         console.error('Erro ao buscar QR Code de pagamento:', err);
       }
     });
@@ -107,6 +110,15 @@ export class PerfilComponent  {
   }
 
   public copiarPix(){
-    
+     if (navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        navigator.clipboard.writeText(this.informacoesPagamento.pixCopiaCola);
+      } catch (error) {
+        console.error('Falha ao copiar o texto:', error);
+      }
+    } else {
+      console.warn('A API Clipboard não é suportada neste navegador.');
+    }
   }
+
 }
