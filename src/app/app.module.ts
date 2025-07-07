@@ -188,6 +188,12 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { GestaoVisitasComponent } from './presentation/pages/home-logada/gestao-visitas/gestao-visitas.component';
 import { VisitasNaoAlocadasComponent } from './presentation/pages/home-logada/gestao-visitas/visitas-nao-alocadas/visitas-nao-alocadas.component';
 import { VisitasAlocadasComponent } from './presentation/pages/home-logada/gestao-visitas/visitas-alocadas/visitas-alocadas.component';
+import { BuscarFuncoesVisitaUseCase } from './core/application/use-cases/visita/buscar-funcoes-visita.usecase';
+import { BuscarFuncoesVisitaPort } from './core/domain/ports/visita/buscar-funcoes-visita.port';
+import { BuscarFuncoesVisitaAdapter } from './infrastructure/adapter/visita/buscar-funcoes-visita.adapter';
+import { BuscarInscritosVisitaUseCase } from './core/application/use-cases/visita/buscar-inscritos-visita.usecase';
+import { BuscarInscritosVisitaPort } from './core/domain/ports/visita/buscar-inscritos-visita.port';
+import { BuscarInscritosVisitaAdapter } from './infrastructure/adapter/visita/buscar-inscritos-visita.adapter';
 
 @NgModule({
   declarations: [
@@ -389,7 +395,12 @@ import { VisitasAlocadasComponent } from './presentation/pages/home-logada/gesta
     ValidarQrCodeParticipanteUseCase,
     { provide: ValidarQrCodeParticipantePort, useClass: ValidarQrCodeParticipanteAdapter },
     GestaoInscricaoUseCase,
-    {provide: GestaoInscricaoPort, useClass: GestaoInscricaoAdapter}
+    {provide: GestaoInscricaoPort, useClass: GestaoInscricaoAdapter},
+    BuscarFuncoesVisitaUseCase,
+    { provide: BuscarFuncoesVisitaPort, useClass: BuscarFuncoesVisitaAdapter },
+    BuscarInscritosVisitaUseCase,
+    { provide: BuscarInscritosVisitaPort, useClass: BuscarInscritosVisitaAdapter },
+
   ],
   bootstrap: [AppComponent],
 })

@@ -10,6 +10,8 @@ import { BuscarDadosDashboardUseCase } from '../../../../core/application/use-ca
 import { BuscarProximoEventoUseCase } from '../../../../core/application/use-cases/dashboard/buscar-proximo-evento.usecase';
 import { ProximoEventoResponseDto } from '../../../../core/application/dto/response/proximo-evento-response.dto';
 import { DadosDashboardResponseDto } from '../../../../core/application/dto/response/dados-dashboard-response.dto';
+import { Rotas } from '../../../../core/domain/enums/rotas.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-inicial',
@@ -52,11 +54,14 @@ export class DashboardInicialComponent {
   exibicaoCardEventoNaoEncontrado: boolean = false;
   dadosDashboard: DadosDashboardResponseDto;
   eventoSelecionado: EventoResponseDto;
+  rotaInscricao = [Rotas.GESTAO_INSCRICAO];
+  rotaVistas = [Rotas.GESTAO_VISITAS];
 
   constructor(
     private readonly buscarEventoUsecase: BuscarEventoUseCase,
     private readonly buscarDadosDashboardUsecase: BuscarDadosDashboardUseCase,
-    private readonly nomePipe: NomePipe
+    private readonly nomePipe: NomePipe,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
@@ -106,12 +111,7 @@ export class DashboardInicialComponent {
     });
   }
 
-  private formatarNomes(
-    nomes: TabelaDominioResponseDto[]
-  ): TabelaDominioResponseDto[] {
-    return nomes.map((nome) => ({
-      ...nome,
-      descricao: this.nomePipe.transform(nome.descricao),
-    }));
+  navegar(rota: any) {
+    this.router.navigate([Rotas.HOME_LOGADA, ...rota]);
   }
 }

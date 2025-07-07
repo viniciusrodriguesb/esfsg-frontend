@@ -11,5 +11,6 @@ export enum ControllersEnum {
     QrCode = 'QRCode',	
     Dashboard = 'Dashboard',
     Checkin = 'Checkin',
-    GestaoInscricao = 'GestaoInscricao'
+    GestaoInscricao = 'GestaoInscricao',
+    Visita = 'Visita',
 }
