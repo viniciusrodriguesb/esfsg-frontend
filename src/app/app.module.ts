@@ -185,6 +185,9 @@ import { GestaoInscricaoAdapter } from './infrastructure/adapter/gestao-inscrica
 import {MatTabsModule} from '@angular/material/tabs';
 import { ModalInfoInscricaoComponent } from './presentation/ui/modais/modal-info-inscricao/modal-info-inscricao.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { GestaoVisitasComponent } from './presentation/pages/home-logada/gestao-visitas/gestao-visitas.component';
+import { VisitasNaoAlocadasComponent } from './presentation/pages/home-logada/gestao-visitas/visitas-nao-alocadas/visitas-nao-alocadas.component';
+import { VisitasAlocadasComponent } from './presentation/pages/home-logada/gestao-visitas/visitas-alocadas/visitas-alocadas.component';
 
 @NgModule({
   declarations: [
@@ -211,6 +214,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ObterTodasComponent,
     PendentesAprovacaoComponent,
     GestaoInscricaoComponent,
+    GestaoVisitasComponent,
+    VisitasNaoAlocadasComponent,
+    VisitasAlocadasComponent,
     
     ModalQrcodeCheckinComponent,
     ModalCheckinConfirmadoComponent,

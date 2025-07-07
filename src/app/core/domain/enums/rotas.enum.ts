@@ -18,7 +18,10 @@ export enum Rotas {
   HOME_LOGADA = 'home-logada',
   DASHBOARD_INICIAL = 'dashboard-inicial',
   CHECK_IN = 'check-in',
+
   GESTAO_INSCRICAO = 'gestao-inscricao',
   OBTER_TODAS = 'obter-todas',
-  PENDENTES_APROVACAO = 'pendentes-aprovacao'
+  PENDENTES_APROVACAO = 'pendentes-aprovacao',
+
+  GESTAO_VISITAS = 'gestao-visitas',
 }

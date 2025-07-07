@@ -21,6 +21,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { GestaoInscricaoComponent } from './presentation/pages/home-logada/inscricao/gestao-inscricao.component';
 import { ObterTodasComponent } from './presentation/pages/home-logada/inscricao/obter-todas/obter-todas.component';
 import { PendentesAprovacaoComponent } from './presentation/pages/home-logada/inscricao/pendentes-aprovacao/pendentes-aprovacao.component';
+import { GestaoVisitasComponent } from './presentation/pages/home-logada/gestao-visitas/gestao-visitas.component';
 
 export const routes: Routes = [
   {
@@ -106,6 +107,10 @@ export const routes: Routes = [
             component: PendentesAprovacaoComponent,
           },
         ],
+      },
+      {
+        path: Rotas.GESTAO_VISITAS,
+        component: GestaoVisitasComponent,
       },
     ],
   },
