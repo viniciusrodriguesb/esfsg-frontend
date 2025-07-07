@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { GestaoInscricaoResponse } from '../../../../../core/application/dto/response/inscricoes-response-dto';
 import { PaginacaoResponse } from '../../../../../core/application/dto/response/paginacao-response.dto';
@@ -16,6 +16,8 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrl: './obter-todas.component.scss',
 })
 export class ObterTodasComponent {
+  @Input() public eventoId: number;
+
   animacaoErro: AnimationOptions = {
     path: '/animations/animation-not-found.json',
     renderer: 'svg',
@@ -34,19 +36,27 @@ export class ObterTodasComponent {
     private readonly dialog: MatDialog
   ) {}
 
-  ngOnInit() {
-    this.buscarInscricoes();
+  ngOnChanges() {
+    if (this.eventoId) {
+      console.log('Evento ID alterado:', this.eventoId);
+      
+      this.buscarInscricoes();
+    }
   }
 
   public buscarInscricoes(paginacao?: PageEvent) {
     const inscricoesRequest: FiltroInscricaoRequest = {
+      idEvento: this.eventoId,
       pagina: paginacao?.pageIndex + 1 || 1,
       tamanhoPagina: paginacao?.pageSize || 10,
     };
 
+    console.log('Requisição de inscrições:', inscricoesRequest);
+    
+
     this.gestaoInscricaoUseCase.executeTodas(inscricoesRequest).subscribe({
       next: (resultado) => {
-        if (resultado != null) {
+        if (resultado != null && resultado.itens.length > 0) {
           this.exibicaoListaParticipantes = true;
         } else {
           this.exibicaoListaParticipantes = false;

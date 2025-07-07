@@ -14,16 +14,10 @@ export class BuscarFuncaoIgrejaAdapter extends BuscarFuncaoIgrejaPort {
   }
 
   buscarFuncaoIgreja(): Observable<TabelaDominioResponseDto[] | null> {
-  
-    const listaFixa: TabelaDominioResponseDto[] = [
-      { id: 1, descricao: 'Secretária(o)' },
-      { id: 2, descricao: 'Professor(a)' },
-      { id: 3, descricao: 'Coordenador(a)' }
-    ];
     return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Funcao}/${ENVIRONMENT.VERSAO}/igreja`).pipe(
       catchError((error) => {
         console.error('Erro ao buscar funções de igreja:', error);
-        return of(listaFixa);
+        return of(null);
       })
     );
   }

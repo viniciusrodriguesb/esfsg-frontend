@@ -5,21 +5,21 @@
     <p class="text-[10px] text-justify">
       Olá, bem-vindo ao novo sistema do
       <strong>Evangelho Sem Fronteiras</strong>, para visualizar o dashboard,
-      você precisa selecionar uma região.
+      você precisa selecionar um evento.
     </p>
     <ng-lottie [options]="options" class="w-46 h-46" />
   </div>
 
-  <form class="grid grid-cols-8 gap-3.5" [formGroup]="formRegiao">
+  <form class="grid grid-cols-8 gap-3.5" [formGroup]="formEvento">
     <app-input
       class="col-start-1 col-end-9"
       [tipo]="'select'"
-      [label]="'Regiões'"
+      [label]="'Eventos'"
       [placeholder]="'Selecione'"
-      [formController]="formRegiao.controls['regiao']"
-      [opcoes]="regioes"
+      [formController]="formEvento.controls['evento']"
+      [opcoes]="eventosSelect"
       mensagemErro="Campo obrigatório"
-      (valorSelecionado)="selecionarRegiao($event)"
+      (valorSelecionado)="selecionarEvento($event)"
     ></app-input>
   </form>
   <div
@@ -59,15 +59,15 @@
       <div class="flex flex-col gap-1.5 text-[10px]">
         <p class="flex justify-between">
           <span class="font-medium">Evento:</span>
-          <span class="font-normal">{{ proximoEvento.nome }}</span>
+          <span class="font-normal">{{ eventoSelecionado.nome | nomeFormatado }}</span>
         </p>
         <p class="flex justify-between">
           <span class="font-medium">Igreja:</span>
-          <span class="font-normal">{{ proximoEvento.igreja }}</span>
+          <span class="font-normal">{{ eventoSelecionado.igrejaEvento  | nomeFormatado}}</span>
         </p>
         <p class="flex justify-between">
           <span class="font-medium">Data:</span>
-          <span class="font-normal">{{ proximoEvento.data }}</span>
+          <span class="font-normal">{{ eventoSelecionado.dataEvento }}</span>
         </p>
       </div>
     </div>

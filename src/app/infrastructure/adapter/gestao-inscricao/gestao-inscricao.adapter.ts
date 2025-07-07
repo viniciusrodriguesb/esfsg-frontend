@@ -32,7 +32,11 @@ export class GestaoInscricaoAdapter extends GestaoInscricaoPort {
       params = params.set('tamanhoPagina', request.tamanhoPagina.toString());
     }
 
-    params = params.set('cpf', request.cpf);
+    if (request.idEvento !== undefined) {
+      params = params.set('idEvento', request.idEvento.toString());
+    }
+
+    params = params.set('cpfLogado', request.cpfLogado);
 
     return this.http
       .get<PaginacaoResponse<InscricaoParaLiberacaoResponse>>(
@@ -74,6 +78,10 @@ export class GestaoInscricaoAdapter extends GestaoInscricaoPort {
 
     if (filtro.periodo) {
       params = params.set('periodo', filtro.periodo);
+    }
+
+    if(filtro.idEvento !== undefined) {
+      params = params.set('idEvento', filtro.idEvento.toString());
     }
 
     params = params.set('pagina', filtro.pagina.toString());

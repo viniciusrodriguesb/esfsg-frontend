@@ -14,18 +14,12 @@ export class BuscarFuncaoEventoAdapter extends BuscarFuncaoEventoPort {
   }
 
   buscarFuncaoEvento(idEvento: number): Observable<TabelaDominioResponseDto[] | null> {
-      // Retorna uma lista fixa de funções para testes
-      const listaFixa: TabelaDominioResponseDto[] = [
-        { id: 1, descricao: 'Pastor' },
-        { id: 2, descricao: 'Evangelista' },
-        { id: 3, descricao: 'Libras' }
-      ];
       let params = new HttpParams();
       params = params.append('idEvento', idEvento.toString());
       return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Funcao}/${ENVIRONMENT.VERSAO}/evento`, { params }).pipe(
         catchError((error) => {
           console.error('Erro ao buscar funções de evento:', error);
-          return of(listaFixa);
+          return of(null);
         })
       );
   }

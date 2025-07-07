@@ -14,16 +14,11 @@ export class BuscarClasseAdapter extends BuscarClassePort {
   }
 
   buscarClasses(): Observable<TabelaDominioResponseDto[] | null> {
-    // Retorna uma lista fixa de classes para testes
-    const listaFixa: TabelaDominioResponseDto[] = [
-      { id: 1, descricao: 'Classe A' },
-      { id: 2, descricao: 'Classe B' },
-      { id: 3, descricao: 'Classe C' }
-    ];
+
     return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Classe}/${ENVIRONMENT.VERSAO}`).pipe(
       catchError((error) => {
         console.error('Erro ao buscar classes:', error);
-        return of(listaFixa);
+        return of([]);
       })
     );
   }

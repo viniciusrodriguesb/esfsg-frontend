@@ -17,7 +17,10 @@ export class BuscarParticipantesCheckinAdapter extends BuscarParticipantesChecki
   buscarParticipantesCheckin(checkinRequest: CheckinRequestDto): Observable<CheckinResponseDto | null> {
     
     let params = new HttpParams();
-    
+
+    if(checkinRequest.idEvento) {
+      params = params.set('idEvento', checkinRequest.idEvento.toString());
+    }
     if (checkinRequest.pagina) {
       params = params.set('pagina', checkinRequest.pagina.toString());
     }

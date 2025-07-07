@@ -48,8 +48,9 @@ export class PerfilComponent  {
     }else{
       this.statusInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.STATUS_INSCRICAO)) as InscricaoResponseDto;
     }
-
+    
     this.inicializarPagina();
+    
   }
 
   public inicializarPagina(){    

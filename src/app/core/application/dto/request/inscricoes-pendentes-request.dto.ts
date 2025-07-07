@@ -1,10 +1,12 @@
 export class InscricoesPendentesRequestDto {
-  cpf: string;
+  idEvento ?: number;
+  cpfLogado: string;
   pagina?: number;
   tamanhoPagina?: number;
 }
 
 export interface FiltroInscricaoRequest {
+  idEvento ?: number;
   regiao?: number;
   nome?: string;
   igreja?: number;

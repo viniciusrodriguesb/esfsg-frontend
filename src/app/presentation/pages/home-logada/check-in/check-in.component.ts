@@ -26,6 +26,7 @@ import { find } from 'rxjs/internal/operators/find';
 import { ModalParticipanteHorarioErradoComponent } from '../../../ui/modais/modal-participante-horario-errado/modal-participante-horario-errado.component';
 import { PaginacaoResponse } from '../../../../core/application/dto/response/paginacao-response.dto';
 import { PageEvent } from '@angular/material/paginator';
+import { BuscarEventoUseCase } from '../../../../core/application/use-cases/evento/buscar-evento.usecase';
 
 @Component({
   selector: 'app-check-in',
@@ -53,6 +54,7 @@ export class CheckInComponent {
     periodo: [''],
     status: [''],
     nome: [''],
+    evento: [''],
   });
 
   statusCheckin: TabelaDominioResponseDto[] = [
@@ -85,17 +87,42 @@ export class CheckInComponent {
   );
   pageEvent: PageEvent;
 
+  eventosSelect: TabelaDominioResponseDto[] = [];
+  exibirPesquisa: boolean = false;
+
   constructor(
     private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
     private readonly buscarParticipantesCheckinUsecase: BuscarParticipantesCheckinUseCase,
     private readonly validarQrCodeParticipanteUseCase: ValidarQrCodeParticipanteUseCase,
+    private readonly buscarEventoUsecase: BuscarEventoUseCase,
     private readonly nomePipe: NomePipe,
     private readonly dialog: MatDialog
   ) {}
 
   ngOnInit() {
     this.buscarFuncaoEvento();
+    this.buscarEvento();
+  }
+
+  public selecionarEvento(evento: any) {
     this.buscarParticipantesCheckin();
+    this.exibirPesquisa = true;
+  }
+
+  public buscarEvento() {
+    this.buscarEventoUsecase.execute().subscribe({
+      next: (resposta) => {
+        if (resposta) {
+          this.eventosSelect = resposta.map((evento) => ({
+            id: evento.id,
+            descricao: this.nomePipe.transform(evento.nome),
+          }));
+        }
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar eventos:', erro);
+      },
+    });
   }
 
   public selecionarParticipante(participante: ItemCheckinDto) {
@@ -124,6 +151,7 @@ export class CheckInComponent {
     this.liberacaoBotaoValidar = false;
 
     const checkinRequest: CheckinRequestDto = {
+      idEvento: Number.parseInt(this.formCheckin.get('evento')?.value),
       nome: this.formCheckin.get('nome')?.value,
       pagina: paginacao?.pageIndex + 1 || 1,
       tamanhoPagina: paginacao?.pageSize || 10,
@@ -156,7 +184,9 @@ export class CheckInComponent {
 
     this.buscarParticipantesCheckinUsecase.execute(checkinRequest).subscribe({
       next: (resultado) => {
-        if (resultado != null) {
+        console.log('Resultado da busca de participantes:', resultado);
+        
+        if (resultado != null && resultado.itens.length > 0) {
           this.exibicaoListaParticipantes = true;
         } else {
           this.exibicaoListaParticipantes = false;

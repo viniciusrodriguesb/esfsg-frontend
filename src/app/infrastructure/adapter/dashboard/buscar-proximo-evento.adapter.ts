@@ -13,13 +13,6 @@ export class BuscarProximoEventoAdapter extends BuscarProximoEventoPort {
   }
 
   buscarProximoEvento(idRegiao: number): Observable<ProximoEventoResponseDto | null> {
-    const listaFixa: ProximoEventoResponseDto = {
-      id: 1,
-      nome: 'Evangelho Sem Fronteiras - Teste',
-      igreja: 'MUTUÁ',
-      data: '01/08/2025',
-    };
-
     let params = new HttpParams();
     params = params.append('IdRegiao', idRegiao.toString());
     return this.http
@@ -30,7 +23,7 @@ export class BuscarProximoEventoAdapter extends BuscarProximoEventoPort {
       .pipe(
         catchError((error) => {
           console.error('Erro ao buscar eventos:', error);
-          return of(listaFixa);
+          return of(null);
         })
       );
   }

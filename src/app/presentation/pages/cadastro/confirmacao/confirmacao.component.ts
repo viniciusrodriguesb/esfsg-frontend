@@ -7,8 +7,6 @@ import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-st
 import { InserirInscricaoUseCase } from '../../../../core/application/use-cases/inscricao/inserir-inscricao.usecase';
 import { BuscarInscricaoUseCase } from '../../../../core/application/use-cases/inscricao/buscar-inscricao.usecase';
 import { InscricaoResponseDto } from '../../../../core/application/dto/response/inscricao-response.dto';
-import { StatusHttpEnum } from '../../../../core/domain/enums/status-http.enum';
-import { UsuarioResponseDto } from '../../../../core/application/dto/response/usuario-response.dto';
 
 @Component({
   selector: 'app-confirmacao',
@@ -17,51 +15,6 @@ import { UsuarioResponseDto } from '../../../../core/application/dto/response/us
   styleUrl: './confirmacao.component.scss',
 })
 export class ConfirmacaoComponent {
-  mockInscricaoUsuario: ResumoInscricaoDto = {
-    visita: {
-      visita: 'Sim',
-      carro: 'Sim',
-      vagas: 3,
-    },
-    usuario: {
-      nome: 'João da Silva',
-      cpf: '123.456.789-00',
-      email: 'joao.silva@example.com',
-      telefone: '(11) 91234-5678',
-      dataNascimento: '1990-05-20',
-      pcd: 'Não',
-      dons: 'Música, Ensino',
-      condicaoMedica: ['Asma'],
-      instrumentos: ['Violão', 'Teclado'],
-      funcoesIgreja: ['Professor de Escola Sabatina', 'Líder de Jovens'],
-    },
-    inscricaoMenor: [
-      {
-        nome: 'Ana Clara Silva',
-        idade: 10,
-        condicaoMedica: 'Nenhuma',
-      },
-      {
-        nome: 'Lucas Silva',
-        idade: 8,
-        condicaoMedica: 'Alergia a amendoim',
-      },
-    ],
-    igrejaExiste: {
-      nome: 'Igreja Central de São Paulo',
-      classe: 'Classe dos Jovens Adultos',
-    },
-    igrejaNova: {
-      nome: 'Igreja Esperança Viva',
-      regiao: 'Zona Norte',
-      pastor: 'Pr. Marcos Oliveira',
-    },
-    evento: {
-      nome: 'Congresso Jovem 2025',
-      periodo: '27 a 31 de Dezembro de 2025',
-      funcao: 'Voluntário - Apoio Geral',
-    },
-  };
 
   resumoInscricao: ResumoInscricaoDto;
   inscricaoUsuario: InscricaoRequestDto;
@@ -74,15 +27,8 @@ export class ConfirmacaoComponent {
   ) {}
 
   ngOnInit() {
-    this.resumoInscricao = JSON.parse(
-      localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)
-    ) as ResumoInscricaoDto;
-    this.inscricaoUsuario = JSON.parse(
-      localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)
-    ) as InscricaoRequestDto;
-    if (!this.resumoInscricao) {
-      this.resumoInscricao = this.mockInscricaoUsuario;
-    }
+    this.resumoInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)) as ResumoInscricaoDto;
+    this.inscricaoUsuario = JSON.parse(localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
   }
 
   inserirInscricao() {

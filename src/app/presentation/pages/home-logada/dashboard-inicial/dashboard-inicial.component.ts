@@ -40,58 +40,50 @@ export class DashboardInicialComponent {
     loop: false,
   };
 
-  regioes: TabelaDominioResponseDto[] = [];
+  eventosSelect: TabelaDominioResponseDto[] = [];
+  eventos: EventoResponseDto[] = [];
 
-  formRegiao = this._formBuilder.group({
-    regiao: ['', Validators.required],
+  formEvento = this._formBuilder.group({
+    evento: ['', Validators.required],
   });
 
   proximoEvento: ProximoEventoResponseDto;
   exibicaoDashboard: boolean = false;
   exibicaoCardEventoNaoEncontrado: boolean = false;
   dadosDashboard: DadosDashboardResponseDto;
+  eventoSelecionado: EventoResponseDto;
 
   constructor(
-    private readonly buscarRegiaoUsecase: BuscarRegiaoUseCase,
-    private readonly buscarProximoEventoUsecase: BuscarProximoEventoUseCase,
+    private readonly buscarEventoUsecase: BuscarEventoUseCase,
     private readonly buscarDadosDashboardUsecase: BuscarDadosDashboardUseCase,
     private readonly nomePipe: NomePipe
   ) {}
 
   ngOnInit() {
-    this.buscarRegiao();
-  }
-  public buscarRegiao() {
-    this.buscarRegiaoUsecase.execute().subscribe({
-      next: (resposta) => {
-        if (resposta) {
-          this.regioes = this.formatarNomes(resposta);
-        }
-      },
-      error: (erro) => {
-        console.error('Erro ao buscar regiões:', erro);
-      },
-    });
-  }
-
-  public selecionarRegiao(evento: any) {
     this.buscarEvento();
   }
 
+  public selecionarEvento(evento: any) {
+    this.eventoSelecionado = this.eventos.find((e) => e.id == evento);
+    this.buscarDadosDashboard(evento);
+  }
+
   public buscarEvento() {
-    this.buscarProximoEventoUsecase
-      .execute(parseInt(this.formRegiao.get('regiao')?.value))
-      .subscribe({
-        next: (resposta) => {
-          if (resposta) {
-            this.proximoEvento = resposta;
-            this.buscarDadosDashboard(resposta.id);
-          }
-        },
-        error: (erro) => {
-          console.error('Erro ao buscar eventos:', erro);
-        },
-      });
+    this.buscarEventoUsecase.execute().subscribe({
+      next: (resposta) => {
+        if (resposta) {
+          this.eventosSelect = resposta.map((evento) => ({
+            id: evento.id,
+            descricao: this.nomePipe.transform(evento.nome),
+          }));
+          this.eventos = resposta;
+        }
+      },
+      error: (erro) => {
+        this.exibicaoDashboard = false;
+        console.error('Erro ao buscar eventos:', erro);
+      },
+    });
   }
 
   private buscarDadosDashboard(idEvento: number = 1) {

@@ -1,4 +1,5 @@
 export class CheckinRequestDto {
+  idEvento : number;
   nome?: string;
   periodo?: string;
   funcaoEvento?: number[]; 

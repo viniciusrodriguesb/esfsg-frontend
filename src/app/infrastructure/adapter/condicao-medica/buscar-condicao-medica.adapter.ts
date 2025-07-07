@@ -14,15 +14,10 @@ export class BuscarCondicaoMedicaAdapter extends BuscarCondicaoMedicaPort {
   }
 
   buscarCondicoesMedicas(): Observable<TabelaDominioResponseDto[] | null> {
-    const listaFixa: TabelaDominioResponseDto[] = [
-      { id: 1, descricao: 'Hipertensão' },
-      { id: 2, descricao: 'Diabetes' },
-      { id: 3, descricao: 'Asma' }
-    ];
     return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.CondicaoMedica}/${ENVIRONMENT.VERSAO}`).pipe(
       catchError((error) => {
         console.error('Erro ao buscar condições médicas:', error);
-        return of(listaFixa);
+        return of([]);
       })
     );
   }

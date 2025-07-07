@@ -12,15 +12,13 @@ export class BuscarPeriodoEventoAdapter extends BuscarPeriodoEventoPort {
   }
 
   buscarPeriodoEvento(idEvento: number): Observable<string[] | null> {
-    const listaFixa: string[] = ['Tarde', 'Integral'];
-
     let params = new HttpParams();
     params = params.append('idEvento', idEvento.toString());
     return this.http.get<string[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Evento}/${ENVIRONMENT.VERSAO}/periodos`,{ params })
       .pipe(
         catchError((error) => {
           console.error('Erro ao buscar períodos do evento:', error);
-          return of(listaFixa);
+          return of(null);
         })
       );
   }

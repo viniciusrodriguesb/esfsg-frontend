@@ -14,16 +14,11 @@ export class BuscarIgrejaAdapter extends BuscarIgrejaPort {
   }
 
   buscarIgrejas(): Observable<TabelaDominioResponseDto[] | null> {
-    // Retorna uma lista fixa de igrejas para testes
-    const listaFixa: TabelaDominioResponseDto[] = [
-      { id: 1, descricao: 'Mutuá' },
-      { id: 2, descricao: 'Rocha' },
-      { id: 3, descricao: 'Alcântara' }
-    ];
+
     return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Igreja}/${ENVIRONMENT.VERSAO}`).pipe(
       catchError((error) => {
         console.error('Erro ao buscar igrejas:', error);
-        return of(listaFixa);
+        return of(null);
       })
     );
   }

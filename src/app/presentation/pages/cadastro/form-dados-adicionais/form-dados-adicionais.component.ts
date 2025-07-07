@@ -31,13 +31,16 @@ import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-insc
 export class FormDadosAdicionaisComponent {
   private readonly _formBuilder = inject(FormBuilder);
 
-  formDadosAdicionais = this._formBuilder.group({
-    igreja: [''],
-    idRegiaoIgrejaNova: [''],
-    nomeIgrejaNova: [''],
-    pastorIgrejaNova: [''],
-    inscricaoMenor: this._formBuilder.array([this.criarInscricaoMenor()]),
-  });
+  formDadosAdicionais = this._formBuilder.group(
+    {
+      igreja: [''],
+      idRegiaoIgrejaNova: [''],
+      nomeIgrejaNova: [''],
+      pastorIgrejaNova: [''],
+      inscricaoMenor: this._formBuilder.array([this.criarInscricaoMenor()]),
+    },
+    { validators: this.igrejaOuNovaIgrejaValidator() }
+  );
 
   opcoesBoleanas: TabelaDominioResponseDto[] = [
     { id: 1, descricao: 'Sim' },
@@ -65,8 +68,12 @@ export class FormDadosAdicionaisComponent {
   ) {}
 
   ngOnInit() {
-    this.inscricaoUsuario = JSON.parse(localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
-    this.resumoInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)) as ResumoInscricaoDto;
+    this.inscricaoUsuario = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)
+    ) as InscricaoRequestDto;
+    this.resumoInscricao = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)
+    ) as ResumoInscricaoDto;
 
     if (this.inscricaoUsuario) {
       this.preencherFormulario(this.inscricaoUsuario);
@@ -77,67 +84,110 @@ export class FormDadosAdicionaisComponent {
     this.buscarIgrejas();
   }
 
-private preencherObjetoInscricao() {
-  const formValue = this.formDadosAdicionais.value;
+  limparCamposNovaIgreja(event: any) {
+    if (event && event.trim() !== '') {
+      this.exibeCamposNovaIgreja = false;
+      this.formDadosAdicionais.patchValue({
+        idRegiaoIgrejaNova: '',
+        nomeIgrejaNova: '',
+        pastorIgrejaNova: '',
+      });
 
-  const igrejaPreenchida =
-    formValue.idRegiaoIgrejaNova ||
-    formValue.nomeIgrejaNova?.trim() ||
-    formValue.pastorIgrejaNova?.trim();
+      console.log(
+        'Campos de nova igreja limpos',
+        this.formDadosAdicionais.value
+      );
+    }
+  }
 
-  const igreja = igrejaPreenchida
-    ? {
-        idRegiao: formValue.idRegiaoIgrejaNova
-          ? parseInt(formValue.idRegiaoIgrejaNova)
-          : undefined,
-        nome: formValue.nomeIgrejaNova || undefined,
-        pastor: formValue.pastorIgrejaNova || undefined,
+  private igrejaOuNovaIgrejaValidator(): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const igreja = formGroup.get('igreja')?.value;
+      const idRegiao = formGroup.get('idRegiaoIgrejaNova')?.value;
+      const nome = formGroup.get('nomeIgrejaNova')?.value;
+      const pastor = formGroup.get('pastorIgrejaNova')?.value;
+
+      const igrejaPreenchida = igreja && igreja.trim() !== '';
+      const novaIgrejaPreenchida = idRegiao && nome && pastor;
+
+      if (igrejaPreenchida || novaIgrejaPreenchida) {
+        return null;
       }
-    : undefined;
 
-  const menoresValidos = (formValue.inscricaoMenor || []).filter((menor: any) => {
-    return (
-      menor.nome?.trim() ||
-      menor.idade ||
-      menor.idCondicaoMedica
+      return { igrejaOuNovaIgreja: true };
+    };
+  }
+
+  private preencherObjetoInscricao() {
+    const formValue = this.formDadosAdicionais.value;
+
+    const igrejaPreenchida =
+      formValue.idRegiaoIgrejaNova ||
+      formValue.nomeIgrejaNova?.trim() ||
+      formValue.pastorIgrejaNova?.trim();
+
+    const igreja = igrejaPreenchida
+      ? {
+          idRegiao: formValue.idRegiaoIgrejaNova
+            ? parseInt(formValue.idRegiaoIgrejaNova)
+            : undefined,
+          nome: formValue.nomeIgrejaNova || undefined,
+          pastor: formValue.pastorIgrejaNova || undefined,
+        }
+      : undefined;
+
+    const menoresValidos = (formValue.inscricaoMenor || []).filter(
+      (menor: any) => {
+        return menor.nome?.trim() || menor.idade || menor.idCondicaoMedica;
+      }
     );
-  });
 
-  const inscricaoMenor = menoresValidos.length
-    ? menoresValidos.map((menor: any) => ({
-        idade: Number(menor.idade),
-        nome: menor.nome,
-        idCondicaoMedica: Number(menor.idCondicaoMedica),
-      }))
-    : undefined;
+    const inscricaoMenor = menoresValidos.length
+      ? menoresValidos.map((menor: any) => ({
+          idade: Number(menor.idade),
+          nome: menor.nome,
+          idCondicaoMedica: Number(menor.idCondicaoMedica) === 0 ? null : Number(menor.idCondicaoMedica),
+        }))
+      : undefined;
 
-  this.inscricaoUsuario = {
-    ...this.inscricaoUsuario,
-    usuario: {
-      ...this.inscricaoUsuario?.usuario,
-      idIgreja: formValue.igreja ? parseInt(formValue.igreja) : undefined,
-    },
-    ...(igreja && { igreja }),
-    ...(inscricaoMenor && { inscricaoMenor })
-  };
-} 
+      console.log('asdasaddas',menoresValidos, inscricaoMenor);
+      
+    this.inscricaoUsuario = {
+      ...this.inscricaoUsuario,
+      usuario: {
+        ...this.inscricaoUsuario?.usuario,
+        idIgreja: formValue.igreja ? parseInt(formValue.igreja) : undefined,
+      },
+      ...(igreja && { igreja }),
+      ...(inscricaoMenor && { inscricaoMenor }),
+    };
+  }
 
-  private preencherObjetoResumoInscricao(){
-
-    if(!this.exibeCamposNovaIgreja){
-      this.resumoInscricao.igrejaExiste.nome = this.igrejas.find((igreja) => igreja.id === parseInt(this.formDadosAdicionais.get('igreja')?.value))?.descricao || '';
+  private preencherObjetoResumoInscricao() {
+    if (!this.exibeCamposNovaIgreja) {
+      this.resumoInscricao.igrejaExiste.nome =
+        this.igrejas.find(
+          (igreja) =>
+            igreja.id ===
+            parseInt(this.formDadosAdicionais.get('igreja')?.value)
+        )?.descricao || '';
     }
 
-    this.resumoInscricao.igrejaNova.regiao = this.regioes.find((regiao) => regiao.id === parseInt(this.formDadosAdicionais.get('idRegiaoIgrejaNova')?.value))?.descricao || '';
+    this.resumoInscricao.igrejaNova.regiao =
+      this.regioes.find(
+        (regiao) =>
+          regiao.id === parseInt(this.formDadosAdicionais.get('idRegiaoIgrejaNova')?.value) )?.descricao || '';
     this.resumoInscricao.igrejaNova.nome = this.formDadosAdicionais.get('nomeIgrejaNova')?.value || '';
     this.resumoInscricao.igrejaNova.pastor = this.formDadosAdicionais.get('pastorIgrejaNova')?.value || '';
-    this.resumoInscricao.inscricaoMenor = this.formDadosAdicionais.get('inscricaoMenor')?.value.map((menor: InscricaoMenorRequestDto) => ({
-      idade: Number(menor.idade),
-      nome: menor.nome,
-      condicaoMedica: this.opcoesCondicoes.find((condicao) => condicao.id == menor.idCondicaoMedica)?.descricao,
-    })) || [];
+    this.resumoInscricao.inscricaoMenor = this.formDadosAdicionais.get('inscricaoMenor') ?.value.map((menor: InscricaoMenorRequestDto) => ({
+          idade: Number(menor.idade),
+          nome: menor.nome,
+          condicaoMedica: this.opcoesCondicoes.find( (condicao) => condicao.id == menor.idCondicaoMedica )?.descricao,})) || [];
 
-    localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO, JSON.stringify(this.resumoInscricao));
+    localStorage.setItem(
+      ParametroStorageEnum.RESUMO_INSCRICAO,
+      JSON.stringify(this.resumoInscricao)
+    );
   }
 
   preencherFormulario(dados: InscricaoRequestDto): void {
@@ -165,6 +215,9 @@ private preencherObjetoInscricao() {
         );
       });
     }
+
+    console.log('Formulário preenchido com dados da inscrição:', this.formDadosAdicionais.value);
+    
   }
 
   setFormArrayValues(nomeCampo: string, valores: any[]): void {
@@ -235,7 +288,8 @@ private preencherObjetoInscricao() {
   public buscarCondicaoMedica() {
     this.buscarCondicaoMedicaUsecase.execute().subscribe({
       next: (resultado) => {
-        this.opcoesCondicoes = this.formatarNomes(resultado);
+        this.opcoesCondicoes = [{ id: null, descricao: 'Selecione' }];
+        this.opcoesCondicoes.push(...this.formatarNomes(resultado));
       },
       error: () => {},
     });
@@ -245,11 +299,14 @@ private preencherObjetoInscricao() {
     this.preencherObjetoResumoInscricao();
     this.preencherObjetoInscricao();
 
-    localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
+    localStorage.setItem(
+      ParametroStorageEnum.FORM_INSCRICAO,
+      JSON.stringify(this.inscricaoUsuario)
+    );
     this.router.navigate([Rotas.CADASTRO, Rotas.CONFIRMACAO_DADOS_CADASTRO]);
   }
 
-  voltar() {    
+  voltar() {
     this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_EVENTO]);
   }
 

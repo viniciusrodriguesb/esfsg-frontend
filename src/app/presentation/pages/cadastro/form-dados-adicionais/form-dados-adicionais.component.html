@@ -24,10 +24,11 @@
           [opcoes]="igrejas"
           [formSubmetido]="formSubmetido"
           mensagemErro="Campo obrigatório"
+          (valorSelecionado)="limparCamposNovaIgreja($event)"
         ></app-input>
-        <span (click)="exibirCamposIgrejaNova()" class="text-[10px] text-[#007AFF] font-medium"
-          >Não possuo igreja na lista informada</span
-        >
+        <button (click)="exibirCamposIgrejaNova()" class="text-[10px] text-[#007AFF] font-medium">
+          Não possuo igreja na lista informada
+        </button>
       </div>
       <app-input
       *ngIf="exibeCamposNovaIgreja"

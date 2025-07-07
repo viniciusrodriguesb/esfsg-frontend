@@ -8,8 +8,22 @@
     </p>
     <ng-lottie [options]="options" class="w-60 h-60" />
   </div>
+  <app-input
+    class="col-start-1 col-end-9"
+    [tipo]="'select'"
+    [label]="'Eventos'"
+    [placeholder]="'Selecione'"
+    [formController]="formCheckin.controls['evento']"
+    [opcoes]="eventosSelect"
+    mensagemErro="Campo obrigatório"
+    (valorSelecionado)="selecionarEvento($event)"
+  ></app-input>
 
-  <form class="grid grid-cols-9 gap-3.5" [formGroup]="formCheckin">
+  <form
+    class="grid grid-cols-9 gap-3.5"
+    *ngIf="exibirPesquisa"
+    [formGroup]="formCheckin"
+  >
     <app-input
       class="col-start-1 col-end-4"
       [tipo]="'select'"
@@ -180,7 +194,7 @@
     </div>
   </div>
   <div
-    *ngIf="!exibicaoListaParticipantes && checkin?.itens.length === 0"
+    *ngIf="!exibicaoListaParticipantes"
     class="bg-white rounded-2xl shadow-md pb-5 pl-5 pr-5 border border-dashed border-gray-300 relative flex flex-col items-center"
   >
     <ng-lottie [options]="animacaoErro" class="w-30 h-30" />

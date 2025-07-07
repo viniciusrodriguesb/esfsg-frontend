@@ -63,6 +63,7 @@ export class FormDadosEventoComponent {
 
     this.buscarFuncaoEvento();
     this.buscarPeriodoEvento();
+    console.log('Formulário de Dados do Evento:', this.formDadosEvento.value, this.formDadosEvento.valid);
   }
 
   private buscarPeriodoEvento() {
@@ -115,7 +116,7 @@ export class FormDadosEventoComponent {
 
   preencherFormulario(dados: InscricaoRequestDto): void {
     this.formDadosEvento.patchValue({
-      funcaoEvento: dados.idFuncaoEvento?.toString() || '',
+      funcaoEvento: dados.idFuncaoEvento?.toString() == '0' ? null : dados.idFuncaoEvento?.toString(),
       periodo: dados.periodo == PeriodoEnum.Integral ? '1' : '2',
       visitas: dados.visita?.visita ? '1' : '2',
       carro: dados.visita?.carro ? '1' : '2',
@@ -131,6 +132,10 @@ export class FormDadosEventoComponent {
     if (evento == 1) {
       this.exibeInfoVisita = true;
     } else {
+      this.formDadosEvento.patchValue({
+        carro: '',
+        quantidadeVagas: '',
+      });
       this.exibeInfoVisita = false;
     }
   }
@@ -138,7 +143,8 @@ export class FormDadosEventoComponent {
   public buscarFuncaoEvento() {
     this.buscarFuncaoEventoUsecase.execute(this.inscricaoUsuario.idEvento).subscribe({
         next: (resultado) => {
-          this.opcoesFuncaoEvento = this.formatarNomes(resultado);
+          this.opcoesFuncaoEvento = [{ id: null, descricao: 'Selecione' }];
+          this.opcoesFuncaoEvento.push(...this.formatarNomes(resultado));
         },
         error: () => {},
       });

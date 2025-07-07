@@ -13,33 +13,6 @@ export class BuscarDadosDashboardAdapter extends BuscarDadosDashboardPort {
   }
 
   buscarDadosDashboard(idEvento: number): Observable<DadosDashboardResponseDto | null> {
-    const listaFixa: DadosDashboardResponseDto = {
-      inscritos: {
-        confirmados: { idStatus: 1, quantidade: 100, percentual: 50 },
-        aguardandoLiberacao: { idStatus: 2, quantidade: 50, percentual: 25 },
-        pendentes: { idStatus: 3, quantidade: 30, percentual: 15 },
-        cancelados: { idStatus: 4, quantidade: 20, percentual: 10 },
-        reembolsoSolicitado: { idStatus: 5, quantidade: 10, percentual: 5 },
-      },
-      inscritosPeriodo: {
-        quantidadeInscritosIntegral: 80,
-        quantidadeInscritosTarde: 20,
-        quantidadeLiberadaIntegral: 10,
-        quantidadeLiberadaTarde: 20
-      },
-      inscritosVisita: {
-        inscritosDisponiveisVisita: 50,
-        inscritosAlocados: 30,
-        totalVisitas: 10,
-      },
-      arrecadacao: {
-        total: 'R$ 100,00',
-        valorArrecadadoIntegral: 'R$ 80,00',
-        valorArrecadadoParcial: 'R$ 20,00',
-      },
-    };
-    
-
     let params = new HttpParams();
     params = params.append('idEvento', idEvento.toString());
     return this.http
@@ -50,7 +23,7 @@ export class BuscarDadosDashboardAdapter extends BuscarDadosDashboardPort {
       .pipe(
         catchError((error) => {
           console.error('Erro ao buscar eventos:', error);
-          return of(listaFixa);
+          return of(null);
         })
       );
   }

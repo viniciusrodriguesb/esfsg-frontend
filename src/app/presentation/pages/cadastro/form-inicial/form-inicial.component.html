@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-2.5">
+<div class="flex flex-col gap-3.5">
   <div class="flex flex-col gap-2">
     <div class="flex items-center gap-2">
       <div
@@ -6,31 +6,17 @@
       >
         <i-lucide class="w-3.5 text-white" name="map-pin"></i-lucide>
       </div>
-      <p class="text-2xl font-semibold">Região</p>
+      <p class="text-2xl font-semibold">Eventos</p>
     </div>
-    <p class="text-[12px]">
-      Selecione uma região para ver os eventos disponíveis 😄
-    </p>
+    <p class="text-[12px]">Selecione um evento disponível para prosseguir 😄</p>
   </div>
-  <form class="grid grid-cols-8 gap-3.5 pb-2 pt-4" [formGroup]="formInicial">
-    <app-input
-      class="col-start-1 col-end-9"
-      [tipo]="'select'"
-      [label]="'Regiões'"
-      [placeholder]="'Selecione'"
-      [formController]="formInicial.controls['regiao']"
-      [opcoes]="regioes"
-      mensagemErro="Campo obrigatório"
-      (valorSelecionado)="selecionarRegiao($event)"
-    ></app-input>
-  </form>
 
-  <div class="flex flex-col gap-2.5" *ngIf="exibeCampos">
-    <p class="text-[12px] font-medium">Eventos:</p>
-    <div *ngFor="let evento of eventos"
+  <div class="flex flex-col gap-3.5" *ngIf="exibeCampos">
+    <div
+      *ngFor="let evento of eventos"
       class="bg-white rounded-2xl shadow-lg p-6 border border-dashed border-gray-300 relative"
-    >    
-      <ng-container >
+    >
+      <ng-container>
         <div class="flex text-[12px] items-center justify-between">
           <p class="flex items-center font-semibold gap-2.5">
             <i-lucide name="ticket" class="w-4"></i-lucide> {{ evento.nome }}
@@ -67,6 +53,22 @@
       </ng-container>
     </div>
   </div>
+
+      <div
+      *ngIf="!exibeCampos"
+      class="bg-white rounded-2xl shadow-md pb-5 pl-5 pr-5 border border-dashed border-gray-300 relative flex flex-col items-center"
+    >
+      <ng-lottie [options]="animacaoErro" class="w-30 h-30" />
+
+      <div class="flex flex-col items-center gap-1">
+        <p class="text-[12px] font-medium text-justify">
+          Ops, nenhum evento encontrado!
+        </p>
+        <p class="text-[10px] text-center">
+          Aguarde um evento ser cadastrado ou entre em contato com pastor da sua igreja.
+        </p>
+      </div>
+    </div>
 
   <button
     (click)="voltar()"

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { InscricoesPendentesRequestDto } from '../../../../../core/application/dto/request/inscricoes-pendentes-request.dto';
 import { DadosUsuarioAdminResponseDto } from '../../../../../core/application/dto/response/usuario-admin.dto';
@@ -18,6 +18,9 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrl: './pendentes-aprovacao.component.scss',
 })
 export class PendentesAprovacaoComponent {
+
+  @Input() public eventoId: number;
+
   animacaoErro: AnimationOptions = {
     path: '/animations/animation-not-found.json',
     renderer: 'svg',
@@ -37,11 +40,14 @@ export class PendentesAprovacaoComponent {
     private readonly dialog: MatDialog
   ) {}
 
+  ngOnChanges() {
+    if (this.eventoId) {
+      this.buscarInscricoesPendentes();
+    }
+  }
+
   ngOnInit() {
-    this.usuarioLogado = JSON.parse(
-      localStorage.getItem(ParametroStorageEnum.USUARIO_LOGADO)
-    );
-    this.buscarInscricoesPendentes();
+    this.usuarioLogado = JSON.parse( localStorage.getItem(ParametroStorageEnum.USUARIO_LOGADO));
   }
 
   public buscarInscricoesPendentes(paginacao?: PageEvent) {
@@ -49,7 +55,8 @@ export class PendentesAprovacaoComponent {
     this.liberacaoBotaoAprovar = false;
     
     const inscricoesPendentesRequest: InscricoesPendentesRequestDto = {
-      cpf: this.usuarioLogado.cpf,
+      cpfLogado: this.usuarioLogado.cpf,
+      idEvento: this.eventoId,
       pagina: paginacao?.pageIndex + 1 || 1,
       tamanhoPagina: paginacao?.pageSize || 10,
     };
@@ -58,7 +65,7 @@ export class PendentesAprovacaoComponent {
       .executePendentes(inscricoesPendentesRequest)
       .subscribe({
         next: (resultado) => {
-          if (resultado != null) {
+          if (resultado != null && resultado.itens.length > 0) {
             this.exibicaoListaParticipantes = true;
           } else {
             this.exibicaoListaParticipantes = false;

@@ -3,22 +3,35 @@
     class="bg-white rounded-2xl shadow-md pt-5 pb-5 pl-5 border border-dashed border-gray-300 relative flex items-center h-25 overflow-hidden"
   >
     <p class="text-[10px] text-justify">
-      Olá, esta é a <strong>Tela de gerenciamento de inscrições</strong>, aqui você poderá
-      visualizar usuários inscritos e também aprovar inscrições pendentes em sua
-      igreja.
+      Olá, esta é a <strong>Tela de gerenciamento de inscrições</strong>, aqui
+      você poderá visualizar usuários inscritos e também aprovar inscrições
+      pendentes em sua igreja.
     </p>
     <ng-lottie [options]="options" class="w-60 h-60" />
   </div>
+
+  <form class="grid grid-cols-8 gap-3.5" [formGroup]="formEvento">
+    <app-input
+      class="col-start-1 col-end-9"
+      [tipo]="'select'"
+      [label]="'Eventos'"
+      [placeholder]="'Selecione'"
+      [formController]="formEvento.controls['evento']"
+      [opcoes]="eventosSelect"
+      mensagemErro="Campo obrigatório"
+      (valorSelecionado)="selecionarEvento($event)"
+    ></app-input>
+  </form>
 
   <mat-tab-group
     [disableRipple]="true"
     class="rounded-2xl overflow-hidden pb-3.5"
   >
     <mat-tab label="Pendentes">
-      <app-pendentes-aprovacao></app-pendentes-aprovacao>
+      <app-pendentes-aprovacao [eventoId]="eventoId"></app-pendentes-aprovacao>
     </mat-tab>
     <mat-tab label="Todas">
-      <app-obter-todas></app-obter-todas>
+      <app-obter-todas [eventoId]="eventoId"></app-obter-todas>
     </mat-tab>
   </mat-tab-group>
 </div>

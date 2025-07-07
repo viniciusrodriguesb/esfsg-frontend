@@ -51,11 +51,11 @@
         {{ resumoInscricao.usuario.dataNascimento | date : "dd/MM/yyyy" }}
       </p>
       <p class="flex justify-between">
-        <span class="font-medium">PCD:</span> {{ resumoInscricao.usuario.pcd }}
+        <span class="font-medium">PCD:</span> {{ resumoInscricao.usuario.pcd == '' ? 'Não possui' : resumoInscricao.usuario.pcd }}
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Possui dons?</span>
-        {{ resumoInscricao.usuario.dons }}
+        {{ resumoInscricao.usuario.dons || 'Não possui' }}
       </p>
       <p
         class="flex justify-between"
@@ -222,7 +222,7 @@
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Condição Médica:</span>
-        {{ menor.condicaoMedica }}
+        {{ menor.condicaoMedica || 'Não possui' }}
       </p>
     </div>
   </div>

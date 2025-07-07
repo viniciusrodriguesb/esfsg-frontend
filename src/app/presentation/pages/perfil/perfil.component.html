@@ -8,7 +8,7 @@
 
     <div class="text-center">
       <h2 class="text-lg font-semibold">{{ usuarioExistente.nomeCompleto }}</h2>
-      <p class="text-sm text-gray-500">{{usuarioExistente.classe.descricao}}</p>
+      <p class="text-sm text-gray-500">{{usuarioExistente.classe.descricao | nomeFormatado}}</p>
     </div>
 
     <div
@@ -40,7 +40,7 @@
           {{ usuarioExistente.nascimento }}
         </p>
         <p class="flex justify-between">
-          <span class="font-medium">PCD:</span> {{ usuarioExistente.pcd }}
+          <span class="font-medium">PCD:</span> {{ usuarioExistente.pcd == '' ? 'Não possui' : usuarioExistente.pcd }}
         </p>
         <p class="flex justify-between">
           <span class="font-medium">Possui dons?</span>
@@ -48,7 +48,7 @@
         </p>
         <p class="flex justify-between">
           <span class="font-medium">Classe:</span>
-          {{ usuarioExistente.classe.descricao }}
+          {{ usuarioExistente.classe.descricao | nomeFormatado}}
         </p>
       </div>
 
@@ -71,7 +71,7 @@
         <div class="flex flex-col gap-2">
           <p class="font-medium">Condições Médicas:</p>
           <span *ngFor="let condicao of usuarioExistente.condicoesMedica">
-            {{ condicao }}
+            {{ condicao | nomeFormatado }}
           </span>
         </div>
       </div>
@@ -82,7 +82,7 @@
         <div class="flex flex-col gap-2">
           <p class="font-medium">Funções na igreja:</p>
           <span *ngFor="let funcao of usuarioExistente.funcoesIgreja">
-            {{ funcao }}
+            {{ funcao | nomeFormatado }}
           </span>
         </div>
       </div>

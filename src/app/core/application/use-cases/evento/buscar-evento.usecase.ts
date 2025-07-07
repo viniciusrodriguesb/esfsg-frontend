@@ -7,7 +7,7 @@ import { EventoResponseDto } from "../../dto/response/evento-response.dto";
 export class BuscarEventoUseCase {
   constructor(private readonly buscarEventoPort: BuscarEventoPort) {}
 
-  execute(idRegiao: number): Observable<EventoResponseDto[] | null> {
-    return this.buscarEventoPort.buscarEvento(idRegiao);
+  execute(): Observable<EventoResponseDto[] | null> {
+    return this.buscarEventoPort.buscarEvento();
   }
 }
