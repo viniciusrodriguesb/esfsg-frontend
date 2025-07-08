@@ -41,6 +41,7 @@ export class FormDadosEventoComponent {
   ];
 
   exibeInfoVisita = false;
+  exibeVisita = false;
   inscricaoUsuario: InscricaoRequestDto;
   resumoInscricao: ResumoInscricaoDto;
   usuarioExistente: UsuarioResponseDto;
@@ -63,7 +64,6 @@ export class FormDadosEventoComponent {
 
     this.buscarFuncaoEvento();
     this.buscarPeriodoEvento();
-    console.log('Formulário de Dados do Evento:', this.formDadosEvento.value, this.formDadosEvento.valid);
   }
 
   private buscarPeriodoEvento() {
@@ -128,7 +128,15 @@ export class FormDadosEventoComponent {
     }
   }
 
-  public exibirCamposVisita(evento: any) {
+  public exibirVisita(evento: any){
+      if(evento == 1){
+        this.exibeVisita = true;
+      }else{
+        this.exibeVisita = false;
+      }
+  }
+
+  public exibirCamposVisita(evento: any) { 
     if (evento == 1) {
       this.exibeInfoVisita = true;
     } else {

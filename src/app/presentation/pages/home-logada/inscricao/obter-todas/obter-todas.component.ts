@@ -38,8 +38,6 @@ export class ObterTodasComponent {
 
   ngOnChanges() {
     if (this.eventoId) {
-      console.log('Evento ID alterado:', this.eventoId);
-      
       this.buscarInscricoes();
     }
   }

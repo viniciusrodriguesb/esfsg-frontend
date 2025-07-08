@@ -183,9 +183,7 @@ export class CheckInComponent {
     }
 
     this.buscarParticipantesCheckinUsecase.execute(checkinRequest).subscribe({
-      next: (resultado) => {
-        console.log('Resultado da busca de participantes:', resultado);
-        
+      next: (resultado) => {        
         if (resultado != null && resultado.itens.length > 0) {
           this.exibicaoListaParticipantes = true;
         } else {

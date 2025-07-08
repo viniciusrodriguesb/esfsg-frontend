@@ -49,7 +49,6 @@ export class FormAdminComponent {
         }
       },
       error: (error) => {
-        console.log(error.error);
         if (error.status === StatusHttpEnum.BAD_REQUEST) {
           Swal.fire({
             icon: 'error',

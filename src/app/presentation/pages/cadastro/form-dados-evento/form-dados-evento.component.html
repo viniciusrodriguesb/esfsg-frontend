@@ -23,6 +23,7 @@
         [opcoes]="periodos"
         [obrigatorio]="true"
         mensagemErro="Campo obrigatório"
+        (valorSelecionado)="exibirVisita($event)"
       ></app-input>
       <app-input
         class="col-start-5 col-end-9"
@@ -35,7 +36,7 @@
         mensagemErro="Campo obrigatório"
       ></app-input>
 
-      <app-input
+      <app-input *ngIf="exibeVisita"
         class="col-start-1 col-end-9"
         [tipo]="'select'"
         [label]="'Está disponível para visitas?'"

@@ -92,11 +92,6 @@ export class FormDadosAdicionaisComponent {
         nomeIgrejaNova: '',
         pastorIgrejaNova: '',
       });
-
-      console.log(
-        'Campos de nova igreja limpos',
-        this.formDadosAdicionais.value
-      );
     }
   }
 
@@ -149,8 +144,6 @@ export class FormDadosAdicionaisComponent {
           idCondicaoMedica: Number(menor.idCondicaoMedica) === 0 ? null : Number(menor.idCondicaoMedica),
         }))
       : undefined;
-
-      console.log('asdasaddas',menoresValidos, inscricaoMenor);
       
     this.inscricaoUsuario = {
       ...this.inscricaoUsuario,
@@ -214,10 +207,7 @@ export class FormDadosAdicionaisComponent {
           })
         );
       });
-    }
-
-    console.log('Formulário preenchido com dados da inscrição:', this.formDadosAdicionais.value);
-    
+    }    
   }
 
   setFormArrayValues(nomeCampo: string, valores: any[]): void {
