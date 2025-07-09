@@ -134,12 +134,15 @@ export class FormInicialComponent {
   prosseguir(idEvento: number) {
     this.inscricaoUsuario.idEvento = idEvento;
 
+    localStorage.setItem(ParametroStorageEnum.EVENTO,
+        JSON.stringify(this.eventos.find((evento) => evento.id === idEvento)?.linkGrupoWpp));
+
     if (this.usuarioExistente !== null) {
       this.buscarInscricao(idEvento);
     } else {
       this.resumoInscricao.evento.nome =
         this.eventos.find((evento) => evento.id === idEvento)?.nome || '';
-
+           
       localStorage.setItem(
         ParametroStorageEnum.FORM_INSCRICAO,
         JSON.stringify(this.inscricaoUsuario)
@@ -150,7 +153,7 @@ export class FormInicialComponent {
       );
 
       this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS]);
-    }
+    }    
   }
 
   voltar() {

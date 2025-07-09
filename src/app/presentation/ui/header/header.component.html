@@ -7,7 +7,12 @@
       <span class="font-medium text-[12px]">{{ usuarioLogado.nome | nomeFormatado }}</span>
     </p>
   </div>
-  <button (click)="openSidebar()">
-    <i-lucide name="menu" class="w-6"></i-lucide>
-  </button>
+  <div class="flex items-center space-x-4">
+    <button (click)="logout()">
+      <i-lucide name="LogOut" class="w-4"></i-lucide>
+    </button>
+    <button (click)="openSidebar()">
+      <i-lucide name="menu" class="w-6"></i-lucide>
+    </button>
+  </div>
 </div>

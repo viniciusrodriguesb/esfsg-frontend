@@ -4,4 +4,5 @@ export enum ParametroStorageEnum{
     RESUMO_INSCRICAO = 'resumoInscricao',
     STATUS_INSCRICAO = 'statusInscricao',
     USUARIO_LOGADO = 'usuarioLogado',
+    EVENTO = 'evento'
 }

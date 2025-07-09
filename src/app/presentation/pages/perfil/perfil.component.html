@@ -88,13 +88,19 @@
       </div>
     </div>
 
-    <div class="flex justify-end" *ngIf="exibicaoBotaoCheckin">
-      <button (click)="exibirCardCheckin()"class="w-13 h-13 flex text-[14px] items-center justify-center bg-[#007AFF] rounded-full shadow-lg">
-        <i-lucide class="w-5 text-white" name="qr-code"></i-lucide>
-      </button>
-    </div>
+     <div class="flex justify-end items-center space-x-4">
+       <div class="flex justify-end" *ngIf="dadosEvento">
+        <button (click)="navegarParaGrupo()" class="w-13 h-13 flex text-[14px] items-center justify-center bg-[#25D366] rounded-full shadow-lg">
+          <i-lucide class="w-5 text-white" name="MessageCircleCode"></i-lucide>
+        </button>
+           </div>
+           <div class="flex justify-end" *ngIf="exibicaoBotaoCheckin">
+        <button (click)="exibirCardCheckin()"class="w-13 h-13 flex text-[14px] items-center justify-center bg-[#007AFF] rounded-full shadow-lg">
+          <i-lucide class="w-5 text-white" name="qr-code"></i-lucide>
+        </button>
+           </div>
+     </div>
   </div>
-
   <div
     class="bg-white rounded-lg shadow-lg p-6 relative"
     *ngIf="exibicaoCardCheckin"

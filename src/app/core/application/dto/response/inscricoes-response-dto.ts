@@ -7,6 +7,7 @@ export interface InscricaoParaLiberacaoResponse {
   classe: string;
   periodo: string;
   funcaoEvento: string;
+  igreja: string;
   usuarioBloqueado?: DadosBloqueio;
   dependentes?: DependenteResponse[];
 }

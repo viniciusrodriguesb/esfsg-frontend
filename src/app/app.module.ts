@@ -107,7 +107,9 @@ import {
   Receipt,
   UsersRound,
   ListChecks,
-  CircleUserRound
+  CircleUserRound,
+  LogOut,
+  MessageCircleCode
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -286,7 +288,9 @@ import { BuscarInscritosVisitaAdapter } from './infrastructure/adapter/visita/bu
         Receipt,
         UsersRound,
         ListChecks,
-        CircleUserRound
+        CircleUserRound,
+        LogOut,
+        MessageCircleCode
     }),
     SweetAlert2Module.forRoot(),
 

@@ -10,15 +10,16 @@ import { StatusPagamentoInscricaoEnum } from '../../../core/domain/enums/status-
 import { AnimationOptions } from 'ngx-lottie';
 import { QrCodeCheckinResponseDto } from '../../../core/application/dto/response/qrcode-checkin-response.dto';
 import { BuscarQrCodeCheckinUseCase } from '../../../core/application/use-cases/qrcode/buscar-qrcode-checkin.usecase';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
   standalone: false,
   templateUrl: './perfil.component.html',
-  styleUrl: './perfil.component.scss'
+  styleUrl: './perfil.component.scss',
 })
-export class PerfilComponent  {
-   options: AnimationOptions = {
+export class PerfilComponent {
+  options: AnimationOptions = {
     path: '/animations/animation-perfil.json',
     renderer: 'svg',
     loop: false,
@@ -32,86 +33,111 @@ export class PerfilComponent  {
   exibicaoCardPagamento: boolean = false;
   exibicaoCardCheckin: boolean = false;
   exibicaoBotaoCheckin: boolean = false;
+  dadosEvento: any;
 
   constructor(
+    private readonly router: Router,
     private readonly buscarQrCodePagamentoUsecase: BuscarQrCodePagamentoUseCase,
     private readonly buscarQrCodeCheckinUsecase: BuscarQrCodeCheckinUseCase,
-    private readonly buscarInscricaoUsecase: BuscarInscricaoUseCase) {}
+    private readonly buscarInscricaoUsecase: BuscarInscricaoUseCase
+  ) {}
 
   ngOnInit() {
-    this.inscricaoUsuario = JSON.parse(localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
-    this.usuarioExistente = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_EXISTENTE)) as UsuarioResponseDto;    
+    this.inscricaoUsuario = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)
+    ) as InscricaoRequestDto;
+    this.usuarioExistente = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.USUARIO_EXISTENTE)
+    ) as UsuarioResponseDto;
 
-    if (JSON.parse(localStorage.getItem(ParametroStorageEnum.STATUS_INSCRICAO)) == undefined) {
-      this.buscarInscricao(); 
-      this.buscarQrCodeCheckin();   
-    }else{
-      this.statusInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.STATUS_INSCRICAO)) as InscricaoResponseDto;
+    this.dadosEvento = JSON.parse(localStorage.getItem(ParametroStorageEnum.EVENTO));
+
+    if (
+      JSON.parse(localStorage.getItem(ParametroStorageEnum.STATUS_INSCRICAO)) ==
+      undefined
+    ) {
+      this.buscarInscricao();
+      this.buscarQrCodeCheckin();
+    } else {
+      this.statusInscricao = JSON.parse(
+        localStorage.getItem(ParametroStorageEnum.STATUS_INSCRICAO)
+      ) as InscricaoResponseDto;
     }
-    
+
     this.inicializarPagina();
-    
   }
 
-  public inicializarPagina(){    
-    if(this.statusInscricao?.idStatus === StatusPagamentoInscricaoEnum.AGUARDANDO_PAGAMENTO) {
+  public inicializarPagina() {
+    if (
+      this.statusInscricao?.idStatus ===
+      StatusPagamentoInscricaoEnum.AGUARDANDO_PAGAMENTO
+    ) {
       this.buscarQrCodePagamento();
-    }else if(this.statusInscricao?.idStatus === StatusPagamentoInscricaoEnum.PAGAMENTO_CONFIRMADO){
+    } else if (
+      this.statusInscricao?.idStatus ===
+      StatusPagamentoInscricaoEnum.PAGAMENTO_CONFIRMADO
+    ) {
       this.exibicaoBotaoCheckin = true;
       this.buscarQrCodeCheckin();
-    }else{
+    } else {
       this.exibicaoBotaoCheckin = false;
       this.exibicaoCardPagamento = false;
     }
   }
 
-  public exibirCardCheckin(){
+  public exibirCardCheckin() {
     this.exibicaoCardCheckin = !this.exibicaoCardCheckin;
   }
 
-  public buscarQrCodeCheckin(){
+  public buscarQrCodeCheckin() {
     this.buscarQrCodeCheckinUsecase.execute(this.statusInscricao.id).subscribe({
       next: (resposta) => {
         this.informacoesCheckin = resposta;
       },
       error: (err) => {
         console.error('Erro ao buscar QR Code de check-in:', err);
-      }
-    });
-  }
-
-  public buscarQrCodePagamento(){
-    this.buscarQrCodePagamentoUsecase.execute(this.statusInscricao.id).subscribe({
-      next: (resposta) => {       
-        if(resposta){
-          this.informacoesPagamento = resposta;
-          this.exibicaoCardPagamento = true;
-        }else{
-          this.exibicaoCardPagamento = false;  
-        }                
-      },
-      error: (err) => {
-        this.exibicaoCardPagamento = false;        
-        console.error('Erro ao buscar QR Code de pagamento:', err);
-      }
-    });
-  }
-
-    public buscarInscricao() {
-    this.buscarInscricaoUsecase.execute(this.inscricaoUsuario.idEvento, this.usuarioExistente.id).subscribe({
-      next: (resposta) => {
-        if (resposta) {
-          this.statusInscricao = resposta;
-          localStorage.setItem(ParametroStorageEnum.STATUS_INSCRICAO, JSON.stringify(this.statusInscricao));
-        }
-      },
-      error: (erro) => {
       },
     });
   }
 
-  public copiarPix(){
-     if (navigator.clipboard && navigator.clipboard.writeText) {
+  public buscarQrCodePagamento() {
+    this.buscarQrCodePagamentoUsecase
+      .execute(this.statusInscricao.id)
+      .subscribe({
+        next: (resposta) => {
+          if (resposta) {
+            this.informacoesPagamento = resposta;
+            this.exibicaoCardPagamento = true;
+          } else {
+            this.exibicaoCardPagamento = false;
+          }
+        },
+        error: (err) => {
+          this.exibicaoCardPagamento = false;
+          console.error('Erro ao buscar QR Code de pagamento:', err);
+        },
+      });
+  }
+
+  public buscarInscricao() {
+    this.buscarInscricaoUsecase
+      .execute(this.inscricaoUsuario.idEvento, this.usuarioExistente.id)
+      .subscribe({
+        next: (resposta) => {
+          if (resposta) {
+            this.statusInscricao = resposta;
+            localStorage.setItem(
+              ParametroStorageEnum.STATUS_INSCRICAO,
+              JSON.stringify(this.statusInscricao)
+            );
+          }
+        },
+        error: (erro) => {},
+      });
+  }
+
+  public copiarPix() {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
       try {
         navigator.clipboard.writeText(this.informacoesPagamento.pixCopiaCola);
       } catch (error) {
@@ -122,4 +148,9 @@ export class PerfilComponent  {
     }
   }
 
+  public navegarParaGrupo() {
+    if (this.dadosEvento) {
+      window.location.href = this.dadosEvento;
+    }
+  }
 }

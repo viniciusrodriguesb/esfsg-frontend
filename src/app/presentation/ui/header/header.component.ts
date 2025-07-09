@@ -32,6 +32,11 @@ export class HeaderComponent {
     this.toggleMenu.emit();
   }
 
+  logout() {
+    this.router.navigate([Rotas.ESCOLHA_INICIAL]);
+    localStorage.clear();
+  }
+
   constructor(private readonly router: Router) {}
 
   navegar() {
