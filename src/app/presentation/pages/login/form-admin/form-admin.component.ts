@@ -82,7 +82,7 @@ export class FormAdminComponent {
     } else if (role === 5) {
       this.router.navigate([Rotas.HOME_LOGADA, Rotas.CHECK_IN]);
     } else if (role === 4) {
-      //this.router.navigate([Rotas.HOME_LOGADA, Rotas.INSCRICOES]);
+      this.router.navigate([Rotas.HOME_LOGADA, Rotas.GESTAO_INSCRICAO]);
     } else {
       this.notificacaoService.alerta('Atenção', 'Role do usuário desconhecida!');
     }
