@@ -5,7 +5,7 @@ import { InscritoVisitaResponseDto } from '../../../../../core/application/dto/r
 import { InscritoVisitaRequestDto } from '../../../../../core/application/dto/request/inscrito-visita-request.dto';
 import { PageEvent } from '@angular/material/paginator';
 import { PaginacaoResponse } from '../../../../../core/application/dto/response/paginacao-response.dto';
-
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-visitas-alocadas',
   standalone: false,
@@ -28,7 +28,8 @@ export class VisitasAlocadasComponent {
   pageEvent: PageEvent;
 
   constructor(
-    private readonly buscarInscritosVisitaUseCase: BuscarInscritosVisitaUseCase
+    private readonly buscarInscritosVisitaUseCase: BuscarInscritosVisitaUseCase,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnChanges() {
@@ -59,8 +60,4 @@ export class VisitasAlocadasComponent {
     return paginacao;
   }
 
-  alocarInscritos() {
-    // Implementar lógica para alocar inscritos selecionados
-    console.log('Alocar inscritos selecionados');
-  }
 }

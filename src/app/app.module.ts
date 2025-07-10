@@ -109,7 +109,8 @@ import {
   ListChecks,
   CircleUserRound,
   LogOut,
-  MessageCircleCode
+  MessageCircleCode,
+  House
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -196,6 +197,10 @@ import { BuscarFuncoesVisitaAdapter } from './infrastructure/adapter/visita/busc
 import { BuscarInscritosVisitaUseCase } from './core/application/use-cases/visita/buscar-inscritos-visita.usecase';
 import { BuscarInscritosVisitaPort } from './core/domain/ports/visita/buscar-inscritos-visita.port';
 import { BuscarInscritosVisitaAdapter } from './infrastructure/adapter/visita/buscar-inscritos-visita.adapter';
+import { ModalAlocacaoVisitaComponent } from './presentation/ui/modais/modal-alocacao-visita/modal-alocacao-visita.component';
+import { BuscarVisitaUseCase } from './core/application/use-cases/visita/buscar-visita.usecase';
+import { BuscarVisitaAdapter } from './infrastructure/adapter/visita/buscar-visita.adapter';
+import { BuscarVisitaPort } from './core/domain/ports/visita/buscar-visita.port';
 
 @NgModule({
   declarations: [
@@ -229,7 +234,8 @@ import { BuscarInscritosVisitaAdapter } from './infrastructure/adapter/visita/bu
     ModalQrcodeCheckinComponent,
     ModalCheckinConfirmadoComponent,
     ModalParticipanteHorarioErradoComponent,
-    ModalInfoInscricaoComponent
+    ModalInfoInscricaoComponent,
+    ModalAlocacaoVisitaComponent
   ],
   imports: [
     BrowserModule,
@@ -290,7 +296,8 @@ import { BuscarInscritosVisitaAdapter } from './infrastructure/adapter/visita/bu
         ListChecks,
         CircleUserRound,
         LogOut,
-        MessageCircleCode
+        MessageCircleCode,
+        House
     }),
     SweetAlert2Module.forRoot(),
 
@@ -404,6 +411,8 @@ import { BuscarInscritosVisitaAdapter } from './infrastructure/adapter/visita/bu
     { provide: BuscarFuncoesVisitaPort, useClass: BuscarFuncoesVisitaAdapter },
     BuscarInscritosVisitaUseCase,
     { provide: BuscarInscritosVisitaPort, useClass: BuscarInscritosVisitaAdapter },
+    BuscarVisitaUseCase,
+    { provide: BuscarVisitaPort, useClass: BuscarVisitaAdapter },
 
   ],
   bootstrap: [AppComponent],

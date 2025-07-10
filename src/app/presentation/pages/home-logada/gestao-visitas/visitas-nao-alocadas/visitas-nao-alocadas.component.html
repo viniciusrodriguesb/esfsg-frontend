@@ -1,5 +1,7 @@
 <div class="flex flex-col gap-3.5" *ngIf="exibicaoListaInscritos">
-  <div class="flex flex-col gap-3 bg-white rounded-b-2xl pl-5 pt-5 pr-5 pb-3 relative">
+  <div
+    class="flex flex-col gap-3 bg-white rounded-b-2xl pl-5 pt-5 pr-5 pb-3 relative"
+  >
     <div class="flex flex-col gap-4 text-[10px]">
       <div
         [ngClass]="{
@@ -8,16 +10,20 @@
             i != inscritosNaoAlocadosVisita?.itens.length - 1
         }"
         class="flex items-center justify-between"
-        *ngFor="let inscrito of inscritosNaoAlocadosVisita?.itens; let i = index"
+        *ngFor="
+          let inscrito of inscritosNaoAlocadosVisita?.itens;
+          let i = index
+        "
       >
         <div class="flex gap-3.5 items-center w-full">
           <input
             type="checkbox"
             class="w-3 h-3"
             name="check-{{ i }}"
-           
+            onKeyPress=""
+            [checked]="inscritosSelecionados.includes(inscrito)"
+            (click)="selecionarInscrito(inscrito)"
           />
-          <!--  (change)="inserirInscritosSelecionados(inscrito.id, $event)" -->
           <div class="flex items-center justify-between w-full">
             <div class="flex gap-3.5 items-center">
               <div class="flex items-center gap-2 w-[120px]">
@@ -38,7 +44,10 @@
               <div class="flex items-center gap-2">
                 <p class="flex flex-col justify-between">
                   <span class="font-medium">Carro</span>
-                  <span class="font-normal text-[9px] text-gray-500" *ngIf="inscrito.dadosVisita.carro">
+                  <span
+                    class="font-normal text-[9px] text-gray-500"
+                    *ngIf="inscrito.dadosVisita.carro"
+                  >
                     <ng-container *ngIf="inscrito.dadosVisita.vagasCarro == 1">
                       {{ inscrito?.dadosVisita.vagasCarro }} vaga
                     </ng-container>
@@ -46,15 +55,16 @@
                       {{ inscrito?.dadosVisita.vagasCarro }} vagas
                     </ng-container>
                   </span>
-                  <span class="font-normal text-[9px] text-gray-500" *ngIf="!inscrito.dadosVisita.carro">
+                  <span
+                    class="font-normal text-[9px] text-gray-500"
+                    *ngIf="!inscrito.dadosVisita.carro"
+                  >
                     Não possui
                   </span>
                 </p>
               </div>
             </div>
-            <!--   (click)="abrirModalInfoInscricao(inscrito)" -->
             <button
-            
               class="bg-gray-200 flex items-center justify-center h-4 w-4 rounded-[4px]"
             >
               <i-lucide class="w-2" name="plus"></i-lucide>
@@ -75,13 +85,13 @@
 
   <div class="flex w-full items-center gap-2.5">
     <button
-      (click)="alocarInscritos()"
+      (click)="abrirModalAlocacao()"
       [disabled]="!liberacaoBotaoAprovar"
       [ngClass]="{ 'opacity-50 cursor-not-allowed': !liberacaoBotaoAprovar }"
       class="w-full bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
     >
       Alocar
-      <i-lucide class="w-4" name="check-check"></i-lucide>
+      <i-lucide class="w-4" name="check"></i-lucide>
     </button>
   </div>
 </div>
@@ -97,7 +107,8 @@
       Ops, nenhum inscrito encontrado!
     </p>
     <p class="text-[10px] text-center">
-      Selecione um outro evento para visualizar os inscritos ou aguarde alguns minutos e tente novamente.
+      Selecione um outro evento para visualizar os inscritos ou aguarde alguns
+      minutos e tente novamente.
     </p>
   </div>
 </div>
