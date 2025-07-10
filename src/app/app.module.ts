@@ -201,6 +201,9 @@ import { ModalAlocacaoVisitaComponent } from './presentation/ui/modais/modal-alo
 import { BuscarVisitaUseCase } from './core/application/use-cases/visita/buscar-visita.usecase';
 import { BuscarVisitaAdapter } from './infrastructure/adapter/visita/buscar-visita.adapter';
 import { BuscarVisitaPort } from './core/domain/ports/visita/buscar-visita.port';
+import { AlocarInscritosVisitaUseCase } from './core/application/use-cases/visita/alocar-inscritos-visita.usecase';
+import { AlocarInscritosVisitaPort } from './core/domain/ports/visita/alocar-inscritos-visita.port';
+import { AlocarInscritosVisitaAdapter } from './infrastructure/adapter/visita/alocar-inscritos-visita.adapter';
 
 @NgModule({
   declarations: [
@@ -413,6 +416,8 @@ import { BuscarVisitaPort } from './core/domain/ports/visita/buscar-visita.port'
     { provide: BuscarInscritosVisitaPort, useClass: BuscarInscritosVisitaAdapter },
     BuscarVisitaUseCase,
     { provide: BuscarVisitaPort, useClass: BuscarVisitaAdapter },
+    AlocarInscritosVisitaUseCase,
+    { provide: AlocarInscritosVisitaPort, useClass: AlocarInscritosVisitaAdapter },
 
   ],
   bootstrap: [AppComponent],

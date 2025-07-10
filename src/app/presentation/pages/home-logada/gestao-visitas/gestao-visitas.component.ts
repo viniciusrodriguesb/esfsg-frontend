@@ -5,6 +5,8 @@ import { AnimationOptions } from 'ngx-lottie';
 import { TabelaDominioResponseDto } from '../../../../core/application/dto/response/tabela-dominio-response.dto';
 import { BuscarEventoUseCase } from '../../../../core/application/use-cases/evento/buscar-evento.usecase';
 import { NomePipe } from '../../../pipes/nome.pipe';
+import { ParametroEmitter } from '../../../../core/domain/enums/parametro-emitter.enum';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-gestao-visitas',
@@ -28,6 +30,9 @@ export class GestaoVisitasComponent {
 
   eventosSelect: TabelaDominioResponseDto[] = [];
   eventoId: number | null = null;
+  carregaNovamenteListaInscritos: string = '';
+
+  public atualizacao$ = new Subject<void>();
 
   constructor(
     private readonly buscarEventoUsecase: BuscarEventoUseCase,
@@ -40,6 +45,10 @@ export class GestaoVisitasComponent {
 
   public selecionarEvento(eventoId: any) {
     this.eventoId = eventoId;
+  }
+
+  public enviarEmitterCarregarListaNovamente() {    
+    this.atualizacao$.next();
   }
 
   public buscarEvento() {

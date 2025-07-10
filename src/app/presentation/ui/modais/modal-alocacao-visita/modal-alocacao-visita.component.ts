@@ -11,6 +11,8 @@ import { BuscarFuncoesVisitaUseCase } from '../../../../core/application/use-cas
 import { TabelaDominioResponseDto } from '../../../../core/application/dto/response/tabela-dominio-response.dto';
 import { BuscarVisitaUseCase } from '../../../../core/application/use-cases/visita/buscar-visita.usecase';
 import { NotificacaoService } from '../../../../infrastructure/notificacao.service';
+import { AlocarInscritosVisitaUseCase } from '../../../../core/application/use-cases/visita/alocar-inscritos-visita.usecase';
+import { AlocacaoInscritoVisitaRequestDto } from '../../../../core/application/dto/request/alocacao-inscrito-visita-request.dto';
 
 @Component({
   selector: 'app-modal-alocacao-visita',
@@ -27,7 +29,8 @@ export class ModalAlocacaoVisitaComponent {
     public data: { dadosVisita: InscritoVisitaResponseDto[] },
     private readonly buscarFuncoesVisitaUseCase: BuscarFuncoesVisitaUseCase,
     private readonly buscarVisitaUseCase: BuscarVisitaUseCase,
-    private readonly notificacaoService: NotificacaoService
+    private readonly notificacaoService: NotificacaoService,
+    private readonly alocarInscritosVisitaUseCase: AlocarInscritosVisitaUseCase
   ) {}
 
   funcoesVisitaSelect: TabelaDominioResponseDto[] = [];
@@ -98,17 +101,37 @@ export class ModalAlocacaoVisitaComponent {
   }
 
   public confirmarAlocacao() {
-    this.notificacaoService.sucesso(
-      'Confirmado',
-      'Incritos alocados com sucesso!'
-    );
-    console.log('Formulário de alocação:', this.formAlocacao.value);
+    this.alocarInscritosVisita();
   }
 
   public selecionarVisita(visita: any) {
-    console.log('Formulário de alocação:', this.formAlocacao.value);
-    console.log('Visita selecionada:', this.formAlocacao.valid);
     this.liberarBotaoConfirmar();
+  }
+
+  public alocarInscritosVisita() {
+    const alocacoes: AlocacaoInscritoVisitaRequestDto[] =
+      this.formAlocacao.value.alocacoes.map((alocacao: any) => ({
+        funcao: Number.parseInt(alocacao.funcaoVisita),
+        idInscricao: Number.parseInt(alocacao.idInscricao),
+        idVisita: Number.parseInt(alocacao.visita),
+      }));
+
+    this.alocarInscritosVisitaUseCase.execute(alocacoes).subscribe({
+      next: () => {
+        this.notificacaoService.sucesso(
+          'Confirmado',
+          'Inscritos alocados com sucesso!'
+        );
+        this.fecharModal();
+      },
+      error: (error) => {
+        console.error('Erro ao alocar inscritos:', error);
+        this.notificacaoService.erro(
+          'Erro',
+          'Não foi possível alocar os inscritos.'
+        );
+      },
+    });
   }
 
   fecharModal() {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { BuscarInscritosVisitaUseCase } from '../../../../../core/application/use-cases/visita/buscar-inscritos-visita.usecase';
 import { InscritoVisitaRequestDto } from '../../../../../core/application/dto/request/inscrito-visita-request.dto';
@@ -8,6 +8,7 @@ import { PageEvent } from '@angular/material/paginator';
 import Swal from 'sweetalert2';
 import { ModalAlocacaoVisitaComponent } from '../../../../ui/modais/modal-alocacao-visita/modal-alocacao-visita.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ParametroEmitter } from '../../../../../core/domain/enums/parametro-emitter.enum';
 
 @Component({
   selector: 'app-visitas-nao-alocadas',
@@ -17,6 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class VisitasNaoAlocadasComponent {
   @Input() public eventoId: number;
+  @Output() public atualizarListaInscritos = new EventEmitter<string>();
 
   animacaoErro: AnimationOptions = {
     path: '/animations/animation-not-found.json',
@@ -69,12 +71,14 @@ export class VisitasNaoAlocadasComponent {
       width: '90%',
       height: 'auto',
       data: {
-        dadosVisita: this.inscritosSelecionados
+        dadosVisita: this.inscritosSelecionados,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Modal fechado com resultado:', result);
+      this.inscritosSelecionados = [];
+      this.buscarVisitasNaoAlocadas();
+      this.atualizarListaInscritos.emit(ParametroEmitter.CARREGAR_LISTA_NOVAMENTE);
     });
   }
 
