@@ -1,0 +1,81 @@
+<div class="flex flex-col gap-3.5">
+  <div class="flex flex-col gap-3.5 p-6 relative">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div
+          class="bg-[#007AFF] flex items-center justify-center h-5 w-5 rounded-full"
+        >
+          <i-lucide class="w-2.5 text-white" name="house"></i-lucide>
+        </div>
+
+        <p class="font-bold text-[12px]">Alocar inscritos</p>
+      </div>
+      <button
+        (click)="fecharModal()"
+        class="flex items-center justify-center h-7 w-7 rounded-full"
+      >
+        <i-lucide class="w-3.5 text-rose-500" name="circle-x"></i-lucide>
+      </button>
+    </div>
+    <span class="h-0.5 bg-[#F6F6F6]"></span>
+    <form [formGroup]="formAlocacao">
+      <div formArrayName="alocacoes" class="flex flex-col gap-3.5">
+        <div
+          *ngFor="let item of data.dadosVisita; let i = index"
+          [formGroupName]="i"
+          [ngClass]="{
+            'border-b border-dashed border-gray-300 pb-3.5':
+              i < data.dadosVisita.length - 1
+          }"
+          class="flex flex-col gap-1.5 text-[10px]"
+        >
+          <div class="flex flex-col gap-1">
+            <div class="w-full flex items-center gap-2">
+              <div
+                class="bg-gray-200 flex items-center justify-center h-4 w-4 rounded-[4px]"
+              >
+                <i-lucide class="w-2" name="user"></i-lucide>
+              </div>
+              <p class="font-medium">{{ item.nome | nomeFormatado }}</p>
+            </div>
+            <input
+              type="hidden"
+              [value]="item.idInscricao"
+              formControlName="idInscricao"
+            />
+            <div class="w-full flex items-center gap-3.5">
+              <app-input
+                class="w-1/2"
+                [tipo]="'select'"
+                [placeholder]="'Selecione'"
+                [opcoes]="funcoesVisitaSelect"
+                mensagemErro="Campo obrigatório"
+                (valorSelecionado)="selecionarVisita($event)"
+                [formController]="getAlocacaoControl(i, 'funcaoVisita')"
+              ></app-input>
+              <app-input
+                class="w-1/2"
+                [tipo]="'select'"
+                [placeholder]="'Selecione'"
+                [opcoes]="visitaSelect"
+                mensagemErro="Campo obrigatório"
+                (valorSelecionado)="selecionarVisita($event)"
+                [formController]="getAlocacaoControl(i, 'visita')"
+              ></app-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <button
+      (click)="confirmarAlocacao()"
+      [disabled]="!liberacaoBotaoConfirmar"
+      [ngClass]="{ 'opacity-50 cursor-not-allowed': !liberacaoBotaoConfirmar }"
+      class="w-full bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+    >
+      Confirmar
+      <i-lucide class="w-4" name="check-check"></i-lucide>
+    </button>
+  </div>
+</div>

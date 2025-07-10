@@ -2,6 +2,7 @@ export interface InscritoVisitaResponseDto {
   nome: string
   funcaoEvento: string
   dadosVisita: DadosVisita
+  idInscricao: number
 }
 
 export interface DadosVisita {

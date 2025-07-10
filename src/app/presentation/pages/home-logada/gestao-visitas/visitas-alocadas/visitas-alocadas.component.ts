@@ -5,7 +5,8 @@ import { InscritoVisitaResponseDto } from '../../../../../core/application/dto/r
 import { InscritoVisitaRequestDto } from '../../../../../core/application/dto/request/inscrito-visita-request.dto';
 import { PageEvent } from '@angular/material/paginator';
 import { PaginacaoResponse } from '../../../../../core/application/dto/response/paginacao-response.dto';
-
+import { ParametroEmitter } from '../../../../../core/domain/enums/parametro-emitter.enum';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-visitas-alocadas',
   standalone: false,
@@ -14,6 +15,7 @@ import { PaginacaoResponse } from '../../../../../core/application/dto/response/
 })
 export class VisitasAlocadasComponent {
   @Input() public eventoId: number;
+  @Input() public atualizacao: Subject<void>;
 
   animacaoErro: AnimationOptions = {
     path: '/animations/animation-not-found.json',
@@ -30,6 +32,12 @@ export class VisitasAlocadasComponent {
   constructor(
     private readonly buscarInscritosVisitaUseCase: BuscarInscritosVisitaUseCase
   ) {}
+
+  ngOnInit() {
+    this.atualizacao?.subscribe(() => {
+      this.buscarVisitasAlocadas();
+    });
+  }
 
   ngOnChanges() {
     if (this.eventoId) {
@@ -57,10 +65,5 @@ export class VisitasAlocadasComponent {
       });
 
     return paginacao;
-  }
-
-  alocarInscritos() {
-    // Implementar lógica para alocar inscritos selecionados
-    console.log('Alocar inscritos selecionados');
   }
 }

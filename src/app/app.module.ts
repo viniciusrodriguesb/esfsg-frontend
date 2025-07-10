@@ -111,7 +111,8 @@ import {
   ListChecks,
   CircleUserRound,
   LogOut,
-  MessageCircleCode
+  MessageCircleCode,
+  House
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -200,6 +201,13 @@ import { BuscarInscritosVisitaPort } from './core/domain/ports/visita/buscar-ins
 import { BuscarInscritosVisitaAdapter } from './infrastructure/adapter/visita/buscar-inscritos-visita.adapter';
 import { LoadingComponent } from './presentation/ui/loading/loading.component';
 import { LoadingInterceptor } from './infrastructure/interceptors/loading.interceptor';
+import { ModalAlocacaoVisitaComponent } from './presentation/ui/modais/modal-alocacao-visita/modal-alocacao-visita.component';
+import { BuscarVisitaUseCase } from './core/application/use-cases/visita/buscar-visita.usecase';
+import { BuscarVisitaAdapter } from './infrastructure/adapter/visita/buscar-visita.adapter';
+import { BuscarVisitaPort } from './core/domain/ports/visita/buscar-visita.port';
+import { AlocarInscritosVisitaUseCase } from './core/application/use-cases/visita/alocar-inscritos-visita.usecase';
+import { AlocarInscritosVisitaPort } from './core/domain/ports/visita/alocar-inscritos-visita.port';
+import { AlocarInscritosVisitaAdapter } from './infrastructure/adapter/visita/alocar-inscritos-visita.adapter';
 
 @NgModule({
   declarations: [
@@ -235,6 +243,7 @@ import { LoadingInterceptor } from './infrastructure/interceptors/loading.interc
     ModalParticipanteHorarioErradoComponent,
     ModalInfoInscricaoComponent,
     LoadingComponent,
+    ModalAlocacaoVisitaComponent
   ],
   imports: [
     BrowserModule,
@@ -295,7 +304,8 @@ import { LoadingInterceptor } from './infrastructure/interceptors/loading.interc
         ListChecks,
         CircleUserRound,
         LogOut,
-        MessageCircleCode
+        MessageCircleCode,
+        House
     }),
     SweetAlert2Module.forRoot(),
 
@@ -410,7 +420,11 @@ import { LoadingInterceptor } from './infrastructure/interceptors/loading.interc
     BuscarFuncoesVisitaUseCase,
     { provide: BuscarFuncoesVisitaPort, useClass: BuscarFuncoesVisitaAdapter },
     BuscarInscritosVisitaUseCase,
-    { provide: BuscarInscritosVisitaPort, useClass: BuscarInscritosVisitaAdapter },
+    { provide: BuscarInscritosVisitaPort, useClass: BuscarInscritosVisitaAdapter },   
+    BuscarVisitaUseCase,
+    { provide: BuscarVisitaPort, useClass: BuscarVisitaAdapter },
+    AlocarInscritosVisitaUseCase,
+    { provide: AlocarInscritosVisitaPort, useClass: AlocarInscritosVisitaAdapter },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,

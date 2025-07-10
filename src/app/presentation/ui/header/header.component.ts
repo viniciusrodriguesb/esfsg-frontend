@@ -33,7 +33,7 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.router.navigate([Rotas.ESCOLHA_INICIAL]);
+    this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_ADMINISTRADOR]);
     localStorage.clear();
   }
 
