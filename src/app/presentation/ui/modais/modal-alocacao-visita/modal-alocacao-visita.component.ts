@@ -10,9 +10,9 @@ import {
 import { BuscarFuncoesVisitaUseCase } from '../../../../core/application/use-cases/visita/buscar-funcoes-visita.usecase';
 import { TabelaDominioResponseDto } from '../../../../core/application/dto/response/tabela-dominio-response.dto';
 import { BuscarVisitaUseCase } from '../../../../core/application/use-cases/visita/buscar-visita.usecase';
-import { NotificacaoService } from '../../../../infrastructure/notificacao.service';
 import { AlocarInscritosVisitaUseCase } from '../../../../core/application/use-cases/visita/alocar-inscritos-visita.usecase';
 import { AlocacaoInscritoVisitaRequestDto } from '../../../../core/application/dto/request/alocacao-inscrito-visita-request.dto';
+import { NotificacaoService } from '../../../../infrastructure/services/notificacao.service';
 
 @Component({
   selector: 'app-modal-alocacao-visita',
