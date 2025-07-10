@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Rotas } from '../../../../core/domain/enums/rotas.enum';
 import Swal from 'sweetalert2';
 import { StatusHttpEnum } from '../../../../core/domain/enums/status-http.enum';
-import { NotificacaoService } from '../../../../infrastructure/notificacao.service';
+import { NotificacaoService } from '../../../../infrastructure/services/notificacao.service';
 
 @Component({
   selector: 'app-form-admin',

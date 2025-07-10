@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterOutlet } from '@angular/router';
 import {
+  HTTP_INTERCEPTORS,
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
@@ -58,6 +59,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { InputComponent } from './presentation/ui/input/input.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {
   LucideAngularModule,
   CircleX,
@@ -196,6 +198,8 @@ import { BuscarFuncoesVisitaAdapter } from './infrastructure/adapter/visita/busc
 import { BuscarInscritosVisitaUseCase } from './core/application/use-cases/visita/buscar-inscritos-visita.usecase';
 import { BuscarInscritosVisitaPort } from './core/domain/ports/visita/buscar-inscritos-visita.port';
 import { BuscarInscritosVisitaAdapter } from './infrastructure/adapter/visita/buscar-inscritos-visita.adapter';
+import { LoadingComponent } from './presentation/ui/loading/loading.component';
+import { LoadingInterceptor } from './infrastructure/interceptors/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -229,7 +233,8 @@ import { BuscarInscritosVisitaAdapter } from './infrastructure/adapter/visita/bu
     ModalQrcodeCheckinComponent,
     ModalCheckinConfirmadoComponent,
     ModalParticipanteHorarioErradoComponent,
-    ModalInfoInscricaoComponent
+    ModalInfoInscricaoComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -295,6 +300,7 @@ import { BuscarInscritosVisitaAdapter } from './infrastructure/adapter/visita/bu
     SweetAlert2Module.forRoot(),
 
     ZXingScannerModule,
+
     // Angular Material Modules
     MatSlideToggleModule,
     MatInputModule,
@@ -305,6 +311,7 @@ import { BuscarInscritosVisitaAdapter } from './infrastructure/adapter/visita/bu
     MatSelectModule,
     MatTabsModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
 
     // Pipes
     NomeAbreviadoPipe,
@@ -404,7 +411,11 @@ import { BuscarInscritosVisitaAdapter } from './infrastructure/adapter/visita/bu
     { provide: BuscarFuncoesVisitaPort, useClass: BuscarFuncoesVisitaAdapter },
     BuscarInscritosVisitaUseCase,
     { provide: BuscarInscritosVisitaPort, useClass: BuscarInscritosVisitaAdapter },
-
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
 })
