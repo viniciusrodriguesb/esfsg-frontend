@@ -220,6 +220,10 @@ import { ConfirmarPagamentoAdapter } from './infrastructure/adapter/gestao-pagam
 import { GerarNovoPixUseCase } from './core/application/use-cases/gestao-pagamento/gerar-novo-pix.usecase';
 import { GerarNovoPixPort } from './core/domain/ports/gestao-pagamento/gerar-novo-pix.port';
 import { GerarNovoPixAdapter } from './infrastructure/adapter/gestao-pagamento/gerar-novo-pix.adapter';
+import { ModalInfoVisitaComponent } from './presentation/ui/modais/modal-info-visita/modal-info-visita.component';
+import { CancelarInscricaoUseCase } from './core/application/use-cases/gestao-inscricao/cancelar-inscricao.usecase';
+import { CancelarInscricaoPort } from './core/domain/ports/gestao-inscricao/cancelar-inscricao.port';
+import { CancelarInscricaoAdapter } from './infrastructure/adapter/gestao-inscricao/cancelar-inscricao.adapter';
 
 @NgModule({
   declarations: [
@@ -257,6 +261,7 @@ import { GerarNovoPixAdapter } from './infrastructure/adapter/gestao-pagamento/g
     ModalInfoInscricaoComponent,
     ModalAlocacaoVisitaComponent,
     ModalPagamentoConfirmadoComponent,
+    ModalInfoVisitaComponent,
 
     LoadingComponent,
   ],
@@ -447,6 +452,8 @@ import { GerarNovoPixAdapter } from './infrastructure/adapter/gestao-pagamento/g
     { provide: ConfirmarPagamentoPort, useClass: ConfirmarPagamentoAdapter },
     GerarNovoPixUseCase,
     { provide: GerarNovoPixPort, useClass: GerarNovoPixAdapter },
+    CancelarInscricaoUseCase,
+    { provide: CancelarInscricaoPort, useClass: CancelarInscricaoAdapter },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,

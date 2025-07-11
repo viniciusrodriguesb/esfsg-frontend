@@ -6,7 +6,7 @@ import { CancelarInscricaoPort } from "../../../domain/ports/gestao-inscricao/ca
 export class CancelarInscricaoUseCase {
   constructor(private readonly cancelarInscricaoPort: CancelarInscricaoPort) {}
 
-  executar(ids: number[]): Observable<void | null>{
+  execute(ids: number[]): Observable<void | null>{
     return this.cancelarInscricaoPort.cancelarInscricoes(ids);
   }
 

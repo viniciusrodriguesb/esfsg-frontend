@@ -17,6 +17,13 @@
       <p>Status: {{ statusInscricao?.status }}</p>
     </div>
 
+    <div
+    *ngIf="exibicaoAlertaInstrumentista"
+      class="flex justify-between bg-amber-100 rounded-lg px-4 py-2 mt-4 text-start text-sm"
+    >
+      <p>Importante: Lembre-se de levar seu próprio instrumento no dia do evento. Ele é necessário para sua participação.</p>
+    </div>
+
     <div class="flex flex-col gap-3.5 relative">
       <span class="h-0.5 bg-[#F6F6F6]"></span>
       <div class="flex flex-col gap-1.5 text-[10px]">
@@ -60,7 +67,7 @@
         <div class="flex flex-col gap-2">
           <p class="font-medium">Instrumentos:</p>
           <span *ngFor="let instrumento of usuarioExistente.instrumentos">
-            {{ instrumento }}
+            {{ instrumento | nomeFormatado }}
           </span>
         </div>
       </div>

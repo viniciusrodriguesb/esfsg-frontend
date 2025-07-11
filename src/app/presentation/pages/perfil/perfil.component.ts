@@ -33,6 +33,7 @@ export class PerfilComponent {
   exibicaoCardPagamento: boolean = false;
   exibicaoCardCheckin: boolean = false;
   exibicaoBotaoCheckin: boolean = false;
+  exibicaoAlertaInstrumentista: boolean = false;
   dadosEvento: any;
 
   constructor(
@@ -65,6 +66,15 @@ export class PerfilComponent {
     }
 
     this.inicializarPagina();
+    this.exibirAlertaInstrumentista();
+  }
+
+  public exibirAlertaInstrumentista(){
+    if(this.inscricaoUsuario.idFuncaoEvento == 4){
+      this.exibicaoAlertaInstrumentista = true;
+    }else{
+      this.exibicaoAlertaInstrumentista = false;
+    }
   }
 
   public inicializarPagina() {

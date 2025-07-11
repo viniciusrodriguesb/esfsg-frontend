@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalInfoInscricaoComponent } from '../../../../ui/modais/modal-info-inscricao/modal-info-inscricao.component';
 import { TipoFuncionalidadeInscricao } from '../../../../../core/domain/enums/tipo-funcionalidade-inscricao.enum';
 import { PageEvent } from '@angular/material/paginator';
+import { CancelarInscricaoUseCase } from '../../../../../core/application/use-cases/gestao-inscricao/cancelar-inscricao.usecase';
 
 @Component({
   selector: 'app-pendentes-aprovacao',
@@ -18,7 +19,6 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrl: './pendentes-aprovacao.component.scss',
 })
 export class PendentesAprovacaoComponent {
-
   @Input() public eventoId: number;
 
   animacaoErro: AnimationOptions = {
@@ -37,6 +37,7 @@ export class PendentesAprovacaoComponent {
 
   constructor(
     private readonly gestaoInscricaoUseCase: GestaoInscricaoUseCase,
+    private readonly cancelarInscricaoUseCase: CancelarInscricaoUseCase,
     private readonly dialog: MatDialog
   ) {}
 
@@ -47,13 +48,15 @@ export class PendentesAprovacaoComponent {
   }
 
   ngOnInit() {
-    this.usuarioLogado = JSON.parse( localStorage.getItem(ParametroStorageEnum.USUARIO_LOGADO));
+    this.usuarioLogado = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.USUARIO_LOGADO)
+    );
   }
 
   public buscarInscricoesPendentes(paginacao?: PageEvent) {
     this.participantesSelecionados = [];
     this.liberacaoBotaoAprovar = false;
-    
+
     const inscricoesPendentesRequest: InscricoesPendentesRequestDto = {
       cpfLogado: this.usuarioLogado.cpf,
       idEvento: this.eventoId,
@@ -74,7 +77,7 @@ export class PendentesAprovacaoComponent {
           this.inscricoesPendentes = resultado;
         },
       });
-      return paginacao;
+    return paginacao;
   }
 
   public inserirInscricoesSelecionadas(id: number, event: Event): void {
@@ -112,20 +115,19 @@ export class PendentesAprovacaoComponent {
   }
 
   public abrirModalInfoInscricao(inscrito: InscricaoParaLiberacaoResponse) {
-       const dialogRef = this.dialog.open(ModalInfoInscricaoComponent, {
-         width: '90%',
-         height: 'auto',
-         data: {
-           dadosInscritoPendente: inscrito,
-           dadosInscritoTodas: null,
-           tipoInscricao: TipoFuncionalidadeInscricao.PENDENTE,
-         },
-       });
-   
-       dialogRef.afterClosed().subscribe((result) => {
-         console.log('Modal fechado com resultado:', result);
-         
-       });
+    const dialogRef = this.dialog.open(ModalInfoInscricaoComponent, {
+      width: '90%',
+      height: 'auto',
+      data: {
+        dadosInscritoPendente: inscrito,
+        dadosInscritoTodas: null,
+        tipoInscricao: TipoFuncionalidadeInscricao.PENDENTE,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Modal fechado com resultado:', result);
+    });
   }
 
   private liberarBotaoAprovar() {
@@ -134,5 +136,23 @@ export class PendentesAprovacaoComponent {
     } else {
       this.liberacaoBotaoAprovar = false;
     }
+  }
+
+  public cancelarInscricao() {
+    let ids = this.participantesSelecionados;
+
+    if (!ids || ids.length === 0) {
+      alert('Selecione pelo menos uma inscrição para aprovar.');
+      return;
+    }
+
+    this.cancelarInscricaoUseCase.execute(ids).subscribe({
+      next: () => {
+        this.buscarInscricoesPendentes();
+      },
+      error: (err) => {
+        console.error('Erro ao cancelar inscrição:', err);
+      },
+    });
   }
 }

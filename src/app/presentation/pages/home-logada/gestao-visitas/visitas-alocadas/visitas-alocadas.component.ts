@@ -7,6 +7,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { PaginacaoResponse } from '../../../../../core/application/dto/response/paginacao-response.dto';
 import { ParametroEmitter } from '../../../../../core/domain/enums/parametro-emitter.enum';
 import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalInfoVisitaComponent } from '../../../../ui/modais/modal-info-visita/modal-info-visita.component';
 @Component({
   selector: 'app-visitas-alocadas',
   standalone: false,
@@ -30,7 +32,8 @@ export class VisitasAlocadasComponent {
   pageEvent: PageEvent;
 
   constructor(
-    private readonly buscarInscritosVisitaUseCase: BuscarInscritosVisitaUseCase
+    private readonly buscarInscritosVisitaUseCase: BuscarInscritosVisitaUseCase,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -43,6 +46,20 @@ export class VisitasAlocadasComponent {
     if (this.eventoId) {
       this.buscarVisitasAlocadas();
     }
+  }
+
+  public abrirModalInfoInscricao(inscrito: InscritoVisitaResponseDto) {
+    const dialogRef = this.dialog.open(ModalInfoVisitaComponent, {
+      width: '90%',
+      height: 'auto',
+      data: {
+        infoInscritoAlocado: inscrito,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      
+    });
   }
 
   public buscarVisitasAlocadas(paginacao?: PageEvent) {
