@@ -95,7 +95,7 @@ app-sucesso{
 .mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{
   border-radius: 100px !important;
   background: #fff !important;
-  width: 60% !important;
+  max-width: fit-content !important;
 }
 
 .mat-mdc-snack-bar-container .mdc-snackbar__label{

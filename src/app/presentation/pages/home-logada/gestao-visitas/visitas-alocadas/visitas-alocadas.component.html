@@ -24,11 +24,24 @@
                     <i-lucide name="info" class="w-2.5 h-[15px]"></i-lucide>
                   </span>
                   <span class="font-normal text-[9px] text-gray-500">
-                    {{ inscrito.funcaoEvento | nomeFormatado }}</span
+                    {{ inscrito.dadosVisita.funcao | nomeFormatado }}</span
                   >
                 </p>
               </div>
               <div class="h-4 w-[1px] bg-gray-300"></div>
+              <div class="flex items-center gap-2 w-[100px]">
+                <p class="flex flex-col justify-between">
+                  <span
+                    class="font-medium flex items-center justify-start gap-1"
+                  >
+                    Visita
+                    
+                  </span>
+                  <span class="font-normal text-[9px] text-gray-500">
+                    {{ inscrito.dadosVisita.nomeVisita| nomeFormatado }}</span
+                  >
+                </p>
+              </div>
             </div>
             <button
               class="bg-gray-200 flex items-center justify-center h-4 w-4 rounded-[4px]"

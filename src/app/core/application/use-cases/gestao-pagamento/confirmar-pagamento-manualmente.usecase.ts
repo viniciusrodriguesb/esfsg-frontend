@@ -6,7 +6,7 @@ import { ConfirmarPagamentoPort } from '../../../domain/ports/gestao-pagamento/c
 export class ConfirmarPagamentoManualmenteUseCase {
   constructor(private readonly confirmarPagamentoPort: ConfirmarPagamentoPort) {}
 
-  execute(idInscricao: number): Observable<void | null> {
+  execute(idInscricao: number[]): Observable<void | null> {
     return this.confirmarPagamentoPort.confirmarPagamentoManualmente(idInscricao);
   }
 

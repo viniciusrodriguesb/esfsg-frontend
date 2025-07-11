@@ -112,7 +112,8 @@ import {
   CircleUserRound,
   LogOut,
   MessageCircleCode,
-  House
+  House,
+  RotateCcw
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -208,6 +209,17 @@ import { BuscarVisitaPort } from './core/domain/ports/visita/buscar-visita.port'
 import { AlocarInscritosVisitaUseCase } from './core/application/use-cases/visita/alocar-inscritos-visita.usecase';
 import { AlocarInscritosVisitaPort } from './core/domain/ports/visita/alocar-inscritos-visita.port';
 import { AlocarInscritosVisitaAdapter } from './infrastructure/adapter/visita/alocar-inscritos-visita.adapter';
+import { GestaoPagamentoComponent } from './presentation/pages/home-logada/gestao-pagamento/gestao-pagamento.component';
+import { BuscarInscricoesPagamentoUseCase } from './core/application/use-cases/gestao-pagamento/buscar-inscricoes-pagamento.usecase';
+import { BuscarInscricoesPagamentoPort } from './core/domain/ports/gestao-pagamento/buscar-inscricoes-pagamento.port';
+import { BuscarInscricoesPagamentoAdapter } from './infrastructure/adapter/gestao-pagamento/buscar-inscricoes-pagamento.adapter';
+import { ModalPagamentoConfirmadoComponent } from './presentation/ui/modais/modal-pagamento-confirmado/modal-pagamento-confirmado.component';
+import { ConfirmarPagamentoManualmenteUseCase } from './core/application/use-cases/gestao-pagamento/confirmar-pagamento-manualmente.usecase';
+import { ConfirmarPagamentoPort } from './core/domain/ports/gestao-pagamento/confirmar-pagamento-manualmente.port';
+import { ConfirmarPagamentoAdapter } from './infrastructure/adapter/gestao-pagamento/confirmar-pagamento-manualmente.adapter';
+import { GerarNovoPixUseCase } from './core/application/use-cases/gestao-pagamento/gerar-novo-pix.usecase';
+import { GerarNovoPixPort } from './core/domain/ports/gestao-pagamento/gerar-novo-pix.port';
+import { GerarNovoPixAdapter } from './infrastructure/adapter/gestao-pagamento/gerar-novo-pix.adapter';
 
 @NgModule({
   declarations: [
@@ -237,13 +249,16 @@ import { AlocarInscritosVisitaAdapter } from './infrastructure/adapter/visita/al
     GestaoVisitasComponent,
     VisitasNaoAlocadasComponent,
     VisitasAlocadasComponent,
+    GestaoPagamentoComponent,
     
     ModalQrcodeCheckinComponent,
     ModalCheckinConfirmadoComponent,
     ModalParticipanteHorarioErradoComponent,
     ModalInfoInscricaoComponent,
+    ModalAlocacaoVisitaComponent,
+    ModalPagamentoConfirmadoComponent,
+
     LoadingComponent,
-    ModalAlocacaoVisitaComponent
   ],
   imports: [
     BrowserModule,
@@ -305,7 +320,8 @@ import { AlocarInscritosVisitaAdapter } from './infrastructure/adapter/visita/al
         CircleUserRound,
         LogOut,
         MessageCircleCode,
-        House
+        House,
+        RotateCcw
     }),
     SweetAlert2Module.forRoot(),
 
@@ -425,6 +441,12 @@ import { AlocarInscritosVisitaAdapter } from './infrastructure/adapter/visita/al
     { provide: BuscarVisitaPort, useClass: BuscarVisitaAdapter },
     AlocarInscritosVisitaUseCase,
     { provide: AlocarInscritosVisitaPort, useClass: AlocarInscritosVisitaAdapter },
+    BuscarInscricoesPagamentoUseCase,
+    { provide: BuscarInscricoesPagamentoPort, useClass: BuscarInscricoesPagamentoAdapter },
+    ConfirmarPagamentoManualmenteUseCase,
+    { provide: ConfirmarPagamentoPort, useClass: ConfirmarPagamentoAdapter },
+    GerarNovoPixUseCase,
+    { provide: GerarNovoPixPort, useClass: GerarNovoPixAdapter },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,

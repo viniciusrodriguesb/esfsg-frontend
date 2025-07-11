@@ -36,6 +36,11 @@ export class HomeLogadaComponent {
     this.toggleSidebar();
   }
 
+  navegarPagamento(){
+    this.router.navigate([Rotas.HOME_LOGADA, Rotas.GESTAO_PAGAMENTO]);
+    this.toggleSidebar();
+  }
+
   navegarVisita() {
     this.router.navigate([Rotas.HOME_LOGADA, Rotas.GESTAO_VISITAS]);
     this.toggleSidebar();

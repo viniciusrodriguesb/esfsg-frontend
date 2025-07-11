@@ -27,6 +27,10 @@ export class BuscarInscricoesPagamentoAdapter extends BuscarInscricoesPagamentoP
       params = params.set('nome', filtro.nome);
     }
 
+    if (filtro.status) {
+      params = params.set('status', filtro.status.toString());
+    }
+
     return this.http
       .get<PaginacaoResponse<GestaoPagamentoResponseDto>>(
         `${ENVIRONMENT.URL_API}/${ControllersEnum.GestaoPagamento}/${ENVIRONMENT.VERSAO}`,
