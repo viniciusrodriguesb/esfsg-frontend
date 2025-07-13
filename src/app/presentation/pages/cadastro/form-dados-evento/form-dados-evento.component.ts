@@ -85,7 +85,7 @@ export class FormDadosEventoComponent {
     this.inscricaoUsuario = {
       ...this.inscricaoUsuario,
       idFuncaoEvento: parseInt(formValue.funcaoEvento ?? ''),
-      periodo: formValue.periodo == PeriodoEnum.Integral ? 'Integral' : 'Tarde',
+      periodo: formValue.periodo == '1' ? 'Integral' : 'Tarde',
       visita: {
         visita: formValue.visitas == '1',
         carro: formValue.carro == '1',
@@ -94,9 +94,9 @@ export class FormDadosEventoComponent {
     };
   }
 
-  private preencherObjetoResumoInscricao() {
+  private preencherObjetoResumoInscricao() {    
     this.resumoInscricao.evento.periodo =
-      this.formDadosEvento.get('periodo')?.value == PeriodoEnum.Integral
+      this.formDadosEvento.get('periodo')?.value == '1'
         ? 'Integral'
         : 'Tarde';
     this.resumoInscricao.evento.funcao =
