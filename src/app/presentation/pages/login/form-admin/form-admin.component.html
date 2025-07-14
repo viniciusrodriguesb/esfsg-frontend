@@ -32,11 +32,19 @@
         >Esqueceu a senha?</a
       >
     </div>
-    <button
-      (click)="buscarUsuarioAdmin()"
-      class="bg-[#007AFF] text-white text-[12px] font-semibold rounded-[0.5rem] py-2.5"
-    >
-      Entrar
-    </button>
+    <div class="flex flex-col gap-2">
+      <button
+        (click)="buscarUsuarioAdmin()"
+        class="bg-[#007AFF] text-white text-[12px] font-semibold rounded-[0.5rem] py-2.5"
+      >
+        Entrar
+      </button>
+      <button
+        (click)="voltar()"
+        class="border-2 border-[#007AFF] text-[12px] bg-white text-[#007AFF] flex items-center justify-center font-semibold rounded-[0.5rem] py-2.5"
+      >
+        Voltar
+      </button>
+    </div>
   </form>
 </div>
