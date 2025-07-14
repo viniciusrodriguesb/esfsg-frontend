@@ -96,4 +96,8 @@ export class FormAdminComponent {
       console.log('Formulário inválido');
     }
   }
+
+   public voltar(){
+    this.router.navigate([Rotas.ESCOLHA_INICIAL])
+  }
 }
