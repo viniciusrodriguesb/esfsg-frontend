@@ -11,6 +11,8 @@ import { AnimationOptions } from 'ngx-lottie';
 import { QrCodeCheckinResponseDto } from '../../../core/application/dto/response/qrcode-checkin-response.dto';
 import { BuscarQrCodeCheckinUseCase } from '../../../core/application/use-cases/qrcode/buscar-qrcode-checkin.usecase';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalEdicaoUsuarioComponent } from '../../ui/modais/modal-edicao-usuario/modal-edicao-usuario.component';
 
 @Component({
   selector: 'app-perfil',
@@ -37,7 +39,7 @@ export class PerfilComponent {
   dadosEvento: any;
 
   constructor(
-    private readonly router: Router,
+    private readonly dialog: MatDialog,
     private readonly buscarQrCodePagamentoUsecase: BuscarQrCodePagamentoUseCase,
     private readonly buscarQrCodeCheckinUsecase: BuscarQrCodeCheckinUseCase,
     private readonly buscarInscricaoUsecase: BuscarInscricaoUseCase
@@ -163,4 +165,18 @@ export class PerfilComponent {
       window.location.href = this.dadosEvento;
     }
   }
+
+    abrirModalEdicaoUsuario() {
+      const dialogRef = this.dialog.open(ModalEdicaoUsuarioComponent, {
+        width: '90%',
+        height: 'auto',
+        data: {
+          dadosUsuario: this.usuarioExistente
+        },
+      });
+  
+      dialogRef.afterClosed().subscribe((result) => {
+
+      });
+    }
 }

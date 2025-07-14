@@ -15,6 +15,7 @@ export interface UsuarioResponseDto {
   dhExclusao: string | null;
   tipoUsuario: TabelaDominioResponseDto;
   classe: TabelaDominioResponseDto;
+  igreja: TabelaDominioResponseDto;
   condicoesMedica: string[];
   funcoesIgreja: string[];
   instrumentos: string[];

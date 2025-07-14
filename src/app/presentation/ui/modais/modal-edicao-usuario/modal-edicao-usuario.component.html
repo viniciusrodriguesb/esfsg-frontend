@@ -1,0 +1,132 @@
+<div class="flex flex-col gap-3.5">
+  <div class="flex flex-col gap-3.5 p-6 relative">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div
+          class="bg-[#007AFF] flex items-center justify-center h-5 w-5 rounded-full"
+        >
+          <i-lucide class="w-2.5 text-white" name="pencil"></i-lucide>
+        </div>
+
+        <p class="font-bold text-[12px]">Editar informações pessoais</p>
+      </div>
+
+      <button
+        (click)="fecharModal()"
+        class="flex items-center justify-center h-7 w-7 rounded-full"
+      >
+        <i-lucide class="w-3.5 text-rose-500" name="circle-x"></i-lucide>
+      </button>
+    </div>
+    <span class="h-0.5 bg-[#F6F6F6]"></span>
+    <form class="pt-1 pb-3" [formGroup]="formEdicao">
+      <div class="grid grid-cols-8 gap-3.5">
+        <app-input
+          [disabled]="true"
+          class="col-start-1 col-end-9"
+          [(formController)]="formEdicao.controls['cpf']"
+          [placeholder]="'CPF'"
+          [id]="'cpf'"
+          [name]="'cpf'"
+          [tipo]="'text'"
+          [formSubmetido]="formSubmetido"
+          [label]="'CPF'"
+          [contemIcone]="true"
+          [mask]="'000.000.000-00'"
+        ></app-input>
+        <app-input
+          class="col-start-1 col-end-9"
+          [(formController)]="formEdicao.controls['nomeCompleto']"
+          [placeholder]="'Nome Completo'"
+          [id]="'nomeCompleto'"
+          [name]="'nomeCompleto'"
+          [tipo]="'text'"
+          [formSubmetido]="formSubmetido"
+          [label]="'Nome Completo'"
+          [contemIcone]="true"
+        ></app-input>
+
+        <app-input
+          class="col-start-1 col-end-5"
+          [(formController)]="formEdicao.controls['nascimento']"
+          [placeholder]="'dd/mm/aaaa'"
+          [id]="'nascimento'"
+          [name]="'nascimento'"
+          [formSubmetido]="formSubmetido"
+          [label]="'Data de nascimento'"
+          [contemIcone]="true"
+          [mask]="'00/00/0000'"
+        ></app-input>
+        <app-input
+          class="col-start-5 col-end-9"
+          [(formController)]="formEdicao.controls['telefone']"
+          [placeholder]="'Telefone'"
+          [id]="'telefone'"
+          [name]="'telefone'"
+          [tipo]="'text'"
+          [formSubmetido]="formSubmetido"
+          [label]="'Telefone'"
+          [contemIcone]="true"
+          [mask]="'(00) 00000-0000'"
+        ></app-input>
+        <app-input
+          class="col-start-1 col-end-9"
+          [(formController)]="formEdicao.controls['email']"
+          [placeholder]="'Email'"
+          [id]="'email'"
+          [name]="'email'"
+          [tipo]="'email'"
+          [formSubmetido]="formSubmetido"
+          [label]="'Email'"
+          [contemIcone]="true"
+        ></app-input>
+        <app-input
+          class="col-start-1 col-end-5"
+          [tipo]="'select'"
+          [label]="'Possui dons?'"
+          [placeholder]="'Selecione'"
+          [formController]="formEdicao.controls['possuiDons']"
+          [opcoes]="opcoesBooleanas"
+          [formSubmetido]="formSubmetido"
+        ></app-input>
+        <app-input
+          class="col-start-5 col-end-9"
+          [(formController)]="formEdicao.controls['pcd']"
+          [placeholder]="'PCD'"
+          [id]="'pcd'"
+          [name]="'pcd'"
+          [tipo]="'text'"
+          [formSubmetido]="formSubmetido"
+          [label]="'PCD?'"
+          [contemIcone]="true"
+        ></app-input>
+        <app-input
+          class="col-start-1 col-end-5"
+          [tipo]="'select'"
+          [label]="'Igreja'"
+          [placeholder]="'Selecione'"
+          [formController]="formEdicao.controls['igreja']"
+          [opcoes]="igrejas"
+          [formSubmetido]="formSubmetido"
+        ></app-input>
+        <app-input
+          class="col-start-5 col-end-9"
+          [tipo]="'select'"
+          [label]="'Classe'"
+          [placeholder]="'Selecione'"
+          [formController]="formEdicao.controls['classe']"
+          [opcoes]="classes"
+          [formSubmetido]="formSubmetido"
+        ></app-input>
+      </div>
+    </form>
+
+    <button
+      class="bg-[#007AFF] w-full text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+      (click)="editarDadosUsuario()"
+    >
+      Confirmar
+      <i-lucide class="w-4" name="check-check"></i-lucide>
+    </button>
+  </div>
+</div>

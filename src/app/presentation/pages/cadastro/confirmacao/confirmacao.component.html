@@ -6,9 +6,9 @@
       >
         <i-lucide class="w-3.5 text-white" name="badge-check"></i-lucide>
       </div>
-      <p class="text-2xl font-semibold">Confirmação</p>
+      <p class="text-2xl sm:text-[28px] font-semibold">Confirmação</p>
     </div>
-    <p class="text-[12px]">
+    <p class="text-[12px] sm:text-[14px]">
       Confirme os dados abaixo antes de prosseguir com a inscrição.
     </p>
   </div>
@@ -23,14 +23,14 @@
         >
           <i-lucide class="w-3.5" name="user"></i-lucide>
         </div>
-        <p class="font-bold text-[12px]">Dados Pessoais</p>
+        <p class="font-bold text-[12px] sm:text-[14px]">Dados Pessoais</p>
       </div>
-      <span class="text-[10px] text-[#222] opacity-70 underline">
+      <span class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
         <i-lucide class="w-3" name="pencil"></i-lucide>
       </span>
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
-    <div class="flex flex-col gap-1.5 text-[10px]">
+    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
       <p class="flex justify-between">
         <span class="font-medium">Nome:</span>
         {{ resumoInscricao.usuario.nome }}
@@ -71,19 +71,19 @@
     </div>
 
     <div class="h-0.5 bg-[#F6F6F6] w-full"></div>
-    <div class="flex flex-col gap-1.5 text-[10px] pb-3 border-b border-dashed border-gray-300" *ngIf="resumoInscricao.usuario.instrumentos.length > 0">
+    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px] pb-3 border-b border-dashed border-gray-300" *ngIf="resumoInscricao.usuario.instrumentos.length > 0">
        <div class="flex flex-col gap-2">
         <p class="font-medium">Instrumentos:</p>
         <span *ngFor="let instrumento of resumoInscricao.usuario.instrumentos"> {{ instrumento }} </span>
       </div>
     </div>
-    <div class="flex flex-col gap-1.5 text-[10px] pb-3 border-b border-dashed border-gray-300" *ngIf=" resumoInscricao.usuario.condicaoMedica.length > 0">
+    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px] pb-3 border-b border-dashed border-gray-300" *ngIf=" resumoInscricao.usuario.condicaoMedica.length > 0">
       <div class="flex flex-col gap-2">
         <p class="font-medium">Condições Médicas:</p>
         <span *ngFor="let condicao of resumoInscricao.usuario.condicaoMedica"> {{ condicao }} </span>
       </div>
     </div>
-    <div class="flex flex-col gap-1.5 text-[10px] pb-3" *ngIf=" resumoInscricao.usuario.funcoesIgreja.length > 0">
+    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px] pb-3" *ngIf=" resumoInscricao.usuario.funcoesIgreja.length > 0">
        <div class="flex flex-col gap-2">
         <p class="font-medium">Funções na igreja:</p>
         <span *ngFor="let funcao of resumoInscricao.usuario.funcoesIgreja"> {{ funcao }} </span>
@@ -100,14 +100,14 @@
         >
           <i-lucide class="w-3.5" name="ticket"></i-lucide>
         </div>
-        <p class="font-bold text-[12px]">Evento</p>
+        <p class="font-bold text-[12px] sm:text-[14px]">Evento</p>
       </div>
-      <span class="text-[10px] text-[#222] opacity-70 underline">
+      <span class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
         <i-lucide class="w-3" name="pencil"></i-lucide>
       </span>
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
-    <div class="flex flex-col gap-1.5 text-[10px]">
+    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
       <p class="flex justify-between">
         <span class="font-medium">Período:</span>
         {{ resumoInscricao.evento.periodo }}
@@ -135,14 +135,14 @@
           >
             <i-lucide class="w-3.5" name="car"></i-lucide>
           </div>
-          <p class="font-bold text-[12px]">Visita</p>
+          <p class="font-bold text-[12px] sm:text-[14px]">Visita</p>
         </div>
-        <span class="text-[10px] text-[#222] opacity-70 underline">
+        <span class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
           <i-lucide class="w-3" name="pencil"></i-lucide>
         </span>
       </div>
       <span class="h-0.5 bg-[#F6F6F6]"></span>
-      <div class="flex flex-col gap-1.5 text-[10px]">
+      <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
         <p class="flex justify-between">
           <span class="font-medium">Vai visitar?</span>
           {{ resumoInscricao.visita.visita }}
@@ -166,14 +166,14 @@
           >
             <i-lucide class="w-3.5" name="church"></i-lucide>
           </div>
-          <p class="font-bold text-[12px]">Igreja</p>
+          <p class="font-bold text-[12px] sm:text-[14px]">Igreja</p>
         </div>
-        <span class="text-[10px] text-[#222] opacity-70 underline">
+        <span class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
           <i-lucide class="w-3" name="pencil"></i-lucide>
         </span>
       </div>
       <span class="h-0.5 bg-[#F6F6F6]"></span>
-      <div class="flex flex-col gap-1.5 text-[10px]">
+      <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
         <p class="flex justify-between">
           <span class="font-medium">Nome:</span>
           {{ resumoInscricao.igrejaNova.nome }}
@@ -202,9 +202,9 @@
         >
           <i-lucide class="w-3.5" name="baby"></i-lucide>
         </div>
-        <p class="font-bold text-[12px]">Inscrição de Menor</p>
+        <p class="font-bold text-[12px] sm:text-[14px]">Inscrição de Menor</p>
       </div>
-      <span class="text-[10px] text-[#222] opacity-70 underline">
+      <span class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
         <i-lucide class="w-3" name="pencil"></i-lucide>
       </span>
     </div>
@@ -212,7 +212,7 @@
     <div
       *ngFor="let menor of resumoInscricao.inscricaoMenor; let last = last"
       [ngClass]="{ 'border-b border-dashed border-gray-300': !last }"
-      class="flex flex-col gap-1.5 text-[10px] pb-3"
+      class="flex flex-col gap-1.5 text-[10px] sm:text-[12px] pb-3"
     >
       <p class="flex justify-between">
         <span class="font-medium">Nome:</span> {{ menor.nome }}

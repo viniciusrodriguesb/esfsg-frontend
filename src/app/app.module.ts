@@ -224,6 +224,7 @@ import { ModalInfoVisitaComponent } from './presentation/ui/modais/modal-info-vi
 import { CancelarInscricaoUseCase } from './core/application/use-cases/gestao-inscricao/cancelar-inscricao.usecase';
 import { CancelarInscricaoPort } from './core/domain/ports/gestao-inscricao/cancelar-inscricao.port';
 import { CancelarInscricaoAdapter } from './infrastructure/adapter/gestao-inscricao/cancelar-inscricao.adapter';
+import { ModalEdicaoUsuarioComponent } from './presentation/ui/modais/modal-edicao-usuario/modal-edicao-usuario.component';
 
 @NgModule({
   declarations: [
@@ -262,6 +263,7 @@ import { CancelarInscricaoAdapter } from './infrastructure/adapter/gestao-inscri
     ModalAlocacaoVisitaComponent,
     ModalPagamentoConfirmadoComponent,
     ModalInfoVisitaComponent,
+    ModalEdicaoUsuarioComponent,
 
     LoadingComponent,
   ],
