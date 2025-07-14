@@ -3,7 +3,7 @@
     <label
       [for]="id"
       [for]="id"
-      class="text-[10px] font-medium"
+      class="text-[10px] sm:text-[12px] font-medium"
       >{{ label }} <span *ngIf="obrigatorio" class="text-red-600">*</span></label
     >
 
@@ -16,7 +16,7 @@
       <input
         *ngIf="tipoInput !== 'select'"
         [mask]="mask"
-        class="outline-none w-full text-[11px] bg-transparent"
+        class="outline-none w-full text-[11px] sm:text-[13px] bg-transparent"
         [formControl]="formController"
         [placeholder]="placeholder"
         [type]="tipoInput"

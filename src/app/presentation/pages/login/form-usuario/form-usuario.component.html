@@ -13,15 +13,11 @@
       [label]="'CPF'"
       [mask]="'000.000.000-00'"
     ></app-input>
-   
-    <div class="flex items-center justify-between px-1">
-      <p *ngIf="formLogin.get('cpf')?.errors?.['cpfInvalido'] && formLogin.get('cpf')?.touched" class="text-[12px] text-red-600"> CPF inválido.</p>
-    </div> 
   
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <mat-slide-toggle></mat-slide-toggle>
-        <span class="text-[12px] font-medium">Lembrar-me</span>
+        <span class="text-[12px] sm:text-[14px] font-medium">Lembrar-me</span>
       </div>
     </div>
     <div class="flex flex-col gap-2">
@@ -29,12 +25,12 @@
         [disabled]="!formLogin.valid"
         (click)="realizarLogin()"
         [ngClass]="{ 'opacity-60': !formLogin.valid }"
-        class="bg-[#007AFF] text-[12px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+        class="bg-[#007AFF] text-[12px] sm:text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
       >
         Entrar
         <i-lucide class="w-5" name="move-right"></i-lucide>
       </button>
-      <button (click)="voltar()" class="border-2 border-[#007AFF] text-[12px] bg-white text-[#007AFF] flex items-center justify-center font-semibold rounded-[0.5rem] py-2.5">
+      <button (click)="voltar()" class="border-2 border-[#007AFF] text-[12px] sm:text-[14px] bg-white text-[#007AFF] flex items-center justify-center font-semibold rounded-[0.5rem] py-2.5">
           Voltar
         </button>
     </div>
