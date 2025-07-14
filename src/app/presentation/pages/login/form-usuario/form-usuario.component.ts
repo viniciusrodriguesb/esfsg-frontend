@@ -9,6 +9,7 @@ import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-st
 import { UsuarioResponseDto } from '../../../../core/application/dto/response/usuario-response.dto';
 import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
 import { StatusHttpEnum } from '../../../../core/domain/enums/status-http.enum';
+import { cpfValidator } from '../../../../core/cpf-validator';
 
 @Component({
   selector: 'app-form-usuario',
@@ -20,7 +21,7 @@ export class FormUsuarioComponent {
   private readonly _formBuilder = inject(FormBuilder);
 
   formLogin = this._formBuilder.group({
-    cpf: ['', Validators.required],
+    cpf: ['', [Validators.required, cpfValidator]],
   });
 
   formSubmetido = false;
