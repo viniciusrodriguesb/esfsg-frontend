@@ -78,7 +78,7 @@ export class ModalEdicaoUsuarioComponent {
         telefone: this.formEdicao.get('telefone')?.value || null,
         nascimento: dataFormatada || null,
         email: this.formEdicao.get('email')?.value || null,
-        dons: this.formEdicao.get('possuiDons')?.value === 1,
+        dons: this.formEdicao.get('possuiDons')?.value == 1,
         pcd: this.formEdicao.get('pcd')?.value || null,
         idIgreja: this.formEdicao.get('igreja')?.value || null,
         idClasse: this.formEdicao.get('classe')?.value || null,
@@ -98,6 +98,7 @@ export class ModalEdicaoUsuarioComponent {
   public atualizarLocalStorage() {    
     let usuarioAtual = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_EXISTENTE) || '{}') as UsuarioResponseDto
     let dataFormatada: string = moment(this.formEdicao.get('nascimento')?.value,'DDMMYYYY').format('DD/MM/YYYY');
+    
     let usuarioAtualizado: UsuarioResponseDto = {
       ...usuarioAtual,
       cpf: this.formEdicao.get('cpf')?.value || null,
@@ -105,10 +106,10 @@ export class ModalEdicaoUsuarioComponent {
       telefone: this.formEdicao.get('telefone')?.value || null,
       nascimento: dataFormatada || null,
       email: this.formEdicao.get('email')?.value || null,
-      possuiDons: this.formEdicao.get('possuiDons')?.value === 1,
+      possuiDons: this.formEdicao.get('possuiDons')?.value == 1,
       pcd: this.formEdicao.get('pcd')?.value || null,
-      igreja: this.igrejas.find(igreja => igreja.id === this.formEdicao.get('igreja')?.value) || null,
-      classe: this.classes.find(classe => classe.id === this.formEdicao.get('classe')?.value) || null,
+      igreja: this.igrejas.find(igreja => igreja.id == this.formEdicao.get('igreja')?.value) || null,
+      classe: this.classes.find(classe => classe.id == this.formEdicao.get('classe')?.value) || null,
     };
 
     localStorage.setItem(ParametroStorageEnum.USUARIO_EXISTENTE,JSON.stringify(usuarioAtualizado));

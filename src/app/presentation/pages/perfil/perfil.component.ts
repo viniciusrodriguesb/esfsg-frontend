@@ -47,7 +47,7 @@ export class PerfilComponent {
     private readonly buscarInscricaoUsecase: BuscarInscricaoUseCase
   ) {}
 
-  ngOnInit() {
+  ngOnInit() {    
     this.inscricaoUsuario = JSON.parse(
       localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)
     ) as InscricaoRequestDto;
