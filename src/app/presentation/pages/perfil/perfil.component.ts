@@ -38,6 +38,8 @@ export class PerfilComponent {
   exibicaoAlertaInstrumentista: boolean = false;
   dadosEvento: any;
 
+  statusPagamentoInscricaoEnum = StatusPagamentoInscricaoEnum;
+
   constructor(
     private readonly dialog: MatDialog,
     private readonly buscarQrCodePagamentoUsecase: BuscarQrCodePagamentoUseCase,
@@ -53,7 +55,9 @@ export class PerfilComponent {
       localStorage.getItem(ParametroStorageEnum.USUARIO_EXISTENTE)
     ) as UsuarioResponseDto;
 
-    this.dadosEvento = JSON.parse(localStorage.getItem(ParametroStorageEnum.EVENTO));
+    this.dadosEvento = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.EVENTO)
+    );
 
     if (
       JSON.parse(localStorage.getItem(ParametroStorageEnum.STATUS_INSCRICAO)) ==
@@ -71,10 +75,10 @@ export class PerfilComponent {
     this.exibirAlertaInstrumentista();
   }
 
-  public exibirAlertaInstrumentista(){
-    if(this.inscricaoUsuario.idFuncaoEvento == 4){
+  public exibirAlertaInstrumentista() {
+    if (this.inscricaoUsuario.idFuncaoEvento == 4) {
       this.exibicaoAlertaInstrumentista = true;
-    }else{
+    } else {
       this.exibicaoAlertaInstrumentista = false;
     }
   }
@@ -166,17 +170,17 @@ export class PerfilComponent {
     }
   }
 
-    abrirModalEdicaoUsuario() {
-      const dialogRef = this.dialog.open(ModalEdicaoUsuarioComponent, {
-        width: '90%',
-        height: 'auto',
-        data: {
-          dadosUsuario: this.usuarioExistente
-        },
-      });
-  
-      dialogRef.afterClosed().subscribe((result) => {
+  abrirModalEdicaoUsuario() {
+    const dialogRef = this.dialog.open(ModalEdicaoUsuarioComponent, {
+      width: '90%',
+      height: 'auto',
+      data: {
+        dadosUsuario: this.usuarioExistente,
+      },
+    });
 
-      });
-    }
+    dialogRef.afterClosed().subscribe((result) => {
+      this.usuarioExistente = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_EXISTENTE)) as UsuarioResponseDto;
+    });
+  }
 }

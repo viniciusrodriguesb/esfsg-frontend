@@ -113,7 +113,10 @@ import {
   LogOut,
   MessageCircleCode,
   House,
-  RotateCcw
+  RotateCcw,
+  Hourglass,
+  LoaderCircle,
+  Send
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -225,6 +228,11 @@ import { CancelarInscricaoUseCase } from './core/application/use-cases/gestao-in
 import { CancelarInscricaoPort } from './core/domain/ports/gestao-inscricao/cancelar-inscricao.port';
 import { CancelarInscricaoAdapter } from './infrastructure/adapter/gestao-inscricao/cancelar-inscricao.adapter';
 import { ModalEdicaoUsuarioComponent } from './presentation/ui/modais/modal-edicao-usuario/modal-edicao-usuario.component';
+import { EditarUsuarioUseCase } from './core/application/use-cases/usuario/editar-usuario.usecase';
+import { EditarUsuarioAdapter } from './infrastructure/adapter/usuario/editar-usuario.port.adapter';
+import { EditarUsuarioPort } from './core/domain/ports/usuario/editar-usuario.port';
+import { CpfPipe } from './presentation/pipes/cpf.pipe';
+import { TelefonePipe } from './presentation/pipes/telefone.pipe';
 
 @NgModule({
   declarations: [
@@ -328,7 +336,10 @@ import { ModalEdicaoUsuarioComponent } from './presentation/ui/modais/modal-edic
         LogOut,
         MessageCircleCode,
         House,
-        RotateCcw
+        RotateCcw,
+        Hourglass,
+        LoaderCircle,
+        Send
     }),
     SweetAlert2Module.forRoot(),
 
@@ -348,7 +359,9 @@ import { ModalEdicaoUsuarioComponent } from './presentation/ui/modais/modal-edic
 
     // Pipes
     NomeAbreviadoPipe,
-    NomePipe
+    NomePipe,
+    CpfPipe,
+    TelefonePipe
 ],
   providers: [
     provideLottieOptions({ player: () => player }),
@@ -356,6 +369,8 @@ import { ModalEdicaoUsuarioComponent } from './presentation/ui/modais/modal-edic
 
     NomePipe,
     NomeAbreviadoPipe,
+    CpfPipe,
+    TelefonePipe,
 
     BuscarClasseUseCase,
     {
@@ -456,6 +471,8 @@ import { ModalEdicaoUsuarioComponent } from './presentation/ui/modais/modal-edic
     { provide: GerarNovoPixPort, useClass: GerarNovoPixAdapter },
     CancelarInscricaoUseCase,
     { provide: CancelarInscricaoPort, useClass: CancelarInscricaoAdapter },
+    EditarUsuarioUseCase,
+    { provide: EditarUsuarioPort, useClass: EditarUsuarioAdapter },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,

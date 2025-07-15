@@ -117,3 +117,9 @@ app-sucesso{
 .mat-mdc-paginator-range-label{
   margin: 0 !important;
 }
+
+.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle, .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic{
+  stroke: #007AFF !important;
+  border-radius: 50% !important;
+  z-index: 999 !important ;
+}

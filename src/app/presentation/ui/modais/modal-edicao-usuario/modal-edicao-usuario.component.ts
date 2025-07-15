@@ -11,6 +11,10 @@ import { TabelaDominioResponseDto } from '../../../../core/application/dto/respo
 import { BuscarIgrejaUseCase } from '../../../../core/application/use-cases/igreja/buscar-classe.usecase';
 import { NomePipe } from '../../../pipes/nome.pipe';
 import { BuscarClasseUseCase } from '../../../../core/application/use-cases/classe/buscar-classe.usecase';
+import { EditarUsuarioUseCase } from '../../../../core/application/use-cases/usuario/editar-usuario.usecase';
+import { NotificacaoService } from '../../../../infrastructure/services/notificacao.service';
+import moment from 'moment';
+import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-storage.enum';
 
 @Component({
   selector: 'app-modal-edicao-usuario',
@@ -29,8 +33,8 @@ export class ModalEdicaoUsuarioComponent {
     email: [''],
     possuiDons: [0],
     pcd: [''],
-    igreja:[0],
-    classe: [0]
+    igreja: [0],
+    classe: [0],
   });
 
   formSubmetido = false;
@@ -47,6 +51,8 @@ export class ModalEdicaoUsuarioComponent {
     private readonly buscarIgrejaUsecase: BuscarIgrejaUseCase,
     private readonly buscarClasseUsecase: BuscarClasseUseCase,
     private readonly nomeFormatadoPipe: NomePipe,
+    private readonly editarUsuarioUsecase: EditarUsuarioUseCase,
+    private readonly notificacaoService: NotificacaoService,
     @Inject(MAT_DIALOG_DATA) public data: { dadosUsuario: UsuarioResponseDto }
   ) {}
 
@@ -56,8 +62,54 @@ export class ModalEdicaoUsuarioComponent {
     this.inicializarFormulario();
   }
 
-  editarDadosUsuario(){
-    
+  editarDadosUsuario() {
+    let dataFormatada: string = moment(
+      this.formEdicao.get('nascimento')?.value,
+      'DDMMYYYY'
+    ).format('YYYY-MM-DD');
+
+    this.editarUsuarioUsecase
+      .execute({
+        cpf: this.data.dadosUsuario.cpf || null,
+        idUsuario: this.data.dadosUsuario.id || null,
+        nomeCompleto: this.formEdicao.get('nomeCompleto')?.value || null,
+        telefone: this.formEdicao.get('telefone')?.value || null,
+        nascimento: dataFormatada || null,
+        email: this.formEdicao.get('email')?.value || null,
+        dons: this.formEdicao.get('possuiDons')?.value === 1,
+        pcd: this.formEdicao.get('pcd')?.value || null,
+        idIgreja: this.formEdicao.get('igreja')?.value || null,
+        idClasse: this.formEdicao.get('classe')?.value || null,
+      })
+      .subscribe({
+        next: () => {
+          this.dialog.closeAll();
+          this.notificacaoService.sucesso( 'Sucesso', 'Usuário editado com sucesso!');
+          this.atualizarLocalStorage();
+        },
+        error: (error) => {
+          this.notificacaoService.erro('Erro', 'Erro ao editar usuário');
+        },
+      });
+  }
+
+  public atualizarLocalStorage() {
+    let usuarioAtual = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_EXISTENTE) || '{}') as UsuarioResponseDto
+
+    let usuarioAtualizado: UsuarioResponseDto = {
+      ...usuarioAtual,
+      cpf: this.formEdicao.get('cpf')?.value || null,
+      nomeCompleto: this.formEdicao.get('nomeCompleto')?.value || null,
+      telefone: this.formEdicao.get('telefone')?.value || null,
+      nascimento: this.formEdicao.get('nascimento')?.value || null,
+      email: this.formEdicao.get('email')?.value || null,
+      possuiDons: this.formEdicao.get('possuiDons')?.value === 1,
+      pcd: this.formEdicao.get('pcd')?.value || null,
+      igreja: this.igrejas.find(igreja => igreja.id === this.formEdicao.get('igreja')?.value) || null,
+      classe: this.classes.find(classe => classe.id === this.formEdicao.get('classe')?.value) || null,
+    };
+
+    localStorage.setItem(ParametroStorageEnum.USUARIO_EXISTENTE,JSON.stringify(usuarioAtualizado));
   }
 
   public buscarClasse() {

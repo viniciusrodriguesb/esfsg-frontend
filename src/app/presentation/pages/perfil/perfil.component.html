@@ -1,24 +1,101 @@
-<div class="py-8 flex justify-center px-4 w-full h-screen">
-  <div class="flex flex-col gap-3.5 w-full sm:max-w-[70%]">
+<div class="py-8 flex justify-center px-4 w-full h-fit">
+  <div class="flex flex-col gap-3.5 h-fit w-full  sm:max-w-[70%]">
     <div class="bg-white rounded-[16px] shadow-lg p-6 relative">
       <div class="flex justify-center mt-6">
         <ng-lottie [options]="options" class="w-24 h-24" />
       </div>
 
       <div class="text-center">
-        <h2 class="text-lg font-semibold">
+        <h2 class="text-[16px] font-semibold">
           {{ usuarioExistente.nomeCompleto }}
         </h2>
-        <p class="text-sm text-gray-500">
+        <p class="text-[14px] text-gray-500">
           {{ usuarioExistente.classe.descricao | nomeFormatado }}
         </p>
       </div>
 
-      <div
-        class="flex justify-between bg-green-100 rounded-lg px-4 py-2 mt-4 text-center text-sm"
-      >
-        <p>Status: {{ statusInscricao?.status }}</p>
-      </div>
+      <ng-container [ngSwitch]="statusInscricao?.idStatus">
+        <div
+          *ngSwitchCase="statusPagamentoInscricaoEnum.ENVIADA"
+          class="flex items-center gap-2 border-1 border-solid bg-[#007AFF]/10 border-[#007AFF] rounded-lg px-4 py-2 mt-4 text-center text-sm"
+        >
+          <div
+            class="bg-[#007AFF] flex items-center justify-center h-6 w-6 rounded-full"
+          >
+            <i-lucide class="w-3 text-white" name="send"></i-lucide>
+          </div>
+          <span class="font-medium text-[12px]">{{
+            statusInscricao?.status | nomeFormatado
+          }}.</span>
+        </div>
+        <div
+          *ngSwitchCase="statusPagamentoInscricaoEnum.AGUARDANDO_LIBERACAO"
+          class="flex items-center gap-2 border-1 border-solid bg-indigo-400/10 border-indigo-400 rounded-lg px-4 py-2 mt-4 text-center text-sm"
+        >
+          <div
+            class="bg-indigo-400 flex items-center justify-center h-6 w-6 rounded-full"
+          >
+            <i-lucide class="w-3 text-white" name="hourglass"></i-lucide>
+          </div>
+          <span class="font-medium text-[12px]">{{
+            statusInscricao?.status | nomeFormatado
+          }}.</span>
+        </div>
+
+        <div
+          *ngSwitchCase="statusPagamentoInscricaoEnum.AGUARDANDO_PAGAMENTO"
+          class="flex items-center gap-2 border-1 border-solid bg-amber-500/10 border-amber-500 rounded-lg px-4 py-2 mt-4 text-center text-sm"
+        >
+          <div
+            class="bg-amber-500 flex items-center justify-center h-6 w-6 rounded-full"
+          >
+            <i-lucide class="w-3 text-white" name="wallet"></i-lucide>
+          </div>
+          <span class="font-medium text-[12px]">{{
+            statusInscricao?.status | nomeFormatado
+          }}.</span>
+        </div>
+        <div
+          *ngSwitchCase="statusPagamentoInscricaoEnum.PAGAMENTO_CONFIRMADO"
+          class="flex items-center gap-2 border-1 border-solid bg-emerald-500/10 border-emerald-500 rounded-lg px-4 py-2 mt-4 text-center text-sm"
+        >
+          <div
+            class="bg-emerald-500 flex items-center justify-center h-6 w-6 rounded-full"
+          >
+            <i-lucide class="w-3 text-white" name="check-check"></i-lucide>
+          </div>
+          <span class="font-medium text-[12px]">{{
+            statusInscricao?.status | nomeFormatado
+          }}.</span>
+        </div>
+
+        <div
+          *ngSwitchCase="statusPagamentoInscricaoEnum.CANCELADA"
+          class="flex items-center gap-2 border-1 border-solid bg-rose-500/10 border-rose-500 rounded-lg px-4 py-2 mt-4 text-center text-sm"
+        >
+          <div
+            class="bg-rose-500 flex items-center justify-center h-6 w-6 rounded-full"
+          >
+            <i-lucide class="w-3 text-white" name="ban"></i-lucide>
+          </div>
+          <span class="font-medium text-[12px]">{{
+            statusInscricao?.status | nomeFormatado
+          }}.</span>
+        </div>
+        <div
+          *ngSwitchCase="statusPagamentoInscricaoEnum.REEMBOLSO_SOLICITADO"
+          class="flex items-center gap-2 border-1 border-solid bg-zinc-600/10 border-zinc-600 rounded-lg px-4 py-2 mt-4 text-center text-sm"
+        >
+          <div
+            class="bg-zinc-600 flex items-center justify-center h-6 w-6 rounded-full"
+          >
+            <i-lucide class="w-3 text-white" name="rotate-ccw"></i-lucide>
+          </div>
+          <span class="font-medium text-[12px]">{{
+            statusInscricao?.status | nomeFormatado
+          }}.</span>
+        </div>
+      </ng-container>
 
       <div
         *ngIf="exibicaoAlertaInstrumentista"
@@ -42,7 +119,8 @@
             {{ usuarioExistente.igreja.descricao | nomeFormatado }}
           </p>
           <p class="flex justify-between">
-            <span class="font-medium">CPF:</span> {{ usuarioExistente.cpf }}
+            <span class="font-medium">CPF:</span>
+            {{ usuarioExistente.cpf | cpf }}
           </p>
           <p class="flex justify-between">
             <span class="font-medium">Email:</span>
@@ -50,7 +128,7 @@
           </p>
           <p class="flex justify-between">
             <span class="font-medium">Telefone:</span>
-            {{ usuarioExistente.telefone }}
+            {{ usuarioExistente.telefone | telefone }}
           </p>
           <p class="flex justify-between">
             <span class="font-medium">Nascimento:</span>
