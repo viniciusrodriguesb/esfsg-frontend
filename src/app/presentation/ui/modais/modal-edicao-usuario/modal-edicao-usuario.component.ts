@@ -29,8 +29,8 @@ export class ModalEdicaoUsuarioComponent {
     cpf: [''],
     nomeCompleto: [''],
     telefone: [''],
-    nascimento: [''],
-    email: [''],
+    nascimento: ['', this.dataNascimentoValidator],
+    email: ['', Validators.email],
     possuiDons: [0],
     pcd: [''],
     igreja: [0],
@@ -57,6 +57,8 @@ export class ModalEdicaoUsuarioComponent {
   ) {}
 
   ngOnInit() {
+    console.log(`asdadsajdhald`);
+    
     this.buscarIgrejas();
     this.buscarClasse();
     this.inicializarFormulario();
@@ -93,15 +95,15 @@ export class ModalEdicaoUsuarioComponent {
       });
   }
 
-  public atualizarLocalStorage() {
+  public atualizarLocalStorage() {    
     let usuarioAtual = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_EXISTENTE) || '{}') as UsuarioResponseDto
-
+    let dataFormatada: string = moment(this.formEdicao.get('nascimento')?.value,'DDMMYYYY').format('DD/MM/YYYY');
     let usuarioAtualizado: UsuarioResponseDto = {
       ...usuarioAtual,
       cpf: this.formEdicao.get('cpf')?.value || null,
       nomeCompleto: this.formEdicao.get('nomeCompleto')?.value || null,
       telefone: this.formEdicao.get('telefone')?.value || null,
-      nascimento: this.formEdicao.get('nascimento')?.value || null,
+      nascimento: dataFormatada || null,
       email: this.formEdicao.get('email')?.value || null,
       possuiDons: this.formEdicao.get('possuiDons')?.value === 1,
       pcd: this.formEdicao.get('pcd')?.value || null,
@@ -203,4 +205,5 @@ export class ModalEdicaoUsuarioComponent {
 
     return null;
   }
+  
 }
