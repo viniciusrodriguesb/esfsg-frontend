@@ -11,6 +11,7 @@ import { NomePipe } from '../../../pipes/nome.pipe';
 import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
 import { UsuarioResponseDto } from '../../../../core/application/dto/response/usuario-response.dto';
 import { BuscarPeriodoEventoUseCase } from '../../../../core/application/use-cases/evento/buscar-periodo-evento.usecase';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-dados-evento',
@@ -69,6 +70,22 @@ export class FormDadosEventoComponent {
   private buscarPeriodoEvento() {
     this.buscarPeriodoEventoUsecase.execute(this.inscricaoUsuario.idEvento).subscribe({
       next: (resultado) => {
+        if(resultado.length <= 0){
+            Swal.fire({
+            icon: 'error',
+            title: 'Atenção',
+            text: `O limite de participantes no evento foi atingido!`,
+            confirmButtonText: 'Ok',
+            customClass: {
+              title: 'swal-title',
+              confirmButton: 'swal-confirm-btn',
+              popup: 'swal-popup',
+            },
+            buttonsStyling: false,
+          }).then((result) => {
+              this.router.navigate([Rotas.ESCOLHA_INICIAL]);            
+          });
+        }
         let array = [];
         resultado.forEach((valor, index) =>{
           array.push({ id: index + 1, descricao: valor });
