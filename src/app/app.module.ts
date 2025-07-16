@@ -116,7 +116,8 @@ import {
   RotateCcw,
   Hourglass,
   LoaderCircle,
-  Send
+  Send,
+  FileChartColumnIncreasing
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -233,6 +234,10 @@ import { EditarUsuarioAdapter } from './infrastructure/adapter/usuario/editar-us
 import { EditarUsuarioPort } from './core/domain/ports/usuario/editar-usuario.port';
 import { CpfPipe } from './presentation/pipes/cpf.pipe';
 import { TelefonePipe } from './presentation/pipes/telefone.pipe';
+import { RelatoriosComponent } from './presentation/pages/home-logada/relatorios/relatorios.component';
+import { ExportarRelatoriosUseCase } from './core/application/use-cases/relatorios/exportar-relatorio.usecase';
+import { ExportarRelatorioPort } from './core/domain/ports/relatorios/exportar-relatorios.port';
+import { ExportarRelatorioAdapter } from './infrastructure/adapter/relatorios/exportar-relatorio.adapter';
 
 @NgModule({
   declarations: [
@@ -263,6 +268,7 @@ import { TelefonePipe } from './presentation/pipes/telefone.pipe';
     VisitasNaoAlocadasComponent,
     VisitasAlocadasComponent,
     GestaoPagamentoComponent,
+    RelatoriosComponent,
     
     ModalQrcodeCheckinComponent,
     ModalCheckinConfirmadoComponent,
@@ -339,7 +345,8 @@ import { TelefonePipe } from './presentation/pipes/telefone.pipe';
         RotateCcw,
         Hourglass,
         LoaderCircle,
-        Send
+        Send,
+        FileChartColumnIncreasing
     }),
     SweetAlert2Module.forRoot(),
 
@@ -473,6 +480,8 @@ import { TelefonePipe } from './presentation/pipes/telefone.pipe';
     { provide: CancelarInscricaoPort, useClass: CancelarInscricaoAdapter },
     EditarUsuarioUseCase,
     { provide: EditarUsuarioPort, useClass: EditarUsuarioAdapter },
+    ExportarRelatoriosUseCase,
+    {provide: ExportarRelatorioPort, useClass: ExportarRelatorioAdapter},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,

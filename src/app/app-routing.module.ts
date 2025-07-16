@@ -23,6 +23,7 @@ import { ObterTodasComponent } from './presentation/pages/home-logada/inscricao/
 import { PendentesAprovacaoComponent } from './presentation/pages/home-logada/inscricao/pendentes-aprovacao/pendentes-aprovacao.component';
 import { GestaoVisitasComponent } from './presentation/pages/home-logada/gestao-visitas/gestao-visitas.component';
 import { GestaoPagamentoComponent } from './presentation/pages/home-logada/gestao-pagamento/gestao-pagamento.component';
+import { RelatoriosComponent } from './presentation/pages/home-logada/relatorios/relatorios.component';
 
 export const routes: Routes = [
   {
@@ -117,6 +118,10 @@ export const routes: Routes = [
         path: Rotas.GESTAO_PAGAMENTO,
         component: GestaoPagamentoComponent,
       },
+      {
+        path: Rotas.RELATORIOS,
+        component: RelatoriosComponent,
+      }
     ],
   },
 ];

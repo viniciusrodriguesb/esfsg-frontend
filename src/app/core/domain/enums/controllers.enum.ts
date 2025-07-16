@@ -14,4 +14,5 @@ export enum ControllersEnum {
     GestaoInscricao = 'GestaoInscricao',
     GestaoPagamento = 'GestaoPagamento',
     Visita = 'Visita',
+    Relatorio = 'Relatorio',
 }

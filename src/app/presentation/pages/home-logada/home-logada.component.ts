@@ -51,5 +51,10 @@ export class HomeLogadaComponent {
     this.toggleSidebar();
   }
 
+  navegarRelatorios(){
+    this.router.navigate([Rotas.HOME_LOGADA, Rotas.RELATORIOS]);
+    this.toggleSidebar();
+  }
+
 }
   
