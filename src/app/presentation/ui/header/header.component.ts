@@ -32,10 +32,7 @@ export class HeaderComponent {
     this.toggleMenu.emit();
   }
 
-  logout() {
-    this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_ADMINISTRADOR]);
-    localStorage.clear();
-  }
+
 
   constructor(private readonly router: Router) {}
 

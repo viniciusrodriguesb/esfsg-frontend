@@ -7,8 +7,8 @@
     [class.translate-x-full]="!isSidebarOpen"
     [class.translate-x-0]="isSidebarOpen"
   >
-    <div class="flex items-center justify-between p-4 border-b">
-      <h2 class="text-lg font-semibold">Menu</h2>
+    <div class="flex items-center justify-between p-4 ">
+      <h2 class="text-[14px] font-semibold">Menu</h2>
       <button (click)="toggleSidebar()">
         <svg
           class="w-5 h-5 text-gray-500"
@@ -26,15 +26,24 @@
       </button>
     </div>
 
-    <nav class="flex flex-col p-4 gap-4 text-gray-700">
-      <a class="flex items-center gap-2" (click)="navegarDashboard()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="circle-gauge" class="w-4 text-gray-500"></i-lucide> Dashboard</a>
-      <a class="flex items-center gap-2" (click)="navegarGestaoInscricao()" *ngIf="usuarioLogado.role <= 4"><i-lucide name="calendar-check" class="w-4 text-gray-500"></i-lucide> Inscrições</a>
-      <a class="flex items-center gap-2" (click)="navegarPagamento()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="receipt" class="w-4 text-gray-500"></i-lucide> Pagamento</a>
-      <a class="flex items-center gap-2" (click)="navegarVisita()" *ngIf="usuarioLogado.role <= 4"><i-lucide name="users-round" class="w-4 text-gray-500"></i-lucide> Visitas</a>
-      <a class="flex items-center gap-2" (click)="navegarCrudVisita()" *ngIf="usuarioLogado.role <= 5"><i-lucide name="list-checks" class="w-4 text-gray-500"></i-lucide> Crud visita</a>
-      <a class="flex items-center gap-2" (click)="navegarRelatorios()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="file-chart-column-increasing" class="w-4 text-gray-500"></i-lucide> Relatórios</a>
-      <a class="flex items-center gap-2" (click)="navegarCheckin()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="circle-user-round" class="w-4 text-gray-500"></i-lucide> Controle de usuários</a>
-    </nav>
+    <div class="flex flex-col justify-between h-9/10 text-[12px]">
+      <nav class="flex flex-col p-4 gap-4 text-gray-700 ">
+        <a class="flex items-center gap-2" (click)="navegarDashboard()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="circle-gauge" class="w-4 text-gray-500"></i-lucide> Dashboard</a>
+        <a class="flex items-center gap-2" (click)="navegarGestaoInscricao()" *ngIf="usuarioLogado.role <= 4"><i-lucide name="calendar-check" class="w-4 text-gray-500"></i-lucide> Inscrições</a>
+        <a class="flex items-center gap-2" (click)="navegarPagamento()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="receipt" class="w-4 text-gray-500"></i-lucide> Pagamento</a>
+        <a class="flex items-center gap-2" (click)="navegarVisita()" *ngIf="usuarioLogado.role <= 4"><i-lucide name="users-round" class="w-4 text-gray-500"></i-lucide> Visitas</a>
+        <a class="flex items-center gap-2" (click)="navegarCheckin()" *ngIf="usuarioLogado.role <= 5"><i-lucide name="list-checks" class="w-4 text-gray-500"></i-lucide> Check-in</a>
+        <a class="flex items-center gap-2" (click)="navegarCrudVisita()" *ngIf="usuarioLogado.role <= 5"><i-lucide name="pen-line" class="w-4 text-gray-500"></i-lucide> Cadastro visita</a>
+        <!-- <a class="flex items-center gap-2" (click)="navegarRelatorios()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="file-chart-column-increasing" class="w-4 text-gray-500"></i-lucide> Relatórios</a> -->
+        <!-- <a class="flex items-center gap-2" (click)="navegarCheckin()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="circle-user-round" class="w-4 text-gray-500"></i-lucide> Controle de usuários</a> -->
+      </nav>
+      <div class="flex items-center justify-center ">
+        <button class="w-[80%] bg-rose-500 py-2 px-5 flex items-center text-white justify-center gap-2.5 border-0 rounded-[0.5rem]" (click)="logout()">
+          Sair
+          <i-lucide name="LogOut" class="w-4 "></i-lucide>
+        </button>
+      </div>
+    </div>
 
   </div>
   <div

@@ -117,7 +117,8 @@ import {
   Hourglass,
   LoaderCircle,
   Send,
-  FileChartColumnIncreasing
+  FileChartColumnIncreasing,
+  PenLine
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -359,7 +360,8 @@ import { DeletarVisitaAdapter } from './infrastructure/adapter/visita/deletar-vi
         Hourglass,
         LoaderCircle,
         Send,
-        FileChartColumnIncreasing
+        FileChartColumnIncreasing,
+        PenLine
     }),
     SweetAlert2Module.forRoot(),
 

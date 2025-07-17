@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { DadosUsuarioAdminResponseDto, UsuarioAdminResponseDto } from '../../../core/application/dto/response/usuario-admin.dto';
+import {
+  DadosUsuarioAdminResponseDto,
+  UsuarioAdminResponseDto,
+} from '../../../core/application/dto/response/usuario-admin.dto';
 import { ParametroStorageEnum } from '../../../core/domain/enums/parametro-storage.enum';
 import { Router } from '@angular/router';
 import { Rotas } from '../../../core/domain/enums/rotas.enum';
@@ -31,12 +34,12 @@ export class HomeLogadaComponent {
     this.toggleSidebar();
   }
 
-   navegarCheckin() {
+  navegarCheckin() {
     this.router.navigate([Rotas.HOME_LOGADA, Rotas.CHECK_IN]);
     this.toggleSidebar();
   }
 
-  navegarPagamento(){
+  navegarPagamento() {
     this.router.navigate([Rotas.HOME_LOGADA, Rotas.GESTAO_PAGAMENTO]);
     this.toggleSidebar();
   }
@@ -46,19 +49,23 @@ export class HomeLogadaComponent {
     this.toggleSidebar();
   }
 
-  navegarGestaoInscricao(){
+  navegarGestaoInscricao() {
     this.router.navigate([Rotas.HOME_LOGADA, Rotas.GESTAO_INSCRICAO]);
     this.toggleSidebar();
   }
 
-  navegarRelatorios(){
+  navegarRelatorios() {
     this.router.navigate([Rotas.HOME_LOGADA, Rotas.RELATORIOS]);
     this.toggleSidebar();
   }
 
   navegarCrudVisita() {
-    this.router.navigate([Rotas.HOME_LOGADA,  Rotas.CRUD_VISITA]);
+    this.router.navigate([Rotas.HOME_LOGADA, Rotas.CRUD_VISITA]);
     this.toggleSidebar();
   }
+
+  logout() {
+    this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_ADMINISTRADOR]);
+    localStorage.clear();
+  }
 }
-  
