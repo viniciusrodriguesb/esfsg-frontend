@@ -85,12 +85,8 @@ export class FormDadosEventoComponent {
           }).then((result) => {
               this.router.navigate([Rotas.ESCOLHA_INICIAL]);            
           });
-        }
-        let array = [];
-        resultado.forEach((valor, index) =>{
-          array.push({ id: index + 1, descricao: valor });
-        })
-        this.periodos = array;
+        }               
+        this.periodos = resultado;
       },
       error: () => {},
     });
