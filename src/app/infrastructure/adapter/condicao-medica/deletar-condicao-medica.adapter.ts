@@ -20,7 +20,7 @@ export class DeletarCondicaoMedicaAdapter extends DeletarCondicaoMedicaPort {
     try {
       return this.http.delete<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.CondicaoMedica}/${ENVIRONMENT.VERSAO}`, { params });
     } catch (error) {
-      console.error('Erro ao deletar condição médica:', error);
+   
       return of(null);
     }
   }

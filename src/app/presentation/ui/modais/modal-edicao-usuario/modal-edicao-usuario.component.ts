@@ -56,9 +56,7 @@ export class ModalEdicaoUsuarioComponent {
     @Inject(MAT_DIALOG_DATA) public data: { dadosUsuario: UsuarioResponseDto }
   ) {}
 
-  ngOnInit() {
-    console.log(`asdadsajdhald`);
-    
+  ngOnInit() {    
     this.buscarIgrejas();
     this.buscarClasse();
     this.inicializarFormulario();
@@ -124,7 +122,7 @@ export class ModalEdicaoUsuarioComponent {
         }));
       },
       error: (error) => {
-        console.error(error);
+
       },
     });
   }
@@ -140,7 +138,6 @@ export class ModalEdicaoUsuarioComponent {
         }
       },
       error: (erro) => {
-        console.error('Erro ao buscar igrejas:', erro);
       },
     });
   }

@@ -17,7 +17,7 @@ export class BuscarIgrejaAdapter extends BuscarIgrejaPort {
 
     return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Igreja}/${ENVIRONMENT.VERSAO}`).pipe(
       catchError((error) => {
-        console.error('Erro ao buscar igrejas:', error);
+        
         return of(null);
       })
     );

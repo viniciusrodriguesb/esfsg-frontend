@@ -31,7 +31,7 @@ export class BuscarInscritosVisitaAdapter extends BuscarInscritosVisitaPort {
       )
       .pipe(
         catchError((error) => {
-          console.error('Erro ao buscar inscritos de visita:', error);
+          
           return of(null);
         })
       );

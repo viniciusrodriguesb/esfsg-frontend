@@ -21,7 +21,7 @@ export class BuscarQrCodeCheckinAdapter extends BuscarQrCodeCheckinPort {
 
     return this.http.get<QrCodeCheckinResponseDto>(`${ENVIRONMENT.URL_API}/${ControllersEnum.QrCode}/${ENVIRONMENT.VERSAO}/acesso`, { params }).pipe(
       catchError((error) => {
-        console.error('Erro ao buscar qrcode:', error);
+        
         return of(null);
       })
     );

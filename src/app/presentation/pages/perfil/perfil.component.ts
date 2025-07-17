@@ -111,7 +111,6 @@ export class PerfilComponent {
         this.informacoesCheckin = resposta;
       },
       error: (err) => {
-        console.error('Erro ao buscar QR Code de check-in:', err);
       },
     });
   }
@@ -130,7 +129,7 @@ export class PerfilComponent {
         },
         error: (err) => {
           this.exibicaoCardPagamento = false;
-          console.error('Erro ao buscar QR Code de pagamento:', err);
+
         },
       });
   }
@@ -157,10 +156,8 @@ export class PerfilComponent {
       try {
         navigator.clipboard.writeText(this.informacoesPagamento.pixCopiaCola);
       } catch (error) {
-        console.error('Falha ao copiar o texto:', error);
       }
     } else {
-      console.warn('A API Clipboard não é suportada neste navegador.');
     }
   }
 

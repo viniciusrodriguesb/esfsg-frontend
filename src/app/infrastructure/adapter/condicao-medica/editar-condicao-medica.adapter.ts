@@ -20,7 +20,7 @@ export class EditarCondicaoMedicaAdapter extends EditarCondicaoMedicaPort {
     try {
       return this.http.put<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.CondicaoMedica}/${ENVIRONMENT.VERSAO}`,  JSON.stringify(descricao), { headers: { 'Content-Type': 'application/json' }, params });
     } catch (error) {
-      console.error('Erro ao editar condição médica:', error);
+ 
       return of(null);
     }
   }

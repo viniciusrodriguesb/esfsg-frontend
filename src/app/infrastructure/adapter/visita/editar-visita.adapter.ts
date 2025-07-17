@@ -22,7 +22,7 @@ export class EditarVisitaAdapter extends EditarVisitaPort {
         request
       ).pipe(
         catchError((error) => {
-          console.error('Erro ao editar a visita:', error);
+          
           return of(null);
         })
       );

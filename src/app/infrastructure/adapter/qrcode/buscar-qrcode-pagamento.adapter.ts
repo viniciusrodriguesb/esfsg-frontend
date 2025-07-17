@@ -21,7 +21,7 @@ export class BuscarQrCodePagamentoAdapter extends BuscarQrCodePagamentoPort {
 
     return this.http.get<QrCodePagamentoResponseDto>(`${ENVIRONMENT.URL_API}/${ControllersEnum.QrCode}/${ENVIRONMENT.VERSAO}/pagamento`, { params }).pipe(
       catchError((error) => {
-        console.error('Erro ao buscar qrcode:', error);
+        
         return of(null);
       })
     );

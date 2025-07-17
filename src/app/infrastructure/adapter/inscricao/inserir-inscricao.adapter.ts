@@ -18,7 +18,7 @@ export class InserirInscricaoAdapter extends InserirInscricaoPort {
     try {
       return this.http.post<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Inscricao}/${ENVIRONMENT.VERSAO}`, JSON.stringify(inscricao),    { headers: { 'Content-Type': 'application/json' } });
     } catch (error) {
-      console.error('Erro ao inserir inscrição:', error);
+      
       return of(null);
     }
   }

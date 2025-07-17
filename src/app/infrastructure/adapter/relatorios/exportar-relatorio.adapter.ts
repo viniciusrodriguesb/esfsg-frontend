@@ -22,7 +22,7 @@ export class ExportarRelatorioAdapter extends ExportarRelatorioPort {
       { params, responseType: 'blob' }
     ).pipe(
       catchError((error) => {
-        console.error('Erro ao exportar relatório:', error);
+        
         return of(null);
       })
     );

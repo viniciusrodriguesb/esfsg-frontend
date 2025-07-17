@@ -56,5 +56,9 @@ export class HomeLogadaComponent {
     this.toggleSidebar();
   }
 
+  navegarCrudVisita() {
+    this.router.navigate([Rotas.HOME_LOGADA,  Rotas.CRUD_VISITA]);
+    this.toggleSidebar();
+  }
 }
   

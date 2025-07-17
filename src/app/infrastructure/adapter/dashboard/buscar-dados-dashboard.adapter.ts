@@ -22,7 +22,7 @@ export class BuscarDadosDashboardAdapter extends BuscarDadosDashboardPort {
       )
       .pipe(
         catchError((error) => {
-          console.error('Erro ao buscar eventos:', error);
+          
           return of(null);
         })
       );

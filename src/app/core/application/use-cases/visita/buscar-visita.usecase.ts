@@ -7,7 +7,7 @@ import { VisitaResponseDto } from "../../dto/response/visita-response.dto";
 export class BuscarVisitaUseCase {
   constructor(private readonly buscarVisitaPort: BuscarVisitaPort) {}
 
-  execute(): Observable<VisitaResponseDto[] | null> {
-    return this.buscarVisitaPort.buscarVisita();
+  execute(descricao?: string): Observable<VisitaResponseDto[] | null> {
+    return this.buscarVisitaPort.buscarVisita(descricao);
   }
 }

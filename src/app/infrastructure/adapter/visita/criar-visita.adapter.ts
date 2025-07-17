@@ -20,7 +20,7 @@ export class CriarVisitaAdapter extends CriarVisitaPort {
         request
       ).pipe(
         catchError((error) => {
-          console.error('Erro ao criar a visita:', error);
+          
           return of(null);
         })
       );

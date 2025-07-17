@@ -3,4 +3,5 @@ export class VisitaResponseDto {
   nome: string
   endereco: string
   observacao: string
+  cor: string
 }

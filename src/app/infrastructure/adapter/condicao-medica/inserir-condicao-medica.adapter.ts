@@ -16,7 +16,7 @@ export class InserirCondicaoMedicaAdapter extends InserirCondicaoMedicaPort {
     try {
       return this.http.post<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.CondicaoMedica}/${ENVIRONMENT.VERSAO}`, JSON.stringify(descricao),    { headers: { 'Content-Type': 'application/json' } });
     } catch (error) {
-      console.error('Erro ao inserir condição médica:', error);
+     
       return of(null);
     }
   }

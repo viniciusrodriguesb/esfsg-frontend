@@ -31,7 +31,7 @@
       <a class="flex items-center gap-2" (click)="navegarGestaoInscricao()" *ngIf="usuarioLogado.role <= 4"><i-lucide name="calendar-check" class="w-4 text-gray-500"></i-lucide> Inscrições</a>
       <a class="flex items-center gap-2" (click)="navegarPagamento()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="receipt" class="w-4 text-gray-500"></i-lucide> Pagamento</a>
       <a class="flex items-center gap-2" (click)="navegarVisita()" *ngIf="usuarioLogado.role <= 4"><i-lucide name="users-round" class="w-4 text-gray-500"></i-lucide> Visitas</a>
-      <a class="flex items-center gap-2" (click)="navegarCheckin()" *ngIf="usuarioLogado.role <= 5"><i-lucide name="list-checks" class="w-4 text-gray-500"></i-lucide> Check-in</a>
+      <a class="flex items-center gap-2" (click)="navegarCrudVisita()" *ngIf="usuarioLogado.role <= 5"><i-lucide name="list-checks" class="w-4 text-gray-500"></i-lucide> Crud visita</a>
       <a class="flex items-center gap-2" (click)="navegarRelatorios()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="file-chart-column-increasing" class="w-4 text-gray-500"></i-lucide> Relatórios</a>
       <a class="flex items-center gap-2" (click)="navegarCheckin()" *ngIf="usuarioLogado.role <= 3"><i-lucide name="circle-user-round" class="w-4 text-gray-500"></i-lucide> Controle de usuários</a>
     </nav>

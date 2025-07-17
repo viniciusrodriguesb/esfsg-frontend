@@ -44,9 +44,7 @@ export class FormAdminComponent {
             JSON.stringify(usuario.dados)
           );
           this.redirecionarUsuario();
-        } else {
-          console.log(usuario.mensagem);
-        }
+        } 
       },
       error: (error) => {
         if (error.status === StatusHttpEnum.BAD_REQUEST) {
@@ -73,9 +71,6 @@ export class FormAdminComponent {
       localStorage.getItem(ParametroStorageEnum.USUARIO_LOGADO)
     );
 
-    if (this.usuarioLogado == null)
-      console.log('Dados do usuário não encontrados');
-
     const role = this.usuarioLogado.role;
     if (role <= 3) {
       this.router.navigate([Rotas.HOME_LOGADA, Rotas.DASHBOARD_INICIAL]);
@@ -90,11 +85,7 @@ export class FormAdminComponent {
 
   onSubmit() {
     this.formSubmetido = true;
-    if (this.formLogin.valid) {
-      console.log('Formulário válido', this.formLogin.value);
-    } else {
-      console.log('Formulário inválido');
-    }
+
   }
 
    public voltar(){

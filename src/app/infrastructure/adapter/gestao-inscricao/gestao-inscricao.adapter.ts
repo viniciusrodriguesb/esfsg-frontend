@@ -45,7 +45,7 @@ export class GestaoInscricaoAdapter extends GestaoInscricaoPort {
       )
       .pipe(
         catchError((error) => {
-          console.error('Erro ao buscar as inscrições pendentes:', error);
+          
           return of(null);
         })
       );
@@ -94,7 +94,7 @@ export class GestaoInscricaoAdapter extends GestaoInscricaoPort {
       )
       .pipe(
         catchError((error) => {
-          console.error('Erro ao buscar as inscrições:', error);
+          
           return of(null);
         })
       );
@@ -108,7 +108,7 @@ export class GestaoInscricaoAdapter extends GestaoInscricaoPort {
         { headers: { 'Content-Type': 'application/json' } }
       );
     } catch (error) {
-      console.error('Erro ao aprovar as inscrições:', error);
+      
       return of(null);
     }
   }

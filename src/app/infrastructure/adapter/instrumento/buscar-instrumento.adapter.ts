@@ -16,7 +16,7 @@ export class BuscarInstrumentoAdapter extends BuscarInstrumentoPort {
   buscarInstrumentos(): Observable<TabelaDominioResponseDto[] | null> {
     return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Instrumento}/${ENVIRONMENT.VERSAO}`).pipe(
       catchError((error) => {
-        console.error('Erro ao buscar instrumentos:', error);
+        
         return of(null);
       })
     );

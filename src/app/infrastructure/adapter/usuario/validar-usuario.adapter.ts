@@ -22,7 +22,7 @@ export class ValidarUsuarioAdapter extends ValidarUsuarioPort {
         `${ENVIRONMENT.URL_API}/${ControllersEnum.Usuario}/${ENVIRONMENT.VERSAO}`, { params }
       );
     } catch (error) {
-      console.error('Erro ao validar usuário:', error);
+      
       return of(null);
     }
   }

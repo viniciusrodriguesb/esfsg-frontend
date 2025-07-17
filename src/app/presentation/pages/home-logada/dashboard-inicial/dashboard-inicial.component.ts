@@ -86,7 +86,6 @@ export class DashboardInicialComponent {
       },
       error: (erro) => {
         this.exibicaoDashboard = false;
-        console.error('Erro ao buscar eventos:', erro);
       },
     });
   }
@@ -106,7 +105,6 @@ export class DashboardInicialComponent {
       error: (erro) => {
         this.exibicaoCardEventoNaoEncontrado = true;
         this.exibicaoDashboard = false;
-        console.error('Erro ao buscar dados do dashboard:', erro);
       },
     });
   }

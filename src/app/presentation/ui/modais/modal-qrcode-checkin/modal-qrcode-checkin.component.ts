@@ -47,8 +47,6 @@ export class ModalQrcodeCheckinComponent {
         }
       },
       error: (error) => {
-        // Handle error response
-        console.error('Erro ao validar QR Code:', error);
       },
     });
   }

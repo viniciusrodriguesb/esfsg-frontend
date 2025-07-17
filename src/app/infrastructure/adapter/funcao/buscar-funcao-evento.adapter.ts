@@ -18,7 +18,7 @@ export class BuscarFuncaoEventoAdapter extends BuscarFuncaoEventoPort {
       params = params.append('idEvento', idEvento.toString());
       return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Funcao}/${ENVIRONMENT.VERSAO}/evento`, { params }).pipe(
         catchError((error) => {
-          console.error('Erro ao buscar funções de evento:', error);
+          
           return of(null);
         })
       );

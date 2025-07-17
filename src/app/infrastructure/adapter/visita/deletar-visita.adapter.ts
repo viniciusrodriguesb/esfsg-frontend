@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { ControllersEnum } from '../../../core/domain/enums/controllers.enum';
@@ -12,10 +12,12 @@ export class DeletarVisitaAdapter extends DeletarVisitaPort {
   }
 
   deletarVisita(id: number): Observable<null> {
-    return this.http.delete<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Visita}/${ENVIRONMENT.VERSAO}/criar/${id}`)
+    let params = new HttpParams();
+    params = params.append('id', id.toString());
+    return this.http.delete<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Visita}/${ENVIRONMENT.VERSAO}`, { params })
       .pipe(
         catchError((error) => {
-          console.error('Erro ao deletar visita:', error);
+          
           return of(null);
         })
       );

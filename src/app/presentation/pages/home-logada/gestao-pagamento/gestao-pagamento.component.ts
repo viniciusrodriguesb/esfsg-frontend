@@ -70,11 +70,6 @@ export class GestaoPagamentoComponent {
   liberacaoBotaoNovoPix: boolean = false;
   exibicaoBotaoRemover: boolean = false;
 
-  horarioAtual = moment();
-  horarioMinimoTarde = moment(
-    this.horarioAtual.format('YYYY-MM-DD') + ' 23:00',
-    'YYYY-MM-DD HH:mm'
-  );
   pageEvent: PageEvent;
 
   eventosSelect: TabelaDominioResponseDto[] = [];
@@ -96,11 +91,9 @@ export class GestaoPagamentoComponent {
 
   private liberarBotaoNovoPix() {
     if (this.inscricoesSelecionadas.length > 1 || this.inscricoesSelecionadas.length == 0) {
-      console.log('Mais de uma inscrição selecionada, não é possível gerar novo PIX.');
       
       this.liberacaoBotaoNovoPix = false;
     } else {
-      console.log('Uma inscrição selecionada, liberando botão de novo PIX.');
       this.liberacaoBotaoNovoPix = true;
     }
   }
@@ -128,7 +121,6 @@ export class GestaoPagamentoComponent {
         }
       },
       error: (erro) => {
-        console.error('Erro ao buscar eventos:', erro);
       },
     });
   }
@@ -141,7 +133,6 @@ export class GestaoPagamentoComponent {
         }
       },
       error: (erro) => {
-        console.error('Erro ao gerar novo PIX:', erro);
         this.notificacaoService.erro('Atenção',erro.error.mensagem || 'Erro ao gerar novo PIX!');
       },
     });

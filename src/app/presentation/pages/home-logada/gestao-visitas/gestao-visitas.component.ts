@@ -62,7 +62,6 @@ export class GestaoVisitasComponent {
         }
       },
       error: (erro) => {
-        console.error('Erro ao buscar eventos:', erro);
       },
     });
   }

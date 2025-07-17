@@ -21,7 +21,7 @@ export class EditarInscricaoAdapter extends EditarInscricaoPort {
     try {
       return this.http.put<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Inscricao}/${ENVIRONMENT.VERSAO}`,  JSON.stringify(inscricao), { headers: { 'Content-Type': 'application/json' }, params });
     } catch (error) {
-      console.error('Erro ao editar inscrição:', error);
+      
       return of(null);
     }
   }

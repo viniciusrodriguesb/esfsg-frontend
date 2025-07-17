@@ -38,7 +38,7 @@ export class BuscarInscricoesPagamentoAdapter extends BuscarInscricoesPagamentoP
       )
       .pipe(
         catchError((error) => {
-          console.error('Erro ao buscar inscritos de visita:', error);
+          
           return of(null);
         })
       );

@@ -20,7 +20,7 @@ export class GerarNovoPixAdapter extends GerarNovoPixPort {
         { headers: { 'Content-Type': 'application/json' } }
       );
     } catch (error) {
-      console.error('Erro ao gerar um novo código pix:', error);
+      
       return of(null);
     }
   }

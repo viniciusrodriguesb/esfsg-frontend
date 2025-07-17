@@ -20,7 +20,7 @@ export class DeletarInscricaoAdapter extends DeletarInscricaoPort {
     try {
       return this.http.delete<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Inscricao}/${ENVIRONMENT.VERSAO}`, { params });
     } catch (error) {
-      console.error('Erro ao deletar inscrição:', error);
+      
       return of(null);
     }
   }

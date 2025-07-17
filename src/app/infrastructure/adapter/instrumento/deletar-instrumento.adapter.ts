@@ -20,7 +20,7 @@ export class DeletarInstrumentoAdapter extends DeletarInstrumentoPort {
     try {
       return this.http.delete<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Instrumento}/${ENVIRONMENT.VERSAO}`, { params });
     } catch (error) {
-      console.error('Erro ao deletar instrumento:', error);
+      
       return of(null);
     }
   }

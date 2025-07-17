@@ -1,0 +1,104 @@
+<div class="flex flex-col gap-3.5">
+  <div class="flex flex-col gap-3.5 p-6 relative">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div
+          class="bg-[#007AFF] flex items-center justify-center h-5 w-5 rounded-full"
+        >
+          <i-lucide class="w-2.5 text-white" name="plus"></i-lucide>
+        </div>
+
+        <p class="font-bold text-[12px]">Cadastrar informações visita</p>
+      </div>
+
+      <button
+        (click)="fecharModal()"
+        class="flex items-center justify-center h-7 w-7 rounded-full"
+      >
+        <i-lucide class="w-3.5 text-rose-500" name="circle-x"></i-lucide>
+      </button>
+    </div>
+    <span class="h-0.5 bg-[#F6F6F6]"></span>
+    <form
+      class="pt-1 pb-3 h-[350px] overflow-auto"
+      [formGroup]="formCadastroVisita"
+    >
+      <div class="grid grid-cols-8 gap-3.5">
+        <app-input
+          class="col-start-1 col-end-9"
+          [(formController)]="formCadastroVisita.controls['endereco']"
+          [placeholder]="'Endereço'"
+          [id]="'endereco'"
+          [name]="'endereco'"
+          [label]="'Endereço *'"
+          [contemIcone]="true"
+        ></app-input>
+
+        <app-input
+          class="col-start-1 col-end-9"
+          [(formController)]="formCadastroVisita.controls['descricao']"
+          [placeholder]="'Descrição'"
+          [id]="'descricao'"
+          [name]="'descricao'"
+          [tipo]="'text'"
+          [label]="'Descrição *'"
+          [contemIcone]="true"
+        ></app-input>
+        <app-input
+          class="col-start-1 col-end-9"
+          [tipo]="'select'"
+          [label]="'Cores *'"
+          [placeholder]="'Selecione'"
+          [formController]="formCadastroVisita.controls['idCor']"
+          [opcoes]="opcoesCoresSelect"
+        ></app-input>
+        <div class="col-start-1 col-end-9">
+          <div class="flex flex-col gap-2">
+            <label
+              for="mensagem"
+              class="text-[10px] sm:text-[12px] font-medium"
+            >
+              Observações
+            </label>
+
+            <div
+              class="bg-white min-h-[6rem] text-[#808080] border border-[#E5E5E5] rounded-[0.5rem] w-full py-2 px-2.5 focus:outline-none flex items-start gap-2"
+            >
+              <textarea
+                id="mensagem"
+                name="mensagem"
+                rows="4"
+                formControlName="observacoes"
+                class="outline-none w-full resize-none text-[11px] sm:text-[13px] bg-transparent"
+                placeholder="Digite sua mensagem..."
+                autocomplete="off"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <button
+      *ngIf="!data.dadosVisita"
+      [disabled]="!formCadastroVisita.valid"
+      [ngClass]="{ 'opacity-50 cursor-not-allowed': !formCadastroVisita.valid }"
+      class="bg-[#007AFF] w-full text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+      (click)="cadastrarVisita()"
+    >
+      Confirmar e cadastrar
+      <i-lucide class="w-4" name="check-check"></i-lucide>
+    </button>
+
+    <button
+      *ngIf="data.dadosVisita"
+      [disabled]="!formCadastroVisita.valid"
+      [ngClass]="{ 'opacity-50 cursor-not-allowed': !formCadastroVisita.valid }"
+      class="bg-[#007AFF] w-full text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+      (click)="editarVisita()"
+    >
+      Editar
+      <i-lucide class="w-4" name="pencil"></i-lucide>
+    </button>
+  </div>
+</div>

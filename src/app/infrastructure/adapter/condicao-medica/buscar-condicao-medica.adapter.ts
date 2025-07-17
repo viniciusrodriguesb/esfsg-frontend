@@ -16,7 +16,7 @@ export class BuscarCondicaoMedicaAdapter extends BuscarCondicaoMedicaPort {
   buscarCondicoesMedicas(): Observable<TabelaDominioResponseDto[] | null> {
     return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.CondicaoMedica}/${ENVIRONMENT.VERSAO}`).pipe(
       catchError((error) => {
-        console.error('Erro ao buscar condições médicas:', error);
+      
         return of([]);
       })
     );

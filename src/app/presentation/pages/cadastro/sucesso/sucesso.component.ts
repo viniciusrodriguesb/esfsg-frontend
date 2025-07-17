@@ -23,7 +23,6 @@ export class SucessoComponent {
   ) {}
 
   animationCreated(animationItem: AnimationItem): void {
-    console.log(animationItem);
   }
   navegarParaPerfil(){
     this.router.navigate([Rotas.PERFIL]);

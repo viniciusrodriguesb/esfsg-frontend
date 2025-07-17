@@ -55,7 +55,7 @@ export class GestaoInscricaoComponent {
         }
       },
       error: (erro) => {
-        console.error('Erro ao buscar eventos:', erro);
+
       },
     });
   }

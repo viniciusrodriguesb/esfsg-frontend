@@ -1,7 +1,7 @@
 export class EditarVisitaRequestDto {
     id: number;
     descricao?: string;
-    endereco?: string;
+    enderecoVisitado?: string;
     observacoes?: string;
-    cor?: string;
+    corVoluntario?: string;
 }

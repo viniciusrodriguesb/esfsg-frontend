@@ -19,7 +19,7 @@ export class CancelarInscricaoAdapter extends CancelarInscricaoPort {
         { headers: { 'Content-Type': 'application/json' } }
       );
     } catch (error) {
-      console.error('Erro ao cancelar as inscrições:', error);
+      
       return of(null);
     }
   }

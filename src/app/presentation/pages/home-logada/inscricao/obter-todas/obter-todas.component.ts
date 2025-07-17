@@ -47,10 +47,7 @@ export class ObterTodasComponent {
       idEvento: this.eventoId,
       pagina: paginacao?.pageIndex + 1 || 1,
       tamanhoPagina: paginacao?.pageSize || 10,
-    };
-
-    console.log('Requisição de inscrições:', inscricoesRequest);
-    
+    };    
 
     this.gestaoInscricaoUseCase.executeTodas(inscricoesRequest).subscribe({
       next: (resultado) => {
@@ -78,7 +75,7 @@ export class ObterTodasComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Modal fechado com resultado:', result);
+      
     });
   }
 }

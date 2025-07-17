@@ -24,6 +24,7 @@ import { PendentesAprovacaoComponent } from './presentation/pages/home-logada/in
 import { GestaoVisitasComponent } from './presentation/pages/home-logada/gestao-visitas/gestao-visitas.component';
 import { GestaoPagamentoComponent } from './presentation/pages/home-logada/gestao-pagamento/gestao-pagamento.component';
 import { RelatoriosComponent } from './presentation/pages/home-logada/relatorios/relatorios.component';
+import { CrudVisitaComponent } from './presentation/pages/home-logada/gestao-visitas/crud-visita/crud-visita.component';
 
 export const routes: Routes = [
   {
@@ -115,13 +116,17 @@ export const routes: Routes = [
         component: GestaoVisitasComponent,
       },
       {
+        path: Rotas.CRUD_VISITA,
+        component: CrudVisitaComponent,
+      },
+      {
         path: Rotas.GESTAO_PAGAMENTO,
         component: GestaoPagamentoComponent,
       },
       {
         path: Rotas.RELATORIOS,
         component: RelatoriosComponent,
-      }
+      },
     ],
   },
 ];

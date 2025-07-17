@@ -20,7 +20,7 @@ export class AlocarInscritosVisitaAdapter extends AlocarInscritosVisitaPort {
         request
       );
     } catch (error) {
-      console.error('Erro ao alocar inscrito na visita:', error);
+      
       return of(null);
     }
   }

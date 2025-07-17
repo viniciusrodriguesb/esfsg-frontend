@@ -16,7 +16,7 @@ export class BuscarFuncaoIgrejaAdapter extends BuscarFuncaoIgrejaPort {
   buscarFuncaoIgreja(): Observable<TabelaDominioResponseDto[] | null> {
     return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Funcao}/${ENVIRONMENT.VERSAO}/igreja`).pipe(
       catchError((error) => {
-        console.error('Erro ao buscar funções de igreja:', error);
+        
         return of(null);
       })
     );

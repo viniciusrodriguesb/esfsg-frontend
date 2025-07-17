@@ -123,13 +123,11 @@ export class FormDadosIgrejaComponent {
     this.buscarInstrumentosUsecase.execute().subscribe({
       next: (instrumentos) => {
         if (!instrumentos || instrumentos.length === 0) {
-          console.error('Nenhum instrumento encontrado.');
         } else {
           this.opcoesInstrumentos = this.formatarNomes(instrumentos);
         }
       },
       error: (error) => {
-        console.error(error);
       },
     });
   }
@@ -140,7 +138,6 @@ export class FormDadosIgrejaComponent {
         this.classes = this.formatarNomes(classes);
       },
       error: (error) => {
-        console.error(error);
       },
     });
   }

@@ -42,7 +42,7 @@ export class BuscarParticipantesCheckinAdapter extends BuscarParticipantesChecki
 
     return this.http.get<CheckinResponseDto>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Checkin}/${ENVIRONMENT.VERSAO}`, { params }).pipe(
       catchError((error) => {
-        console.error('Erro ao buscar participantes do check-in:', error);
+        
         return of(null);
       })
     );

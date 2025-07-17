@@ -17,7 +17,7 @@ export class ConfirmarPagamentoAdapter extends ConfirmarPagamentoPort {
         `${ENVIRONMENT.URL_API}/${ControllersEnum.GestaoPagamento}/${ENVIRONMENT.VERSAO}/confirmacao-manual`, idInscricao
       );
     } catch (error) {
-      console.error('Erro ao confirmar o pagamento manualmente:', error);
+      
       return of(null);
     }
   }

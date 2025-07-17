@@ -1,4 +1,4 @@
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { ControllersEnum } from '../../../core/domain/enums/controllers.enum';
@@ -12,14 +12,19 @@ export class BuscarVisitaAdapter extends BuscarVisitaPort {
     super();
   }
 
-  buscarVisita(): Observable<VisitaResponseDto[] | null> {
+  buscarVisita(descricao?: string): Observable<VisitaResponseDto[] | null> {
+    let params = new HttpParams();
+    if (descricao) {
+      params = params.set('descricao', descricao);
+    }
     return this.http
       .get<VisitaResponseDto[]>(
-        `${ENVIRONMENT.URL_API}/${ControllersEnum.Visita}/${ENVIRONMENT.VERSAO}`
+        `${ENVIRONMENT.URL_API}/${ControllersEnum.Visita}/${ENVIRONMENT.VERSAO}`,
+        { params }
       )
       .pipe(
         catchError((error) => {
-          console.error('Erro ao buscar visitas:', error);
+          
           return of(null);
         })
       );

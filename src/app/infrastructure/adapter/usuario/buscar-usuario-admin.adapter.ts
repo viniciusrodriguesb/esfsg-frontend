@@ -23,7 +23,7 @@ export class BuscarUsuarioAdminAdapter extends BuscarUsuarioAdminPort {
         `${ENVIRONMENT.URL_API}/${ControllersEnum.Usuario}/${ENVIRONMENT.VERSAO}/administrativo`, { params }
       );
     } catch (error) {
-      console.error('Erro ao buscar usuário administrativo:', error);
+      
       return of(null);
     }
   }

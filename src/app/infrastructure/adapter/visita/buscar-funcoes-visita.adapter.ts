@@ -18,7 +18,7 @@ export class BuscarFuncoesVisitaAdapter extends BuscarFuncoesVisitaPort {
         `${ENVIRONMENT.URL_API}/${ControllersEnum.Visita}/${ENVIRONMENT.VERSAO}/funcoes`, 
       );
     } catch (error) {
-      console.error('Erro ao buscar funções de visita:', error);
+      
       return of(null);
     }
   }

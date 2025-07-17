@@ -24,5 +24,7 @@ export enum Rotas {
   PENDENTES_APROVACAO = 'pendentes-aprovacao',
   GESTAO_PAGAMENTO = 'gestao-pagamento',
   GESTAO_VISITAS = 'gestao-visitas',
+  CRUD_VISITA = 'crud-visita',
   RELATORIOS = 'relatorios'
+
 }

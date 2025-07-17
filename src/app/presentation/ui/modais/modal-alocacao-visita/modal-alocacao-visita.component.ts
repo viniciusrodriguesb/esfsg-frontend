@@ -79,7 +79,6 @@ export class ModalAlocacaoVisitaComponent {
         });
       },
       error: (error) => {
-        console.error('Erro ao buscar visitas:', error);
       },
     });
   }
@@ -90,7 +89,6 @@ export class ModalAlocacaoVisitaComponent {
         this.funcoesVisitaSelect = eventos;
       },
       error: (error) => {
-        console.error('Erro ao buscar eventos:', error);
       },
     });
   }
@@ -125,7 +123,7 @@ export class ModalAlocacaoVisitaComponent {
         this.fecharModal();
       },
       error: (error) => {
-        console.error('Erro ao alocar inscritos:', error);
+
         this.notificacaoService.erro(
           'Erro',
           'Não foi possível alocar os inscritos.'

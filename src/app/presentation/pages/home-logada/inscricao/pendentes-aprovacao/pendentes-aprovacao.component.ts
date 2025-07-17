@@ -109,7 +109,7 @@ export class PendentesAprovacaoComponent {
         this.buscarInscricoesPendentes();
       },
       error: (err) => {
-        console.error('Erro ao aprovar inscrições:', err);
+
       },
     });
   }
@@ -126,7 +126,6 @@ export class PendentesAprovacaoComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Modal fechado com resultado:', result);
     });
   }
 
@@ -151,7 +150,6 @@ export class PendentesAprovacaoComponent {
         this.buscarInscricoesPendentes();
       },
       error: (err) => {
-        console.error('Erro ao cancelar inscrição:', err);
       },
     });
   }

@@ -22,7 +22,7 @@ export class BuscarProximoEventoAdapter extends BuscarProximoEventoPort {
       )
       .pipe(
         catchError((error) => {
-          console.error('Erro ao buscar eventos:', error);
+          
           return of(null);
         })
       );

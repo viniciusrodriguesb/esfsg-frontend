@@ -16,7 +16,7 @@ export class BuscarRegiaoAdapter extends BuscarRegiaoPort {
   buscarRegioes(): Observable<TabelaDominioResponseDto[] | null> {
       return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Regiao}/${ENVIRONMENT.VERSAO}`).pipe(
         catchError(error => {
-          console.error('Erro ao buscar regiões:', error);
+          
           return of(null);
         })
       );

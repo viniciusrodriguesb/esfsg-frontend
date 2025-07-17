@@ -18,7 +18,7 @@ export class ValidarQrCodeParticipanteAdapter extends ValidarQrCodeParticipanteP
 
     return this.http.post<ValidacaoQrCodeParticipanteResponseDto>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Checkin}/${ENVIRONMENT.VERSAO}`, request).pipe(
       catchError((error) => {
-        console.error('Erro ao validar QR Code do participante:', error);
+       
         return of(null);
       })
     );

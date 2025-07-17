@@ -22,7 +22,7 @@ export class BuscarInscricaoAdapter extends BuscarInscricaoPort {
 
     return this.http.get<InscricaoResponseDto>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Inscricao}/${ENVIRONMENT.VERSAO}`, { params }).pipe(
       catchError((error) => {
-        console.error('Erro ao buscar inscrição:', error);
+        
         return of(null);
       })
     );

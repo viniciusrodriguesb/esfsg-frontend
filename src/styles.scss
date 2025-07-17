@@ -72,6 +72,17 @@ mat-slide-toggle{
   cursor: pointer;
 }
 
+.swal-cancel-btn {
+  background-color: oklch(58.6% 0.253 17.585); /* Cor do botão de cancelamento */
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  font-size: 14px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
 .swal-confirm-btn:hover {
   background-color: #007AFF;
 }

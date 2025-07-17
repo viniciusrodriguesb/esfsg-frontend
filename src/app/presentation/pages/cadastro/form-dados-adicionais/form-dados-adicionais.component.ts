@@ -241,7 +241,6 @@ export class FormDadosAdicionaisComponent {
         }
       },
       error: (erro) => {
-        console.error('Erro ao buscar igrejas:', erro);
       },
     });
   }
@@ -259,7 +258,6 @@ export class FormDadosAdicionaisComponent {
         }
       },
       error: (erro) => {
-        console.error('Erro ao buscar regiões:', erro);
       },
     });
   }
@@ -270,7 +268,6 @@ export class FormDadosAdicionaisComponent {
         this.opcoesFuncoes = this.formatarNomes(resultado);
       },
       error: (error) => {
-        console.error(error);
       },
     });
   }

@@ -82,7 +82,6 @@ export class FormDadosPessoaisComponent {
         this.opcoesFuncoes = this.formatarNomes(resultado);
       },
       error: (error) => {
-        console.error(error);
       },
     });
   }

@@ -44,7 +44,7 @@ export class ConfirmacaoComponent {
         }
       },
       error: (error) => {
-        console.error('Erro ao inserir inscrição:', error);
+        
       },
     });
   }

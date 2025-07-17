@@ -238,6 +238,17 @@ import { RelatoriosComponent } from './presentation/pages/home-logada/relatorios
 import { ExportarRelatoriosUseCase } from './core/application/use-cases/relatorios/exportar-relatorio.usecase';
 import { ExportarRelatorioPort } from './core/domain/ports/relatorios/exportar-relatorios.port';
 import { ExportarRelatorioAdapter } from './infrastructure/adapter/relatorios/exportar-relatorio.adapter';
+import { CrudVisitaComponent } from './presentation/pages/home-logada/gestao-visitas/crud-visita/crud-visita.component';
+import { ModalCadastroVisitaComponent } from './presentation/ui/modais/modal-cadastro-visita/modal-cadastro-visita.component';
+import { CriarVisitaUseCase } from './core/application/use-cases/visita/criar-visita.usecase';
+import { CriarVisitaPort } from './core/domain/ports/visita/criar-visita.port';
+import { CriarVisitaAdapter } from './infrastructure/adapter/visita/criar-visita.adapter';
+import { EditarVisitaUseCase } from './core/application/use-cases/visita/editar-visita.usecase';
+import { EditarVisitaPort } from './core/domain/ports/visita/editar-visita.port';
+import { EditarVisitaAdapter } from './infrastructure/adapter/visita/editar-visita.adapter';
+import { DeletarVisitaUseCase } from './core/application/use-cases/visita/deletar-visita.usecase';
+import { DeletarVisitaPort } from './core/domain/ports/visita/deletar-visita.port';
+import { DeletarVisitaAdapter } from './infrastructure/adapter/visita/deletar-visita.adapter';
 
 @NgModule({
   declarations: [
@@ -269,6 +280,7 @@ import { ExportarRelatorioAdapter } from './infrastructure/adapter/relatorios/ex
     VisitasAlocadasComponent,
     GestaoPagamentoComponent,
     RelatoriosComponent,
+    CrudVisitaComponent,
     
     ModalQrcodeCheckinComponent,
     ModalCheckinConfirmadoComponent,
@@ -278,6 +290,7 @@ import { ExportarRelatorioAdapter } from './infrastructure/adapter/relatorios/ex
     ModalPagamentoConfirmadoComponent,
     ModalInfoVisitaComponent,
     ModalEdicaoUsuarioComponent,
+    ModalCadastroVisitaComponent,
 
     LoadingComponent,
   ],
@@ -482,6 +495,12 @@ import { ExportarRelatorioAdapter } from './infrastructure/adapter/relatorios/ex
     { provide: EditarUsuarioPort, useClass: EditarUsuarioAdapter },
     ExportarRelatoriosUseCase,
     {provide: ExportarRelatorioPort, useClass: ExportarRelatorioAdapter},
+    CriarVisitaUseCase,
+    {provide: CriarVisitaPort, useClass: CriarVisitaAdapter},
+    EditarVisitaUseCase,
+    {provide: EditarVisitaPort, useClass: EditarVisitaAdapter},
+    DeletarVisitaUseCase,
+    {provide: DeletarVisitaPort, useClass: DeletarVisitaAdapter},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,

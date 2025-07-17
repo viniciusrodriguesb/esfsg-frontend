@@ -17,7 +17,7 @@ export class BuscarClasseAdapter extends BuscarClassePort {
 
     return this.http.get<TabelaDominioResponseDto[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Classe}/${ENVIRONMENT.VERSAO}`).pipe(
       catchError((error) => {
-        console.error('Erro ao buscar classes:', error);
+       
         return of([]);
       })
     );

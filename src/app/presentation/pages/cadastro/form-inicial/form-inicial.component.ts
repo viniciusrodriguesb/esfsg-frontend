@@ -117,7 +117,6 @@ export class FormInicialComponent {
       },
       error: (erro) => {
         this.exibeCampos = false;
-        console.error('Erro ao buscar eventos:', erro);
       },
     });
   }

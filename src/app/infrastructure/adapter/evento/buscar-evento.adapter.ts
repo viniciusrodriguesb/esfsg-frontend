@@ -18,7 +18,7 @@ export class BuscarEventoAdapter extends BuscarEventoPort {
         `${ENVIRONMENT.URL_API}/${ControllersEnum.Evento}/${ENVIRONMENT.VERSAO}`)
       .pipe(
         catchError((error) => {
-          console.error('Erro ao buscar eventos:', error);
+          
           return of(null);
         })
       );

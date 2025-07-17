@@ -17,7 +17,7 @@ export class BuscarPeriodoEventoAdapter extends BuscarPeriodoEventoPort {
     return this.http.get<string[]>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Evento}/${ENVIRONMENT.VERSAO}/periodos`,{ params })
       .pipe(
         catchError((error) => {
-          console.error('Erro ao buscar períodos do evento:', error);
+          
           return of(null);
         })
       );

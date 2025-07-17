@@ -82,7 +82,7 @@ export class CheckInComponent {
 
   horarioAtual = moment();
   horarioMinimoTarde = moment(
-    this.horarioAtual.format('YYYY-MM-DD') + ' 23:00',
+    this.horarioAtual.format('YYYY-MM-DD') + ' 12:00',
     'YYYY-MM-DD HH:mm'
   );
   pageEvent: PageEvent;
@@ -120,7 +120,6 @@ export class CheckInComponent {
         }
       },
       error: (erro) => {
-        console.error('Erro ao buscar eventos:', erro);
       },
     });
   }
@@ -261,7 +260,6 @@ export class CheckInComponent {
         }
       },
       error: (error) => {
-        console.error('Erro ao validar QR Code:', error);
       },
     });
   }
