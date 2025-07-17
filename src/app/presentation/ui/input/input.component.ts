@@ -34,9 +34,18 @@ export class InputComponent {
 
   @Output() valorSelecionado = new EventEmitter<any>();
 
+  @Output() aoDigitar = new EventEmitter<any>();
 
   @Output()
   formControllerChange = new EventEmitter();
+
+  ngOnInit() {
+    if (this.formController) {
+      this.formController.valueChanges.subscribe((value) => {
+        this.aoDigitar.emit(value);
+      });
+    }
+  }
 
   get mostrarErro(): boolean {
     return this.formSubmetido && this.formController?.invalid;
@@ -68,7 +77,7 @@ export class InputComponent {
   }
 
   aoSelecionar(event: Event) {
-  const valor = (event.target as HTMLSelectElement).value;
-  this.valorSelecionado.emit(valor);
-}
+    const valor = (event.target as HTMLSelectElement).value;
+    this.valorSelecionado.emit(valor);
+  }
 }

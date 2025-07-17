@@ -2,11 +2,11 @@
   <div
     class="bg-white rounded-2xl shadow-md pt-5 pb-5 pl-5 border border-dashed border-gray-300 relative flex items-center h-25 overflow-hidden"
   >
-    <p class="text-[10px] text-justify">
+    <p class="text-[10px] sm:text-[12px] sm:text-[14px] text-justify">
       Olá, esta é a <strong>Tela de check-in</strong>, aqui você pode visualizar
       inscritos na lista abaixo e validar sua presença no evento.
     </p>
-    <ng-lottie [options]="options" class="w-60 h-60" />
+    <ng-lottie [options]="options" class="w-60 h-60 sm:w-35 sm:h-35" />
   </div>
   <app-input
     class="col-start-1 col-end-9"
@@ -78,7 +78,7 @@
     <div
       class="flex flex-col gap-3.5 bg-white rounded-[18px] shadow-lg pl-5 pt-5 pr-5 pb-3 relative"
     >
-      <div class="flex flex-col gap-4 text-[10px]">
+      <div class="flex flex-col gap-4 text-[10px] sm:text-[12px] sm:text-[14px]">
         <div
           [ngClass]="{
             ' border-b border-dashed border-gray-300 pb-3':
@@ -97,25 +97,25 @@
             />
             <div class="flex items-center justify-between w-full">
               <div class="flex gap-3.5 items-center">
-                <div class="flex items-center gap-2 w-[100px]">
+                <div class="flex items-center gap-2 w-[100px] sm:w-[200px]">
                   <p class="flex flex-col justify-between">
                     <span
                       class="font-medium flex items-center justify-start gap-1"
                       >{{ participante?.nome | nomeAbreviado }}
                       <i-lucide name="info" class="w-2.5 h-[15px]"></i-lucide
                     ></span>
-                    <span class="font-normal text-[9px] text-gray-500">{{
+                    <span class="font-normal text-[9px] sm:text-[11px] text-gray-500">{{
                       participante.igreja.igreja | nomeFormatado
                     }}</span>
                   </p>
                 </div>
                 <div class="h-4 w-[1px] bg-gray-300"></div>
-                <div class="flex items-center gap-2 w-[70px]">
+                <div class="flex items-center gap-2 w-[70px] sm:w-[100px]">
                   <p class="flex flex-col justify-between">
                     <span class="font-medium">{{
                       participante.evento.periodo
                     }}</span>
-                    <span class="font-normal text-[9px] text-gray-500">{{
+                    <span class="font-normal text-[9px] sm:text-[11px] text-gray-500">{{
                       participante.evento.funcaoEvento | nomeFormatado
                     }}</span>
                   </p>
@@ -124,7 +124,7 @@
                 <div class="flex items-center gap-2">
                   <p class="flex flex-col justify-between">
                     <span class="font-medium">Status</span>
-                    <span class="font-normal text-[9px] text-gray-500">{{
+                    <span class="font-normal text-[9px] sm:text-[11px] text-gray-500">{{
                       participante.presenca ? "Presente" : "Ausente"
                     }}</span>
                   </p>
@@ -132,15 +132,15 @@
               </div>
               <div
                 *ngIf="participante.presenca"
-                class="bg-emerald-300 flex items-center justify-center h-4 w-4 rounded-[4px]"
+                class="bg-emerald-300 flex items-center justify-center h-4 w-4 sm:h-6 sm:w-6 rounded-[4px]"
               >
-                <i-lucide class="w-2" name="check"></i-lucide>
+                <i-lucide class="w-2 sm:w-3" name="check"></i-lucide>
               </div>
               <div
                 *ngIf="!participante.presenca"
-                class="bg-red-300 flex items-center justify-center h-4 w-4 rounded-[4px]"
+                class="bg-red-300 flex items-center justify-center h-4 w-4 sm:h-6 sm:w-6 rounded-[4px]"
               >
-                <i-lucide class="w-2" name="ban"></i-lucide>
+                <i-lucide class="w-2 sm:w-3" name="ban"></i-lucide>
               </div>
             </div>
           </div>
@@ -162,7 +162,7 @@
         *ngIf="!exibicaoBotaoRemover"
         [disabled]="!liberacaoBotaoValidar"
         [ngClass]="{ 'opacity-50 cursor-not-allowed': !liberacaoBotaoValidar }"
-        class="w-full bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+        class="w-full bg-[#007AFF] text-[14px] sm:text-[16px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
       >
         Validar
         <i-lucide class="w-4" name="check-check"></i-lucide>
@@ -170,7 +170,7 @@
       <button
         *ngIf="exibicaoBotaoRemover"
         (click)="validarCheckin()"
-        class="w-full bg-rose-600 text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+        class="w-full bg-rose-600 text-[14px] sm:text-[16px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
       >
         Zerar
         <i-lucide class="w-4" name="trash2"></i-lucide>
@@ -180,14 +180,14 @@
           listaParticipantesPeriodoErrado.length > 0 && !exibicaoBotaoRemover
         "
         (click)="abrirModalParticipanteHorarioErrado()"
-        class="bg-amber-500 text-[14px] text-white font-semibold rounded-[0.5rem] px-4 py-2.5 flex items-center justify-center gap-2"
+        class="bg-amber-500 text-[14px] sm:text-[16px] text-white font-semibold rounded-[0.5rem] px-4 py-2.5 flex items-center justify-center gap-2"
       >
         <i-lucide class="w-4" name="circle-alert"></i-lucide>
       </button>
       <button
         *ngIf="!exibicaoBotaoRemover"
         (click)="abrirScanner()"
-        class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] px-4 py-2.5 flex items-center justify-center gap-2"
+        class="bg-[#007AFF] text-[14px] sm:text-[16px] text-white font-semibold rounded-[0.5rem] px-4 py-2.5 flex items-center justify-center gap-2"
       >
         <i-lucide class="w-4" name="qr-code"></i-lucide>
       </button>
@@ -200,10 +200,10 @@
     <ng-lottie [options]="animacaoErro" class="w-30 h-30" />
 
     <div class="flex flex-col items-center gap-1">
-      <p class="text-[12px] font-medium text-justify">
+      <p class="text-[12px] sm:text-[14px] font-medium text-justify">
         Ops, nenhum participante encontrado!
       </p>
-      <p class="text-[10px] text-center">
+      <p class="text-[10px] sm:text-[12px] sm:text-[14px] text-center">
         Selecione outros filtros e realize a consulta para tentar novamente.
       </p>
     </div>

@@ -21,6 +21,7 @@ import { BuscarRegiaoUseCase } from '../../../../core/application/use-cases/regi
 import { BuscarIgrejaUseCase } from '../../../../core/application/use-cases/igreja/buscar-classe.usecase';
 import { InscricaoMenorRequestDto } from '../../../../core/application/dto/request/inscricao-menor-request.dto';
 import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
+import { NotificacaoService } from '../../../../infrastructure/services/notificacao.service';
 
 @Component({
   selector: 'app-form-dados-adicionais',
@@ -64,7 +65,8 @@ export class FormDadosAdicionaisComponent {
     private readonly buscarRegiaoUsecase: BuscarRegiaoUseCase,
     private readonly buscarIgrejaUsecase: BuscarIgrejaUseCase,
     private readonly router: Router,
-    private readonly nomePipe: NomePipe
+    private readonly nomePipe: NomePipe,
+    private readonly notificacaoService: NotificacaoService
   ) {}
 
   ngOnInit() {
@@ -141,10 +143,13 @@ export class FormDadosAdicionaisComponent {
       ? menoresValidos.map((menor: any) => ({
           idade: Number(menor.idade),
           nome: menor.nome,
-          idCondicaoMedica: Number(menor.idCondicaoMedica) === 0 ? null : Number(menor.idCondicaoMedica),
+          idCondicaoMedica:
+            Number(menor.idCondicaoMedica) === 0
+              ? null
+              : Number(menor.idCondicaoMedica),
         }))
       : undefined;
-      
+
     this.inscricaoUsuario = {
       ...this.inscricaoUsuario,
       usuario: {
@@ -169,13 +174,23 @@ export class FormDadosAdicionaisComponent {
     this.resumoInscricao.igrejaNova.regiao =
       this.regioes.find(
         (regiao) =>
-          regiao.id === parseInt(this.formDadosAdicionais.get('idRegiaoIgrejaNova')?.value) )?.descricao || '';
-    this.resumoInscricao.igrejaNova.nome = this.formDadosAdicionais.get('nomeIgrejaNova')?.value || '';
-    this.resumoInscricao.igrejaNova.pastor = this.formDadosAdicionais.get('pastorIgrejaNova')?.value || '';
-    this.resumoInscricao.inscricaoMenor = this.formDadosAdicionais.get('inscricaoMenor') ?.value.map((menor: InscricaoMenorRequestDto) => ({
+          regiao.id ===
+          parseInt(this.formDadosAdicionais.get('idRegiaoIgrejaNova')?.value)
+      )?.descricao || '';
+    this.resumoInscricao.igrejaNova.nome =
+      this.formDadosAdicionais.get('nomeIgrejaNova')?.value || '';
+    this.resumoInscricao.igrejaNova.pastor =
+      this.formDadosAdicionais.get('pastorIgrejaNova')?.value || '';
+    this.resumoInscricao.inscricaoMenor =
+      this.formDadosAdicionais
+        .get('inscricaoMenor')
+        ?.value.map((menor: InscricaoMenorRequestDto) => ({
           idade: Number(menor.idade),
           nome: menor.nome,
-          condicaoMedica: this.opcoesCondicoes.find( (condicao) => condicao.id == menor.idCondicaoMedica )?.descricao,})) || [];
+          condicaoMedica: this.opcoesCondicoes.find(
+            (condicao) => condicao.id == menor.idCondicaoMedica
+          )?.descricao,
+        })) || [];
 
     localStorage.setItem(
       ParametroStorageEnum.RESUMO_INSCRICAO,
@@ -192,7 +207,7 @@ export class FormDadosAdicionaisComponent {
     });
 
     const menores: Array<InscricaoMenorRequestDto> = dados.inscricaoMenor;
-
+    
     if (Array.isArray(menores) && menores.length > 0) {
       const formArray = this.formDadosAdicionais.get(
         'inscricaoMenor'
@@ -203,11 +218,11 @@ export class FormDadosAdicionaisComponent {
           this._formBuilder.group({
             idade: [menor.idade ?? 0],
             nome: [menor.nome ?? ''],
-            idCondicaoMedica: [menor.idCondicaoMedica ?? 0],
+            idCondicaoMedica: [menor.idCondicaoMedica ?? null],
           })
         );
       });
-    }    
+    }
   }
 
   setFormArrayValues(nomeCampo: string, valores: any[]): void {
@@ -240,8 +255,7 @@ export class FormDadosAdicionaisComponent {
           this.igrejas = this.formatarNomes(resposta);
         }
       },
-      error: (erro) => {
-      },
+      error: (erro) => {},
     });
   }
 
@@ -257,8 +271,7 @@ export class FormDadosAdicionaisComponent {
           this.regioes = this.formatarNomes(resposta);
         }
       },
-      error: (erro) => {
-      },
+      error: (erro) => {},
     });
   }
 
@@ -267,8 +280,7 @@ export class FormDadosAdicionaisComponent {
       next: (resultado) => {
         this.opcoesFuncoes = this.formatarNomes(resultado);
       },
-      error: (error) => {
-      },
+      error: (error) => {},
     });
   }
 
@@ -313,6 +325,23 @@ export class FormDadosAdicionaisComponent {
       idCondicaoMedica: [null],
     });
   }
+
+  verificarIdade(valor: any, index: number) {
+  const idade = Number(valor);
+  const menorFormGroup = this.inscricaoMenorFormArray.at(index) as FormGroup;
+  const idadeControl = menorFormGroup.get('idade');
+
+  if (!isNaN(idade) && idade > 7) {
+    this.notificacaoService.alerta('Atenção', 'A idade do dependente não pode ser maior que 7 anos.');
+    idadeControl?.setErrors({ idadeMaiorQueSete: true });
+    idadeControl?.markAsTouched();
+  } else {
+    if (idadeControl?.hasError('idadeMaiorQueSete')) {
+      idadeControl.setErrors(null);
+    }
+  }
+  this.formDadosAdicionais.updateValueAndValidity();
+}
 
   getFormControl(group: FormGroup, controlName: string): FormControl {
     return group.get(controlName) as FormControl;

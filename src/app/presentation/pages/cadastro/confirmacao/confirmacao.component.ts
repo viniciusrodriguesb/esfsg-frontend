@@ -20,6 +20,10 @@ export class ConfirmacaoComponent {
   inscricaoUsuario: InscricaoRequestDto;
   statusInscricao: InscricaoResponseDto;
 
+  rotaDadosPessoais = [Rotas.CADASTRO, Rotas.FORM_DADOS_PESSOAIS];
+  rotaDadosEventoVisita = [Rotas.CADASTRO, Rotas.FORM_DADOS_EVENTO];
+  rotaDadosAdicionais = [Rotas.CADASTRO, Rotas.FORM_DADOS_ADICIONAIS];
+
   constructor(
     private readonly router: Router,
     private readonly inserirInscricaoUsecase: InserirInscricaoUseCase,
@@ -77,6 +81,22 @@ export class ConfirmacaoComponent {
   }
 
   voltar() {
-    this.router.navigate([Rotas.CADASTRO, Rotas.CONFIRMACAO_DADOS_CADASTRO]);
+    this.router.navigate([Rotas.CADASTRO, Rotas.FORM_DADOS_ADICIONAIS]);
+  }
+
+  navegar(rota: Rotas[]){
+    switch(rota){
+      case this.rotaDadosPessoais:
+        this.router.navigate(this.rotaDadosPessoais);
+        break;
+      case this.rotaDadosEventoVisita:
+        this.router.navigate(this.rotaDadosEventoVisita);  
+        break;
+      case this.rotaDadosAdicionais:
+        this.router.navigate(this.rotaDadosAdicionais);  
+        break;
+      default:
+         this.router.navigate([Rotas.CADASTRO, Rotas.CONFIRMACAO_DADOS_CADASTRO]);    
+    }
   }
 }

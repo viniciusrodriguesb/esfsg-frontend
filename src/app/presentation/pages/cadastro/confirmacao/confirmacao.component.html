@@ -25,9 +25,9 @@
         </div>
         <p class="font-bold text-[12px] sm:text-[14px]">Dados Pessoais</p>
       </div>
-      <span class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
+      <button (click)="navegar(rotaDadosPessoais)" class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
         <i-lucide class="w-3" name="pencil"></i-lucide>
-      </span>
+      </button>
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
     <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
@@ -102,9 +102,9 @@
         </div>
         <p class="font-bold text-[12px] sm:text-[14px]">Evento</p>
       </div>
-      <span class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
+      <button (click)="navegar(rotaDadosEventoVisita)" class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
         <i-lucide class="w-3" name="pencil"></i-lucide>
-      </span>
+      </button>
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
     <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
@@ -137,9 +137,9 @@
           </div>
           <p class="font-bold text-[12px] sm:text-[14px]">Visita</p>
         </div>
-        <span class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
+        <button (click)="navegar(rotaDadosEventoVisita)" class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
           <i-lucide class="w-3" name="pencil"></i-lucide>
-        </span>
+        </button>
       </div>
       <span class="h-0.5 bg-[#F6F6F6]"></span>
       <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
@@ -168,9 +168,9 @@
           </div>
           <p class="font-bold text-[12px] sm:text-[14px]">Igreja</p>
         </div>
-        <span class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
+        <button (click)="navegar(rotaDadosAdicionais)" class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
           <i-lucide class="w-3" name="pencil"></i-lucide>
-        </span>
+        </button>
       </div>
       <span class="h-0.5 bg-[#F6F6F6]"></span>
       <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
@@ -204,9 +204,9 @@
         </div>
         <p class="font-bold text-[12px] sm:text-[14px]">Inscrição de Menor</p>
       </div>
-      <span class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
+      <button (click)="navegar(rotaDadosAdicionais)" class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
         <i-lucide class="w-3" name="pencil"></i-lucide>
-      </span>
+      </button>
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
     <div
@@ -226,13 +226,19 @@
       </p>
     </div>
   </div>
-  <div class="flex flex-col gap-1.5">
+  <div class="flex flex-col gap-1.5 pt-4">
     <button
       (click)="inserirInscricao()"
       class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
     >
       Concluir
       <i-lucide class="w-4" name="check-check"></i-lucide>
+    </button>
+    <button
+      (click)="voltar()"
+      class="border-2 border-[#007AFF] text-[14px] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
+    >
+      Voltar
     </button>
   </div>
 </div>

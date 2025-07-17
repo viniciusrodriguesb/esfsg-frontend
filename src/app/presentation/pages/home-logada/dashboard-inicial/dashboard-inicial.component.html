@@ -2,12 +2,12 @@
   <div
     class="bg-white rounded-2xl shadow-md p-5 border border-dashed border-gray-300 relative flex items-center gap-3.5 h-25 overflow-hidden"
   >
-    <p class="text-[10px] text-justify">
+    <p class="text-[10px] sm:text-[12px] text-justify">
       Olá, bem-vindo ao novo sistema do
       <strong>Evangelho Sem Fronteiras</strong>, para visualizar o dashboard,
       você precisa selecionar um evento.
     </p>
-    <ng-lottie [options]="options" class="w-46 h-46" />
+    <ng-lottie [options]="options" class="w-46 h-46 sm:w-24 sm:h-24" />
   </div>
 
   <form class="grid grid-cols-8 gap-3.5" [formGroup]="formEvento">
@@ -44,7 +44,7 @@
     >
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-between gap-1 w-full">
-          <p class="font-bold text-[14px] flex items-center gap-2">
+          <p class="font-bold text-[14px] sm:text-[16px] flex items-center gap-2">
             <i-lucide name="calendar" class="w-4 text-gray-500"></i-lucide>
             Próximo evento
           </p>
@@ -56,7 +56,7 @@
         </div>
       </div>
       <span class="h-0.5 bg-[#F6F6F6]"></span>
-      <div class="flex flex-col gap-1.5 text-[10px]">
+      <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
         <p class="flex justify-between">
           <span class="font-medium">Evento:</span>
           <span class="font-normal">{{ eventoSelecionado.nome | nomeFormatado }}</span>
@@ -76,7 +76,7 @@
     >
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-between gap-1 w-full">
-          <p class="font-bold text-[14px] flex items-center gap-2">
+          <p class="font-bold text-[14px] sm:text-[16px] flex items-center gap-2">
             <i-lucide name="wallet" class="w-4 text-gray-500"></i-lucide>
             Arrecadação
           </p>
@@ -88,12 +88,12 @@
         </div>
       </div>
       <span class="h-0.5 bg-[#F6F6F6]"></span>
-      <div class="flex flex-col gap-4 text-[10px]">
+      <div class="flex flex-col gap-4 text-[10px] sm:text-[12px]">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <p class="flex flex-col justify-between">
               <span class="font-medium">Parcial:</span>
-              <span class="font-normal text-[9px] text-gray-500"
+              <span class="font-normal text-[9px] sm:text-[11px] text-gray-500"
                 >Usuários do período da tarde</span
               >
             </p>
@@ -106,7 +106,7 @@
           <div class="flex items-center gap-2">
             <p class="flex flex-col justify-between">
               <span class="font-medium">Integral:</span>
-              <span class="font-normal text-[9px] text-gray-500"
+              <span class="font-normal text-[9px] sm:text-[11px] text-gray-500"
                 >Usuários do período integral</span
               >
             </p>
@@ -117,16 +117,16 @@
         </div>
       </div>
       <span class="h-0.5 border-b-2 border-dashed border-[#F6F6F6]"></span>
-      <div class="flex items-center justify-between text-[10px]">
+      <div class="flex items-center justify-between text-[10px] sm:text-[12px]">
         <div class="flex items-center gap-2">
           <p class="flex flex-col justify-between">
             <span class="font-medium">Total:</span>
-            <span class="font-normal text-[9px] text-gray-500"
+            <span class="font-normal text-[9px] sm:text-[11px] text-gray-500"
               >Somatório dos valores</span
             >
           </p>
         </div>
-        <p class="font-semibold text-[18px]">
+        <p class="font-semibold text-[18px] sm:text-[20px]">
           {{ dadosDashboard.arrecadacao.total }}
         </p>
       </div>
@@ -136,7 +136,7 @@
     >
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-between gap-1 w-full">
-          <p class="font-bold text-[14px] flex items-center gap-2">
+          <p class="font-bold text-[14px] sm:text-[16px] flex items-center gap-2">
             <i-lucide name="user" class="w-4 text-gray-500"></i-lucide>
             Inscrições
           </p>
@@ -152,7 +152,7 @@
         </div>
       </div>
       <span class="h-0.5 bg-[#F6F6F6]"></span>
-      <div class="flex flex-col gap-4 text-[10px]">
+      <div class="flex flex-col gap-4 text-[10px] sm:text-[12px]">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <div class="flex flex-col justify-between">
@@ -161,12 +161,12 @@
                 <p class="font-medium">Pendentes:</p>
                 
               </div>
-              <span class="font-normal text-[9px] text-gray-500"
+              <span class="font-normal text-[9px] sm:text-[11px] text-gray-500"
                 >Usuários que não pagaram</span
               >
             </div>
           </div>
-          <p class="font-semibold text-[18px]">
+          <p class="font-semibold text-[18px] sm:text-[20px]">
             {{ dadosDashboard.inscritos.pendentes.quantidade }}
             <span class="text-[9px] text-gray-500"
               >({{ dadosDashboard.inscritos.pendentes.percentual }}%)</span
@@ -180,11 +180,11 @@
                 <p class="font-medium">Aguardando:</p>
                 
               </div>
-              <span class="font-normal text-[9px] text-gray-500"
+              <span class="font-normal text-[9px] sm:text-[11px] text-gray-500"
                 >Usuários sem aprovação</span
               >
             </div>
-          <p class="font-semibold text-[18px]">
+          <p class="font-semibold text-[18px] sm:text-[20px]">
             {{ dadosDashboard.inscritos.aguardandoLiberacao.quantidade }}
             <span class="text-[9px] text-gray-500"
               >({{
@@ -200,11 +200,11 @@
                 <p class="font-medium">Confirmadas:</p>
                 
               </div>
-              <span class="font-normal text-[9px] text-gray-500"
+              <span class="font-normal text-[9px] sm:text-[11px] text-gray-500"
                 >Usuários que pagaram</span
               >
             </div>
-          <p class="font-semibold text-[18px]">
+          <p class="font-semibold text-[18px] sm:text-[20px]">
             {{ dadosDashboard.inscritos.confirmados.quantidade }}
             <span class="text-[9px] text-gray-500"
               >({{ dadosDashboard.inscritos.confirmados.percentual }}%)</span
@@ -218,13 +218,13 @@
                 <p class="font-medium">Canceladas:</p>
                 
               </div>
-              <span class="font-normal text-[9px] text-gray-500"
+              <span class="font-normal text-[9px] sm:text-[11px] text-gray-500"
                 >Usuários que cancelaram</span
               >
             </div>
-          <p class="font-semibold text-[18px]">
+          <p class="font-semibold text-[18px] sm:text-[20px]">
             {{ dadosDashboard.inscritos.cancelados.quantidade }}
-            <span class="text-[9px] text-gray-500"
+            <span class="text-[9px] sm:text-[11px] text-gray-500"
               >({{ dadosDashboard.inscritos.cancelados.percentual }}%)</span
             >
           </p>
@@ -236,13 +236,13 @@
                 <p class="font-medium">Reembolsadas:</p>
                 
               </div>
-              <span class="font-normal text-[9px] text-gray-500"
+              <span class="font-normal text-[9px] sm:text-[11px] text-gray-500"
                 >Usuários que reembolsaram</span
               >
             </div>
-          <p class="font-semibold text-[18px]">
+          <p class="font-semibold text-[18px] sm:text-[20px]">
             {{ dadosDashboard.inscritos.reembolsoSolicitado.quantidade }}
-            <span class="text-[9px] text-gray-500"
+            <span class="text-[9px] sm:text-[11px] text-gray-500"
               >({{
                 dadosDashboard.inscritos.reembolsoSolicitado.percentual
               }}%)</span
@@ -264,7 +264,7 @@
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center justify-between gap-1 w-full">
-            <p class="font-bold text-[14px] flex items-center gap-2">
+            <p class="font-bold text-[14px] sm:text-[16px] flex items-center gap-2">
               <i-lucide name="sun" class="w-4 text-gray-500"></i-lucide>
               Integral
             </p>
@@ -279,15 +279,15 @@
           </div>
         </div>
         <span class="h-0.5 bg-[#F6F6F6]"></span>
-        <div class="flex flex-col gap-4 text-[10px]">
+        <div class="flex flex-col gap-4 text-[10px] sm:text-[12px]">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <p class="flex flex-col justify-between">
                 <span class="font-medium">Total:</span>
               </p>
             </div>
-            <p class="font-semibold text-[18px]">
-              {{dadosDashboard.inscritosPeriodo.quantidadeInscritosIntegral}} <span class="text-[9px] text-gray-500">/ {{dadosDashboard.inscritosPeriodo.quantidadeLiberadaIntegral}}</span>
+            <p class="font-semibold text-[18px] sm:text-[20px]">
+              {{dadosDashboard.inscritosPeriodo.quantidadeInscritosIntegral}} <span class="text-[9px] sm:text-[11px] text-gray-500">/ {{dadosDashboard.inscritosPeriodo.quantidadeLiberadaIntegral}}</span>
             </p>
           </div>
         </div>
@@ -297,7 +297,7 @@
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center justify-between gap-1 w-full">
-            <p class="font-bold text-[14px] flex items-center gap-2">
+            <p class="font-bold text-[14px] sm:text-[16px] flex items-center gap-2">
               <i-lucide name="moon" class="w-4 text-gray-500"></i-lucide>
               Tarde
             </p>
@@ -312,15 +312,15 @@
           </div>
         </div>
         <span class="h-0.5 bg-[#F6F6F6]"></span>
-        <div class="flex flex-col gap-4 text-[10px]">
+        <div class="flex flex-col gap-4 text-[10px] sm:text-[12px]">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <p class="flex flex-col justify-between">
                 <span class="font-medium">Total:</span>
               </p>
             </div>
-            <p class="font-semibold text-[18px]">
-              {{dadosDashboard.inscritosPeriodo.quantidadeInscritosTarde}} <span class="text-[9px] text-gray-500">/ {{dadosDashboard.inscritosPeriodo.quantidadeLiberadaTarde}}</span>
+            <p class="font-semibold text-[18px] sm:text-[20px]">
+              {{dadosDashboard.inscritosPeriodo.quantidadeInscritosTarde}} <span class="text-[9px] sm:text-[11px] text-gray-500">/ {{dadosDashboard.inscritosPeriodo.quantidadeLiberadaTarde}}</span>
             </p>
           </div>
         </div>
@@ -331,7 +331,7 @@
     >
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-between gap-1 w-full">
-          <p class="font-bold text-[14px] flex items-center gap-2">
+          <p class="font-bold text-[14px] sm:text-[16px] flex items-center gap-2">
             <i-lucide name="car" class="w-4 text-gray-500"></i-lucide>
             Visitas
           </p>
@@ -347,44 +347,44 @@
         </div>
       </div>
       <span class="h-0.5 bg-[#F6F6F6]"></span>
-      <div class="flex flex-col gap-4 text-[10px]">
+      <div class="flex flex-col gap-4 text-[10px] sm:text-[12px]">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <p class="flex flex-col justify-between">
               <span class="font-medium">Disponíveis:</span>
-              <span class="font-normal text-[9px] text-gray-500"
+              <span class="font-normal text-[9px] sm:text-[11px] text-gray-500"
                 >Pessoas para alocar</span
               >
             </p>
           </div>
-          <p class="font-semibold text-[18px]">
-            {{dadosDashboard.inscritosVisita.inscritosDisponiveisVisita}} <span class="text-[9px] text-gray-500">(pessoas)</span>
+          <p class="font-semibold text-[18px] sm:text-[20px]">
+            {{dadosDashboard.inscritosVisita.inscritosDisponiveisVisita}} <span class="text-[9px] sm:text-[11px] text-gray-500">(pessoas)</span>
           </p>
         </div>
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <p class="flex flex-col justify-between">
               <span class="font-medium">Alocadas:</span>
-              <span class="font-normal text-[9px] text-gray-500"
+              <span class="font-normal text-[9px] sm:text-[11px] text-gray-500"
                 >Pessoas já alocadas</span
               >
             </p>
           </div>
-          <p class="font-semibold text-[18px]">
-            {{dadosDashboard.inscritosVisita.inscritosAlocados}} <span class="text-[9px] text-gray-500">(pessoas)</span>
+          <p class="font-semibold text-[18px] sm:text-[20px]">
+            {{dadosDashboard.inscritosVisita.inscritosAlocados}} <span class="text-[9px] sm:text-[11px] text-gray-500">(pessoas)</span>
           </p>
         </div>
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <p class="flex flex-col justify-between">
               <span class="font-medium">Quantidade:</span>
-              <span class="font-normal text-[9px] text-gray-500"
+              <span class="font-normal text-[9px] sm:text-[11px] text-gray-500"
                 >Quantidade de visitas</span
               >
             </p>
           </div>
-          <p class="font-semibold text-[18px]">
-            {{dadosDashboard.inscritosVisita.totalVisitas}} <span class="text-[9px] text-gray-500">(visitas)</span>
+          <p class="font-semibold text-[18px] sm:text-[20px]">
+            {{dadosDashboard.inscritosVisita.totalVisitas}} <span class="text-[9px] sm:text-[11px] text-gray-500">(visitas)</span>
           </p>
         </div>
       </div>

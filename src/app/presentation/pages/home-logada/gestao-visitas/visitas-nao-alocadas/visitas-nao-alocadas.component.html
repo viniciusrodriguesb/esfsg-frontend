@@ -2,7 +2,7 @@
   <div
     class="flex flex-col gap-3 bg-white rounded-b-2xl pl-5 pt-5 pr-5 pb-3 relative"
   >
-    <div class="flex flex-col gap-4 text-[10px]">
+    <div class="flex flex-col gap-4 text-[10px] sm:text-[12px]">
       <div
         [ngClass]="{
           ' border-b border-dashed border-gray-300 pb-3':
@@ -34,7 +34,7 @@
                     {{ inscrito.nome | nomeAbreviado }}
                     <i-lucide name="info" class="w-2.5 h-[15px]"></i-lucide>
                   </span>
-                  <span class="font-normal text-[9px] text-gray-500">
+                  <span class="font-normal text-[9px] sm:text-[11px] text-gray-500">
                     {{ inscrito.funcaoEvento | nomeFormatado }}</span
                   >
                 </p>
@@ -45,7 +45,7 @@
                 <p class="flex flex-col justify-between">
                   <span class="font-medium">Carro</span>
                   <span
-                    class="font-normal text-[9px] text-gray-500"
+                    class="font-normal text-[9px] sm:text-[11px] text-gray-500"
                     *ngIf="inscrito.dadosVisita.carro"
                   >
                     <ng-container *ngIf="inscrito.dadosVisita.vagasCarro == 1">
@@ -56,7 +56,7 @@
                     </ng-container>
                   </span>
                   <span
-                    class="font-normal text-[9px] text-gray-500"
+                    class="font-normal text-[9px] sm:text-[11px] text-gray-500"
                     *ngIf="!inscrito.dadosVisita.carro"
                   >
                     Não possui
@@ -83,7 +83,7 @@
       (click)="abrirModalAlocacao()"
       [disabled]="!liberacaoBotaoAprovar"
       [ngClass]="{ 'opacity-50 cursor-not-allowed': !liberacaoBotaoAprovar }"
-      class="w-full bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+      class="w-full bg-[#007AFF] text-[14px] sm:text-[12px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
     >
       Alocar
       <i-lucide class="w-4" name="check"></i-lucide>
@@ -98,10 +98,10 @@
   <ng-lottie [options]="animacaoErro" class="w-30 h-30" />
 
   <div class="flex flex-col items-center gap-1">
-    <p class="text-[12px] font-medium text-justify">
+    <p class="text-[12px] sm:text-[14px] font-medium text-justify">
       Ops, nenhum inscrito encontrado!
     </p>
-    <p class="text-[10px] text-center">
+    <p class="text-[10px] sm:text-[12px] text-center">
       Selecione um outro evento para visualizar os inscritos ou aguarde alguns
       minutos e tente novamente.
     </p>

@@ -88,6 +88,8 @@
             [formController]="getFormControl(menorCtrl, 'idade')"
             mensagemErro="Campo obrigatório"
             [formSubmetido]="formSubmetido"
+            (aoDigitar)="verificarIdade($event, i)"
+            [mask]="'0'"
           ></app-input>
           <app-input
             class="col-start-5 col-end-9"

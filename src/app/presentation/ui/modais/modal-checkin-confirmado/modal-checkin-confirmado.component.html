@@ -8,7 +8,7 @@
           <i-lucide class="w-2.5" name="check"></i-lucide>
         </div>
 
-        <p class="font-bold text-[12px]">Checkin confirmado</p>
+        <p class="font-bold text-[12px] sm:text-[14px]">Checkin confirmado</p>
       </div>
       <div class="flex items-center gap-2"  *ngIf="data.remocaoCheckin">
         <div
@@ -17,7 +17,7 @@
           <i-lucide class="w-2.5 text-white" name="ban"></i-lucide>
         </div>
 
-        <p class="font-bold text-[12px]">Checkin zerado</p>
+        <p class="font-bold text-[12px] sm:text-[14px]">Checkin zerado</p>
       </div>
       <button
         (click)="fecharModal()"
@@ -33,7 +33,7 @@
         'border-b border-dashed border-gray-300 pb-3.5':
           i < data.resultadoValidacao.length - 1
       }"
-      class="flex flex-col gap-1.5 text-[10px]"
+      class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]"
     >
       <p class="flex justify-between">
         <span class="font-medium">Nome:</span>
