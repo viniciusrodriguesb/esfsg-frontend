@@ -8,18 +8,28 @@
     </p>
     <ng-lottie [options]="options" class="w-60 h-60 sm:w-35 sm:h-35" />
   </div>
-  <app-input
-    class="col-start-1 col-end-9"
-    [tipo]="'select'"
-    [label]="'Eventos'"
-    [placeholder]="'Selecione'"
-    [formController]="formCheckin.controls['evento']"
-    [opcoes]="eventosSelect"
-    mensagemErro="Campo obrigatório"
-    (valorSelecionado)="selecionarEvento($event)"
-  ></app-input>
 
-  <form
+  <div class="flex items-end gap-4">
+    <app-input
+      class="flex-1"
+      [tipo]="'select'"
+      [label]="'Eventos'"
+      [placeholder]="'Selecione'"
+      [formController]="formCheckin.controls['evento']"
+      [opcoes]="eventosSelect"
+      mensagemErro="Campo obrigatório"
+      (valorSelecionado)="selecionarEvento($event)"
+    ></app-input>
+    
+    <div class="flex items-center gap-2 px-4 py-[13px] bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 cursor-pointer transition">
+      <i-lucide class="w-3.5 h-3.5 text-gray-600" name="funnel"></i-lucide>
+      <button [disabled]="!exibirPesquisa" (click)="abrirFiltro()" class="text-[11px] sm:text-[13px] text-gray-700">
+        Filtro
+      </button>
+    </div>
+  </div>
+
+ <!--  <form
     class="grid grid-cols-9 gap-3.5"
     *ngIf="exibirPesquisa"
     [formGroup]="formCheckin"
@@ -69,7 +79,7 @@
         <i-lucide class="w-3.5 text-white" name="search"></i-lucide>
       </button>
     </div>
-  </form>
+  </form> -->
 
   <div
     class="flex flex-col gap-3.5"
@@ -78,7 +88,9 @@
     <div
       class="flex flex-col gap-3.5 bg-white rounded-[18px] shadow-lg pl-5 pt-5 pr-5 pb-3 relative"
     >
-      <div class="flex flex-col gap-4 text-[10px] sm:text-[12px] sm:text-[14px]">
+      <div
+        class="flex flex-col gap-4 text-[10px] sm:text-[12px] sm:text-[14px]"
+      >
         <div
           [ngClass]="{
             ' border-b border-dashed border-gray-300 pb-3':
@@ -104,9 +116,10 @@
                       >{{ participante?.nome | nomeAbreviado }}
                       <i-lucide name="info" class="w-2.5 h-[15px]"></i-lucide
                     ></span>
-                    <span class="font-normal text-[9px] sm:text-[11px] text-gray-500">{{
-                      participante.igreja.igreja | nomeFormatado
-                    }}</span>
+                    <span
+                      class="font-normal text-[9px] sm:text-[11px] text-gray-500"
+                      >{{ participante.igreja.igreja | nomeFormatado }}</span
+                    >
                   </p>
                 </div>
                 <div class="h-4 w-[1px] bg-gray-300"></div>
@@ -115,18 +128,24 @@
                     <span class="font-medium">{{
                       participante.evento.periodo
                     }}</span>
-                    <span class="font-normal text-[9px] sm:text-[11px] text-gray-500">{{
-                      participante.evento.funcaoEvento | nomeFormatado
-                    }}</span>
+                    <span
+                      class="font-normal text-[9px] sm:text-[11px] text-gray-500"
+                      >{{
+                        participante.evento.funcaoEvento | nomeFormatado
+                      }}</span
+                    >
                   </p>
                 </div>
                 <div class="h-4 w-[1px] bg-gray-300"></div>
                 <div class="flex items-center gap-2">
                   <p class="flex flex-col justify-between">
                     <span class="font-medium">Status</span>
-                    <span class="font-normal text-[9px] sm:text-[11px] text-gray-500">{{
-                      participante.presenca ? "Presente" : "Ausente"
-                    }}</span>
+                    <span
+                      class="font-normal text-[9px] sm:text-[11px] text-gray-500"
+                      >{{
+                        participante.presenca ? "Presente" : "Ausente"
+                      }}</span
+                    >
                   </p>
                 </div>
               </div>

@@ -27,6 +27,8 @@ import { ModalParticipanteHorarioErradoComponent } from '../../../ui/modais/moda
 import { PaginacaoResponse } from '../../../../core/application/dto/response/paginacao-response.dto';
 import { PageEvent } from '@angular/material/paginator';
 import { BuscarEventoUseCase } from '../../../../core/application/use-cases/evento/buscar-evento.usecase';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { FiltroCheckinComponent } from '../../../ui/filtros/filtro-checkin/filtro-checkin.component';
 
 @Component({
   selector: 'app-check-in',
@@ -36,7 +38,8 @@ import { BuscarEventoUseCase } from '../../../../core/application/use-cases/even
 })
 export class CheckInComponent {
   private readonly _formBuilder = inject(FormBuilder);
-
+  private _bottomSheet = inject(MatBottomSheet);
+ 
   options: AnimationOptions = {
     path: '/animations/animation-check-in.json',
     renderer: 'svg',
@@ -91,18 +94,19 @@ export class CheckInComponent {
   exibirPesquisa: boolean = false;
 
   constructor(
+    
     private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
     private readonly buscarParticipantesCheckinUsecase: BuscarParticipantesCheckinUseCase,
     private readonly validarQrCodeParticipanteUseCase: ValidarQrCodeParticipanteUseCase,
     private readonly buscarEventoUsecase: BuscarEventoUseCase,
     private readonly nomePipe: NomePipe,
     private readonly dialog: MatDialog
-  ) {}
+  ) {}  
 
   ngOnInit() {
     this.buscarFuncaoEvento();
     this.buscarEvento();
-  }
+  } 
 
   public selecionarEvento(evento: any) {
     this.buscarParticipantesCheckin();
@@ -241,6 +245,10 @@ export class CheckInComponent {
       this.buscarParticipantesCheckin();
       this.limparVariaveis();
     });
+  }
+
+  abrirFiltro(): void {
+    this._bottomSheet.open(FiltroCheckinComponent);
   }
 
   private validarQrCodeParticipante(

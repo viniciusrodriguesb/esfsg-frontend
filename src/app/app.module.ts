@@ -60,6 +60,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { InputComponent } from './presentation/ui/input/input.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, MatBottomSheet, MatBottomSheetModule, MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import {
   LucideAngularModule,
   CircleX,
@@ -118,7 +119,8 @@ import {
   LoaderCircle,
   Send,
   FileChartColumnIncreasing,
-  PenLine
+  PenLine,
+  Funnel
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -250,6 +252,7 @@ import { EditarVisitaAdapter } from './infrastructure/adapter/visita/editar-visi
 import { DeletarVisitaUseCase } from './core/application/use-cases/visita/deletar-visita.usecase';
 import { DeletarVisitaPort } from './core/domain/ports/visita/deletar-visita.port';
 import { DeletarVisitaAdapter } from './infrastructure/adapter/visita/deletar-visita.adapter';
+import { FiltroCheckinComponent } from './presentation/ui/filtros/filtro-checkin/filtro-checkin.component';
 
 @NgModule({
   declarations: [
@@ -292,6 +295,8 @@ import { DeletarVisitaAdapter } from './infrastructure/adapter/visita/deletar-vi
     ModalInfoVisitaComponent,
     ModalEdicaoUsuarioComponent,
     ModalCadastroVisitaComponent,
+
+    FiltroCheckinComponent,
 
     LoadingComponent,
   ],
@@ -361,7 +366,8 @@ import { DeletarVisitaAdapter } from './infrastructure/adapter/visita/deletar-vi
         LoaderCircle,
         Send,
         FileChartColumnIncreasing,
-        PenLine
+        PenLine,
+        Funnel
     }),
     SweetAlert2Module.forRoot(),
 
@@ -378,6 +384,7 @@ import { DeletarVisitaAdapter } from './infrastructure/adapter/visita/deletar-vi
     MatTabsModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatBottomSheetModule,
 
     // Pipes
     NomeAbreviadoPipe,
@@ -388,12 +395,13 @@ import { DeletarVisitaAdapter } from './infrastructure/adapter/visita/deletar-vi
   providers: [
     provideLottieOptions({ player: () => player }),
     provideHttpClient(withInterceptorsFromDi()),
-
+    
     NomePipe,
     NomeAbreviadoPipe,
     CpfPipe,
     TelefonePipe,
 
+    {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
     BuscarClasseUseCase,
     {
       provide: BuscarClassePort,
