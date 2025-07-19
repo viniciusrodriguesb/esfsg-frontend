@@ -152,21 +152,18 @@
       </div>
     </div>
   </form>
-  <div class="flex flex-col gap-1.5">
-    <button
-      (click)="prosseguir()"
+  <div class="flex flex-col gap-1.5 w-full">
+    <app-custom-button
+      texto="Prosseguir"
+      icone="move-right"
+      variante="primario"
       [disabled]="!formDadosPessoais.valid"
-      [ngClass]="{ 'opacity-60': !formDadosPessoais.valid }"
-      class="bg-[#007AFF] text-size-md text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
-    >
-      Prosseguir
-      <i-lucide class="w-4" name="move-right"></i-lucide>
-    </button>
-    <button
-      (click)="voltar()"
-      class="border-2 border-[#007AFF] text-size-md bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
-    >
-      Voltar
-    </button>
+      (aoClicar)="prosseguir()"
+    ></app-custom-button>
+    <app-custom-button
+      texto="Voltar"
+      variante="secundario"
+      (aoClicar)="voltar()"
+    ></app-custom-button>
   </div>
 </div>

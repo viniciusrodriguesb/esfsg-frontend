@@ -11,7 +11,7 @@ export class CustomButtonComponent {
   @Input() icone?: string;
   @Input() posicaoIcone: 'left' | 'right' = 'right';
   @Input() disabled = false;
-  @Input() variante: 'primario' | 'secundario' | 'icone' | 'alerta' | 'iconeAlt' = 'primario';
+  @Input() variante: 'primario' | 'secundario' | 'icone' | 'alerta' | 'iconeAlt' | 'vazio' = 'primario';
   @Input() tamanhoIcone = 'w-4';
   @Input() exibir = true;
   @Input() classeCustom?: string;
@@ -28,6 +28,7 @@ export class CustomButtonComponent {
       alerta: 'bg-amber-500 text-white px-4',
       icone: 'w-6 h-6 bg-primary-blue text-white p-0 rounded-full justify-center',
       iconeAlt: 'w-8 h-8 flex text-size-md items-center justify-center text-white bg-primary-blue rounded-full',
+      vazio: 'text-size-xs sm:text-size-base text-[#222] opacity-70 underline',
     };
 
     return [base, variantes[this.variante], disabledClass,  this.classeCustom].join(' ');

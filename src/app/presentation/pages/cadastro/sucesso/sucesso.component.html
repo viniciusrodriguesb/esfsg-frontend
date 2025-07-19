@@ -12,17 +12,13 @@
       todas as funcionalidades do sistema.</span
     >
   </div>
-  <button
-    (click)="navegarParaPerfil()"
-    class="bg-[#007AFF] text-size-md sm:text-size-lg text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2 w-1/2"
-  >
-    Acessar
-    <i-lucide class="w-4" name="log-in"></i-lucide>
-  </button>
   <app-custom-button
     (aoClicar)="navegarParaPerfil()"
     icone="log-in"
-    classeCustom="w-1/2"
-    tamanhoIcone="w-3"
+    texto="Acessar"
+    variante="primario"
+    class="w-full flex items-center justify-center"
+    classeCustom="!w-1/2 !text-size-md sm:!text-size-lg"
+    tamanhoIcone="w-4"
   ></app-custom-button>
 </div>
