@@ -87,6 +87,8 @@ export class FormDadosEventoComponent {
           });
         }               
         this.periodos = resultado;
+        console.log(this.periodos, resultado);
+        
       },
       error: () => {},
     });

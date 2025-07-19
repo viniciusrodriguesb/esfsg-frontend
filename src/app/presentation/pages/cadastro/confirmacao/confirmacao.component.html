@@ -2,35 +2,38 @@
   <div class="flex pb-4 flex-col gap-2">
     <div class="flex items-center gap-2">
       <div
-        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
       >
         <i-lucide class="w-3.5 text-white" name="badge-check"></i-lucide>
       </div>
-      <p class="text-2xl sm:text-[28px] font-semibold">Confirmação</p>
+      <p class="text-2xl sm:text-size-3xl font-semibold">Confirmação</p>
     </div>
-    <p class="text-[12px] sm:text-[14px]">
+    <p class="text-size-base sm:text-size-md">
       Confirme os dados abaixo antes de prosseguir com a inscrição.
     </p>
   </div>
   <!-- Dados Pessoais -->
   <div
-    class="flex flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative"
+    class="flex flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
   >
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
         <div
-          class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+          class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
         >
           <i-lucide class="w-3.5" name="user"></i-lucide>
         </div>
-        <p class="font-bold text-[12px] sm:text-[14px]">Dados Pessoais</p>
+        <p class="font-bold text-size-base sm:text-size-md">Dados Pessoais</p>
       </div>
-      <button (click)="navegar(rotaDadosPessoais)" class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
+      <button
+        (click)="navegar(rotaDadosPessoais)"
+        class="text-size-xs sm:text-size-base text-[#222] opacity-70 underline"
+      >
         <i-lucide class="w-3" name="pencil"></i-lucide>
       </button>
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
-    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
+    <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
       <p class="flex justify-between">
         <span class="font-medium">Nome:</span>
         {{ resumoInscricao.usuario.nome }}
@@ -51,11 +54,16 @@
         {{ resumoInscricao.usuario.dataNascimento | date : "dd/MM/yyyy" }}
       </p>
       <p class="flex justify-between">
-        <span class="font-medium">PCD:</span> {{ resumoInscricao.usuario.pcd == '' ? 'Não possui' : resumoInscricao.usuario.pcd }}
+        <span class="font-medium">PCD:</span>
+        {{
+          resumoInscricao.usuario.pcd == ""
+            ? "Não possui"
+            : resumoInscricao.usuario.pcd
+        }}
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Possui dons?</span>
-        {{ resumoInscricao.usuario.dons || 'Não possui' }}
+        {{ resumoInscricao.usuario.dons || "Não possui" }}
       </p>
       <p
         class="flex justify-between"
@@ -71,43 +79,63 @@
     </div>
 
     <div class="h-0.5 bg-[#F6F6F6] w-full"></div>
-    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px] pb-3 border-b border-dashed border-gray-300" *ngIf="resumoInscricao.usuario.instrumentos.length > 0">
-       <div class="flex flex-col gap-2">
+    <div
+      class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3 border-b border-dashed border-gray-300"
+      *ngIf="resumoInscricao.usuario.instrumentos.length > 0"
+    >
+      <div class="flex flex-col gap-2">
         <p class="font-medium">Instrumentos:</p>
-        <span *ngFor="let instrumento of resumoInscricao.usuario.instrumentos"> {{ instrumento }} </span>
+        <span *ngFor="let instrumento of resumoInscricao.usuario.instrumentos">
+          {{ instrumento }}
+        </span>
       </div>
     </div>
-    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px] pb-3 border-b border-dashed border-gray-300" *ngIf=" resumoInscricao.usuario.condicaoMedica.length > 0">
+    <div
+      class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3 border-b border-dashed border-gray-300"
+      *ngIf="resumoInscricao.usuario.condicaoMedica.length > 0"
+    >
       <div class="flex flex-col gap-2">
         <p class="font-medium">Condições Médicas:</p>
-        <span *ngFor="let condicao of resumoInscricao.usuario.condicaoMedica"> {{ condicao }} </span>
+        <span *ngFor="let condicao of resumoInscricao.usuario.condicaoMedica">
+          {{ condicao }}
+        </span>
       </div>
     </div>
-    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px] pb-3" *ngIf=" resumoInscricao.usuario.funcoesIgreja.length > 0">
-       <div class="flex flex-col gap-2">
+    <div
+      class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3"
+      *ngIf="resumoInscricao.usuario.funcoesIgreja.length > 0"
+    >
+      <div class="flex flex-col gap-2">
         <p class="font-medium">Funções na igreja:</p>
-        <span *ngFor="let funcao of resumoInscricao.usuario.funcoesIgreja"> {{ funcao }} </span>
+        <span *ngFor="let funcao of resumoInscricao.usuario.funcoesIgreja">
+          {{ funcao }}
+        </span>
       </div>
     </div>
   </div>
 
   <!-- Informações do Evento -->
-  <div class="flex flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative">
+  <div
+    class="flex flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
+  >
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
         <div
-          class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+          class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
         >
           <i-lucide class="w-3.5" name="ticket"></i-lucide>
         </div>
-        <p class="font-bold text-[12px] sm:text-[14px]">Evento</p>
+        <p class="font-bold text-size-base sm:text-size-md">Evento</p>
       </div>
-      <button (click)="navegar(rotaDadosEventoVisita)" class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
+      <button
+        (click)="navegar(rotaDadosEventoVisita)"
+        class="text-size-xs sm:text-size-base text-[#222] opacity-70 underline"
+      >
         <i-lucide class="w-3" name="pencil"></i-lucide>
       </button>
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
-    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
+    <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
       <p class="flex justify-between">
         <span class="font-medium">Período:</span>
         {{ resumoInscricao.evento.periodo }}
@@ -126,23 +154,26 @@
   <div class="flex gap-2.5">
     <!-- Informações sobre Visita -->
     <div
-      class="flex flex-1/2 flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative"
+      class="flex flex-1/2 flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
     >
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <div
-            class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+            class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
           >
             <i-lucide class="w-3.5" name="car"></i-lucide>
           </div>
-          <p class="font-bold text-[12px] sm:text-[14px]">Visita</p>
+          <p class="font-bold text-size-base sm:text-size-md">Visita</p>
         </div>
-        <button (click)="navegar(rotaDadosEventoVisita)" class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
+        <button
+          (click)="navegar(rotaDadosEventoVisita)"
+          class="text-size-xs sm:text-size-base text-[#222] opacity-70 underline"
+        >
           <i-lucide class="w-3" name="pencil"></i-lucide>
         </button>
       </div>
       <span class="h-0.5 bg-[#F6F6F6]"></span>
-      <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
+      <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
         <p class="flex justify-between">
           <span class="font-medium">Vai visitar?</span>
           {{ resumoInscricao.visita.visita }}
@@ -158,22 +189,28 @@
       </div>
     </div>
     <!-- Informações da Igreja -->
-    <div class="flex flex-1/2 flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative" *ngIf="!verificarIgrejaNova()">
+    <div
+      class="flex flex-1/2 flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
+      *ngIf="!verificarIgrejaNova()"
+    >
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <div
-            class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+            class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
           >
             <i-lucide class="w-3.5" name="church"></i-lucide>
           </div>
-          <p class="font-bold text-[12px] sm:text-[14px]">Igreja</p>
+          <p class="font-bold text-size-base sm:text-size-md">Igreja</p>
         </div>
-        <button (click)="navegar(rotaDadosAdicionais)" class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
+        <button
+          (click)="navegar(rotaDadosAdicionais)"
+          class="text-size-xs sm:text-size-base text-[#222] opacity-70 underline"
+        >
           <i-lucide class="w-3" name="pencil"></i-lucide>
         </button>
       </div>
       <span class="h-0.5 bg-[#F6F6F6]"></span>
-      <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
+      <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
         <p class="flex justify-between">
           <span class="font-medium">Nome:</span>
           {{ resumoInscricao.igrejaNova.nome }}
@@ -193,18 +230,23 @@
   <!-- Inscrição de Menores (caso exista) -->
   <div
     *ngIf="!verificarInscricaoMenor()"
-    class="flex flex-col gap-3.5 bg-white rounded-[18px] shadow-lg p-6 relative"
+    class="flex flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
   >
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
         <div
-          class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+          class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
         >
           <i-lucide class="w-3.5" name="baby"></i-lucide>
         </div>
-        <p class="font-bold text-[12px] sm:text-[14px]">Inscrição de Menor</p>
+        <p class="font-bold text-size-base sm:text-size-md">
+          Inscrição de Menor
+        </p>
       </div>
-      <button (click)="navegar(rotaDadosAdicionais)" class="text-[10px] sm:text-[12px] text-[#222] opacity-70 underline">
+      <button
+        (click)="navegar(rotaDadosAdicionais)"
+        class="text-size-xs sm:text-size-base text-[#222] opacity-70 underline"
+      >
         <i-lucide class="w-3" name="pencil"></i-lucide>
       </button>
     </div>
@@ -212,7 +254,7 @@
     <div
       *ngFor="let menor of resumoInscricao.inscricaoMenor; let last = last"
       [ngClass]="{ 'border-b border-dashed border-gray-300': !last }"
-      class="flex flex-col gap-1.5 text-[10px] sm:text-[12px] pb-3"
+      class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3"
     >
       <p class="flex justify-between">
         <span class="font-medium">Nome:</span> {{ menor.nome }}
@@ -222,23 +264,21 @@
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Condição Médica:</span>
-        {{ menor.condicaoMedica || 'Não possui' }}
+        {{ menor.condicaoMedica || "Não possui" }}
       </p>
     </div>
   </div>
   <div class="flex flex-col gap-1.5 pt-4">
-    <button
-      (click)="inserirInscricao()"
-      class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
-    >
-      Concluir
-      <i-lucide class="w-4" name="check-check"></i-lucide>
-    </button>
-    <button
-      (click)="voltar()"
-      class="border-2 border-[#007AFF] text-[14px] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
-    >
-      Voltar
-    </button>
+    <app-custom-button
+      texto="Concluir"
+      icone="check-check"
+      variante="primario"
+      (aoClicar)="inserirInscricao()"
+    ></app-custom-button>
+    <app-custom-button
+      texto="Voltar"
+      variante="secundario"
+      (aoClicar)="voltar()"
+    ></app-custom-button>
   </div>
 </div>

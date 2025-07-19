@@ -6,10 +6,10 @@
       </div>
 
       <div class="text-center">
-        <h2 class="text-[16px] font-semibold">
+        <h2 class="text-size-lg font-semibold">
           {{ usuarioExistente.nomeCompleto }}
         </h2>
-        <p class="text-[14px] text-gray-500">
+        <p class="text-size-md text-gray-500">
           {{ usuarioExistente.classe.descricao | nomeFormatado }}
         </p>
       </div>
@@ -24,7 +24,7 @@
           >
             <i-lucide class="w-3 text-white" name="send"></i-lucide>
           </div>
-          <span class="font-medium text-[12px]">{{
+          <span class="font-medium text-size-base">{{
             statusInscricao?.status | nomeFormatado
           }}.</span>
         </div>
@@ -37,7 +37,7 @@
           >
             <i-lucide class="w-3 text-white" name="hourglass"></i-lucide>
           </div>
-          <span class="font-medium text-[12px]">{{
+          <span class="font-medium text-size-base">{{
             statusInscricao?.status | nomeFormatado
           }}.</span>
         </div>
@@ -51,7 +51,7 @@
           >
             <i-lucide class="w-3 text-white" name="wallet"></i-lucide>
           </div>
-          <span class="font-medium text-[12px]">{{
+          <span class="font-medium text-size-base">{{
             statusInscricao?.status | nomeFormatado
           }}.</span>
         </div>
@@ -64,7 +64,7 @@
           >
             <i-lucide class="w-3 text-white" name="check-check"></i-lucide>
           </div>
-          <span class="font-medium text-[12px]">{{
+          <span class="font-medium text-size-base">{{
             statusInscricao?.status | nomeFormatado
           }}.</span>
         </div>
@@ -78,7 +78,7 @@
           >
             <i-lucide class="w-3 text-white" name="ban"></i-lucide>
           </div>
-          <span class="font-medium text-[12px]">{{
+          <span class="font-medium text-size-base">{{
             statusInscricao?.status | nomeFormatado
           }}.</span>
         </div>
@@ -91,7 +91,7 @@
           >
             <i-lucide class="w-3 text-white" name="rotate-ccw"></i-lucide>
           </div>
-          <span class="font-medium text-[12px]">{{
+          <span class="font-medium text-size-base">{{
             statusInscricao?.status | nomeFormatado
           }}.</span>
         </div>
@@ -109,7 +109,7 @@
 
       <div class="flex flex-col gap-3.5 relative">
         <span class="h-0.5 bg-[#F6F6F6]"></span>
-        <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
+        <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
           <p class="flex justify-between">
             <span class="font-medium">Nome:</span>
             {{ usuarioExistente.nomeCompleto }}
@@ -152,7 +152,7 @@
 
         <div class="h-0.5 bg-[#F6F6F6] w-full"></div>
         <div
-          class="flex flex-col gap-1.5 text-[10px] sm:text-[12px] pb-3 border-b border-dashed border-gray-300"
+          class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3 border-b border-dashed border-gray-300"
           *ngIf="usuarioExistente.instrumentos.length > 0"
         >
           <div class="flex flex-col gap-2">
@@ -163,7 +163,7 @@
           </div>
         </div>
         <div
-          class="flex flex-col gap-1.5 text-[10px] sm:text-[12px] pb-3 border-b border-dashed border-gray-300"
+          class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3 border-b border-dashed border-gray-300"
           *ngIf="usuarioExistente.condicoesMedica.length > 0"
         >
           <div class="flex flex-col gap-2">
@@ -174,7 +174,7 @@
           </div>
         </div>
         <div
-          class="flex flex-col gap-1.5 text-[10px] sm:text-[12px] pb-3"
+          class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3"
           *ngIf="usuarioExistente.funcoesIgreja.length > 0"
         >
           <div class="flex flex-col gap-2">
@@ -190,7 +190,7 @@
 
       <div class="flex justify-end items-center space-x-4">
         <button
-          class="bg-[#007AFF] w-full text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+          class="bg-[#007AFF] w-full text-size-md text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
           (click)="abrirModalEdicaoUsuario()"
         >
           Editar perfil
@@ -199,7 +199,7 @@
         <div class="flex justify-end" *ngIf="dadosEvento">
           <button
             (click)="navegarParaGrupo()"
-            class="px-4 py-2.5 flex text-[14px] items-center justify-center bg-[#25D366] rounded-[0.5rem] shadow-lg"
+            class="px-4 py-2.5 flex text-size-md items-center justify-center bg-[#25D366] rounded-[0.5rem] shadow-lg"
           >
             <i-lucide
               class="w-5 text-white"
@@ -210,7 +210,7 @@
         <div class="flex justify-end" *ngIf="exibicaoBotaoCheckin">
           <button
             (click)="exibirCardCheckin()"
-            class="px-4 py-2.5 flex text-[14px] items-center justify-center bg-[#007AFF] rounded-[0.5rem] shadow-lg"
+            class="px-4 py-2.5 flex text-size-md items-center justify-center bg-[#007AFF] rounded-[0.5rem] shadow-lg"
           >
             <i-lucide class="w-5 text-white" name="qr-code"></i-lucide>
           </button>
@@ -226,15 +226,15 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <div
-              class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+              class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
             >
               <i-lucide class="w-3.5" name="ticket"></i-lucide>
             </div>
-            <p class="font-bold text-[12px]">Checkin</p>
+            <p class="font-bold text-size-base">Checkin</p>
           </div>
         </div>
         <span class="h-0.5 bg-[#F6F6F6]"></span>
-        <div class="flex flex-col gap-1.5 text-[10px]">
+        <div class="flex flex-col gap-1.5 text-size-xs">
           <p class="font-medium">
             Sua inscrição foi paga com sucesso!
             <span class="font-normal">
@@ -262,15 +262,15 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <div
-              class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+              class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
             >
               <i-lucide class="w-3.5" name="wallet"></i-lucide>
             </div>
-            <p class="font-bold text-[12px]">Pagamento</p>
+            <p class="font-bold text-size-base">Pagamento</p>
           </div>
         </div>
         <span class="h-0.5 bg-[#F6F6F6]"></span>
-        <div class="flex flex-col gap-1.5 text-[10px]">
+        <div class="flex flex-col gap-1.5 text-size-xs">
           <p class="font-medium">
             Sua inscrição foi registrada com sucesso!
             <span class="font-normal">
@@ -288,7 +288,7 @@
           alt=""
         />
         <button
-          class="bg-[#007AFF] w-[80%] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+          class="bg-[#007AFF] w-[80%] text-size-md text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
           (click)="copiarPix()"
         >
           Pix copia e cola
@@ -299,13 +299,13 @@
 
     <!-- <div class="flex flex-col gap-1.5">
       <button
-        class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+        class="bg-[#007AFF] text-size-md text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
       >
         Cancelar inscrição
         <i-lucide class="w-4" name="ban"></i-lucide>
       </button>
       <button
-        class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+        class="bg-[#007AFF] text-size-md text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
       >
         Entrar no grupo whatsApp
         <i-lucide class="w-4" name="message-square"></i-lucide>

@@ -2,7 +2,7 @@
   <div
     class="bg-white rounded-2xl shadow-md pt-5 pb-5 pl-5 border border-dashed border-gray-300 relative flex items-center h-25 overflow-hidden"
   >
-    <p class="text-[10px] sm:text-[12px] text-justify">
+    <p class="text-size-xs sm:text-size-base text-justify">
       Olá, esta é a <strong>Tela de cadastro e edição das visitas</strong>, aqui
       você pode cadastrar, editar e excluir visitas.
     </p>
@@ -21,7 +21,7 @@
 
     <button
       (click)="buscarVisitas()"
-      class="bg-[#007AFF] flex items-center justify-center rounded-[8px] py-3 px-4"
+      class="bg-[#007AFF] flex items-center justify-center rounded-custom-sm py-3 px-4"
     >
       <i-lucide class="w-3.5 text-white" name="search"></i-lucide>
     </button>
@@ -32,9 +32,9 @@
     *ngIf="exibicaoListaVisitas && visitas.length > 0"
   >
     <div
-      class="flex flex-col gap-3.5 bg-white rounded-[18px] shadow-lg pl-5 pt-5 pr-5 pb-3 relative"
+      class="flex flex-col gap-3.5 bg-white rounded-custom-md shadow-lg pl-5 pt-5 pr-5 pb-3 relative"
     >
-      <div class="flex flex-col gap-4 text-[10px] sm:text-[12px]">
+      <div class="flex flex-col gap-4 text-size-xs sm:text-size-base">
         <div
           [ngClass]="{
             ' border-b border-dashed border-gray-300 pb-3':
@@ -54,7 +54,7 @@
                       <i-lucide name="info" class="w-2.5 h-[15px]"></i-lucide
                     ></span>
                     <span
-                      class="font-normal text-[9px] sm:text-[11px] text-gray-500"
+                      class="font-normal text-size-2xs sm:text-size-sm text-gray-500"
                       >{{ visita.endereco | nomeFormatado }}</span
                     >
                   </p>
@@ -64,7 +64,7 @@
                   <p class="flex flex-col justify-between">
                     <span class="font-medium">Observação</span>
                     <span
-                      class="font-normal text-[9px] sm:text-[11px] text-gray-500"
+                      class="font-normal text-size-2xs sm:text-size-sm text-gray-500"
                       >{{
                         visita.observacao || "Não possui" | nomeFormatado
                       }}</span
@@ -75,13 +75,13 @@
               <div class="flex items-center gap-2">
                 <button
                   (click)="abrirModalCadastroEdicaoVisita(visita)"
-                  class="bg-gray-300 flex items-center justify-center h-5 w-5 sm:h-6 sm:w-6 rounded-[4px]"
+                  class="bg-gray-300 flex items-center justify-center h-5 w-5 sm:h-6 sm:w-6 rounded-custom-xs"
                 >
                   <i-lucide class="w-2 sm:w-3" name="pencil"></i-lucide>
                 </button>
                 <button
                   (click)="abrirModalConfirmacao(visita.id)"
-                  class="bg-red-300 flex items-center justify-center h-5 w-5 sm:h-6 sm:w-6 rounded-[4px]"
+                  class="bg-red-300 flex items-center justify-center h-5 w-5 sm:h-6 sm:w-6 rounded-custom-xs"
                 >
                   <i-lucide class="w-2 sm:w-3" name="x"></i-lucide>
                 </button>
@@ -99,17 +99,17 @@
     <ng-lottie [options]="animacaoErro" class="w-30 h-30" />
 
     <div class="flex flex-col items-center gap-1">
-      <p class="text-[12px] sm:text-[14px] font-medium text-justify">
+      <p class="text-size-base sm:text-size-md font-medium text-justify">
         Ops, nenhuma visita encontrada!
       </p>
-      <p class="text-[10px] sm:text-[11px] text-center">
+      <p class="text-size-xs sm:text-size-sm text-center">
         Selecione outros filtros ou cadastre uma nova visita.
       </p>
     </div>
   </div>
   <button
     (click)="abrirModalCadastroEdicaoVisita(null)"
-    class="w-full bg-[#007AFF] text-[14px] sm:text-[16px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+    class="w-full bg-[#007AFF] text-size-md sm:text-size-lg text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
   >
     Cadastrar visita
     <i-lucide class="w-4" name="plus"></i-lucide>

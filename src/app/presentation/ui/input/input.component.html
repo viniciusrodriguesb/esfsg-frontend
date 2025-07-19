@@ -3,7 +3,7 @@
     <label
       [for]="id"
       [for]="id"
-      class="text-[10px] sm:text-[12px] font-medium"
+      class="text-size-xs sm:text-size-base font-medium"
       >{{ label }} <span *ngIf="obrigatorio" class="text-red-600">*</span></label
     >
 
@@ -16,7 +16,7 @@
       <input
         *ngIf="tipoInput !== 'select'"
         [mask]="mask"
-        class="outline-none w-full text-[11px] sm:text-[13px] bg-transparent"
+        class="outline-none w-full text-size-sm sm:text-size-2md bg-transparent"
         [formControl]="formController"
         [placeholder]="placeholder"
         [type]="tipoInput"
@@ -29,7 +29,7 @@
       <!-- Campo select -->
       <select
         *ngIf="tipoInput === 'select'"
-        class="outline-none w-full py-[1px] text-[11px] sm:text-[13px] bg-transparent"
+        class="outline-none w-full py-[1px] text-size-sm sm:text-size-2md bg-transparent"
         [formControl]="formController"
         [disabled]="disabled"
         [id]="id"
@@ -76,7 +76,7 @@
     </div>
 
     <!-- Mensagem de erro -->
-    <span *ngIf="mostrarErro" class="text-rose-500 text-[9px]">{{
+    <span *ngIf="mostrarErro" class="text-rose-500 text-size-2xs">{{
       mensagemErro
     }}</span>
   </div>

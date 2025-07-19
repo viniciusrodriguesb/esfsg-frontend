@@ -1,18 +1,18 @@
 <div class="flex flex-col gap-2.5">
-    <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2">
     <div class="flex items-center gap-2">
       <div
-        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
       >
         <i-lucide class="w-3.5 text-white" name="list-check"></i-lucide>
       </div>
-      <p class="text-2xl sm:text-[28px] font-semibold">Dados pessoais</p>
+      <p class="text-2xl sm:text-size-3xl font-semibold">Dados pessoais</p>
     </div>
-    <p class="text-[12px] sm:text-[14px]">
+    <p class="text-size-base sm:text-size-md">
       Preencha os campos abaixo com seus dados pessoais.
     </p>
   </div>
-  <form class=" pt-4 pb-7" [formGroup]="formDadosPessoais">
+  <form class="pt-4 pb-7" [formGroup]="formDadosPessoais">
     <div class="grid grid-cols-8 gap-3.5">
       <app-input
         class="col-start-1 col-end-9"
@@ -77,17 +77,21 @@
         [contemIcone]="true"
       ></app-input>
     </div>
-          <div class="flex flex-col gap-2 mt-9">
+    <div class="flex flex-col gap-2 mt-9">
       <div
-        class="flex items-center justify-between gap-3.5 text-[10px] font-medium"
+        class="flex items-center justify-between gap-3.5 text-size-xs font-medium"
       >
-        <p>Informe sua(s) função(oes) na igreja: <span class="text-red-600">*</span></p>
-        <button
-          (click)="adicionarFuncaoIgreja()"
-          class="w-6 h-6 flex items-center justify-center bg-[#007AFF] rounded-full"
-        >
-          <i-lucide class="w-3 text-white" name="plus"></i-lucide>
-        </button>
+        <p>
+          Informe sua(s) função(oes) na igreja:
+          <span class="text-red-600">*</span>
+        </p>
+
+        <app-custom-button
+          (aoClicar)="adicionarFuncaoIgreja()"
+          icone="plus"
+          variante="icone"
+          tamanhoIcone="w-3"
+        ></app-custom-button>
       </div>
       <div
         *ngFor="let funcaoCtrl of funcoesIgreja; let i = index"
@@ -112,17 +116,17 @@
         </button>
       </div>
     </div>
-      <div class="flex flex-col gap-2 mt-9">
+    <div class="flex flex-col gap-2 mt-9">
       <div
-        class="flex items-center justify-between gap-3.5 text-[10px] font-medium"
+        class="flex items-center justify-between gap-3.5 text-size-xs font-medium"
       >
         <p>Caso possua, adicione a condição médica:</p>
-        <button
-          (click)="adicionarCondicaoMedica()"
-          class="w-6 h-6 flex items-center justify-center bg-[#007AFF] rounded-full"
-        >
-          <i-lucide class="w-3 text-white" name="plus"></i-lucide>
-        </button>
+        <app-custom-button
+          (aoClicar)="adicionarCondicaoMedica()"
+          icone="plus"
+          variante="icone"
+          tamanhoIcone="w-3"
+        ></app-custom-button>
       </div>
       <div
         *ngFor="let condicaoCtrl of condicoesMedicas; let i = index"
@@ -152,15 +156,15 @@
     <button
       (click)="prosseguir()"
       [disabled]="!formDadosPessoais.valid"
-       [ngClass]="{ 'opacity-60': !formDadosPessoais.valid }"
-      class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+      [ngClass]="{ 'opacity-60': !formDadosPessoais.valid }"
+      class="bg-[#007AFF] text-size-md text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
     >
       Prosseguir
-       <i-lucide class="w-4" name="move-right"></i-lucide>
+      <i-lucide class="w-4" name="move-right"></i-lucide>
     </button>
     <button
       (click)="voltar()"
-      class="border-2 border-[#007AFF] text-[14px] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
+      class="border-2 border-[#007AFF] text-size-md bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
     >
       Voltar
     </button>

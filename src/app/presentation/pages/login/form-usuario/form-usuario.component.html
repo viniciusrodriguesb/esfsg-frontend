@@ -1,8 +1,5 @@
 <div class="flex flex-col gap-2.5">
-  <form
-  [formGroup]="formLogin"
-    class="flex flex-col gap-5 h-full pb-7 pt-4"
-  >
+  <form [formGroup]="formLogin" class="flex flex-col gap-5 h-full pb-7 pt-4">
     <app-input
       [(formController)]="formLogin.controls['cpf']"
       [placeholder]="'CPF'"
@@ -13,26 +10,28 @@
       [label]="'CPF'"
       [mask]="'000.000.000-00'"
     ></app-input>
-  
+
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <mat-slide-toggle></mat-slide-toggle>
-        <span class="text-[12px] sm:text-[14px] font-medium">Lembrar-me</span>
+        <span class="text-size-base sm:text-size-md font-medium">Lembrar-me</span>
       </div>
     </div>
     <div class="flex flex-col gap-2">
-      <button
+      <app-custom-button
+        texto="Entrar"
+        icone="move-right"
+        variante="primario"
         [disabled]="!formLogin.valid"
-        (click)="realizarLogin()"
-        [ngClass]="{ 'opacity-60': !formLogin.valid }"
-        class="bg-[#007AFF] text-[12px] sm:text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
-      >
-        Entrar
-        <i-lucide class="w-5" name="move-right"></i-lucide>
-      </button>
-      <button (click)="voltar()" class="border-2 border-[#007AFF] text-[12px] sm:text-[14px] bg-white text-[#007AFF] flex items-center justify-center font-semibold rounded-[0.5rem] py-2.5">
-          Voltar
-        </button>
+        (aoClicar)="realizarLogin()"
+      ></app-custom-button>
+
+      <app-custom-button
+        texto="Voltar"
+        variante="secundario"
+        (aoClicar)="voltar()"
+      ></app-custom-button>
     </div>
   </form>
+  <div class="flex flex-col"></div>
 </div>

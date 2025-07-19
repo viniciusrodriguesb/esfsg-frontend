@@ -1,14 +1,14 @@
 <div class="flex flex-col gap-2.5">
-    <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2">
     <div class="flex items-center gap-2">
       <div
-        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
       >
         <i-lucide class="w-3.5 text-white" name="ticket"></i-lucide>
       </div>
-      <p class="text-2xl sm:text-[28px] font-semibold">Dados evento</p>
+      <p class="text-2xl sm:text-size-3xl font-semibold">Dados evento</p>
     </div>
-    <p class="text-[12px] sm:text-[14px]">
+    <p class="text-size-base sm:text-size-md">
       Preencha os dados abaixo para continuar o cadastro
     </p>
   </div>
@@ -36,7 +36,8 @@
         mensagemErro="Campo obrigatório"
       ></app-input>
 
-      <app-input *ngIf="exibeVisita"
+      <app-input
+        *ngIf="exibeVisita"
         class="col-start-1 col-end-9"
         [tipo]="'select'"
         [label]="'Está disponível para visitas?'"
@@ -70,20 +71,17 @@
   </form>
 
   <div class="flex flex-col gap-1.5">
-    <button
-      (click)="prosseguir()"
+    <app-custom-button
+      texto="Prosseguir"
+      icone="move-right"
+      variante="primario"
       [disabled]="!formDadosEvento.valid"
-      [ngClass]="{ 'opacity-60': !formDadosEvento.valid }"
-      class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
-    >
-      Prosseguir
-      <i-lucide class="w-4" name="move-right"></i-lucide>
-    </button>
-    <button
-      (click)="voltar()"
-      class="border-2 text-[14px] border-[#007AFF] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
-    >
-      Voltar
-    </button>
+      (aoClicar)="prosseguir()"
+    ></app-custom-button>
+    <app-custom-button
+      texto="Voltar"
+      variante="secundario"
+      (aoClicar)="voltar()"
+    ></app-custom-button>
   </div>
 </div>

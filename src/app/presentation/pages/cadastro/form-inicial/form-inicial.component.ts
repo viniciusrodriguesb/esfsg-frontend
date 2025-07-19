@@ -120,16 +120,7 @@ export class FormInicialComponent {
       },
     });
   }
-
-  private formatarNomes(
-    nomes: TabelaDominioResponseDto[]
-  ): TabelaDominioResponseDto[] {
-    return nomes.map((nome) => ({
-      ...nome,
-      descricao: this.nomePipe.transform(nome.descricao),
-    }));
-  }
-
+  
   prosseguir(idEvento: number) {
     this.inscricaoUsuario.idEvento = idEvento;
 

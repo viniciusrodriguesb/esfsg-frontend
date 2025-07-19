@@ -8,7 +8,7 @@
           <i-lucide class="w-2.5 text-white" name="plus"></i-lucide>
         </div>
 
-        <p class="font-bold text-[12px] sm:text-[14px]">Cadastrar informações visita</p>
+        <p class="font-bold text-size-base sm:text-size-md">Cadastrar informações visita</p>
       </div>
 
       <button
@@ -56,7 +56,7 @@
           <div class="flex flex-col gap-2">
             <label
               for="mensagem"
-              class="text-[10px] sm:text-[12px] sm:text-[14px] font-medium"
+              class="text-size-xs sm:text-size-base sm:text-size-md font-medium"
             >
               Observações
             </label>
@@ -69,7 +69,7 @@
                 name="mensagem"
                 rows="4"
                 formControlName="observacoes"
-                class="outline-none w-full resize-none text-[11px] sm:text-[13px] bg-transparent"
+                class="outline-none w-full resize-none text-size-sm sm:text-size-2md bg-transparent"
                 placeholder="Digite sua mensagem..."
                 autocomplete="off"
               ></textarea>
@@ -83,7 +83,7 @@
       *ngIf="!data.dadosVisita"
       [disabled]="!formCadastroVisita.valid"
       [ngClass]="{ 'opacity-50 cursor-not-allowed': !formCadastroVisita.valid }"
-      class="bg-[#007AFF] w-full text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+      class="bg-[#007AFF] w-full text-size-md text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
       (click)="cadastrarVisita()"
     >
       Confirmar e cadastrar
@@ -94,7 +94,7 @@
       *ngIf="data.dadosVisita"
       [disabled]="!formCadastroVisita.valid"
       [ngClass]="{ 'opacity-50 cursor-not-allowed': !formCadastroVisita.valid }"
-      class="bg-[#007AFF] w-full text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+      class="bg-[#007AFF] w-full text-size-md text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
       (click)="editarVisita()"
     >
       Editar

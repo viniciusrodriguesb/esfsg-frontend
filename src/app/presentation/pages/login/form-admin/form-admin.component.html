@@ -26,22 +26,24 @@
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <mat-slide-toggle></mat-slide-toggle>
-        <label for="lembrar" class="text-[12px] font-medium">Lembrar-me</label>
+        <label for="lembrar" class="text-size-base font-medium"
+          >Lembrar-me</label
+        >
       </div>
     </div>
     <div class="flex flex-col gap-2">
-      <button
-        (click)="buscarUsuarioAdmin()"
-        class="bg-[#007AFF] text-white text-[12px] font-semibold rounded-[0.5rem] py-2.5"
-      >
-        Entrar
-      </button>
-      <button
-        (click)="voltar()"
-        class="border-2 border-[#007AFF] text-[12px] bg-white text-[#007AFF] flex items-center justify-center font-semibold rounded-[0.5rem] py-2.5"
-      >
-        Voltar
-      </button>
+      <app-custom-button
+        texto="Entrar"
+        icone="move-right"
+        variante="primario"
+        [disabled]="!formLogin.valid"
+        (aoClicar)="buscarUsuarioAdmin()"
+      ></app-custom-button>
+      <app-custom-button
+        texto="Voltar"
+        variante="secundario"
+        (aoClicar)="voltar()"
+      ></app-custom-button>
     </div>
   </form>
 </div>

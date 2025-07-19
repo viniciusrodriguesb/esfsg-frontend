@@ -253,6 +253,8 @@ import { DeletarVisitaUseCase } from './core/application/use-cases/visita/deleta
 import { DeletarVisitaPort } from './core/domain/ports/visita/deletar-visita.port';
 import { DeletarVisitaAdapter } from './infrastructure/adapter/visita/deletar-visita.adapter';
 import { FiltroCheckinComponent } from './presentation/ui/filtros/filtro-checkin/filtro-checkin.component';
+import { CustomButtonComponent } from './presentation/ui/botoes/custom-button/custom-button.component';
+
 
 @NgModule({
   declarations: [
@@ -295,6 +297,8 @@ import { FiltroCheckinComponent } from './presentation/ui/filtros/filtro-checkin
     ModalInfoVisitaComponent,
     ModalEdicaoUsuarioComponent,
     ModalCadastroVisitaComponent,
+
+    CustomButtonComponent,
 
     FiltroCheckinComponent,
 

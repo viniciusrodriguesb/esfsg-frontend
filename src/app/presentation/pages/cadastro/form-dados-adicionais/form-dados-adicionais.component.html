@@ -1,14 +1,14 @@
 <div class="flex flex-col gap-2.5">
-    <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2">
     <div class="flex items-center gap-2">
       <div
-        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
       >
         <i-lucide class="w-3.5 text-white" name="circle-plus"></i-lucide>
       </div>
-      <p class="text-2xl sm:text-[28px] font-semibold">Dados adicionais</p>
+      <p class="text-2xl sm:text-size-3xl font-semibold">Dados adicionais</p>
     </div>
-    <p class="text-[12px] sm:text-[14px]">
+    <p class="text-size-base sm:text-size-md">
       Preencha os dados abaixo para continuar o cadastro
     </p>
   </div>
@@ -26,12 +26,15 @@
           mensagemErro="Campo obrigatório"
           (valorSelecionado)="limparCamposNovaIgreja($event)"
         ></app-input>
-        <button (click)="exibirCamposIgrejaNova()" class="text-[10px] text-[#007AFF] font-medium">
+        <button
+          (click)="exibirCamposIgrejaNova()"
+          class="text-size-xs text-[#007AFF] font-medium"
+        >
           Não possuo igreja na lista informada
         </button>
       </div>
       <app-input
-      *ngIf="exibeCamposNovaIgreja"
+        *ngIf="exibeCamposNovaIgreja"
         class="col-start-1 col-end-5"
         [tipo]="'select'"
         [label]="'Regiões'"
@@ -41,7 +44,7 @@
         mensagemErro="Campo obrigatório"
       ></app-input>
       <app-input
-      *ngIf="exibeCamposNovaIgreja"
+        *ngIf="exibeCamposNovaIgreja"
         class="col-start-5 col-end-9"
         [(formController)]="formDadosAdicionais.controls['nomeIgrejaNova']"
         [placeholder]="'Nome da igreja'"
@@ -53,7 +56,7 @@
         [contemIcone]="true"
       ></app-input>
       <app-input
-      *ngIf="exibeCamposNovaIgreja"
+        *ngIf="exibeCamposNovaIgreja"
         class="col-start-1 col-end-9"
         [(formController)]="formDadosAdicionais.controls['pastorIgrejaNova']"
         [placeholder]="'Nome do pastor'"
@@ -66,15 +69,16 @@
       ></app-input>
       <div class="col-start-1 col-end-9 flex flex-col gap-2 mt-7">
         <div
-          class="flex items-center justify-between gap-3.5 text-[10px] font-medium"
+          class="flex items-center justify-between gap-3.5 text-size-xs font-medium"
         >
           <p>Caso tenha um menor de idade, adicione os dados:</p>
-          <button
-            (click)="adicionarInscricaoMenor()"
-            class="w-6 h-6 flex items-center justify-center bg-[#007AFF] rounded-full"
-          >
-            <i-lucide class="w-3 text-white" name="plus"></i-lucide>
-          </button>
+
+          <app-custom-button
+            (aoClicar)="adicionarInscricaoMenor()"
+            icone="plus"
+            variante="icone"
+            tamanhoIcone="w-3"
+          ></app-custom-button>
         </div>
         <div
           *ngFor="let menorCtrl of menores; let i = index"
@@ -127,20 +131,17 @@
     </div>
   </form>
   <div class="flex flex-col gap-1.5">
-    <button
-      (click)="prosseguir()"
+    <app-custom-button
+      texto="Prosseguir"
+      icone="move-right"
+      variante="primario"
       [disabled]="!formDadosAdicionais.valid"
-      [ngClass]="{ 'opacity-60': !formDadosAdicionais.valid }"
-      class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
-    >
-      Prosseguir
-      <i-lucide class="w-4" name="move-right"></i-lucide>
-    </button>
-    <button
-      (click)="voltar()"
-      class="border-2 border-[#007AFF] text-[14px] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
-    >
-      Voltar
-    </button>
+      (aoClicar)="prosseguir()"
+    ></app-custom-button>
+    <app-custom-button
+      texto="Voltar"
+      variante="secundario"
+      (aoClicar)="voltar()"
+    ></app-custom-button>
   </div>
 </div>

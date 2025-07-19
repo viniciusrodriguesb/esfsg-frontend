@@ -2,13 +2,13 @@
   <div class="flex flex-col gap-2">
     <div class="flex items-center gap-2">
       <div
-        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
       >
         <i-lucide class="w-3.5 text-white" name="church"></i-lucide>
       </div>
-      <p class="text-2xl sm:text-[28px] font-semibold">Dados igreja</p>
+      <p class="text-2xl sm:text-size-3xl font-semibold">Dados igreja</p>
     </div>
-    <p class="text-[12px] sm:text-[14px]">
+    <p class="text-size-base sm:text-size-md">
       Preencha os dados abaixo para continuar o cadastro
     </p>
   </div>
@@ -51,15 +51,15 @@
 
     <div class="flex flex-col gap-2 mt-9">
       <div
-        class="flex items-center justify-between gap-3.5 text-[10px] font-medium"
+        class="flex items-center justify-between gap-3.5 text-size-xs font-medium"
       >
         <p>Adicione um instrumento</p>
-        <button
-          (click)="adicionarInstrumento()"
-          class="w-6 h-6 flex items-center justify-center bg-[#007AFF] rounded-full"
-        >
-          <i-lucide class="w-3 text-white" name="plus"></i-lucide>
-        </button>
+        <app-custom-button
+          (aoClicar)="adicionarInstrumento()"
+          icone="plus"
+          variante="icone"
+          tamanhoIcone="w-3"
+        ></app-custom-button>
       </div>
       <div
         *ngFor="let instrumentoCtrl of instrumentos; let i = index"
@@ -86,20 +86,17 @@
   </form>
 
   <div class="flex flex-col gap-1.5">
-    <button
-      (click)="prosseguir()"
+    <app-custom-button
+      texto="Prosseguir"
+      icone="move-right"
+      variante="primario"
       [disabled]="!formDadosIgreja.valid"
-      [ngClass]="{ 'opacity-60': !formDadosIgreja.valid }"
-      class="bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
-    >
-      Prosseguir
-      <i-lucide class="w-4" name="move-right"></i-lucide>
-    </button>
-    <button
-      (click)="voltar()"
-      class="border-2 text-[14px] border-[#007AFF] bg-white text-[#007AFF] font-semibold rounded-[0.5rem] py-2.5"
-    >
-      Voltar
-    </button>
+      (aoClicar)="prosseguir()"
+    ></app-custom-button>
+    <app-custom-button
+      texto="Voltar"
+      variante="secundario"
+      (aoClicar)="voltar()"
+    ></app-custom-button>
   </div>
 </div>

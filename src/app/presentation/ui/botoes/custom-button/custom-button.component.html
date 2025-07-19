@@ -1,0 +1,10 @@
+<button
+  *ngIf="exibir"
+  [disabled]="disabled"
+  [ngClass]="classes"
+  (click)="aoClicar.emit()"
+>
+  <i-lucide *ngIf="icone && posicaoIcone === 'left'" [class]="tamanhoIcone" [name]="icone"></i-lucide>
+  <span *ngIf="texto">{{ texto }}</span>
+  <i-lucide *ngIf="icone && posicaoIcone === 'right'" [class]="tamanhoIcone" [name]="icone"></i-lucide>
+</button>

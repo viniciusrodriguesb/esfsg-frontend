@@ -8,7 +8,7 @@
           <i-lucide class="w-2.5" name="user"></i-lucide>
         </div>
 
-        <p class="font-bold text-[12px] sm:text-[14px]">Informações do alocado</p>
+        <p class="font-bold text-size-base sm:text-size-md">Informações do alocado</p>
       </div>
       <button
         (click)="fecharModal()"
@@ -18,7 +18,7 @@
       </button>
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
-    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
+    <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
       <p class="flex justify-between">
         <span class="font-medium">Carro:</span>
         <span *ngIf="data.infoInscritoAlocado.dadosVisita.carro">

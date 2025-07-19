@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@theme {
+  
+    /* 🎨 Cores */
+    --color-primary-blue: #007AFF;
+
+    /* 🔤 Tamanhos de texto (1rem = 16px) */
+    --text-size-3xs: 0.5rem;     /* 8px */
+    --text-size-2xs: 0.5625rem;  /* 9px */
+    --text-size-xs:  0.625rem;   /* 10px */
+    --text-size-sm:  0.6875rem;  /* 11px */
+    --text-size-base: 0.75rem;   /* 12px */
+    --text-size-2md: 0.813rem;   /* 13px */
+    --text-size-md:   0.875rem;  /* 14px */
+    --text-size-lg:   1rem;      /* 16px */
+    --text-size-2xl:  1.125rem;  /* 18px */
+    --text-size-xl:   1.25rem;   /* 20px */
+    --text-size-3xl:  1.75rem;   /* 28px */
+
+    /* 🟦 Border radius */
+    --radius-custom-xs: 0.25rem;   /* 4px */
+    --radius-custom-sm: 0.5rem;    /* 8px */
+    --radius-custom-md: 1.125rem;  /* 18px */
+}

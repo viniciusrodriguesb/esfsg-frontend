@@ -2,7 +2,7 @@
   <div
     class="bg-white rounded-2xl shadow-md p-5 border border-dashed border-gray-300 relative flex items-center gap-3.5 h-25 overflow-hidden"
   >
-    <p class="text-[10px] text-justify">
+    <p class="text-size-xs text-justify">
       Olá, bem-vindo ao novo sistema do
       <strong>Evangelho Sem Fronteiras</strong>, para visualizar o dashboard,
       você precisa selecionar um evento.
@@ -24,12 +24,12 @@
   </form>
 
  <div class="flex items-center justify-between bg-white rounded-2xl shadow-md p-3 hover:shadow-md transition-all">
-    <span class="text-[12px] px-2 text-justify">Inscrições</span>
+    <span class="text-size-base px-2 text-justify">Inscrições</span>
     <button
       [disabled]="!habilitarBotao"
       (click)="baixarRelatorio()"
       [ngClass]="{ 'opacity-50 cursor-not-allowed': !habilitarBotao }"
-      class="w-25 bg-[#007AFF] text-[12px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+      class="w-25 bg-[#007AFF] text-size-base text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
     >
       Baixar
     </button>

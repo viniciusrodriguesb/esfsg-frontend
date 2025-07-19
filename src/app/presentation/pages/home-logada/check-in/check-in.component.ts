@@ -248,7 +248,9 @@ export class CheckInComponent {
   }
 
   abrirFiltro(): void {
-    this._bottomSheet.open(FiltroCheckinComponent);
+    this._bottomSheet.open(FiltroCheckinComponent, {
+      hasBackdrop: true
+    });
   }
 
   private validarQrCodeParticipante(

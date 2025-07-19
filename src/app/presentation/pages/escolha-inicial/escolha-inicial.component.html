@@ -5,49 +5,49 @@
     <div class="flex flex-col gap-2">
       <div class="flex items-center gap-2">
         <div
-          class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+          class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
         >
           <i-lucide class="w-3.5 text-white" name="hand-heart"></i-lucide>
         </div>
-        <p class="text-2xl font-semibold sm:text-[28px]">Bem-vindo</p>
+        <p class="text-2xl font-semibold sm:text-size-3xl">Bem-vindo</p>
       </div>
-      <p class="text-[12px] sm:text-[14px]">Selecione uma das opções abaixo para continuar:</p>
+      <p class="text-size-base sm:text-size-md">Selecione uma das opções abaixo para continuar:</p>
     </div>
     <div class="py-4 flex flex-col gap-3.5">
       <button
       (click)="navegar(1)"
-        class="flex flex-col gap-3.5 border-b-4 border-l-4 border border-solid border-[#007AFF] bg-white rounded-[18px] shadow-lg p-6 relative"
+        class="flex flex-col gap-3.5 border-b-4 border-l-4 border border-solid border-[#007AFF] bg-white rounded-custom-md shadow-lg p-6 relative"
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <div
-              class="bg-[#007AFF] flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+              class="bg-[#007AFF] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
             >
               <i-lucide class="w-3.5 text-white" name="user"></i-lucide>
             </div>
-            <p class="font-bold text-[12px] sm:text-[14px]">Consulte ou faça sua inscrição</p>
+            <p class="font-bold text-size-base sm:text-size-md">Consulte ou faça sua inscrição</p>
           </div>
         </div>
-        <p class="text-[10px] text-start sm:text-[12px]">
+        <p class="text-size-xs text-start sm:text-size-base">
           Informe seu CPF para verificar se já possui uma inscrição cadastrada. 
           Caso não tenha, você poderá iniciar uma nova inscrição, acessar funcionalidades e consultar eventos.
         </p>
       </button>
       <button
         (click)="navegar(2)"
-        class="flex flex-col gap-3.5 border-b-4 border-l-4 border border-solid border-gray-500 bg-white rounded-[18px] shadow-lg p-6 relative"
+        class="flex flex-col gap-3.5 border-b-4 border-l-4 border border-solid border-gray-500 bg-white rounded-custom-md shadow-lg p-6 relative"
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <div
-              class="bg-gray-500 flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+              class="bg-gray-500 flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
             >
               <i-lucide class="w-3.5 text-white" name="shield-user"></i-lucide>
             </div>
-            <p class="font-bold text-[12px] sm:text-[14px]">Usuário administrador</p>
+            <p class="font-bold text-size-base sm:text-size-md">Usuário administrador</p>
           </div>
         </div>
-        <p class="text-[10px] text-start sm:text-[12px]">
+        <p class="text-size-xs text-start sm:text-size-base">
           Clique aqui caso você seja um usuário administrador, para realizar
           ações como gerenciar usuários, visualizar relatórios, entre outras
           funcionalidades

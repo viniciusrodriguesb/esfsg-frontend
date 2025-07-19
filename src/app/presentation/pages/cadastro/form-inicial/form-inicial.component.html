@@ -2,13 +2,15 @@
   <div class="flex flex-col gap-2">
     <div class="flex items-center gap-2">
       <div
-        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-[8px]"
+        class="bg-zinc-800 flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
       >
         <i-lucide class="w-3.5 text-white" name="map-pin"></i-lucide>
       </div>
-      <p class="text-2xl sm:text-[28px] font-semibold">Eventos</p>
+      <p class="text-2xl sm:text-size-3xl font-semibold">Eventos</p>
     </div>
-    <p class="text-[12px] sm:text-[14px]">Selecione um evento disponível para prosseguir 😄</p>
+    <p class="text-size-base sm:text-size-md">
+      Selecione um evento disponível para prosseguir 😄
+    </p>
   </div>
 
   <div class="flex flex-col gap-3.5" *ngIf="exibeCampos">
@@ -17,7 +19,9 @@
       class="bg-white rounded-2xl shadow-lg p-6 border border-dashed border-gray-300 relative"
     >
       <ng-container>
-        <div class="flex text-[12px] sm:text-[14px] items-center justify-between">
+        <div
+          class="flex text-size-base sm:text-size-md items-center justify-between"
+        >
           <p class="flex items-center font-semibold gap-2.5">
             <i-lucide name="ticket" class="w-4"></i-lucide> {{ evento.nome }}
           </p>
@@ -25,12 +29,17 @@
           <p>( {{ evento.dataEvento }} )</p>
         </div>
         <div class="border-t border-dashed border-gray-300 my-4"></div>
-        <div class="text-[10px] sm:text-[12px] space-y-2 text-gray-700">
+        <div class="text-size-xs sm:text-size-base space-y-2 text-gray-700">
           <p class="flex items-center justify-between font-semibold">
-            Vigília:<span class="font-normal"> {{ evento.igrejaVigilia | nomeFormatado}}</span>
+            Vigília:<span class="font-normal">
+              {{ evento.igrejaVigilia | nomeFormatado }}</span
+            >
           </p>
           <p class="flex items-center justify-between font-semibold">
-            Evento: <span class="font-normal"> {{ evento.igrejaEvento | nomeFormatado}}</span>
+            Evento:
+            <span class="font-normal">
+              {{ evento.igrejaEvento | nomeFormatado }}</span
+            >
           </p>
           <p class="flex items-center justify-between font-semibold">
             Valor Parcial:
@@ -39,41 +48,43 @@
         </div>
         <div class="border-t border-dashed border-gray-300 my-4"></div>
         <div class="flex items-center justify-between">
-          <p class="font-semibold text-[18px]">
+          <p class="font-semibold text-size-2xl">
             R$ {{ evento.valorIntegral }}
-            <span class="text-[8px] sm:text-[10px] text-gray-500"> (valor integral )</span>
+            <span class="text-size-2xs sm:text-size-xs text-gray-500">
+              (valor integral )</span
+            >
           </p>
-          <button
-            (click)="prosseguir(evento.id)"
-            class="w-8 h-8 flex text-[14px] items-center justify-center bg-[#007AFF] rounded-full"
-          >
-            <i-lucide class="w-3 text-white" name="move-right"></i-lucide>
-          </button>
+          <app-custom-button
+            icone="move-right"
+            variante="iconeAlt"
+            [tamanhoIcone]="'w-3'"
+            (aoClicar)="prosseguir(evento.id)"
+          ></app-custom-button>
         </div>
       </ng-container>
     </div>
   </div>
 
-      <div
-      *ngIf="!exibeCampos"
-      class="bg-white rounded-2xl shadow-md pb-5 pl-5 pr-5 border border-dashed border-gray-300 relative flex flex-col items-center"
-    >
-      <ng-lottie [options]="animacaoErro" class="w-30 h-30" />
-
-      <div class="flex flex-col items-center gap-1">
-        <p class="text-[12px] font-medium text-justify">
-          Ops, nenhum evento encontrado!
-        </p>
-        <p class="text-[10px] text-center">
-          Aguarde um evento ser cadastrado ou entre em contato com pastor da sua igreja.
-        </p>
-      </div>
-    </div>
-
-  <button
-    (click)="voltar()"
-    class="border-2 border-[#007AFF] text-[12px] bg-white text-[#007AFF] flex items-center justify-center font-semibold rounded-[0.5rem] py-2.5 mt-3"
+  <div
+    *ngIf="!exibeCampos"
+    class="bg-white rounded-2xl shadow-md pb-5 pl-5 pr-5 border border-dashed border-gray-300 relative flex flex-col items-center"
   >
-    Voltar
-  </button>
+    <ng-lottie [options]="animacaoErro" class="w-30 h-30" />
+
+    <div class="flex flex-col items-center gap-1">
+      <p class="text-size-base font-medium text-justify">
+        Ops, nenhum evento encontrado!
+      </p>
+      <p class="text-size-xs text-center">
+        Aguarde um evento ser cadastrado ou entre em contato com pastor da sua
+        igreja.
+      </p>
+    </div>
+  </div>
+
+  <app-custom-button
+    texto="Voltar"
+    variante="secundario"
+    (aoClicar)="voltar()"
+  ></app-custom-button>
 </div>

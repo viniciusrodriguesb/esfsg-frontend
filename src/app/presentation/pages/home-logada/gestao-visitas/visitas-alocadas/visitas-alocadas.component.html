@@ -2,7 +2,7 @@
   <div
     class="flex flex-col gap-3 bg-white rounded-b-2xl pl-5 pt-5 pr-5 pb-3 relative"
   >
-    <div class="flex flex-col gap-4 text-[10px] sm:text-[12px]">
+    <div class="flex flex-col gap-4 text-size-xs sm:text-size-base">
       <div
         [ngClass]="{
           ' border-b border-dashed border-gray-300 pb-3':
@@ -24,7 +24,7 @@
                     <i-lucide name="info" class="w-2.5 h-[15px]"></i-lucide>
                   </span>
                   <span
-                    class="font-normal text-[9px] sm:text-[11px] text-gray-500"
+                    class="font-normal text-size-2xs sm:text-size-sm text-gray-500"
                   >
                     {{ inscrito.dadosVisita.funcao | nomeFormatado }}</span
                   >
@@ -39,7 +39,7 @@
                     Visita
                   </span>
                   <span
-                    class="font-normal text-[9px] sm:text-[11px] text-gray-500"
+                    class="font-normal text-size-2xs sm:text-size-sm text-gray-500"
                   >
                     {{ inscrito.dadosVisita.nomeVisita | nomeFormatado }}</span
                   >
@@ -54,7 +54,7 @@
                     Carro
                   </span>
                   <span
-                    class="font-normal text-[9px] sm:text-[11px] text-gray-500"
+                    class="font-normal text-size-2xs sm:text-size-sm text-gray-500"
                   >
                     <span *ngIf="inscrito.dadosVisita.carro">
                       <ng-container *ngIf="inscrito.dadosVisita.vagasCarro == 1">
@@ -79,7 +79,7 @@
                     Endereço
                   </span>
                   <span
-                    class="font-normal text-[9px] sm:text-[11px] text-gray-500"
+                    class="font-normal text-size-2xs sm:text-size-sm text-gray-500"
                   >
                     {{ inscrito.dadosVisita.endereco }}</span
                   >
@@ -88,7 +88,7 @@
             </div>
             <button
               (click)="abrirModalInfoInscricao(inscrito)"
-              class="bg-gray-200 flex items-center justify-center h-4 w-4 rounded-[4px] sm:hidden"
+              class="bg-gray-200 flex items-center justify-center h-4 w-4 rounded-custom-xs sm:hidden"
             >
               <i-lucide class="w-2" name="plus"></i-lucide>
             </button>
@@ -114,10 +114,10 @@
   <ng-lottie [options]="animacaoErro" class="w-30 h-30" />
 
   <div class="flex flex-col items-center gap-1">
-    <p class="text-[12px] sm:text-[14px] font-medium text-justify">
+    <p class="text-size-base sm:text-size-md font-medium text-justify">
       Ops, nenhum inscrito encontrado!
     </p>
-    <p class="text-[10px] sm:text-[12px] text-center">
+    <p class="text-size-xs sm:text-size-base text-center">
       Selecione um outro evento para visualizar os inscritos ou aguarde alguns
       minutos e tente novamente.
     </p>

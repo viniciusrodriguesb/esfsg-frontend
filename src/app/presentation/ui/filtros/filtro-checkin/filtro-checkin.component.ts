@@ -17,7 +17,7 @@ import { CheckinRequestDto } from '../../../../core/application/dto/request/chec
   styleUrl: './filtro-checkin.component.scss',
 })
 export class FiltroCheckinComponent {
-  private _bottomSheetRef =
+  private readonly _bottomSheetRef =
     inject<MatBottomSheetRef<FiltroCheckinComponent>>(MatBottomSheetRef);
   private readonly _formBuilder = inject(FormBuilder);
 

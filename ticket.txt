@@ -83,7 +83,7 @@ _________________________________________________________
 
       <div class="border-t border-dashed border-gray-300 my-4"></div>
 
-      <div class="text-[11px] space-y-2 text-gray-700">
+      <div class="text-size-sm space-y-2 text-gray-700">
         <p>Data: 01/08/2025</p>
         <p>Igreja da Vigília: MUTUÁ</p>
         <p>Igreja do Evento: MUTUÁ</p>

@@ -8,13 +8,13 @@
           <i-lucide class="w-2.5 text-white" name="house"></i-lucide>
         </div>
 
-        <p class="font-bold text-[12px] sm:text-[14px]">Alocar inscritos</p>
+        <p class="font-bold text-size-base sm:text-size-md">Alocar inscritos</p>
       </div>
       <button
         (click)="fecharModal()"
         class="flex items-center justify-center h-7 w-7 rounded-full"
       >
-        <i-lucide class="w-3.5 text-[12px] sm:text-[14px] sm:text-[14px]" name="circle-x"></i-lucide>
+        <i-lucide class="w-3.5 text-size-base sm:text-size-md sm:text-size-md" name="circle-x"></i-lucide>
       </button>
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
@@ -27,12 +27,12 @@
             'border-b border-dashed border-gray-300 pb-3.5':
               i < data.dadosVisita.length - 1
           }"
-          class="flex flex-col gap-1.5 text-[10px]"
+          class="flex flex-col gap-1.5 text-size-xs"
         >
           <div class="flex flex-col gap-1">
             <div class="w-full flex items-center gap-2">
               <div
-                class="bg-gray-200 flex items-center justify-center h-4 w-4 rounded-[4px]"
+                class="bg-gray-200 flex items-center justify-center h-4 w-4 rounded-custom-xs"
               >
                 <i-lucide class="w-2" name="user"></i-lucide>
               </div>
@@ -72,7 +72,7 @@
       (click)="confirmarAlocacao()"
       [disabled]="!liberacaoBotaoConfirmar"
       [ngClass]="{ 'opacity-50 cursor-not-allowed': !liberacaoBotaoConfirmar }"
-      class="w-full bg-[#007AFF] text-[14px] text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
+      class="w-full bg-[#007AFF] text-size-md text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
     >
       Confirmar
       <i-lucide class="w-4" name="check-check"></i-lucide>

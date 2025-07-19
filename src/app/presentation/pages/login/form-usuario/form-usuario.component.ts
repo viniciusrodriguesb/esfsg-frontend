@@ -11,6 +11,7 @@ import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-insc
 import { StatusHttpEnum } from '../../../../core/domain/enums/status-http.enum';
 import { cpfValidator } from '../../../../core/cpf-validator';
 
+
 @Component({
   selector: 'app-form-usuario',
   standalone: false,
@@ -19,7 +20,6 @@ import { cpfValidator } from '../../../../core/cpf-validator';
 })
 export class FormUsuarioComponent {
   private readonly _formBuilder = inject(FormBuilder);
-
   formLogin = this._formBuilder.group({
     cpf: ['', [Validators.required, cpfValidator]],
   });

@@ -8,7 +8,7 @@
           <i-lucide class="w-2.5" name="user"></i-lucide>
         </div>
 
-        <p class="font-bold text-[12px] sm:text-[14px]">Informações do inscrito</p>
+        <p class="font-bold text-size-base sm:text-size-md">Informações do inscrito</p>
       </div>
       <button
         (click)="fecharModal()"
@@ -18,7 +18,7 @@
       </button>
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
-    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
+    <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
       <p class="flex justify-between">
         <span class="font-medium">Função:</span>
         {{ data.dadosInscritoPendente.funcaoEvento | nomeFormatado }}
@@ -37,18 +37,18 @@
       class="h-0.5 border-b border-dashed border-gray-300 bg-[#F6F6F6]"
     ></span>
     <div
-      class="flex flex-col gap-1.5 text-[10px] sm:text-[12px] pb-3"
+      class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3"
       *ngIf="data.dadosInscritoPendente.dependentes.length > 0"
     >
       <div class="flex flex-col gap-2">
-        <p class="font-semibold text-[11px]">Dependentes:</p>
+        <p class="font-semibold text-size-sm">Dependentes:</p>
         <div
           *ngFor="
             let dependente of data.dadosInscritoPendente.dependentes;
             let last = last
           "
           [ngClass]="{ 'border-b border-dashed border-gray-300 pb-3': !last }"
-          class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]"
+          class="flex flex-col gap-1.5 text-size-xs sm:text-size-base"
         >
           <p class="flex justify-between">
             <span class="font-medium">Nome:</span>
@@ -74,7 +74,7 @@
           <i-lucide class="w-2.5" name="user"></i-lucide>
         </div>
 
-        <p class="font-bold text-[12px] sm:text-[14px]">Informações do inscrito</p>
+        <p class="font-bold text-size-base sm:text-size-md">Informações do inscrito</p>
       </div>
       <button
         (click)="fecharModal()"
@@ -84,7 +84,7 @@
       </button>
     </div>
     <span class="h-0.5 bg-[#F6F6F6]"></span>
-    <div class="flex flex-col gap-1.5 text-[10px] sm:text-[12px]">
+    <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
       <p class="flex justify-between sm:hidden">
         <span class="font-medium">Função no evento:</span>
         {{ data.dadosInscritoTodas.funcaoEvento | nomeFormatado }}
