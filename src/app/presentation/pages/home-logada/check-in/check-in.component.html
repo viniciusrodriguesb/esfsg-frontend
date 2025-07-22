@@ -20,16 +20,19 @@
       mensagemErro="Campo obrigatório"
       (valorSelecionado)="selecionarEvento($event)"
     ></app-input>
-    
-    <div class="flex items-center gap-2 px-4 py-[13px] bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 cursor-pointer transition">
-      <i-lucide class="w-3.5 h-3.5 text-gray-600" name="funnel"></i-lucide>
-      <button [disabled]="!exibirPesquisa" (click)="abrirFiltro()" class="text-size-sm sm:text-size-2md text-gray-700">
-        Filtro
-      </button>
-    </div>
+
+
+    <app-custom-button
+      texto="Filtro"
+      icone="funnel"
+      variante="secundario"
+      classeCustom="bg-white !text-normal text-zinc-500 !border-[#E5E5E5]"
+      [disabled]="!exibirPesquisa"
+      (aoClicar)="abrirFiltro()"
+    ></app-custom-button>
   </div>
 
- <!--  <form
+  <!--  <form
     class="grid grid-cols-9 gap-3.5"
     *ngIf="exibirPesquisa"
     [formGroup]="formCheckin"

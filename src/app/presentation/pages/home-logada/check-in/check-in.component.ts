@@ -27,7 +27,10 @@ import { ModalParticipanteHorarioErradoComponent } from '../../../ui/modais/moda
 import { PaginacaoResponse } from '../../../../core/application/dto/response/paginacao-response.dto';
 import { PageEvent } from '@angular/material/paginator';
 import { BuscarEventoUseCase } from '../../../../core/application/use-cases/evento/buscar-evento.usecase';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import {
+  MatBottomSheet,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
 import { FiltroCheckinComponent } from '../../../ui/filtros/filtro-checkin/filtro-checkin.component';
 
 @Component({
@@ -39,7 +42,7 @@ import { FiltroCheckinComponent } from '../../../ui/filtros/filtro-checkin/filtr
 export class CheckInComponent {
   private readonly _formBuilder = inject(FormBuilder);
   private _bottomSheet = inject(MatBottomSheet);
- 
+
   options: AnimationOptions = {
     path: '/animations/animation-check-in.json',
     renderer: 'svg',
@@ -94,19 +97,18 @@ export class CheckInComponent {
   exibirPesquisa: boolean = false;
 
   constructor(
-    
     private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
     private readonly buscarParticipantesCheckinUsecase: BuscarParticipantesCheckinUseCase,
     private readonly validarQrCodeParticipanteUseCase: ValidarQrCodeParticipanteUseCase,
     private readonly buscarEventoUsecase: BuscarEventoUseCase,
     private readonly nomePipe: NomePipe,
     private readonly dialog: MatDialog
-  ) {}  
+  ) {}
 
   ngOnInit() {
     this.buscarFuncaoEvento();
     this.buscarEvento();
-  } 
+  }
 
   public selecionarEvento(evento: any) {
     this.buscarParticipantesCheckin();
@@ -123,8 +125,7 @@ export class CheckInComponent {
           }));
         }
       },
-      error: (erro) => {
-      },
+      error: (erro) => {},
     });
   }
 
@@ -186,7 +187,7 @@ export class CheckInComponent {
     }
 
     this.buscarParticipantesCheckinUsecase.execute(checkinRequest).subscribe({
-      next: (resultado) => {        
+      next: (resultado) => {
         if (resultado != null && resultado.itens.length > 0) {
           this.exibicaoListaParticipantes = true;
         } else {
@@ -203,7 +204,7 @@ export class CheckInComponent {
   }
 
   public buscarFuncaoEvento() {
-    this.buscarFuncaoEventoUsecase.execute(1).subscribe({
+    this.buscarFuncaoEventoUsecase.execute(Number.parseInt(this.formCheckin.get('evento').value)).subscribe({
       next: (resultado) => {
         const funcoesFormatadas = this.formatarNomes(resultado);
         this.opcoesFuncaoEvento = [
@@ -248,8 +249,16 @@ export class CheckInComponent {
   }
 
   abrirFiltro(): void {
-    this._bottomSheet.open(FiltroCheckinComponent, {
-      hasBackdrop: true
+    const bottomSheetRef = this._bottomSheet.open(FiltroCheckinComponent, {
+      hasBackdrop: true,
+      data: {
+        idEvento: Number.parseInt(this.formCheckin.get('evento').value)
+      }
+    });
+
+    bottomSheetRef.afterDismissed().subscribe((teste) => {
+      this.formCheckin.patchValue(teste)     
+      this.buscarParticipantesCheckin()
     });
   }
 
@@ -269,8 +278,7 @@ export class CheckInComponent {
           this.abrirModalConfirmacaoSucesso(response.dados);
         }
       },
-      error: (error) => {
-      },
+      error: (error) => {},
     });
   }
 

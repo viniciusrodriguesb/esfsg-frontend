@@ -1,14 +1,18 @@
-<div class="p-6 pt-8 relative">
-  <button
-    (click)="fechar()"
-    class="absolute top-4 right-4 text-sm text-gray-600 hover:text-gray-800 transition"
-  >
-    Fechar
-  </button>
-  <form class="grid grid-cols-9 gap-3.5" [formGroup]="formCheckin">
+<div class="px-6 pb-6 pt-4">
+  <div class="flex justify-end w-full">
+    <app-custom-button
+      variante="icone"
+      icone="circle-x"
+      classeCustom="!text-rose-500 !bg-transparent"
+      (aoClicar)="fechar()"
+    >
+    </app-custom-button>
+  </div>
+
+  <form class="grid grid-cols-8 gap-3.5" [formGroup]="formFiltroCheckin">
     <app-input
-      class="col-start-1 col-end-10"
-      [(formController)]="formCheckin.controls['nome']"
+      class="col-start-1 col-end-9"
+      [(formController)]="formFiltroCheckin.controls['nome']"
       [placeholder]="'Nome do participante'"
       [id]="'nome'"
       [name]="'nome'"
@@ -16,38 +20,39 @@
       [label]="'Nome'"
     ></app-input>
     <app-input
-      class="col-start-1 col-end-10"
-      [tipo]="'select'"
-      [label]="'Função evento'"
-      [placeholder]="'Selecione'"
-      [formController]="formCheckin.controls['funcaoEvento']"
-      [opcoes]="opcoesFuncaoEvento"
-      mensagemErro="Campo obrigatório"
-    ></app-input>
-    <app-input
-      class="col-start-1 col-end-10"
+      class="col-start-1 col-end-5"
       [tipo]="'select'"
       [label]="'Período'"
       [placeholder]="'Selecione'"
-      [formController]="formCheckin.controls['periodo']"
+      [formController]="formFiltroCheckin.controls['periodo']"
       [opcoes]="periodos"
       mensagemErro="Campo obrigatório"
     ></app-input>
+
     <app-input
-      class="col-start-1 col-end-10"
+      class="col-start-5 col-end-9"
       [tipo]="'select'"
       [label]="'Status'"
       [placeholder]="'Selecione'"
-      [formController]="formCheckin.controls['status']"
+      [formController]="formFiltroCheckin.controls['status']"
       [opcoes]="statusCheckin"
       mensagemErro="Campo obrigatório"
-    ></app-input>    
-    <div class="col-start-1 col-end-10 flex justify-end">
-      <button (click)="buscarParticipantesCheckin()"
-        class="mt-2 bg-[#007AFF] rounded-custom-sm flex items-center justify-center gap-2 py-2 px-4 w-[100%] rounded-full shadow-md hover:bg-[#0066d6] transition">
-        <span class="text-white">Aplicar</span>
-        <i-lucide class="w-3.5 h-3.5 text-white" name="funnel"></i-lucide>
-      </button>      
-    </div>
+    ></app-input>
+    <app-input
+      class="col-start-1 col-end-9"
+      [tipo]="'select'"
+      [label]="'Função evento'"
+      [placeholder]="'Selecione'"
+      [formController]="formFiltroCheckin.controls['funcaoEvento']"
+      [opcoes]="opcoesFuncaoEvento"
+      mensagemErro="Campo obrigatório"
+    ></app-input>
+    <app-custom-button
+      class="col-start-1 col-end-9"
+      texto="Filtrar"
+      icone="funnel"
+      variante="primario"
+      (aoClicar)="fechar()"
+    ></app-custom-button>
   </form>
 </div>
