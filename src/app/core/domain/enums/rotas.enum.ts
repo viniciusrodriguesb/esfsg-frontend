@@ -25,6 +25,7 @@ export enum Rotas {
   GESTAO_PAGAMENTO = 'gestao-pagamento',
   GESTAO_VISITAS = 'gestao-visitas',
   CRUD_VISITA = 'crud-visita',
-  RELATORIOS = 'relatorios'
+  RELATORIOS = 'relatorios',
+  GESTAO_USUARIO = 'gestao-usuario'
 
 }

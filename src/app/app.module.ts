@@ -120,7 +120,9 @@ import {
   Send,
   FileChartColumnIncreasing,
   PenLine,
-  Funnel
+  Funnel,
+  MapPinHouse,
+  EllipsisVertical
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -254,6 +256,11 @@ import { DeletarVisitaPort } from './core/domain/ports/visita/deletar-visita.por
 import { DeletarVisitaAdapter } from './infrastructure/adapter/visita/deletar-visita.adapter';
 import { FiltroCheckinComponent } from './presentation/ui/filtros/filtro-checkin/filtro-checkin.component';
 import { CustomButtonComponent } from './presentation/ui/botoes/custom-button/custom-button.component';
+import { GestaoUsuarioComponent } from './presentation/pages/home-logada/gestao-usuario/gestao-usuario.component';
+import { BuscarUsuarioUseCase } from './core/application/use-cases/gestao-usuario/buscar-usuario.usecase';
+import { BuscarUsuariosPort } from './core/domain/ports/gestao-usuario/buscar-usuarios.port';
+import { BuscarUsuarioAdapter } from './infrastructure/adapter/gestao-usuario/buscar-usuarios.adapter';
+import { FiltroGestaoUsuarioComponent } from './presentation/ui/filtros/filtro-gestao-usuario/filtro-gestao-usuario.component';
 
 
 @NgModule({
@@ -287,6 +294,7 @@ import { CustomButtonComponent } from './presentation/ui/botoes/custom-button/cu
     GestaoPagamentoComponent,
     RelatoriosComponent,
     CrudVisitaComponent,
+    GestaoUsuarioComponent,
     
     ModalQrcodeCheckinComponent,
     ModalCheckinConfirmadoComponent,
@@ -301,6 +309,7 @@ import { CustomButtonComponent } from './presentation/ui/botoes/custom-button/cu
     CustomButtonComponent,
 
     FiltroCheckinComponent,
+    FiltroGestaoUsuarioComponent,
 
     LoadingComponent,
   ],
@@ -371,7 +380,9 @@ import { CustomButtonComponent } from './presentation/ui/botoes/custom-button/cu
         Send,
         FileChartColumnIncreasing,
         PenLine,
-        Funnel
+        Funnel,
+        MapPinHouse,
+        EllipsisVertical
     }),
     SweetAlert2Module.forRoot(),
 
@@ -515,6 +526,8 @@ import { CustomButtonComponent } from './presentation/ui/botoes/custom-button/cu
     {provide: EditarVisitaPort, useClass: EditarVisitaAdapter},
     DeletarVisitaUseCase,
     {provide: DeletarVisitaPort, useClass: DeletarVisitaAdapter},
+        BuscarUsuarioUseCase,
+    {provide: BuscarUsuariosPort, useClass: BuscarUsuarioAdapter},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,

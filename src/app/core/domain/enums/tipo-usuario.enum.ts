@@ -6,5 +6,3 @@ export enum TipoUsuarioEnum {
     ORGANIZADOR = 5,
     PARTICIPANTE = 6
 }
-
-// TODO: Padrizar case dos enums

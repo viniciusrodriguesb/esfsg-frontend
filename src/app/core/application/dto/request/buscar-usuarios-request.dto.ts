@@ -1,4 +1,4 @@
-export interface BuscarUsuariosRequest {
+export class BuscarUsuariosRequest {
   nome?: string;
   idIgreja?: number;
   idClasse?: number;

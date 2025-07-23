@@ -64,6 +64,11 @@ export class HomeLogadaComponent {
     this.toggleSidebar();
   }
 
+  navegarGestaoUsuario() {
+    this.router.navigate([Rotas.HOME_LOGADA, Rotas.GESTAO_USUARIO]);
+    this.toggleSidebar();
+  }
+
   logout() {
     this.router.navigate([Rotas.LOGIN, Rotas.LOGIN_ADMINISTRADOR]);
     localStorage.clear();

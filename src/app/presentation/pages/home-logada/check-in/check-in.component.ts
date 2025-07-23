@@ -18,13 +18,8 @@ import { ModalCheckinConfirmadoComponent } from '../../../ui/modais/modal-checki
 import { ValidarQrCodeParticipanteUseCase } from '../../../../core/application/use-cases/checkin/validar-qrcode-participante.usecase';
 import Swal from 'sweetalert2';
 import moment from 'moment';
-import {
-  DadoParticipanteDto,
-  ValidacaoQrCodeParticipanteResponseDto,
-} from '../../../../core/application/dto/response/validacao-checkin-response.dto';
-import { find } from 'rxjs/internal/operators/find';
+import { DadoParticipanteDto} from '../../../../core/application/dto/response/validacao-checkin-response.dto';
 import { ModalParticipanteHorarioErradoComponent } from '../../../ui/modais/modal-participante-horario-errado/modal-participante-horario-errado.component';
-import { PaginacaoResponse } from '../../../../core/application/dto/response/paginacao-response.dto';
 import { PageEvent } from '@angular/material/paginator';
 import { BuscarEventoUseCase } from '../../../../core/application/use-cases/evento/buscar-evento.usecase';
 import {
@@ -63,20 +58,6 @@ export class CheckInComponent {
     evento: [''],
   });
 
-  statusCheckin: TabelaDominioResponseDto[] = [
-    { id: 0, descricao: 'Selecione' },
-    { id: 1, descricao: 'Presente' },
-    { id: 2, descricao: 'Ausente' },
-  ];
-
-  periodos: TabelaDominioResponseDto[] = [
-    { id: 0, descricao: 'Selecione' },
-    { id: 1, descricao: PeriodoEnum.Tarde },
-    { id: 2, descricao: PeriodoEnum.Integral },
-  ];
-
-  opcoesFuncaoEvento: TabelaDominioResponseDto[] = [];
-
   checkin: CheckinResponseDto;
   exibicaoListaParticipantes: boolean = false;
   participantesSelecionados: ItemCheckinDto[] = [];
@@ -97,7 +78,6 @@ export class CheckInComponent {
   exibirPesquisa: boolean = false;
 
   constructor(
-    private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
     private readonly buscarParticipantesCheckinUsecase: BuscarParticipantesCheckinUseCase,
     private readonly validarQrCodeParticipanteUseCase: ValidarQrCodeParticipanteUseCase,
     private readonly buscarEventoUsecase: BuscarEventoUseCase,
@@ -106,7 +86,6 @@ export class CheckInComponent {
   ) {}
 
   ngOnInit() {
-    this.buscarFuncaoEvento();
     this.buscarEvento();
   }
 
@@ -203,19 +182,6 @@ export class CheckInComponent {
     return paginacao;
   }
 
-  public buscarFuncaoEvento() {
-    this.buscarFuncaoEventoUsecase.execute(Number.parseInt(this.formCheckin.get('evento').value)).subscribe({
-      next: (resultado) => {
-        const funcoesFormatadas = this.formatarNomes(resultado);
-        this.opcoesFuncaoEvento = [
-          { id: 0, descricao: 'Selecione' },
-          ...funcoesFormatadas,
-        ];
-      },
-      error: () => {},
-    });
-  }
-
   public validarCheckin() {
     this.validarQrCodeParticipante(this.participantesSelecionados);
   }
@@ -252,7 +218,8 @@ export class CheckInComponent {
     const bottomSheetRef = this._bottomSheet.open(FiltroCheckinComponent, {
       hasBackdrop: true,
       data: {
-        idEvento: Number.parseInt(this.formCheckin.get('evento').value)
+        idEvento: Number.parseInt(this.formCheckin.get('evento').value),
+        ultimoFiltro: this.formCheckin.value
       }
     });
 

@@ -11,7 +11,7 @@ export class CustomButtonComponent {
   @Input() icone?: string;
   @Input() posicaoIcone: 'left' | 'right' = 'right';
   @Input() disabled = false;
-  @Input() variante: 'primario' | 'secundario' | 'icone' | 'alerta' | 'iconeAlt' | 'vazio' = 'primario';
+  @Input() variante: 'primario' | 'secundario' | 'icone' | 'alerta' | 'iconeAlt' | 'vazio' | 'custom' = 'primario';
   @Input() tamanhoIcone = 'w-4';
   @Input() exibir = true;
   @Input() classeCustom?: string;
@@ -19,7 +19,7 @@ export class CustomButtonComponent {
   @Output() aoClicar = new EventEmitter<void>();
 
   get classes(): string {
-    const base = 'rounded-[0.5rem]  text-size-base sm:text-size-md font-semibold flex items-center justify-center gap-2 py-2.5';
+    const base = 'rounded-[0.5rem] text-size-base sm:text-size-md font-semibold flex items-center justify-center gap-2 py-2.5';
     const disabledClass = this.disabled ? 'opacity-60 cursor-not-allowed' : '';
 
     const variantes: Record<string, string> = {
@@ -29,6 +29,7 @@ export class CustomButtonComponent {
       icone: 'w-6 h-6 bg-primary-blue text-white p-0 rounded-full justify-center',
       iconeAlt: 'w-8 h-8 flex text-size-md items-center justify-center text-white bg-primary-blue rounded-full',
       vazio: 'text-size-xs sm:text-size-base text-[#222] opacity-70 underline',
+      custom: ''
     };
 
     return [base, variantes[this.variante], disabledClass,  this.classeCustom].join(' ');

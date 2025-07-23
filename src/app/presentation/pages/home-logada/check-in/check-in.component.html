@@ -21,68 +21,15 @@
       (valorSelecionado)="selecionarEvento($event)"
     ></app-input>
 
-
     <app-custom-button
       texto="Filtro"
       icone="funnel"
-      variante="secundario"
-      classeCustom="bg-white !text-normal text-zinc-500 !border-[#E5E5E5]"
+      variante="custom"
+      classeCustom=" !text-normal text-zinc-500 "
       [disabled]="!exibirPesquisa"
       (aoClicar)="abrirFiltro()"
     ></app-custom-button>
   </div>
-
-  <!--  <form
-    class="grid grid-cols-9 gap-3.5"
-    *ngIf="exibirPesquisa"
-    [formGroup]="formCheckin"
-  >
-    <app-input
-      class="col-start-1 col-end-4"
-      [tipo]="'select'"
-      [label]="'Função evento'"
-      [placeholder]="'Selecione'"
-      [formController]="formCheckin.controls['funcaoEvento']"
-      [opcoes]="opcoesFuncaoEvento"
-      mensagemErro="Campo obrigatório"
-    ></app-input>
-    <app-input
-      class="col-start-4 col-end-7"
-      [tipo]="'select'"
-      [label]="'Período'"
-      [placeholder]="'Selecione'"
-      [formController]="formCheckin.controls['periodo']"
-      [opcoes]="periodos"
-      mensagemErro="Campo obrigatório"
-    ></app-input>
-    <app-input
-      class="col-start-7 col-end-10"
-      [tipo]="'select'"
-      [label]="'Status'"
-      [placeholder]="'Selecione'"
-      [formController]="formCheckin.controls['status']"
-      [opcoes]="statusCheckin"
-      mensagemErro="Campo obrigatório"
-    ></app-input>
-    <div class="col-start-1 col-end-10 flex items-end gap-2">
-      <app-input
-        class="w-full"
-        [(formController)]="formCheckin.controls['nome']"
-        [placeholder]="'Nome do participante'"
-        [id]="'nome'"
-        [name]="'nome'"
-        [tipo]="'text'"
-        [label]="'Nome'"
-      ></app-input>
-
-      <button
-        (click)="buscarParticipantesCheckin()"
-        class="bg-[#007AFF] flex items-center justify-center rounded-custom-sm py-3 px-4"
-      >
-        <i-lucide class="w-3.5 text-white" name="search"></i-lucide>
-      </button>
-    </div>
-  </form> -->
 
   <div
     class="flex flex-col gap-3.5"

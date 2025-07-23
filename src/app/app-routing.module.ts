@@ -25,6 +25,7 @@ import { GestaoVisitasComponent } from './presentation/pages/home-logada/gestao-
 import { GestaoPagamentoComponent } from './presentation/pages/home-logada/gestao-pagamento/gestao-pagamento.component';
 import { RelatoriosComponent } from './presentation/pages/home-logada/relatorios/relatorios.component';
 import { CrudVisitaComponent } from './presentation/pages/home-logada/gestao-visitas/crud-visita/crud-visita.component';
+import { GestaoUsuarioComponent } from './presentation/pages/home-logada/gestao-usuario/gestao-usuario.component';
 
 export const routes: Routes = [
   {
@@ -126,6 +127,10 @@ export const routes: Routes = [
       {
         path: Rotas.RELATORIOS,
         component: RelatoriosComponent,
+      },
+      {
+        path: Rotas.GESTAO_USUARIO,
+        component: GestaoUsuarioComponent,
       },
     ],
   },

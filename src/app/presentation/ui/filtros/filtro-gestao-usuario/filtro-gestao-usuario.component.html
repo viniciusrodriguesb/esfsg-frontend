@@ -9,47 +9,58 @@
     </app-custom-button>
   </div>
 
-  <form class="grid grid-cols-8 gap-3.5" [formGroup]="formFiltroCheckin">
+  <form class="grid grid-cols-8 gap-3.5" [formGroup]="formFiltroUsuario">
     <app-input
       class="col-start-1 col-end-9"
-      [(formController)]="formFiltroCheckin.controls['nome']"
-      [placeholder]="'Nome do participante'"
+      [(formController)]="formFiltroUsuario.controls['nome']"
+      [placeholder]="'Nome do usuário'"
       [id]="'nome'"
       [name]="'nome'"
       [tipo]="'text'"
       [label]="'Nome'"
     ></app-input>
     <app-input
+      class="col-start-1 col-end-9"
+      [(formController)]="formFiltroUsuario.controls['cpf']"
+      [placeholder]="'CPF do usuário'"
+      [id]="'cpf'"
+      [name]="'cpf'"
+      [tipo]="'text'"
+      [label]="'CPF'"
+    ></app-input>
+    <app-input
       class="col-start-1 col-end-5"
       [tipo]="'select'"
-      [label]="'Período'"
+      [label]="'Igreja'"
       [placeholder]="'Selecione'"
-      [formController]="formFiltroCheckin.controls['periodo']"
-      [opcoes]="periodos"
+      [formController]="formFiltroUsuario.controls['idIgreja']"
+      [opcoes]="igrejas"
       mensagemErro="Campo obrigatório"
     ></app-input>
 
     <app-input
       class="col-start-5 col-end-9"
       [tipo]="'select'"
-      [label]="'Status'"
+      [label]="'Classe'"
       [placeholder]="'Selecione'"
-      [formController]="formFiltroCheckin.controls['status']"
-      [opcoes]="statusCheckin"
+      [formController]="formFiltroUsuario.controls['idClasse']"
+      [opcoes]="classes"
       mensagemErro="Campo obrigatório"
     ></app-input>
+
     <app-input
       class="col-start-1 col-end-9"
       [tipo]="'select'"
-      [label]="'Função evento'"
+      [label]="'Tipo usuário'"
       [placeholder]="'Selecione'"
-      [formController]="formFiltroCheckin.controls['funcaoEvento']"
-      [opcoes]="opcoesFuncaoEvento"
+      [formController]="formFiltroUsuario.controls['tipoUsuario']"
+      [opcoes]="mapearEnumParaSelect()"
       mensagemErro="Campo obrigatório"
     ></app-input>
+
     <div class="flex items-center gap-2.5 col-start-1 col-end-9">
       <app-custom-button
-      class="w-full"
+        class="w-full"
         texto="Filtrar"
         icone="funnel"
         variante="primario"

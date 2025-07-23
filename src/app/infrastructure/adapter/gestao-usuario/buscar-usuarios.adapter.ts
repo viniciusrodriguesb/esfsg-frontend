@@ -18,16 +18,17 @@ export class BuscarUsuarioAdapter extends BuscarUsuariosPort {
     request: BuscarUsuariosRequest
   ): Observable<PaginacaoResponse<BuscarUsuarioResponseDto>> {
     let params = new HttpParams();
+console.log(' res',request);
 
     if (request.nome) {
       params = params.set('nome', request.nome);
     }
 
-    if (request.idIgreja !== undefined && request.idIgreja !== null) {
+    if (request.idIgreja != undefined && request.idIgreja != null) {
       params = params.set('idIgreja', request.idIgreja.toString());
     }
 
-    if (request.idClasse !== undefined && request.idClasse !== null) {
+    if (request.idClasse != undefined && request.idClasse != null) {
       params = params.set('idClasse', request.idClasse.toString());
     }
 
@@ -35,7 +36,7 @@ export class BuscarUsuarioAdapter extends BuscarUsuariosPort {
       params = params.set('cpf', request.cpf);
     }
 
-    if (request.tipoUsuario !== undefined && request.tipoUsuario !== null) {
+    if (request.tipoUsuario != undefined && request.tipoUsuario != null) {
       params = params.set('tipoUsuario', request.tipoUsuario.toString());
     }
 
@@ -43,7 +44,7 @@ export class BuscarUsuarioAdapter extends BuscarUsuariosPort {
     params = params.set('tamanhoPagina', request.tamanhoPagina.toString());
 
     return this.http.get<PaginacaoResponse<BuscarUsuarioResponseDto>>(
-      `${ENVIRONMENT.URL_API}/${ControllersEnum.GestaoPagamento}/${ENVIRONMENT.VERSAO}`,
+      `${ENVIRONMENT.URL_API}/${ControllersEnum.GestaoUsuario}/${ENVIRONMENT.VERSAO}`,
       { params }
     );
   }
