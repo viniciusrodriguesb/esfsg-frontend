@@ -18,7 +18,6 @@ export class BuscarUsuarioAdapter extends BuscarUsuariosPort {
     request: BuscarUsuariosRequest
   ): Observable<PaginacaoResponse<BuscarUsuarioResponseDto>> {
     let params = new HttpParams();
-console.log(' res',request);
 
     if (request.nome) {
       params = params.set('nome', request.nome);

@@ -5,7 +5,7 @@ import { AlterarSenhaUsuarioRequest } from "../../dto/request/alterar-senha-usua
 import { AlterarSenhaUsuarioPort } from "../../../domain/ports/gestao-usuario/alterar-senha-usuario.port";
 
 @Injectable({ providedIn: 'root' })
-export class AlterarRoleUsuarioUseCase {
+export class AlterarSenhaUsuarioUseCase {
   constructor(private readonly alterarSenhaUsuariosPort: AlterarSenhaUsuarioPort) {}
 
   execute(request: AlterarSenhaUsuarioRequest): Observable<ResponsePadraoDto<null> | null> {

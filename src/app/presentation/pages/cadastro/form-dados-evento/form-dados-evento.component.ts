@@ -86,9 +86,7 @@ export class FormDadosEventoComponent {
               this.router.navigate([Rotas.ESCOLHA_INICIAL]);            
           });
         }               
-        this.periodos = resultado;
-        console.log(this.periodos, resultado);
-        
+        this.periodos = resultado;        
       },
       error: () => {},
     });

@@ -10,7 +10,7 @@
   </div>
 
   <div
-    class="flex flex-col "
+    class="flex flex-col"
     *ngIf="exibicaoListaUsuarios && usuarios?.itens.length > 0"
   >
     <div class="flex w-full justify-end items-end gap-4">
@@ -75,13 +75,35 @@
                   </p>
                 </div>
               </div>
-              <div
-                class="bg-gray-200 flex items-center justify-center h-4 w-4 sm:h-6 sm:w-6 rounded-custom-xs"
-              >
-                <i-lucide
-                  class="w-2 sm:w-3"
-                  name="ellipsis-vertical"
-                ></i-lucide>
+
+              <div class="relative inline-block text-left">
+                <button
+                  (click)="alternarMenu(usuario.idUsuario)"
+                  class="bg-gray-200 flex items-center justify-center h-4 w-4 sm:h-6 sm:w-6 rounded-custom-xs focus:outline-none"
+                >
+                  <i-lucide
+                    class="w-2 sm:w-3"
+                    name="ellipsis-vertical"
+                  ></i-lucide>
+                </button>
+
+                <div *ngIf="menuAbertoId == usuario.idUsuario"
+                     class="absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                  <div class="py-1 text-sm text-gray-700">
+                    <button
+                      (click)="alterarRole(usuario.idUsuario)"
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Alterar Role
+                    </button>
+                    <button
+                      (click)="redefinirSenha(usuario.idUsuario)"
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Redefinir Senha
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

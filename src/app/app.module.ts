@@ -1,3 +1,5 @@
+import { BuscarTodasFuncoesEventoAdapter } from './infrastructure/adapter/funcao-evento/buscar-funcoes-evento.adapter';
+import { AlterarSenhaUsuarioUseCase } from './core/application/use-cases/gestao-usuario/alterar-senha-usuario.usecase';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -261,6 +263,16 @@ import { BuscarUsuarioUseCase } from './core/application/use-cases/gestao-usuari
 import { BuscarUsuariosPort } from './core/domain/ports/gestao-usuario/buscar-usuarios.port';
 import { BuscarUsuarioAdapter } from './infrastructure/adapter/gestao-usuario/buscar-usuarios.adapter';
 import { FiltroGestaoUsuarioComponent } from './presentation/ui/filtros/filtro-gestao-usuario/filtro-gestao-usuario.component';
+import { AlterarRoleUsuarioUseCase } from './core/application/use-cases/gestao-usuario/alterar-role-usuario.usecase';
+import { AlterarRoleUsuarioPort } from './core/domain/ports/gestao-usuario/alterar-role-usuario.port';
+import { AlterarRoleUsuarioAdapter } from './infrastructure/adapter/gestao-usuario/alterar-role-usuario.adapter';
+import { AlterarSenhaUsuarioPort } from './core/domain/ports/gestao-usuario/alterar-senha-usuario.port';
+import { AlterarSenhaUsuarioAdapter } from './infrastructure/adapter/gestao-usuario/alterar-senha-usuario.adapter';
+import { BuscarFuncoesEventoUseCase } from './core/application/use-cases/funcao-evento/buscar-funcoes-evento.usecase';
+import { BuscarTodasFuncoesEventoPort } from './core/domain/ports/funcao-evento/buscar-todas-funcoes-evento.port';
+import { EditarFuncaoEventoUseCase } from './core/application/use-cases/funcao-evento/editar-funcao-evento.usecase';
+import { EditarFuncaoEventoPort } from './core/domain/ports/funcao-evento/editar-funcao-evento.port';
+import { EditarFuncaoEventoAdapter } from './infrastructure/adapter/funcao-evento/editar-funcao-evento.adapter';
 
 
 @NgModule({
@@ -528,6 +540,14 @@ import { FiltroGestaoUsuarioComponent } from './presentation/ui/filtros/filtro-g
     {provide: DeletarVisitaPort, useClass: DeletarVisitaAdapter},
         BuscarUsuarioUseCase,
     {provide: BuscarUsuariosPort, useClass: BuscarUsuarioAdapter},
+    AlterarRoleUsuarioUseCase,
+    {provide: AlterarRoleUsuarioPort, useClass: AlterarRoleUsuarioAdapter},
+    AlterarSenhaUsuarioUseCase,
+    {provide: AlterarSenhaUsuarioPort, useClass: AlterarSenhaUsuarioAdapter},
+    BuscarFuncoesEventoUseCase,
+    { provide: BuscarTodasFuncoesEventoPort, useClass: BuscarTodasFuncoesEventoAdapter },
+    EditarFuncaoEventoUseCase,
+    { provide: EditarFuncaoEventoPort, useClass: EditarFuncaoEventoAdapter },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,

@@ -47,6 +47,7 @@ export class GestaoUsuarioComponent {
   exibicaoListaUsuarios: boolean = false;
   pageEvent: PageEvent;
   filtroUsuarioRequest: BuscarUsuariosRequest = new BuscarUsuariosRequest();
+  menuAbertoId: number | null = null;
 
   constructor(
     private readonly buscarUsuariosUseCase: BuscarUsuarioUseCase,
@@ -56,7 +57,7 @@ export class GestaoUsuarioComponent {
 
   ngOnInit() {
     this.buscarUsuarios();
-  }
+  }  
 
   public buscarUsuarios(paginacao?: PageEvent) {
     let request: BuscarUsuariosRequest = {
@@ -98,12 +99,9 @@ export class GestaoUsuarioComponent {
     for (const key in obj) {
       if (Object.hasOwn(obj, key)) {
         const valor = obj[key];
-        console.log('valor', valor, key);
-
         novoObj[key] = valor == '' || valor == undefined ? null : valor;
       }
     }
-
     return novoObj;
   }
 
@@ -136,5 +134,19 @@ export class GestaoUsuarioComponent {
       this.formFiltroUsuario.patchValue(teste);
       this.buscarUsuarios();
     });
+  }
+
+  alternarMenu(idUsuario: number) {
+    this.menuAbertoId = this.menuAbertoId == idUsuario ? null : idUsuario;
+  }
+
+  alterarRole(idUsuario: number) {
+    this.menuAbertoId = null;
+    console.log('Alterar role de:', idUsuario);
+  }
+
+  redefinirSenha(idUsuario: number) {
+    this.menuAbertoId = null;
+    console.log('Redefinir senha de:', idUsuario);
   }
 }
