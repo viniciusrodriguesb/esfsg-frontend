@@ -218,7 +218,6 @@ export class CheckInComponent {
     const bottomSheetRef = this._bottomSheet.open(FiltroCheckinComponent, {
       hasBackdrop: true,
       data: {
-        idEvento: Number.parseInt(this.formCheckin.get('evento').value),
         ultimoFiltro: this.formCheckin.value
       }
     });

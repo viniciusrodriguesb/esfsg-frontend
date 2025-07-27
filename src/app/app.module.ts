@@ -1,3 +1,5 @@
+import { BuscarTodasFuncoesEventoAdapter } from './infrastructure/adapter/funcao-evento/buscar-funcoes-evento.adapter';
+import { AlterarSenhaUsuarioUseCase } from './core/application/use-cases/gestao-usuario/alterar-senha-usuario.usecase';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -122,7 +124,8 @@ import {
   PenLine,
   Funnel,
   MapPinHouse,
-  EllipsisVertical
+  EllipsisVertical,
+  Lock
 } from 'lucide-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { FormDadosPessoaisComponent } from './presentation/pages/cadastro/form-dados-pessoais/form-dados-pessoais.component';
@@ -264,6 +267,17 @@ import { FiltroGestaoUsuarioComponent } from './presentation/ui/filtros/filtro-g
 import { SidebarComponent } from './presentation/ui/sidebar/sidebar.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatMenuModule} from '@angular/material/menu';
+import { AlterarRoleUsuarioUseCase } from './core/application/use-cases/gestao-usuario/alterar-role-usuario.usecase';
+import { AlterarRoleUsuarioPort } from './core/domain/ports/gestao-usuario/alterar-role-usuario.port';
+import { AlterarRoleUsuarioAdapter } from './infrastructure/adapter/gestao-usuario/alterar-role-usuario.adapter';
+import { AlterarSenhaUsuarioPort } from './core/domain/ports/gestao-usuario/alterar-senha-usuario.port';
+import { AlterarSenhaUsuarioAdapter } from './infrastructure/adapter/gestao-usuario/alterar-senha-usuario.adapter';
+import { BuscarFuncoesEventoUseCase } from './core/application/use-cases/funcao-evento/buscar-funcoes-evento.usecase';
+import { BuscarTodasFuncoesEventoPort } from './core/domain/ports/funcao-evento/buscar-todas-funcoes-evento.port';
+import { EditarFuncaoEventoUseCase } from './core/application/use-cases/funcao-evento/editar-funcao-evento.usecase';
+import { EditarFuncaoEventoPort } from './core/domain/ports/funcao-evento/editar-funcao-evento.port';
+import { EditarFuncaoEventoAdapter } from './infrastructure/adapter/funcao-evento/editar-funcao-evento.adapter';
+
 
 @NgModule({
   declarations: [
@@ -385,7 +399,8 @@ import {MatMenuModule} from '@angular/material/menu';
         PenLine,
         Funnel,
         MapPinHouse,
-        EllipsisVertical
+        EllipsisVertical,
+        Lock
     }),
     SweetAlert2Module.forRoot(),
 
@@ -533,6 +548,14 @@ import {MatMenuModule} from '@angular/material/menu';
     {provide: DeletarVisitaPort, useClass: DeletarVisitaAdapter},
         BuscarUsuarioUseCase,
     {provide: BuscarUsuariosPort, useClass: BuscarUsuarioAdapter},
+    AlterarRoleUsuarioUseCase,
+    {provide: AlterarRoleUsuarioPort, useClass: AlterarRoleUsuarioAdapter},
+    AlterarSenhaUsuarioUseCase,
+    {provide: AlterarSenhaUsuarioPort, useClass: AlterarSenhaUsuarioAdapter},
+    BuscarFuncoesEventoUseCase,
+    { provide: BuscarTodasFuncoesEventoPort, useClass: BuscarTodasFuncoesEventoAdapter },
+    EditarFuncaoEventoUseCase,
+    { provide: EditarFuncaoEventoPort, useClass: EditarFuncaoEventoAdapter },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,

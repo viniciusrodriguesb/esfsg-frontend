@@ -4,12 +4,11 @@ import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
-import { BuscarFuncaoEventoUseCase } from '../../../../core/application/use-cases/funcao/buscar-funcao-evento.usecase';
 import { TabelaDominioResponseDto } from '../../../../core/application/dto/response/tabela-dominio-response.dto';
 import { PeriodoEnum } from '../../../../core/domain/enums/periodo.enum';
 import { NomePipe } from '../../../pipes/nome.pipe';
 import { CheckinResponseDto } from '../../../../core/application/dto/response/checkin-response-response.dto';
-import { GalleryThumbnailsIcon } from 'lucide-angular';
+import { BuscarFuncoesEventoUseCase } from '../../../../core/application/use-cases/funcao-evento/buscar-funcoes-evento.usecase';
 
 @Component({
   selector: 'app-filtro-checkin',
@@ -48,8 +47,7 @@ export class FiltroCheckinComponent {
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA)
     public data: {
-      idEvento: number;
-      ultimoFiltro: Partial<{
+        ultimoFiltro: Partial<{
         funcaoEvento: string;
         periodo: string;
         status: string;
@@ -57,7 +55,7 @@ export class FiltroCheckinComponent {
         evento: string;
       }>;
     },
-    private readonly buscarFuncaoEventoUsecase: BuscarFuncaoEventoUseCase,
+    private readonly buscarFuncoesEventoUsecase: BuscarFuncoesEventoUseCase,
     private readonly nomePipe: NomePipe
   ) {}
 
@@ -67,8 +65,6 @@ export class FiltroCheckinComponent {
   }
 
   preencherFiltroAnterior() {
-    console.log(this.data.ultimoFiltro);
-
     this.formFiltroCheckin.patchValue(this.data.ultimoFiltro);
   }
 
@@ -91,7 +87,7 @@ export class FiltroCheckinComponent {
   }
 
   public buscarFuncaoEvento() {
-    this.buscarFuncaoEventoUsecase.execute(this.data.idEvento).subscribe({
+    this.buscarFuncoesEventoUsecase.execute().subscribe({
       next: (resultado) => {
         const funcoesFormatadas = resultado.map((evento) => ({
           id: evento.id,

@@ -10,7 +10,7 @@
   </div>
 
   <div
-    class="flex flex-col "
+    class="flex flex-col"
     *ngIf="exibicaoListaUsuarios && usuarios?.itens.length > 0"
   >
     <div class="flex w-full justify-end items-end gap-4">
@@ -75,17 +75,63 @@
                   </p>
                 </div>
               </div>
-              <button [matMenuTriggerFor]="menu" class="bg-gray-200 cursor-pointer flex items-center justify-center h-4 w-4 sm:h-6 sm:w-6 rounded-custom-xs">
+              <button
+                [matMenuTriggerFor]="menu"
+                class="bg-gray-200 cursor-pointer flex items-center justify-center h-4 w-4 sm:h-6 sm:w-6 rounded-custom-xs"
+              >
                 <i-lucide
                   class="w-2 sm:w-3"
                   name="ellipsis-vertical"
                 ></i-lucide>
               </button>
 
-              <mat-menu #menu="matMenu" >
-                <button class="flex gap-2.5 hover:bg-gray-200 cursor-pointer duration-300 py-2.5 px-4 rounded-sm items-center justify-center">Editar <i-lucide name="pencil" class="w-4"></i-lucide></button>
-                <button class="flex gap-2.5 hover:bg-rose-200 cursor-pointer duration-300 py-2.5 px-4 rounded-sm items-center justify-center">Excluir <i-lucide name="ban" class="w-4"></i-lucide></button>
+              <mat-menu #menu="matMenu">
+                <button
+                  (click)="alterarRole(usuario.idUsuario)"
+                  class="flex gap-2.5 w-[180px] hover:bg-gray-200 cursor-pointer duration-300 py-2.5 px-4 rounded-[8px] items-center justify-start"
+                >
+                <i-lucide name="pencil" class="w-4"></i-lucide>
+                  Alterar permissão
+                  
+                </button>
+                <button
+                  (click)="redefinirSenha(usuario.idUsuario)"
+                  class="flex gap-2.5 w-[180px] hover:bg-gray-200 cursor-pointer duration-300 py-2.5 px-4 rounded-[8px] items-center justify-start"
+                  >
+                  <i-lucide name="lock" class="w-4"></i-lucide>
+                  Redefinir senha 
+                </button>
               </mat-menu>
+
+              <!-- <div class="relative inline-block text-left">
+                <button
+                  (click)="alternarMenu(usuario.idUsuario)"
+                  class="bg-gray-200 flex items-center justify-center h-4 w-4 sm:h-6 sm:w-6 rounded-custom-xs focus:outline-none"
+                >
+                  <i-lucide
+                    class="w-2 sm:w-3"
+                    name="ellipsis-vertical"
+                  ></i-lucide>
+                </button>
+
+                <div
+                  *ngIf="menuAbertoId == usuario.idUsuario"
+                  class="absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50"
+                >
+                  <div class="py-1 text-sm text-gray-700">
+                    <button
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Alterar Role
+                    </button>
+                    <button
+                      class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Redefinir Senha
+                    </button>
+                  </div>
+                </div>
+              </div> -->
             </div>
           </div>
         </div>
