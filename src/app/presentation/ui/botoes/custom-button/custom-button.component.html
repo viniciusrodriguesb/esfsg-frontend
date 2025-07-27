@@ -1,7 +1,7 @@
 <button
   *ngIf="exibir"
   [disabled]="disabled"
-  [ngClass]="classes"
+  [ngClass]="classes +' cursor-pointer'"
   (click)="aoClicar.emit()"
 >
   <i-lucide *ngIf="icone && posicaoIcone === 'left'" [class]="tamanhoIcone" [name]="icone"></i-lucide>

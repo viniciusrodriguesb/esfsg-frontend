@@ -75,14 +75,17 @@
                   </p>
                 </div>
               </div>
-              <div
-                class="bg-gray-200 flex items-center justify-center h-4 w-4 sm:h-6 sm:w-6 rounded-custom-xs"
-              >
+              <button [matMenuTriggerFor]="menu" class="bg-gray-200 cursor-pointer flex items-center justify-center h-4 w-4 sm:h-6 sm:w-6 rounded-custom-xs">
                 <i-lucide
                   class="w-2 sm:w-3"
                   name="ellipsis-vertical"
                 ></i-lucide>
-              </div>
+              </button>
+
+              <mat-menu #menu="matMenu" >
+                <button class="flex gap-2.5 hover:bg-gray-200 cursor-pointer duration-300 py-2.5 px-4 rounded-sm items-center justify-center">Editar <i-lucide name="pencil" class="w-4"></i-lucide></button>
+                <button class="flex gap-2.5 hover:bg-rose-200 cursor-pointer duration-300 py-2.5 px-4 rounded-sm items-center justify-center">Excluir <i-lucide name="ban" class="w-4"></i-lucide></button>
+              </mat-menu>
             </div>
           </div>
         </div>

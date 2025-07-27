@@ -46,7 +46,7 @@ export class ObterTodasComponent {
     const inscricoesRequest: FiltroInscricaoRequest = {
       idEvento: this.eventoId,
       pagina: paginacao?.pageIndex + 1 || 1,
-      tamanhoPagina: paginacao?.pageSize || 10,
+      tamanhoPagina: paginacao?.pageSize || 7,
     };    
 
     this.gestaoInscricaoUseCase.executeTodas(inscricoesRequest).subscribe({

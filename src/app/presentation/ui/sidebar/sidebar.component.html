@@ -1,0 +1,100 @@
+<nav
+  class="h-full flex flex-col justify-between bg-white rounded-custom-md shadow-lg p-6 relative"
+>
+  <div class="flex items-center justify-center flex-col gap-12">
+    <app-custom-button
+      [matTooltip]="`Bem-vindo(a), ` + usuarioLogado.nome"
+      [matTooltipPosition]="'left'"
+      variante="alerta"
+      icone="circle-user-round"
+      classeCustom="!bg-zinc-700 !text-white !rounded-full !p-2"
+      tamanhoIcone="w-6"
+      (aoClicar)="navegar(rotas.DASHBOARD_INICIAL)"
+    >
+    </app-custom-button>
+    <div class="flex flex-col gap-4 text-gray-700">
+      <app-custom-button
+        matTooltip="Dashboard"
+        [matTooltipPosition]="'left'"
+        variante="alerta"
+        icone="circle-gauge"
+        classeCustom="!bg-white !text-zinc-700 hover:!bg-zinc-700 hover:!text-white duration-300 !rounded-full !py-2 !px-3"
+        tamanhoIcone="w-4.5"
+        (aoClicar)="navegar(rotas.DASHBOARD_INICIAL)"
+      >
+      </app-custom-button>
+      <app-custom-button
+        matTooltip="Inscrições"
+        [matTooltipPosition]="'left'"
+        variante="alerta"
+        icone="calendar-check"
+        classeCustom="!bg-white !text-zinc-700 hover:!bg-zinc-700 hover:!text-white duration-300 !rounded-full !py-2 !px-3"
+        tamanhoIcone="w-4.5"
+        (aoClicar)="navegar(rotas.GESTAO_INSCRICAO)"
+      >
+      </app-custom-button>
+      <app-custom-button
+        matTooltip="Pagamento"
+        [matTooltipPosition]="'left'"
+        variante="alerta"
+        icone="receipt"
+        classeCustom="!bg-white !text-zinc-700 hover:!bg-zinc-700 hover:!text-white duration-300 !rounded-full !py-2 !px-3"
+        tamanhoIcone="w-4.5"
+        (aoClicar)="navegar(rotas.GESTAO_PAGAMENTO)"
+      >
+      </app-custom-button>
+      <app-custom-button
+        matTooltip="Check-in"
+        [matTooltipPosition]="'left'"
+        variante="alerta"
+        icone="list-checks"
+        classeCustom="!bg-white !text-zinc-700 hover:!bg-zinc-700 hover:!text-white duration-300 !rounded-full !py-2 !px-3"
+        tamanhoIcone="w-4.5"
+        (aoClicar)="navegar(rotas.CHECK_IN)"
+      >
+      </app-custom-button>
+      <app-custom-button
+        matTooltip="Visitas"
+        [matTooltipPosition]="'left'"
+        variante="alerta"
+        icone="map-pin-house"
+        classeCustom="!bg-white !text-zinc-700 hover:!bg-zinc-700 hover:!text-white duration-300 !rounded-full !py-2 !px-3"
+        tamanhoIcone="w-4.5"
+        (aoClicar)="navegar(rotas.GESTAO_VISITAS)"
+      >
+      </app-custom-button>
+      <app-custom-button
+        matTooltip="Cadastro visita"
+        [matTooltipPosition]="'left'"
+        variante="alerta"
+        icone="pen-line"
+        classeCustom="!bg-white !text-zinc-700 hover:!bg-zinc-700 hover:!text-white duration-300 !rounded-full !py-2 !px-3"
+        tamanhoIcone="w-4.5"
+        (aoClicar)="navegar(rotas.CRUD_VISITA)"
+      >
+      </app-custom-button>
+      <app-custom-button
+        matTooltip="Gestão usuários"
+        [matTooltipPosition]="'left'"
+        variante="alerta"
+        icone="users-round"
+        classeCustom="!bg-white !text-zinc-700 hover:!bg-zinc-700 hover:!text-white duration-300 !rounded-full !py-2 !px-3"
+        tamanhoIcone="w-4.5"
+        (aoClicar)="navegar(rotas.GESTAO_USUARIO)"
+      >
+      </app-custom-button>
+    </div>
+  </div>
+  <div class="flex items-center justify-center">
+    <app-custom-button
+      matTooltip="Sair"
+      [matTooltipPosition]="'left'"
+      variante="alerta"
+      icone="LogOut"
+      classeCustom="!bg-rose-500 !rounded-full !py-2 !px-3"
+      tamanhoIcone="w-4.5"
+      (aoClicar)="navegar(rotas.LOGIN)"
+    >
+    </app-custom-button>
+  </div>
+</nav>

@@ -261,7 +261,9 @@ import { BuscarUsuarioUseCase } from './core/application/use-cases/gestao-usuari
 import { BuscarUsuariosPort } from './core/domain/ports/gestao-usuario/buscar-usuarios.port';
 import { BuscarUsuarioAdapter } from './infrastructure/adapter/gestao-usuario/buscar-usuarios.adapter';
 import { FiltroGestaoUsuarioComponent } from './presentation/ui/filtros/filtro-gestao-usuario/filtro-gestao-usuario.component';
-
+import { SidebarComponent } from './presentation/ui/sidebar/sidebar.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -307,6 +309,7 @@ import { FiltroGestaoUsuarioComponent } from './presentation/ui/filtros/filtro-g
     ModalCadastroVisitaComponent,
 
     CustomButtonComponent,
+    SidebarComponent,
 
     FiltroCheckinComponent,
     FiltroGestaoUsuarioComponent,
@@ -400,6 +403,8 @@ import { FiltroGestaoUsuarioComponent } from './presentation/ui/filtros/filtro-g
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatBottomSheetModule,
+    MatTooltipModule,
+    MatMenuModule,
 
     // Pipes
     NomeAbreviadoPipe,

@@ -97,13 +97,13 @@
         <span class="font-medium">Classe:</span>
         {{ data.dadosInscritoTodas.classe | nomeFormatado }}
       </p>
-      <p class="flex justify-between">
+      <p class="flex justify-between xl:hidden">
         <span class="font-medium">Período:</span>
         {{ data.dadosInscritoTodas.periodo }}
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Telefone:</span>
-        {{ data.dadosInscritoTodas.telefone }}
+        {{ data.dadosInscritoTodas.telefone | telefone }}
       </p>
       <p class="flex justify-between">
         <span class="font-medium">Dependentes:</span>

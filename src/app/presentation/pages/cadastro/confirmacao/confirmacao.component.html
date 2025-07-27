@@ -12,163 +12,124 @@
       Confirme os dados abaixo antes de prosseguir com a inscrição.
     </p>
   </div>
-  <!-- Dados Pessoais -->
-  <div
-    class="flex flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
-  >
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <div
-          class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
-        >
-          <i-lucide class="w-3.5" name="user"></i-lucide>
-        </div>
-        <p class="font-bold text-size-base sm:text-size-md">Dados Pessoais</p>
-      </div>
-      <app-custom-button
-        (aoClicar)="navegar(rotaDadosPessoais)"
-        icone="pencil"
-        tamanhoIcone="w-3"
-        variante="vazio"
-      >
-      </app-custom-button>
-    </div>
-    <span class="h-0.5 bg-[#F6F6F6]"></span>
-    <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
-      <p class="flex justify-between">
-        <span class="font-medium">Nome:</span>
-        {{ resumoInscricao.usuario.nome }}
-      </p>
-      <p class="flex justify-between">
-        <span class="font-medium">CPF:</span> {{ resumoInscricao.usuario.cpf }}
-      </p>
-      <p class="flex justify-between">
-        <span class="font-medium">Email:</span>
-        {{ resumoInscricao.usuario.email || "Não informado" }}
-      </p>
-      <p class="flex justify-between">
-        <span class="font-medium">Telefone:</span>
-        {{ resumoInscricao.usuario.telefone }}
-      </p>
-      <p class="flex justify-between">
-        <span class="font-medium">Nascimento:</span>
-        {{ resumoInscricao.usuario.dataNascimento | date : "dd/MM/yyyy" }}
-      </p>
-      <p class="flex justify-between">
-        <span class="font-medium">PCD:</span>
-        {{
-          resumoInscricao.usuario.pcd == ""
-            ? "Não possui"
-            : resumoInscricao.usuario.pcd
-        }}
-      </p>
-      <p class="flex justify-between">
-        <span class="font-medium">Possui dons?</span>
-        {{ resumoInscricao.usuario.dons || "Não possui" }}
-      </p>
-      <p
-        class="flex justify-between"
-        *ngIf="resumoInscricao.igrejaExiste.nome != ''"
-      >
-        <span class="font-medium">Igreja:</span>
-        {{ resumoInscricao.igrejaExiste.nome }}
-      </p>
-      <p class="flex justify-between">
-        <span class="font-medium">Classe:</span>
-        {{ resumoInscricao.igrejaExiste.classe }}
-      </p>
-    </div>
-
-    <div class="h-0.5 bg-[#F6F6F6] w-full"></div>
+  <div class="flex flex-col gap-2.5 overflow-auto rounded-r-3xl px-4 pb-4 h-[620px]">
+    <!-- Dados Pessoais -->
     <div
-      class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3 border-b border-dashed border-gray-300"
-      *ngIf="resumoInscricao.usuario.instrumentos.length > 0"
-    >
-      <div class="flex flex-col gap-2">
-        <p class="font-medium">Instrumentos:</p>
-        <span *ngFor="let instrumento of resumoInscricao.usuario.instrumentos">
-          {{ instrumento }}
-        </span>
-      </div>
-    </div>
-    <div
-      class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3 border-b border-dashed border-gray-300"
-      *ngIf="resumoInscricao.usuario.condicaoMedica.length > 0"
-    >
-      <div class="flex flex-col gap-2">
-        <p class="font-medium">Condições Médicas:</p>
-        <span *ngFor="let condicao of resumoInscricao.usuario.condicaoMedica">
-          {{ condicao }}
-        </span>
-      </div>
-    </div>
-    <div
-      class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3"
-      *ngIf="resumoInscricao.usuario.funcoesIgreja.length > 0"
-    >
-      <div class="flex flex-col gap-2">
-        <p class="font-medium">Funções na igreja:</p>
-        <span *ngFor="let funcao of resumoInscricao.usuario.funcoesIgreja">
-          {{ funcao }}
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Informações do Evento -->
-  <div
-    class="flex flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
-  >
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <div
-          class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
-        >
-          <i-lucide class="w-3.5" name="ticket"></i-lucide>
-        </div>
-        <p class="font-bold text-size-base sm:text-size-md">Evento</p>
-      </div>
-
-      <app-custom-button
-        (aoClicar)="navegar(rotaDadosEventoVisita)"
-        icone="pencil"
-        tamanhoIcone="w-3"
-        variante="vazio"
-      >
-      </app-custom-button>
-    </div>
-    <span class="h-0.5 bg-[#F6F6F6]"></span>
-    <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
-      <p class="flex justify-between">
-        <span class="font-medium">Período:</span>
-        {{ resumoInscricao.evento.periodo }}
-      </p>
-      <p class="flex justify-between">
-        <span class="font-medium">Função:</span>
-        {{ resumoInscricao.evento.funcao }}
-      </p>
-      <p class="flex justify-between">
-        <span class="font-medium">Evento:</span>
-        {{ resumoInscricao.evento.nome }}
-      </p>
-    </div>
-  </div>
-
-  <div class="flex gap-2.5">
-    <!-- Informações sobre Visita -->
-    <div
-      class="flex flex-1/2 flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
+      class="flex flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
     >
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <div
             class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
           >
-            <i-lucide class="w-3.5" name="car"></i-lucide>
+            <i-lucide class="w-3.5" name="user"></i-lucide>
           </div>
-          <p class="font-bold text-size-base sm:text-size-md">Visita</p>
+          <p class="font-bold text-size-base sm:text-size-md">Dados Pessoais</p>
         </div>
-
+        <app-custom-button
+          (aoClicar)="navegar(rotaDadosPessoais)"
+          icone="pencil"
+          tamanhoIcone="w-3"
+          variante="vazio"
+        >
+        </app-custom-button>
+      </div>
+      <span class="h-0.5 bg-[#F6F6F6]"></span>
+      <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
+        <p class="flex justify-between">
+          <span class="font-medium">Nome:</span>
+          {{ resumoInscricao.usuario.nome }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">CPF:</span>
+          {{ resumoInscricao.usuario.cpf | cpf}}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Email:</span>
+          {{ resumoInscricao.usuario.email || "Não informado" }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Telefone:</span>
+          {{ resumoInscricao.usuario.telefone | telefone }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Nascimento:</span>
+          {{ resumoInscricao.usuario.dataNascimento | date : "dd/MM/yyyy" }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">PCD:</span>
+          {{
+            resumoInscricao.usuario.pcd == ""
+              ? "Não possui"
+              : resumoInscricao.usuario.pcd
+          }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Possui dons?</span>
+          {{ resumoInscricao.usuario.dons || "Não possui" }}
+        </p>
+        <p
+          class="flex justify-between"
+          *ngIf="resumoInscricao.igrejaExiste.nome != ''"
+        >
+          <span class="font-medium">Igreja:</span>
+          {{ resumoInscricao.igrejaExiste.nome }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Classe:</span>
+          {{ resumoInscricao.igrejaExiste.classe }}
+        </p>
+      </div>
+      <div class="h-0.5 bg-[#F6F6F6] w-full"></div>
+      <div
+        class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3 border-b border-dashed border-gray-300"
+        *ngIf="resumoInscricao.usuario.instrumentos.length > 0"
+      >
+        <div class="flex flex-col gap-2">
+          <p class="font-medium">Instrumentos:</p>
+          <span
+            *ngFor="let instrumento of resumoInscricao.usuario.instrumentos"
+          >
+            {{ instrumento }}
+          </span>
+        </div>
+      </div>
+      <div
+        class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3 border-b border-dashed border-gray-300"
+        *ngIf="resumoInscricao.usuario.condicaoMedica.length > 0"
+      >
+        <div class="flex flex-col gap-2">
+          <p class="font-medium">Condições Médicas:</p>
+          <span *ngFor="let condicao of resumoInscricao.usuario.condicaoMedica">
+            {{ condicao }}
+          </span>
+        </div>
+      </div>
+      <div
+        class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3"
+        *ngIf="resumoInscricao.usuario.funcoesIgreja.length > 0"
+      >
+        <div class="flex flex-col gap-2">
+          <p class="font-medium">Funções na igreja:</p>
+          <span *ngFor="let funcao of resumoInscricao.usuario.funcoesIgreja">
+            {{ funcao }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- Informações do Evento -->
+    <div
+      class="flex flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
+    >
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div
+            class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
+          >
+            <i-lucide class="w-3.5" name="ticket"></i-lucide>
+          </div>
+          <p class="font-bold text-size-base sm:text-size-md">Evento</p>
+        </div>
         <app-custom-button
           (aoClicar)="navegar(rotaDadosEventoVisita)"
           icone="pencil"
@@ -180,34 +141,112 @@
       <span class="h-0.5 bg-[#F6F6F6]"></span>
       <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
         <p class="flex justify-between">
-          <span class="font-medium">Vai visitar?</span>
-          {{ resumoInscricao.visita.visita }}
+          <span class="font-medium">Período:</span>
+          {{ resumoInscricao.evento.periodo }}
         </p>
         <p class="flex justify-between">
-          <span class="font-medium">Vagas no carro:</span>
-          {{ resumoInscricao.visita.vagas }}
+          <span class="font-medium">Função:</span>
+          {{ resumoInscricao.evento.funcao }}
         </p>
         <p class="flex justify-between">
-          <span class="font-medium">Possui carro?</span>
-          {{ resumoInscricao.visita.carro }}
+          <span class="font-medium">Evento:</span>
+          {{ resumoInscricao.evento.nome }}
         </p>
       </div>
     </div>
-    <!-- Informações da Igreja -->
+    <div class="flex gap-2.5">
+      <!-- Informações sobre Visita -->
+      <div
+        class="flex flex-1/2 flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div
+              class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
+            >
+              <i-lucide class="w-3.5" name="car"></i-lucide>
+            </div>
+            <p class="font-bold text-size-base sm:text-size-md">Visita</p>
+          </div>
+          <app-custom-button
+            (aoClicar)="navegar(rotaDadosEventoVisita)"
+            icone="pencil"
+            tamanhoIcone="w-3"
+            variante="vazio"
+          >
+          </app-custom-button>
+        </div>
+        <span class="h-0.5 bg-[#F6F6F6]"></span>
+        <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
+          <p class="flex justify-between">
+            <span class="font-medium">Vai visitar?</span>
+            {{ resumoInscricao.visita.visita }}
+          </p>
+          <p class="flex justify-between">
+            <span class="font-medium">Vagas no carro:</span>
+            {{ resumoInscricao.visita.vagas }}
+          </p>
+          <p class="flex justify-between">
+            <span class="font-medium">Possui carro?</span>
+            {{ resumoInscricao.visita.carro }}
+          </p>
+        </div>
+      </div>
+      <!-- Informações da Igreja -->
+      <div
+        class="flex flex-1/2 flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
+        *ngIf="!verificarIgrejaNova()"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div
+              class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
+            >
+              <i-lucide class="w-3.5" name="church"></i-lucide>
+            </div>
+            <p class="font-bold text-size-base sm:text-size-md">Igreja</p>
+          </div>
+          <app-custom-button
+            (aoClicar)="navegar(rotaDadosAdicionais)"
+            icone="pencil"
+            tamanhoIcone="w-3"
+            variante="vazio"
+          >
+          </app-custom-button>
+        </div>
+        <span class="h-0.5 bg-[#F6F6F6]"></span>
+        <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
+          <p class="flex justify-between">
+            <span class="font-medium">Nome:</span>
+            {{ resumoInscricao.igrejaNova.nome }}
+          </p>
+          <p class="flex justify-between">
+            <span class="font-medium">Pastor:</span>
+            {{ resumoInscricao.igrejaNova.pastor }}
+          </p>
+          <p class="flex justify-between">
+            <span class="font-medium">Região:</span>
+            {{ resumoInscricao.igrejaNova.regiao }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Inscrição de Menores (caso exista) -->
     <div
-      class="flex flex-1/2 flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
-      *ngIf="!verificarIgrejaNova()"
+      *ngIf="!verificarInscricaoMenor()"
+      class="flex flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
     >
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <div
             class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
           >
-            <i-lucide class="w-3.5" name="church"></i-lucide>
+            <i-lucide class="w-3.5" name="baby"></i-lucide>
           </div>
-          <p class="font-bold text-size-base sm:text-size-md">Igreja</p>
+          <p class="font-bold text-size-base sm:text-size-md">
+            Inscrição de Menor
+          </p>
         </div>
-
         <app-custom-button
           (aoClicar)="navegar(rotaDadosAdicionais)"
           icone="pencil"
@@ -217,66 +256,25 @@
         </app-custom-button>
       </div>
       <span class="h-0.5 bg-[#F6F6F6]"></span>
-      <div class="flex flex-col gap-1.5 text-size-xs sm:text-size-base">
-        <p class="flex justify-between">
-          <span class="font-medium">Nome:</span>
-          {{ resumoInscricao.igrejaNova.nome }}
-        </p>
-        <p class="flex justify-between">
-          <span class="font-medium">Pastor:</span>
-          {{ resumoInscricao.igrejaNova.pastor }}
-        </p>
-        <p class="flex justify-between">
-          <span class="font-medium">Região:</span>
-          {{ resumoInscricao.igrejaNova.regiao }}
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Inscrição de Menores (caso exista) -->
-  <div
-    *ngIf="!verificarInscricaoMenor()"
-    class="flex flex-col gap-3.5 bg-white rounded-custom-md shadow-lg p-6 relative"
-  >
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <div
-          class="bg-[#F6F6F6] flex items-center justify-center py-1 px-2.5 rounded-custom-sm"
-        >
-          <i-lucide class="w-3.5" name="baby"></i-lucide>
-        </div>
-        <p class="font-bold text-size-base sm:text-size-md">
-          Inscrição de Menor
-        </p>
-      </div>
-
-      <app-custom-button
-        (aoClicar)="navegar(rotaDadosAdicionais)"
-        icone="pencil"
-        tamanhoIcone="w-3"
-        variante="vazio"
+      <div
+        *ngFor="let menor of resumoInscricao.inscricaoMenor; let last = last"
+        [ngClass]="{ 'border-b border-dashed border-gray-300': !last }"
+        class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3"
       >
-      </app-custom-button>
-    </div>
-    <span class="h-0.5 bg-[#F6F6F6]"></span>
-    <div
-      *ngFor="let menor of resumoInscricao.inscricaoMenor; let last = last"
-      [ngClass]="{ 'border-b border-dashed border-gray-300': !last }"
-      class="flex flex-col gap-1.5 text-size-xs sm:text-size-base pb-3"
-    >
-      <p class="flex justify-between">
-        <span class="font-medium">Nome:</span> {{ menor.nome }}
-      </p>
-      <p class="flex justify-between">
-        <span class="font-medium">Idade:</span> {{ menor.idade }}
-      </p>
-      <p class="flex justify-between">
-        <span class="font-medium">Condição Médica:</span>
-        {{ menor.condicaoMedica || "Não possui" }}
-      </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Nome:</span> {{ menor.nome }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Idade:</span> {{ menor.idade }}
+        </p>
+        <p class="flex justify-between">
+          <span class="font-medium">Condição Médica:</span>
+          {{ menor.condicaoMedica || "Não possui" }}
+        </p>
+      </div>
     </div>
   </div>
+
   <div class="flex flex-col gap-1.5 pt-4">
     <app-custom-button
       texto="Concluir"

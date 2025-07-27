@@ -70,7 +70,7 @@ export class GestaoUsuarioComponent {
         null,
       nome: this.formFiltroUsuario.get('nome')?.value || null,
       pagina: paginacao?.pageIndex + 1 || 1,
-      tamanhoPagina: paginacao?.pageSize || 10,
+      tamanhoPagina: paginacao?.pageSize || 9,
     };
 
     request = this.substituirStringsVaziasPorNull(request);

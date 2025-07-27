@@ -2,7 +2,7 @@
   <div
     class="flex flex-col gap-3 bg-white rounded-b-2xl pl-5 pt-5 pr-5 pb-3 relative"
   >
-    <div class="flex flex-col gap-4 text-size-xs">
+    <div class="flex flex-col gap-4 text-size-xs xl:text-size-md">
       <div
         [ngClass]="{
           ' border-b border-dashed border-gray-300 pb-3':
@@ -21,7 +21,7 @@
           />
           <div class="flex items-center justify-between w-full">
             <div class="flex gap-3.5 items-center">
-              <div class="flex items-center gap-2 w-[100px]">
+              <div class="flex items-center gap-2 w-[100px] xl:w-[270px]">
                 <p class="flex flex-col justify-between">
                   <span
                     class="font-medium flex items-center justify-start gap-1"
@@ -29,17 +29,21 @@
                     {{ participante.nome | nomeAbreviado }}
                     <i-lucide name="info" class="w-2.5 h-[15px]"></i-lucide>
                   </span>
-                  <span class="font-normal text-size-2xs text-gray-500">
+                  <span
+                    class="font-normal text-size-2xs xl:text-size-base text-gray-500"
+                  >
                     {{ participante.igreja | nomeFormatado }}
                   </span>
                 </p>
               </div>
               <div class="h-4 w-[1px] bg-gray-300"></div>
 
-              <div class="flex items-center gap-2 w-[100px]">
+              <div class="flex items-center gap-2 w-[100px] xl:w-[250px]">
                 <p class="flex flex-col justify-between">
                   <span class="font-medium">Motivo do Bloqueio</span>
-                  <span class="font-normal text-size-2xs text-gray-500">
+                  <span
+                    class="font-normal text-size-2xs xl:text-size-base text-gray-500"
+                  >
                     {{
                       participante?.usuarioBloqueado?.motivoBloqueio
                         ? participante.usuarioBloqueado.motivoBloqueio
@@ -51,20 +55,29 @@
 
               <div class="h-4 w-[1px] hidden sm:block bg-gray-300"></div>
 
-              <div class="flex items-center hidden sm:flex gap-2 w-[100px]">
+              <div
+                class="flex items-center hidden sm:flex gap-2 w-[100px] xl:w-[170px]"
+              >
                 <p class="flex flex-col justify-between">
                   <span class="font-medium">Função</span>
-                  <span class="font-normal text-size-2xs sm:text-size-sm text-gray-500">
-                    {{ participante.funcaoEvento | nomeFormatado }}</span>
+                  <span
+                    class="font-normal text-size-2xs sm:text-size-sm xl:text-size-base text-gray-500"
+                  >
+                    {{ participante.funcaoEvento | nomeFormatado }}</span
+                  >
                 </p>
               </div>
 
               <div class="h-4 w-[1px] hidden sm:block bg-gray-300"></div>
 
-              <div class="flex items-center hidden sm:flex gap-2 w-[100px]">
+              <div
+                class="flex items-center hidden sm:flex gap-2 w-[100px] xl:w-[170px]"
+              >
                 <p class="flex flex-col justify-between">
                   <span class="font-medium">Período</span>
-                  <span class="font-normal text-size-2xs sm:text-size-sm text-gray-500">
+                  <span
+                    class="font-normal text-size-2xs sm:text-size-sm xl:text-size-base text-gray-500"
+                  >
                     {{ participante.periodo }}</span
                   >
                 </p>
@@ -75,12 +88,13 @@
               <div class="flex items-center hidden sm:flex gap-2 w-[100px]">
                 <p class="flex flex-col justify-between">
                   <span class="font-medium">Idade</span>
-                  <span class="font-normal text-size-2xs sm:text-size-sm text-gray-500">
-                   {{ participante.idade }} anos</span
+                  <span
+                    class="font-normal text-size-2xs sm:text-size-sm xl:text-size-base text-gray-500"
+                  >
+                    {{ participante.idade }} anos</span
                   >
                 </p>
               </div>
-
             </div>
             <button
               (click)="abrirModalInfoInscricao(participante)"
@@ -103,38 +117,37 @@
   </div>
 
   <div class="flex w-full items-center gap-2.5">
-    <button
-      (click)="cancelarInscricao()"
+    <app-custom-button
+      texto="Cancelar"
       [disabled]="!liberacaoBotaoAprovar"
-      [ngClass]="{ 'opacity-50 cursor-not-allowed': !liberacaoBotaoAprovar }"
-      class="w-full bg-rose-500 text-size-md text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
-    >
-      Cancelar
-      <i-lucide class="w-4" name="ban"></i-lucide>
-    </button>
-    <button
-      (click)="aprovarInscricao()"
+      icone="ban"
+      tamanhoIcone="w-4"
+      (aoClicar)="cancelarInscricao()"
+      variante="primario"
+      classeCustom="!bg-rose-500"
+    ></app-custom-button>
+    <app-custom-button
+      texto="Aprovar"
       [disabled]="!liberacaoBotaoAprovar"
-      [ngClass]="{ 'opacity-50 cursor-not-allowed': !liberacaoBotaoAprovar }"
-      class="w-full bg-[#007AFF] text-size-md text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
-    >
-      Aprovar
-      <i-lucide class="w-4" name="check-check"></i-lucide>
-    </button>
+      icone="check-check"
+      tamanhoIcone="w-4"
+      (aoClicar)="aprovarInscricao()"
+      variante="primario"
+    ></app-custom-button>
   </div>
 </div>
 
 <div
   *ngIf="!exibicaoListaParticipantes"
-  class="bg-white rounded-b-2xl pb-5 pl-5 pr-5 relative flex flex-col items-center"
+  class="bg-white rounded-b-2xl pb-12 pl-12 pr-12 relative flex flex-col items-center"
 >
-  <ng-lottie [options]="animacaoErro" class="w-30 h-30" />
+  <ng-lottie [options]="animacaoErro" class="w-30 h-30 xl:w-40 xl:h-40" />
 
   <div class="flex flex-col items-center gap-1">
-    <p class="text-size-base font-medium text-justify">
+    <p class="text-size-base xl:text-size-md font-medium text-justify">
       Ops, nenhum inscrito encontrado!
     </p>
-    <p class="text-size-xs text-center">
+    <p class="text-size-xs xl:text-size-base text-center">
       Selecione um outro evento para visualizar os inscritos ou aguarde alguns
       minutos e tente novamente.
     </p>
