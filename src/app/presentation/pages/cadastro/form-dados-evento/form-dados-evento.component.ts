@@ -30,7 +30,6 @@ export class FormDadosEventoComponent {
     quantidadeVagas: [''],
   });
 
-  
   opcoesBooleanas: TabelaDominioResponseDto[] = [
     { id: 1, descricao: 'Sim' },
     { id: 2, descricao: 'Não' },
@@ -55,9 +54,15 @@ export class FormDadosEventoComponent {
   ) {}
 
   ngOnInit() {
-    this.inscricaoUsuario = JSON.parse(localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)) as InscricaoRequestDto;
-    this.resumoInscricao = JSON.parse(localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)) as ResumoInscricaoDto;
-    this.usuarioExistente = JSON.parse(localStorage.getItem(ParametroStorageEnum.USUARIO_EXISTENTE)) as UsuarioResponseDto;
+    this.inscricaoUsuario = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.FORM_INSCRICAO)
+    ) as InscricaoRequestDto;
+    this.resumoInscricao = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.RESUMO_INSCRICAO)
+    ) as ResumoInscricaoDto;
+    this.usuarioExistente = JSON.parse(
+      localStorage.getItem(ParametroStorageEnum.USUARIO_EXISTENTE)
+    ) as UsuarioResponseDto;
 
     if (this.inscricaoUsuario) {
       this.preencherFormulario(this.inscricaoUsuario);
@@ -68,30 +73,35 @@ export class FormDadosEventoComponent {
   }
 
   private buscarPeriodoEvento() {
-    this.buscarPeriodoEventoUsecase.execute(this.inscricaoUsuario.idEvento).subscribe({
-      next: (resultado) => {
-        if(resultado.length <= 0){
+    this.buscarPeriodoEventoUsecase
+      .execute(this.inscricaoUsuario.idEvento)
+      .subscribe({
+        next: (resultado) => {
+          if (resultado.length <= 0) {
             Swal.fire({
-            icon: 'error',
-            title: 'Atenção',
-            text: `O limite de participantes no evento foi atingido!`,
-            confirmButtonText: 'Ok',
-            customClass: {
-              title: 'swal-title',
-              confirmButton: 'swal-confirm-btn',
-              popup: 'swal-popup',
-            },
-            buttonsStyling: false,
-          }).then((result) => {
-              this.router.navigate([Rotas.ESCOLHA_INICIAL]);            
-          });
-        }               
-        this.periodos = resultado;
-        console.log(this.periodos, resultado);
-        
-      },
-      error: () => {},
-    });
+              icon: 'error',
+              title: 'Atenção',
+              text: `O limite de participantes no evento foi atingido!`,
+              confirmButtonText: 'Ok',
+              customClass: {
+                title: 'swal-title',
+                confirmButton: 'swal-confirm-btn',
+                popup: 'swal-popup',
+              },
+              buttonsStyling: false,
+            }).then((result) => {
+              this.router.navigate([Rotas.ESCOLHA_INICIAL]);
+            });
+          }
+          this.periodos = resultado;
+          if (resultado.length == 1) {
+            this.formDadosEvento
+              .get('periodo')
+              .setValue(resultado[0].id.toString());
+          }
+        },
+        error: () => {},
+      });
   }
 
   private preencherObjetoInscricao() {
@@ -109,11 +119,9 @@ export class FormDadosEventoComponent {
     };
   }
 
-  private preencherObjetoResumoInscricao() {    
+  private preencherObjetoResumoInscricao() {
     this.resumoInscricao.evento.periodo =
-      this.formDadosEvento.get('periodo')?.value == '1'
-        ? 'Integral'
-        : 'Tarde';
+      this.formDadosEvento.get('periodo')?.value == '1' ? 'Integral' : 'Tarde';
     this.resumoInscricao.evento.funcao =
       this.opcoesFuncaoEvento.find(
         (f) =>
@@ -126,12 +134,18 @@ export class FormDadosEventoComponent {
     this.resumoInscricao.visita.vagas =
       parseInt(this.formDadosEvento.get('quantidadeVagas')?.value) || 0;
 
-    localStorage.setItem(ParametroStorageEnum.RESUMO_INSCRICAO,JSON.stringify(this.resumoInscricao));
+    localStorage.setItem(
+      ParametroStorageEnum.RESUMO_INSCRICAO,
+      JSON.stringify(this.resumoInscricao)
+    );
   }
 
   preencherFormulario(dados: InscricaoRequestDto): void {
     this.formDadosEvento.patchValue({
-      funcaoEvento: dados.idFuncaoEvento?.toString() == '0' ? null : dados.idFuncaoEvento?.toString(),
+      funcaoEvento:
+        dados.idFuncaoEvento?.toString() == '0'
+          ? null
+          : dados.idFuncaoEvento?.toString(),
       periodo: dados.periodo == PeriodoEnum.Integral ? '1' : '2',
       visitas: dados.visita?.visita ? '1' : '2',
       carro: dados.visita?.carro ? '1' : '2',
@@ -143,15 +157,15 @@ export class FormDadosEventoComponent {
     }
   }
 
-  public exibirVisita(evento: any){
-      if(evento == 1){
-        this.exibeVisita = true;
-      }else{
-        this.exibeVisita = false;
-      }
+  public exibirVisita(evento: any) {
+    if (evento == 1) {
+      this.exibeVisita = true;
+    } else {
+      this.exibeVisita = false;
+    }
   }
 
-  public exibirCamposVisita(evento: any) { 
+  public exibirCamposVisita(evento: any) {
     if (evento == 1) {
       this.exibeInfoVisita = true;
     } else {
@@ -164,7 +178,9 @@ export class FormDadosEventoComponent {
   }
 
   public buscarFuncaoEvento() {
-    this.buscarFuncaoEventoUsecase.execute(this.inscricaoUsuario.idEvento).subscribe({
+    this.buscarFuncaoEventoUsecase
+      .execute(this.inscricaoUsuario.idEvento)
+      .subscribe({
         next: (resultado) => {
           this.opcoesFuncaoEvento = [{ id: null, descricao: 'Selecione' }];
           this.opcoesFuncaoEvento.push(...this.formatarNomes(resultado));
@@ -177,7 +193,10 @@ export class FormDadosEventoComponent {
     this.preencherObjetoResumoInscricao();
     this.preencherObjetoInscricao();
 
-    localStorage.setItem(ParametroStorageEnum.FORM_INSCRICAO, JSON.stringify(this.inscricaoUsuario));
+    localStorage.setItem(
+      ParametroStorageEnum.FORM_INSCRICAO,
+      JSON.stringify(this.inscricaoUsuario)
+    );
 
     if (this.usuarioExistente?.cpf != null) {
       this.router.navigate([Rotas.CADASTRO, Rotas.CONFIRMACAO_DADOS_CADASTRO]);
