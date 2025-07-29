@@ -162,19 +162,11 @@
       </button>
     </div>
   </div>
-  <div
-    *ngIf="!exibicaoListaParticipantes"
-    class="bg-white rounded-2xl shadow-md pb-5 pl-5 pr-5 border border-dashed border-gray-300 relative flex flex-col items-center"
+  <app-resultado-nao-encontrado
+    [exibicao]="!exibicaoListaParticipantes"
+    titulo="Ops, nenhum participante encontrado!"
+    mensagem="Selecione outros filtros e realize a consulta para tentar novamente."
+    variante="secundario"
   >
-    <ng-lottie [options]="animacaoErro" class="w-30 h-30" />
-
-    <div class="flex flex-col items-center gap-1">
-      <p class="text-size-base sm:text-size-md font-medium text-justify">
-        Ops, nenhum participante encontrado!
-      </p>
-      <p class="text-size-xs sm:text-size-base sm:text-size-md text-center">
-        Selecione outros filtros e realize a consulta para tentar novamente.
-      </p>
-    </div>
-  </div>
+  </app-resultado-nao-encontrado>
 </div>

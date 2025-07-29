@@ -277,6 +277,7 @@ import { BuscarTodasFuncoesEventoPort } from './core/domain/ports/funcao-evento/
 import { EditarFuncaoEventoUseCase } from './core/application/use-cases/funcao-evento/editar-funcao-evento.usecase';
 import { EditarFuncaoEventoPort } from './core/domain/ports/funcao-evento/editar-funcao-evento.port';
 import { EditarFuncaoEventoAdapter } from './infrastructure/adapter/funcao-evento/editar-funcao-evento.adapter';
+import { ResultadoNaoEncontradoComponent } from './presentation/ui/resultado-nao-encontrado/resultado-nao-encontrado.component';
 
 
 @NgModule({
@@ -324,11 +325,11 @@ import { EditarFuncaoEventoAdapter } from './infrastructure/adapter/funcao-event
 
     CustomButtonComponent,
     SidebarComponent,
-
     FiltroCheckinComponent,
     FiltroGestaoUsuarioComponent,
 
     LoadingComponent,
+    ResultadoNaoEncontradoComponent
   ],
   imports: [
     BrowserModule,

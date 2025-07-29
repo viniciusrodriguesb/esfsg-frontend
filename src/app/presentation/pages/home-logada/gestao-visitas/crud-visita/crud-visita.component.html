@@ -92,21 +92,14 @@
       </div>
     </div>
   </div>
-  <div
-    *ngIf="!exibicaoListaVisitas"
-    class="bg-white rounded-2xl shadow-md pb-5 pl-5 pr-5 border border-dashed border-gray-300 relative flex flex-col items-center"
+  <app-resultado-nao-encontrado
+    [exibicao]="!exibicaoListaVisitas"
+    titulo="Ops, nenhuma visita encontrada!"
+    mensagem="Selecione outros filtros ou cadastre uma nova visita."
+    variante="secundario"
   >
-    <ng-lottie [options]="animacaoErro" class="w-30 h-30" />
+  </app-resultado-nao-encontrado>
 
-    <div class="flex flex-col items-center gap-1">
-      <p class="text-size-base sm:text-size-md font-medium text-justify">
-        Ops, nenhuma visita encontrada!
-      </p>
-      <p class="text-size-xs sm:text-size-sm text-center">
-        Selecione outros filtros ou cadastre uma nova visita.
-      </p>
-    </div>
-  </div>
   <button
     (click)="abrirModalCadastroEdicaoVisita(null)"
     class="w-full bg-[#007AFF] text-size-md sm:text-size-lg text-white font-semibold rounded-[0.5rem] py-2.5 flex items-center justify-center gap-2"
