@@ -90,16 +90,15 @@
                   (click)="alterarRole(usuario.idUsuario)"
                   class="flex gap-2.5 w-[180px] hover:bg-gray-200 cursor-pointer duration-300 py-2.5 px-4 rounded-[8px] items-center justify-start"
                 >
-                <i-lucide name="pencil" class="w-4"></i-lucide>
+                  <i-lucide name="pencil" class="w-4"></i-lucide>
                   Alterar permissão
-                  
                 </button>
                 <button
                   (click)="redefinirSenha(usuario.idUsuario)"
                   class="flex gap-2.5 w-[180px] hover:bg-gray-200 cursor-pointer duration-300 py-2.5 px-4 rounded-[8px] items-center justify-start"
-                  >
+                >
                   <i-lucide name="lock" class="w-4"></i-lucide>
-                  Redefinir senha 
+                  Redefinir senha
                 </button>
               </mat-menu>
 
@@ -147,19 +146,12 @@
       </mat-paginator>
     </div>
   </div>
-  <div
-    *ngIf="!exibicaoListaUsuarios"
-    class="bg-white rounded-2xl shadow-md pb-5 pl-5 pr-5 border border-dashed border-gray-300 relative flex flex-col items-center"
-  >
-    <ng-lottie [options]="animacaoErro" class="w-30 h-30" />
 
-    <div class="flex flex-col items-center gap-1">
-      <p class="text-size-base sm:text-size-md font-medium text-justify">
-        Ops, nenhum participante encontrado!
-      </p>
-      <p class="text-size-xs sm:text-size-base sm:text-size-md text-center">
-        Selecione outros filtros e realize a consulta para tentar novamente.
-      </p>
-    </div>
-  </div>
+  <app-resultado-nao-encontrado
+    [exibicao]="!exibicaoListaUsuarios"
+    titulo="Ops, nenhum participante encontrado!"
+    mensagem="Selecione outros filtros e realize a consulta para tentar novamente."
+    variante="secundario"
+  >
+  </app-resultado-nao-encontrado>
 </div>
