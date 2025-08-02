@@ -10,4 +10,10 @@ export interface DadoParticipanteDto {
   grupo: string
   pulseira: any
   etiquetaVisita: any
+  dependente: DadosDependenteDto[]
+}
+
+export interface DadosDependenteDto{
+  nome: string
+  cor: string
 }
