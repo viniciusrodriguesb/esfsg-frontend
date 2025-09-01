@@ -9,7 +9,7 @@ import { ParametroStorageEnum } from '../../../../core/domain/enums/parametro-st
 import { UsuarioResponseDto } from '../../../../core/application/dto/response/usuario-response.dto';
 import { ResumoInscricaoDto } from '../../../../core/application/dto/resumo-inscricao.dto';
 import { StatusHttpEnum } from '../../../../core/domain/enums/status-http.enum';
-import { cpfValidator } from '../../../../core/cpf-validator';
+import { cpfValidator } from '../../../../core/utils/cpf-validator';
 
 
 @Component({

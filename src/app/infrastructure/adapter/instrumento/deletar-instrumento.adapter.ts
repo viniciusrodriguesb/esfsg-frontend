@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { catchError, Observable, of } from "rxjs";
 import { ControllersEnum } from "../../../core/domain/enums/controllers.enum";
 import { ParametrosHttpEnum } from "../../../core/domain/enums/parametros-http.enum";
 import { DeletarInstrumentoPort } from "../../../core/domain/ports/instrumento/deletar-instrumento.port";
@@ -17,11 +17,11 @@ export class DeletarInstrumentoAdapter extends DeletarInstrumentoPort {
     let params = new HttpParams();
     params = params.append(ParametrosHttpEnum.Id, id.toString());
 
-    try {
-      return this.http.delete<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Instrumento}/${ENVIRONMENT.VERSAO}`, { params });
-    } catch (error) {
-      
-      return of(null);
-    }
+ 
+      return this.http.delete<null>(`${ENVIRONMENT.URL_API}/${ControllersEnum.Instrumento}/${ENVIRONMENT.VERSAO}`, { params }).pipe(
+        catchError((error) => {
+          return of(null);
+        })
+      );
   }
 }
