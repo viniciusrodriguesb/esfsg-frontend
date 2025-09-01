@@ -208,6 +208,7 @@ import { EditarVisitaAdapter } from '../infrastructure/adapter/visita/editar-vis
 import { SharedModule } from './shared.module';
 import { provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
+import { ModalPermissaoUsuarioComponent } from '../presentation/ui/modais/modal-permissao-usuario/modal-permissao-usuario.component';
 
 @NgModule({
   declarations: [
@@ -249,6 +250,7 @@ import player from 'lottie-web';
     ModalInfoVisitaComponent,
     ModalEdicaoUsuarioComponent,
     ModalCadastroVisitaComponent,
+    ModalPermissaoUsuarioComponent,
 
     FiltroCheckinComponent,
     FiltroGestaoUsuarioComponent,
@@ -441,6 +443,7 @@ import player from 'lottie-web';
     ModalInfoVisitaComponent,
     ModalEdicaoUsuarioComponent,
     ModalCadastroVisitaComponent,
+    ModalPermissaoUsuarioComponent,
 
     FiltroCheckinComponent,
     FiltroGestaoUsuarioComponent,

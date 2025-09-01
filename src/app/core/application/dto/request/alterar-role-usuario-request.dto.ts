@@ -1,6 +1,4 @@
-import { TipoUsuarioEnum } from '../../../domain/enums/tipo-usuario.enum';
-
-export interface AlterarRoleUsuarioRequest {
+export class AlterarRoleUsuarioRequest {
   idUsuario: number;
-  tipoUsuario: TipoUsuarioEnum;
+  tipoUsuario: number;
 }

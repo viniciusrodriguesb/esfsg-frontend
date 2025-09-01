@@ -12,6 +12,7 @@ import { BuscarUsuariosRequest } from '../../../../core/application/dto/request/
 import { BuscarUsuarioResponseDto } from '../../../../core/application/dto/response/buscar-usuarios-response.dto';
 import { PaginacaoResponse } from '../../../../core/application/dto/response/paginacao-response.dto';
 import { FiltroGestaoUsuarioComponent } from '../../../ui/filtros/filtro-gestao-usuario/filtro-gestao-usuario.component';
+import { ModalPermissaoUsuarioComponent } from '../../../ui/modais/modal-permissao-usuario/modal-permissao-usuario.component';
 
 @Component({
   selector: 'app-gestao-usuario',
@@ -105,12 +106,13 @@ export class GestaoUsuarioComponent {
     return novoObj;
   }
 
-  abrirModalConfirmacaoSucesso(resultadoValidacao: DadoParticipanteDto[]) {
-    const dialogRef = this.dialog.open(ModalCheckinConfirmadoComponent, {
+  abrirModalPermissaoUsuario(permissaoUsuario: string, idUsuario: number) {
+    const dialogRef = this.dialog.open(ModalPermissaoUsuarioComponent, {
       width: '90%',
       height: 'auto',
       data: {
-        resultadoValidacao: resultadoValidacao,
+        permissaoUsuario: permissaoUsuario,
+        idUsuario: idUsuario
       },
     });
 
@@ -138,11 +140,6 @@ export class GestaoUsuarioComponent {
 
   alternarMenu(idUsuario: number) {
     this.menuAbertoId = this.menuAbertoId == idUsuario ? null : idUsuario;
-  }
-
-  alterarRole(idUsuario: number) {
-    this.menuAbertoId = null;
-    console.log('Alterar role de:', idUsuario);
   }
 
   redefinirSenha(idUsuario: number) {
