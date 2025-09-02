@@ -209,6 +209,7 @@ import { SharedModule } from './shared.module';
 import { provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 import { ModalPermissaoUsuarioComponent } from '../presentation/ui/modais/modal-permissao-usuario/modal-permissao-usuario.component';
+import { ModalAlteracaoSenhaComponent } from '../presentation/ui/modais/modal-alteracao-senha/modal-alteracao-senha.component';
 
 @NgModule({
   declarations: [
@@ -251,6 +252,7 @@ import { ModalPermissaoUsuarioComponent } from '../presentation/ui/modais/modal-
     ModalEdicaoUsuarioComponent,
     ModalCadastroVisitaComponent,
     ModalPermissaoUsuarioComponent,
+    ModalAlteracaoSenhaComponent,
 
     FiltroCheckinComponent,
     FiltroGestaoUsuarioComponent,
@@ -444,6 +446,7 @@ import { ModalPermissaoUsuarioComponent } from '../presentation/ui/modais/modal-
     ModalEdicaoUsuarioComponent,
     ModalCadastroVisitaComponent,
     ModalPermissaoUsuarioComponent,
+    ModalAlteracaoSenhaComponent,
 
     FiltroCheckinComponent,
     FiltroGestaoUsuarioComponent,

@@ -13,6 +13,7 @@ import { BuscarUsuarioResponseDto } from '../../../../core/application/dto/respo
 import { PaginacaoResponse } from '../../../../core/application/dto/response/paginacao-response.dto';
 import { FiltroGestaoUsuarioComponent } from '../../../ui/filtros/filtro-gestao-usuario/filtro-gestao-usuario.component';
 import { ModalPermissaoUsuarioComponent } from '../../../ui/modais/modal-permissao-usuario/modal-permissao-usuario.component';
+import { ModalAlteracaoSenhaComponent } from '../../../ui/modais/modal-alteracao-senha/modal-alteracao-senha.component';
 
 @Component({
   selector: 'app-gestao-usuario',
@@ -112,6 +113,20 @@ export class GestaoUsuarioComponent {
       height: 'auto',
       data: {
         permissaoUsuario: permissaoUsuario,
+        idUsuario: idUsuario
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.buscarUsuarios();
+    });
+  }
+
+  abrirModalSenhaUsuario(idUsuario: number) {
+    const dialogRef = this.dialog.open(ModalAlteracaoSenhaComponent, {
+      width: '90%',
+      height: 'auto',
+      data: {
         idUsuario: idUsuario
       },
     });

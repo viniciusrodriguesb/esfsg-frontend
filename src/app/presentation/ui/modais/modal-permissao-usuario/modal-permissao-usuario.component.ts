@@ -1,5 +1,5 @@
 import { Component, Inject, inject } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -23,8 +23,9 @@ export class ModalPermissaoUsuarioComponent {
   opcoesSelect: TabelaDominioResponseDto[] = [];
 
   formPermissao = this._formBuilder.group({
-    role: [0],
+    role: [0, Validators.required],
   });
+  //TODO: validar se o select esta marcado com o 'selecione' + catch no subscribe
 
   constructor(
     private readonly dialogRef: MatDialogRef<ModalPermissaoUsuarioComponent>,
@@ -47,7 +48,7 @@ export class ModalPermissaoUsuarioComponent {
   }
 
   preencherOpcoesSelect(): TabelaDominioResponseDto[] {
-    let array: TabelaDominioResponseDto[] = [{ id: 0, descricao: 'Selecione' }];
+    let array: TabelaDominioResponseDto[] = [{ id: null, descricao: 'Selecione' }];
     let arrayNormal = Object.entries(TipoUsuarioEnum).length / 2;
 
     for (let i = 0; i < arrayNormal; i++) {

@@ -1,9 +1,7 @@
 import { Component, Inject, inject } from '@angular/core';
 import {
   AbstractControl,
-  Form,
   FormBuilder,
-  FormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
@@ -12,7 +10,6 @@ import { TabelaDominioResponseDto } from '../../../../core/application/dto/respo
 import { CoresVisitaEnum } from '../../../../core/domain/enums/cores-visita.enum';
 import { CriarVisitaUseCase } from '../../../../core/application/use-cases/visita/criar-visita.usecase';
 import { CriarVisitaRequestDto } from '../../../../core/application/dto/request/criar-visita-request.dto';
-import { DadoParticipanteDto } from '../../../../core/application/dto/response/validacao-checkin-response.dto';
 import { VisitaResponseDto } from '../../../../core/application/dto/response/visita-response.dto';
 import { EditarVisitaUseCase } from '../../../../core/application/use-cases/visita/editar-visita.usecase';
 import { EditarVisitaRequestDto } from '../../../../core/application/dto/request/editar-visita-request.dto';
