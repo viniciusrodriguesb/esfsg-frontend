@@ -8,9 +8,11 @@
           <i-lucide class="w-2.5" name="check"></i-lucide>
         </div>
 
-        <p class="font-bold text-size-base sm:text-size-md">Checkin confirmado</p>
+        <p class="font-bold text-size-base sm:text-size-md">
+          Checkin confirmado
+        </p>
       </div>
-      <div class="flex items-center gap-2"  *ngIf="data.remocaoCheckin">
+      <div class="flex items-center gap-2" *ngIf="data.remocaoCheckin">
         <div
           class="bg-rose-500 flex items-center justify-center h-5 w-5 rounded-full"
         >
@@ -56,6 +58,30 @@
             class="w-1.5 h-1.5 rounded-full"
             [style.background-color]="buscarCorHexa(item.pulseira)"
           ></div>
+        </div>
+      </div>
+      <!-- Array de dependentes -->
+      <div *ngIf="item.dependente.length > 0" class="flex flex-col">
+        <div class="flex justify-between items-start">
+          <p class="font-medium">Dependentes:</p>
+          <div class="flex items-center gap-2">
+            <p class="font-medium m-0">{{ item.dependente[0].nome }}</p>
+            <span>{{ item.dependente[0].cor | nomeFormatado }}</span>
+            <div
+              class="w-1.5 h-1.5 rounded-full"
+              [style.background-color]="buscarCorHexa(item.dependente[0].cor)"
+            ></div>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1 mt-1 items-end" *ngIf="item.dependente.length > 1">
+          <div class="flex items-center gap-2" *ngFor="let dep of item.dependente.slice(1)">
+            <p class="font-medium m-0">{{ dep.nome }}</p>
+            <span>{{ dep.cor | nomeFormatado }}</span>
+            <div
+              class="w-1.5 h-1.5 rounded-full"
+              [style.background-color]="buscarCorHexa(dep.cor)"
+            ></div>
+          </div>
         </div>
       </div>
       <div class="flex justify-between" *ngIf="item.etiquetaVisita != null">
