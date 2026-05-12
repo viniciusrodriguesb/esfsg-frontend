@@ -69,7 +69,8 @@ export class ConfirmacaoComponent {
   }
 
   verificarInscricaoMenor() {
-    return this.resumoInscricao.inscricaoMenor[0].nome === '';
+
+    return this.resumoInscricao.inscricaoMenor.length == 0;
   }
 
   verificarIgrejaNova() {
